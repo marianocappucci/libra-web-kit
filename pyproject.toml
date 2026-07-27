@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "libra-web-kit"
+description = "Backend de login gateado de /docs/ compartido por las landings de la familia Libra (Contalibra, Restolibra, Gestiolibra, MedLibra, VentaLibra)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+authors = [
+    { name = "Mariano Cappucci" },
+]
+dynamic = ["version"]
+dependencies = [
+    "fastapi>=0.111.0",
+    "httpx>=0.27",
+    "itsdangerous>=2.2.0",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "httpx>=0.27",
+]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+
+[tool.hatch.build.targets.wheel]
+packages = ["libra_web_kit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
