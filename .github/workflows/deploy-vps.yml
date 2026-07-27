@@ -1,0 +1,58 @@
+name: Deploy a VPS (reusable)
+
+# Reusable workflow para el deploy de las 5 landings de la familia Libra
+# (Contalibra, Restolibra, Gestiolibra, MedLibra, VentaLibra) -- extraído
+# 2026-07-26, era ~38 líneas idénticas salvo `remote_path` en cada repo.
+# Ver wiki/analyses/auditoria-duplicacion-familia-libra.md (P3).
+#
+# Cada landing lo llama con:
+#
+#   jobs:
+#     deploy:
+#       uses: marianocappucci/libra-web-kit/.github/workflows/deploy-vps.yml@main
+#       with:
+#         remote_path: /root/gestiolibra_web/
+#       secrets: inherit
+
+on:
+  workflow_call:
+    inputs:
+      remote_path:
+        description: "Ruta absoluta en el VPS donde vive el checkout (con barra final)."
+        required: true
+        type: string
+    secrets:
+      VPS_DEPLOY_KEY:
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sync archivos al VPS
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avz --delete --exclude='.git' --exclude='.github' --exclude='*.md' --exclude='.claude' --exclude='.env'
+          path: ./
+          remote_path: ${{ inputs.remote_path }}
+          remote_host: 149.50.136.218
+          remote_port: 5384
+          remote_user: root
+          remote_key: ${{ secrets.VPS_DEPLOY_KEY }}
+
+      - name: Rebuild y restart Docker
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 149.50.136.218
+          port: 5384
+          username: root
+          key: ${{ secrets.VPS_DEPLOY_KEY }}
+          script: |
+            cd ${{ inputs.remote_path }}
+            docker compose build --no-cache
+            docker compose up -d
+            echo "Deploy OK: $(date)"
