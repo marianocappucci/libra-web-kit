@@ -1,0 +1,18 @@
+<h1>Facturación electrónica</h1>
+<p class="docs-lead">Disponible en el plan Premium: emitir Facturas A/B vía ARCA (ex-AFIP) al completar un turno con saldo pendiente.</p>
+<h2>Configurar ARCA</h2>
+<p>Antes de emitir tu primera factura, un administrador debe cargar la configuración fiscal en <strong>Configuración → ARCA</strong>: CUIT, punto de venta, ambiente (homologación o producción) y el certificado/clave del servicio de facturación.</p>
+<div class="callout warn">
+<p><strong>Atención:</strong> la facturación electrónica requiere certificado digital vigente emitido por AFIP/ARCA. Si no lo tenés, consultá con tu contador.</p>
+</div>
+<h2>Cómo se factura un turno</h2>
+<p>Al <strong>completar</strong> un turno con saldo pendiente (servicio con precio configurado), el sistema pide el medio de pago y emite una única factura por el total: tipo A si el cliente es Responsable Inscripto, tipo B en cualquier otro caso, incluido sin datos fiscales cargados (Consumidor Final).</p>
+<h2>Seña + saldo</h2>
+<p>Si el turno tuvo una seña ya cobrada (ver <a href="/docs/recordatorios-senas.html">Señas</a>), la seña y el saldo restante quedan como dos movimientos de caja separados apuntando a la misma factura — no se emiten dos facturas.</p>
+<div class="callout">
+<p><strong>Tip:</strong> el cálculo de IVA usa una alícuota fija del 21%. Si tu actividad tiene tratamiento impositivo distinto, consultalo con tu contador antes de facturar contra ARCA real.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/recordatorios-senas.html">← Recordatorios y señas</a>
+<a href="/docs/caja.html">Caja →</a>
+</div>

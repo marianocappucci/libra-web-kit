@@ -1,0 +1,17 @@
+<h1>Disponibilidad y bloqueos</h1>
+<p class="docs-lead">Sin disponibilidad configurada, un recurso no puede recibir turnos — es la validación central de toda la agenda.</p>
+<h2>Horario semanal</h2>
+<p>Cada recurso tiene ventanas de disponibilidad por día de la semana. Se cargan en <strong>Recursos → (elegir recurso) → Disponibilidad</strong>. Podés cargar más de una ventana por día (por ejemplo, mañana y tarde con un corte al mediodía).</p>
+<h2>Bloqueos puntuales</h2>
+<p>Un bloqueo cubre una ausencia específica sin tocar el horario semanal general: una licencia, un turno médico del profesional, un mantenimiento de máquina. Se carga con fecha y hora de inicio/fin.</p>
+<h2>Excepciones por fecha</h2>
+<p>Una excepción reemplaza el horario semanal para un día puntual — por ejemplo, un feriado en el que el negocio abre con horario reducido, o un día especial con más disponibilidad de la habitual.</p>
+<div class="callout warn">
+<p><strong>Atención:</strong> si un recurso no tiene ninguna ventana de disponibilidad cargada, no vas a poder reservarle turnos aunque tenga servicios asignados.</p>
+</div>
+<h2>Cómo se valida un turno</h2>
+<p>Al reservar, el sistema chequea en este orden: (1) que el horario esté dentro de alguna ventana de disponibilidad del recurso, (2) que no caiga dentro de un bloqueo, (3) si la sucursal tiene horario comercial configurado, que también esté dentro de ese rango.</p>
+<div class="docs-nav-footer">
+<a href="/docs/servicios-y-recursos.html">← Servicios y recursos</a>
+<a href="/docs/agenda-turnos.html">Agenda y turnos →</a>
+</div>
