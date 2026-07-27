@@ -1,0 +1,46 @@
+name: Publicar imagen nginx compartida
+
+# Build + push de la imagen base de nginx compartida por las 5 landings
+# (ver nginx/README para el contexto). Se dispara solo cuando cambia algo
+# bajo nginx/, y en tags v* del propio repo (asi el tag del paquete
+# Python y el de esta imagen quedan alineados si conviene).
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - "nginx/**"
+      - ".github/workflows/publish-nginx-image.yml"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Determine tags
+        id: tags
+        run: |
+          TAGS="ghcr.io/marianocappucci/libra-nginx-web:latest"
+          if [[ "${{ github.ref_type }}" == "tag" ]]; then
+            TAGS="$TAGS,ghcr.io/marianocappucci/libra-nginx-web:${{ github.ref_name }}"
+          fi
+          echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: ./nginx
+          push: true
+          tags: ${{ steps.tags.outputs.tags }}
