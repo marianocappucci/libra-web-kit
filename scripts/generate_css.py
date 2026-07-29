@@ -22,6 +22,7 @@ REPO_DIR_BY_SITE = {
     "gestiolibra": "gestiolibra_web",
     "medlibra": "medlibra_web",
     "ventalibra": "ventalibra_web",
+    "libradesk": "libradesk_web",
 }
 
 

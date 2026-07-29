@@ -273,4 +273,50 @@ SITES = {
         "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
         "trailing": "",
     },
+    "libradesk": {
+        "tokens": (
+            "  --brand:       #4f46e5;\n"
+            "  --brand-dark:  #4338ca;\n"
+            "  --brand-light: #eef2ff;\n"
+            "  --accent:      #10b981;\n"
+            "  --dark:        #0f172a;\n"
+            "  --dark-2:      #1e293b;\n"
+            "  --muted:       #64748b;\n"
+            "  --border:      #e2e8f0;\n"
+            "  --bg:          #f8fafc;\n"
+        ),
+        "hero_bg": (
+            "    linear-gradient(to bottom, rgba(15,14,40,.80) 0%, rgba(15,14,40,.64) 60%, rgba(15,14,40,.82) 100%),\n"
+            "    linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);\n"
+        ),
+        "hero_before": (
+            ".hero::before {\n"
+            "  content: '';\n"
+            "  position: absolute; inset: 0;\n"
+            "  background: radial-gradient(ellipse at 60% 40%, rgba(79,70,229,.25) 0%, transparent 65%);\n"
+            "}\n"
+        ),
+        "hero_badge": (
+            "  display: inline-block; background: rgba(79,70,229,.25);\n"
+            "  border: 1px solid rgba(79,70,229,.5);\n"
+            "  color: #a5b4fc; font-size: .82rem; font-weight: 600;\n"
+        ),
+        "hero_span_p": (
+            ".hero h1 span { color: #818cf8; }\n"
+            ".hero p { font-size: 1.15rem; color: #94a3b8; margin: 0 auto 2.5rem;\n"
+        ),
+        "hero_extra": "",
+        "badge_estandar": ".badge-estandar { background: #dbeafe; color: #1e40af; }\n",
+        "badge_extra": "",
+        "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(79,70,229,.15);\n",
+        "plan_features_muted": ".plan-features li.muted { color: #94a3b8; }\n",
+        "cta_bg": "  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);\n",
+        "cta_p": ".cta-section p  { color: #c7d2fe; margin: 0 auto 2rem; max-width: 500px; }\n",
+        "footer_bg": "  background: var(--dark); color: #94a3b8;\n",
+        "footer_tagline": ".footer-tagline { font-size: .85rem; color: #64748b; margin-top: .3rem; }\n",
+        "footer_copy_border": "               border-top: 1px solid #1e293b;\n",
+        "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
+        "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
+        "trailing": "",
+    },
 }
