@@ -502,6 +502,12 @@ PAGES = {
             "active_href": '/docs/configuracion.html',
             "is_index": False,
         },
+        'cuenta-corriente.html': {
+            "title": 'Cuentas corrientes — Documentación VentaLibra',
+            "description": None,
+            "active_href": '/docs/cuenta-corriente.html',
+            "is_index": False,
+        },
         'facturacion.html': {
             "title": 'Facturación electrónica — Documentación VentaLibra',
             "description": None,

@@ -144,6 +144,7 @@ SIDEBARS = {
             {"type": "section", "text": 'Compras'},
             {"type": "link", "href": '/docs/compras-proveedores.html', "text": 'Compras a proveedores'},
             {"type": "link", "href": '/docs/clientes-proveedores.html', "text": 'Clientes y proveedores'},
+            {"type": "link", "href": '/docs/cuenta-corriente.html', "text": 'Cuentas corrientes'},
             {"type": "section", "text": 'Caja y facturación'},
             {"type": "link", "href": '/docs/caja.html', "text": 'Caja'},
             {"type": "link", "href": '/docs/facturacion.html', "text": 'Facturación electrónica'},
