@@ -1,0 +1,40 @@
+<h1>Logs del sistema</h1>
+<p class="docs-lead">Quién creó, editó o borró qué, y quién entró al sistema. Sólo para administradores.</p>
+<h2>Dónde está</h2>
+<p>En el menú lateral, <strong>Logs</strong>. Sólo la ve un usuario con rol <strong>admin</strong>: es la pantalla que muestra la actividad de todo el equipo y desde qué dirección entró cada uno.</p>
+<h2>Dos listas, dos preguntas distintas</h2>
+<table class="docs-table">
+<thead><tr><th>Lista</th><th>Contesta</th></tr></thead>
+<tbody>
+<tr><td><strong>Actividad del sistema</strong></td><td>«¿Quién cambió este precio?», «¿quién borró este turno?»</td></tr>
+<tr><td><strong>Accesos de usuarios</strong></td><td>«¿Quién entró ayer?», «¿alguien intentó entrar y falló?»</td></tr>
+</tbody>
+</table>
+<h2>Actividad del sistema</h2>
+<p>Cada fila es un cambio: qué se tocó, quién lo hizo y cuándo. Las acciones son <strong>Creado</strong>, <strong>Editado</strong> y <strong>Borrado</strong>.</p>
+<p>Al desplegar una fila de edición se ve <strong>el antes y el después</strong> de cada campo que cambió. Sin eso, «editado» no dice qué se editó, que es la mitad del valor de la pantalla.</p>
+<h3>Filtros</h3>
+<ul>
+<li><strong>Entidad</strong> — cliente, turno, servicio, sucursal, precio, disponibilidad…</li>
+<li><strong>Acción</strong> — creado, editado o borrado.</li>
+<li><strong>Usuario</strong> — quién lo hizo.</li>
+<li><strong>Desde / Hasta</strong> — por fecha.</li>
+</ul>
+<p>Se muestran de a 100 registros por página, del más reciente al más viejo.</p>
+<div class="callout">
+<p><strong>El registro es automático.</strong> No hay que activarlo ni acordarse de nada: cualquier cambio que se guarde queda anotado, incluidas las funciones que se agreguen más adelante.</p>
+</div>
+<h2>Accesos de usuarios</h2>
+<p>Los últimos 100 accesos, con fecha, evento, usuario y dirección IP. Los eventos son <strong>login</strong>, <strong>logout</strong> y <strong>login fallido</strong>.</p>
+<p>El intento fallido guarda <strong>el nombre de usuario que se tipeó</strong>, aunque no exista. Es lo que permite distinguir a alguien que se equivocó de contraseña de alguien probando usuarios al azar.</p>
+<div class="callout">
+<p><strong>Sobre la IP:</strong> es la dirección pública desde la que se conectó el navegador. Sirve para leer el log — «esto se hizo desde otro lugar» — pero no es una prueba: una IP se puede falsificar.</p>
+</div>
+<h2>Qué no aparece</h2>
+<p>Las contraseñas nunca se guardan en el log, ni siquiera cuando el cambio es justamente la contraseña: en ese caso la fila dice que se cambió, sin el valor. Tampoco se registran las tablas que ya son historial de otra cosa, para no mostrar el mismo hecho dos veces.</p>
+<h2>Desde cuándo</h2>
+<p>El log arranca vacío el día que se instala esta versión y se llena desde ahí. Lo que pasó antes no quedó registrado en ningún lado, así que no se puede reconstruir.</p>
+<div class="docs-nav-footer">
+<a href="/docs/usuarios-roles.html">← Usuarios y roles</a>
+<a href="/docs/configuracion.html">Configuración →</a>
+</div>

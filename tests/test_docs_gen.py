@@ -30,9 +30,94 @@ def test_render_all_covers_every_site_and_page():
         assert set(rendered[site]) == set(PAGES[site])
 
 
-def test_total_page_count_is_82():
-    total = sum(len(pages) for pages in PAGES.values())
-    assert total == 82
+def test_toda_pagina_registrada_tiene_su_contenido():
+    """🔴 Agregar una página toca TRES lugares: el fragmento en
+    `docs_content/`, la entrada en `PAGES` y el link en `SIDEBARS`. Olvidarse
+    de uno no siempre se ve.
+
+    Este test cubre el olvido más caro: una página registrada sin contenido.
+
+    Reemplaza a `test_total_page_count_is_82`, que sólo aseveraba el número.
+    Un conteo fijo no distingue "faltó el fragmento" de "hay una página de
+    más", y encima hay que actualizarlo cada vez que se agrega una — con lo
+    cual el reflejo es cambiar el número, no mirar qué pasó.
+    """
+    from libra_web_kit.docs_gen import _CONTENT_DIR
+
+    faltan = [
+        f"{site}/{fname}"
+        for site, pages in PAGES.items()
+        for fname in pages
+        if not (_CONTENT_DIR / site / fname).is_file()
+    ]
+    assert not faltan, f"registradas en PAGES sin fragmento en docs_content: {faltan}"
+
+
+def test_todo_contenido_esta_registrado():
+    """La contracara: un fragmento que nadie renderiza es trabajo escrito que
+    no llega a ninguna landing, y no hay forma de notarlo mirando el sitio."""
+    from libra_web_kit.docs_gen import _CONTENT_DIR
+
+    huerfanos = [
+        f"{site}/{p.name}"
+        for site in PAGES
+        for p in sorted((_CONTENT_DIR / site).iterdir())
+        if p.suffix == ".html" and p.name not in PAGES[site]
+    ]
+    assert not huerfanos, f"en docs_content pero sin entrada en PAGES: {huerfanos}"
+
+
+def test_todo_link_del_sidebar_apunta_a_una_pagina_que_existe():
+    """Un link del sidebar a una página no registrada es un 404 en la
+    navegación de la documentación — visible para el cliente, y sólo se
+    encuentra haciendo clic."""
+    rotos = []
+    for site, cfg in SIDEBARS.items():
+        for item in cfg["sidebar"]:
+            if item["type"] != "link":
+                continue
+            href = item["href"]
+            fname = "index.html" if href == "/docs/" else href.removeprefix("/docs/")
+            if fname not in PAGES[site]:
+                rotos.append(f"{site}: {href}")
+    assert not rotos, f"links del sidebar sin página: {rotos}"
+
+
+def test_todo_link_interno_del_contenido_resuelve():
+    """Los links dentro del texto —el pie «← anterior / siguiente →» y las
+    referencias cruzadas— se escriben **a mano** en cada fragmento, así que un
+    typo pasa el generador sin ruido y termina siendo un 404 que ve el cliente.
+
+    El sidebar lo genera el kit y ya está cubierto; esto cubre lo escrito a
+    mano, que es donde se equivoca una persona.
+    """
+    import re
+
+    from libra_web_kit.docs_gen import _CONTENT_DIR
+
+    rotos = []
+    for site, pages in PAGES.items():
+        for fname in pages:
+            html = (_CONTENT_DIR / site / fname).read_text(encoding="utf-8")
+            for href in re.findall(r'href="(/docs/[^"#]*)', html):
+                destino = "index.html" if href in ("/docs/", "/docs") else href.removeprefix("/docs/")
+                if destino and destino not in pages:
+                    rotos.append(f"{site}/{fname} → {href}")
+    assert not rotos, f"links internos que no resuelven: {rotos}"
+
+
+def test_toda_pagina_es_alcanzable_desde_el_sidebar():
+    """Y al revés: una página registrada a la que ningún link lleva existe pero
+    nadie la encuentra. Es lo que pasa si se agrega a `PAGES` y se olvida
+    `SIDEBARS`."""
+    inalcanzables = []
+    for site, pages in PAGES.items():
+        hrefs = {
+            "index.html" if i["href"] == "/docs/" else i["href"].removeprefix("/docs/")
+            for i in SIDEBARS[site]["sidebar"] if i["type"] == "link"
+        }
+        inalcanzables += [f"{site}/{f}" for f in pages if f not in hrefs]
+    assert not inalcanzables, f"sin link en el sidebar: {inalcanzables}"
 
 
 def test_render_unknown_site_raises():

@@ -1,0 +1,45 @@
+<h1>Logs del sistema</h1>
+<p class="docs-lead">Quién creó, editó o borró qué, y quién entró al sistema. Sólo para administradores.</p>
+<h2>Dónde está</h2>
+<p>En el menú lateral, <strong>Logs</strong>. Sólo la ve un usuario con rol <strong>admin</strong>: es la pantalla que muestra qué hizo cada cajero y desde qué dirección entró.</p>
+<h2>Dos listas, dos preguntas distintas</h2>
+<table class="docs-table">
+<thead><tr><th>Lista</th><th>Contesta</th></tr></thead>
+<tbody>
+<tr><td><strong>Actividad del sistema</strong></td><td>«¿Quién cambió este precio?», «¿quién dio de alta este producto?»</td></tr>
+<tr><td><strong>Accesos de usuarios</strong></td><td>«¿Quién entró ayer?», «¿alguien intentó entrar y falló?»</td></tr>
+</tbody>
+</table>
+<h2>Actividad del sistema</h2>
+<p>Cada fila es un cambio: qué se tocó, quién lo hizo y cuándo. Las acciones son <strong>Creado</strong>, <strong>Editado</strong> y <strong>Borrado</strong>. Al desplegar una edición se ve el antes y el después de cada campo que cambió.</p>
+<h3>Qué se registra</h3>
+<ul>
+<li><strong>Productos</strong> del catálogo, sus códigos y variantes.</li>
+<li><strong>Precios</strong> y listas de precio.</li>
+<li><strong>Ventas</strong>.</li>
+<li><strong>Movimientos de stock</strong> — siempre como alta: un movimiento nunca se edita, se agrega otro que lo compensa.</li>
+<li><strong>Depósitos</strong>, <strong>clientes y proveedores</strong>, <strong>órdenes y recepciones de compra</strong>.</li>
+<li><strong>Configuración</strong> del comercio.</li>
+</ul>
+<h3>Filtros</h3>
+<ul>
+<li><strong>Entidad</strong>, <strong>Acción</strong>, <strong>Usuario</strong> y rango de fechas <strong>Desde / Hasta</strong>.</li>
+</ul>
+<p>Se muestran de a 100 registros por página, del más reciente al más viejo.</p>
+<div class="callout">
+<p><strong>El registro es automático.</strong> No hay que activarlo ni acordarse de nada: cualquier cambio que se guarde queda anotado, incluidas las funciones que se agreguen más adelante.</p>
+</div>
+<h2>Accesos de usuarios</h2>
+<p>Los últimos 100 accesos, con fecha, evento, usuario y dirección IP. Los eventos son <strong>login</strong>, <strong>logout</strong> y <strong>login fallido</strong>.</p>
+<p>El intento fallido guarda <strong>el nombre de usuario que se tipeó</strong>, aunque no exista. Es lo que permite distinguir a un cajero que se equivocó de contraseña de alguien probando usuarios al azar.</p>
+<div class="callout">
+<p><strong>Sobre la IP:</strong> es la dirección pública desde la que se conectó el navegador. Sirve para leer el log, no como prueba — una IP se puede falsificar.</p>
+</div>
+<h2>Qué no aparece</h2>
+<p>Las contraseñas y las credenciales de integraciones nunca se guardan en el log. Cuando lo que cambia es justamente una de ellas, la fila dice <strong>que cambió</strong> pero no el valor: un log que descarta la edición entera no está ocultando el secreto, está ocultando el hecho.</p>
+<h2>Desde cuándo</h2>
+<p>El log arranca vacío el día que se instala esta versión y se llena desde ahí. Lo que pasó antes no quedó registrado.</p>
+<div class="docs-nav-footer">
+<a href="/docs/usuarios-roles.html">← Usuarios y roles</a>
+<a href="/docs/configuracion.html">Configuración →</a>
+</div>

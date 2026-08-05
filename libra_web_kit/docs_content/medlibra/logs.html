@@ -1,0 +1,49 @@
+<h1>Logs del sistema</h1>
+<p class="docs-lead">Quién creó, editó o borró qué, y quién entró al sistema. Sólo para administradores — y sin contenido clínico.</p>
+<h2>Dónde está</h2>
+<p>En el menú lateral, <strong>Logs</strong>. Sólo la ve un usuario con rol <strong>admin</strong>. Acá el permiso importa más que en cualquier otra pantalla: la fila dice <em>quién abrió la ficha de qué paciente</em>.</p>
+<h2>🔒 El log no guarda contenido clínico</h2>
+<p>Es la decisión de fondo de esta pantalla, y conviene entenderla antes de usarla.</p>
+<p>Un log de auditoría útil contesta <strong>quién</strong> tocó <strong>qué ficha</strong> y <strong>cuándo</strong>. No tiene por qué contestar <em>qué dice</em> esa ficha. Copiar el texto de una nota clínica o la medicación de una receta al log sería sacar esos datos de la tabla donde están y ponerlos en otra que se mira por motivos completamente distintos, con menos cuidado y ante más ojos.</p>
+<table class="docs-table">
+<thead><tr><th>Sí aparece</th><th>No aparece</th></tr></thead>
+<tbody>
+<tr><td>Que se creó una nota clínica, con quién y cuándo</td><td>El texto de la nota</td></tr>
+<tr><td>Que se emitió una receta</td><td>La medicación y la dosis</td></tr>
+<tr><td>Que se subió un documento clínico</td><td>El título del documento</td></tr>
+<tr><td>Que se editó la ficha de un paciente</td><td>El DNI, el CUIT, la fecha de nacimiento, el mail y el teléfono</td></tr>
+</tbody>
+</table>
+<div class="callout">
+<p><strong>El nombre del paciente sí se muestra</strong> — sin él, la fila no sirve para lo único que existe: saber a qué ficha corresponde. Quien lee este log es un administrador, que ya ve los nombres en la agenda.</p>
+</div>
+<h2>Dos listas, dos preguntas distintas</h2>
+<table class="docs-table">
+<thead><tr><th>Lista</th><th>Contesta</th></tr></thead>
+<tbody>
+<tr><td><strong>Actividad del sistema</strong></td><td>«¿Quién borró este turno?», «¿quién cambió este precio?»</td></tr>
+<tr><td><strong>Accesos de usuarios</strong></td><td>«¿Quién entró ayer?», «¿alguien intentó entrar y falló?»</td></tr>
+</tbody>
+</table>
+<h2>Actividad del sistema</h2>
+<p>Cada fila es un cambio, con acción <strong>Creado</strong>, <strong>Editado</strong> o <strong>Borrado</strong>. Al desplegar una edición se ve el antes y el después de los campos que cambiaron — los que no son sensibles.</p>
+<h3>Filtros</h3>
+<ul>
+<li><strong>Entidad</strong> — ficha, turno, prestación, consultorio, sede, nota clínica, receta, alícuota…</li>
+<li><strong>Acción</strong> — creado, editado o borrado.</li>
+<li><strong>Usuario</strong> — quién lo hizo.</li>
+<li><strong>Desde / Hasta</strong> — por fecha.</li>
+</ul>
+<p>Se muestran de a 100 registros por página, del más reciente al más viejo.</p>
+<div class="callout">
+<p><strong>El registro es automático.</strong> No hay que activarlo: cualquier cambio que se guarde queda anotado, incluidas las funciones que se agreguen más adelante.</p>
+</div>
+<h2>Accesos de usuarios</h2>
+<p>Los últimos 100 accesos, con fecha, evento, usuario y dirección IP. Los eventos son <strong>login</strong>, <strong>logout</strong> y <strong>login fallido</strong>.</p>
+<p>El intento fallido guarda el nombre de usuario que se tipeó, aunque no exista — es lo que distingue a alguien que se equivocó de contraseña de alguien probando usuarios al azar.</p>
+<h2>Desde cuándo</h2>
+<p>El log arranca vacío el día que se instala esta versión y se llena desde ahí. Lo anterior no quedó registrado en ningún lado.</p>
+<div class="docs-nav-footer">
+<a href="/docs/usuarios-roles.html">← Usuarios y roles</a>
+<a href="/docs/configuracion.html">Configuración →</a>
+</div>
