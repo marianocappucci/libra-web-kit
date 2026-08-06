@@ -52,7 +52,50 @@ jobs:
           username: root
           key: ${{ secrets.VPS_DEPLOY_KEY }}
           script: |
+            # 🔴 `set -euo pipefail` y NO un `echo` final que tape el codigo de
+            # salida.
+            #
+            # Sin esto, el paso corria `docker compose build`, fallaba, seguia
+            # de largo con `up -d` —que no cambia nada porque no hay imagen
+            # nueva— y terminaba con un `echo` exitoso. El shell devolvia 0, el
+            # workflow se pintaba verde, y la landing seguia sirviendo la
+            # pagina anterior.
+            #
+            # Paso de verdad el 2026-08-06: cinco landings reportaron "Deploy a
+            # VPS | success" mientras servian el HTML viejo. El build fallaba
+            # con `failed to fetch oauth token: denied` al bajar la imagen base
+            # de GHCR — el token del VPS habia vencido. Un deploy que dice OK y
+            # no desplego es peor que uno que falla.
+            set -euo pipefail
             cd ${{ inputs.remote_path }}
             docker compose build --no-cache
             docker compose up -d
             echo "Deploy OK: $(date)"
+
+      - name: Verificar que la pagina servida cambio
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 149.50.136.218
+          port: 5384
+          username: root
+          key: ${{ secrets.VPS_DEPLOY_KEY }}
+          script: |
+            # La contraprueba del paso anterior: que lo que SIRVE el contenedor
+            # sea lo mismo que hay en el checkout. Un build que no corrio deja
+            # las dos cosas distintas, y eso es lo unico que lo delata desde
+            # afuera.
+            set -euo pipefail
+            cd ${{ inputs.remote_path }}
+            contenedor=$(docker compose ps -q web)
+            if [ -z "$contenedor" ]; then
+              echo "!! no hay contenedor 'web' corriendo"; exit 1
+            fi
+            en_disco=$(md5sum public/index.html | cut -d' ' -f1)
+            servido=$(docker exec "$contenedor" md5sum /usr/share/nginx/html/index.html | cut -d' ' -f1)
+            echo "  en el checkout: $en_disco"
+            echo "  en el contenedor: $servido"
+            if [ "$en_disco" != "$servido" ]; then
+              echo "!! el contenedor sirve una version distinta de la que se sincronizo"
+              exit 1
+            fi
+            echo "OK: el contenedor sirve lo que se acaba de sincronizar"
