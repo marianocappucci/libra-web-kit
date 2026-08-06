@@ -1,5 +1,10 @@
 """Metadata (title/description/active_href) por pagina de /docs/,
-extraido 2026-07-27 de las 82 paginas HTML reales -- ver docs_gen.py."""
+extraido 2026-07-27 de 82 paginas HTML reales -- ver docs_gen.py.
+
+Desde entonces se sumaron paginas; el total no se fija en ningun lado a
+proposito -- ver los guardianes de tests/test_docs_gen.py, que verifican la
+coherencia entre este registro, docs_content/ y docs_sidebars.py en vez de
+contar."""
 
 PAGES = {
     'contalibra': {
@@ -73,6 +78,12 @@ PAGES = {
             "title": 'Listas de Precios — Documentación Contalibra',
             "description": None,
             "active_href": '/docs/listas-precio.html',
+            "is_index": False,
+        },
+        'logs.html': {
+            "title": 'Logs de actividad — Documentación Contalibra',
+            "description": None,
+            "active_href": '/docs/logs.html',
             "is_index": False,
         },
         'presupuestos.html': {
@@ -203,6 +214,12 @@ PAGES = {
             "active_href": '/docs/listas-precio.html',
             "is_index": False,
         },
+        'logs.html': {
+            "title": 'Logs de actividad — Documentación Restolibra',
+            "description": None,
+            "active_href": '/docs/logs.html',
+            "is_index": False,
+        },
         'presupuestos.html': {
             "title": 'Presupuestos — Documentación Restolibra',
             "description": None,
@@ -277,6 +294,12 @@ PAGES = {
             "active_href": '/docs/clientes.html',
             "is_index": False,
         },
+        'configuracion.html': {
+            "title": 'Configuración — Documentación Gestiolibra',
+            "description": None,
+            "active_href": '/docs/configuracion.html',
+            "is_index": False,
+        },
         'dashboard.html': {
             "title": 'Dashboard — Documentación Gestiolibra',
             "description": None,
@@ -300,6 +323,12 @@ PAGES = {
             "description": 'Guías para usar Gestiolibra: agenda, turnos, clientes, recordatorios, señas y facturación.',
             "active_href": '/docs/',
             "is_index": True,
+        },
+        'logs.html': {
+            "title": 'Logs del sistema — Documentación Gestiolibra',
+            "description": None,
+            "active_href": '/docs/logs.html',
+            "is_index": False,
         },
         'primeros-pasos.html': {
             "title": 'Primeros pasos — Documentación Gestiolibra',
@@ -343,6 +372,12 @@ PAGES = {
             "title": 'Caja — Documentación MedLibra',
             "description": None,
             "active_href": '/docs/caja.html',
+            "is_index": False,
+        },
+        'configuracion.html': {
+            "title": 'Configuración — Documentación MedLibra',
+            "description": None,
+            "active_href": '/docs/configuracion.html',
             "is_index": False,
         },
         'consentimientos.html': {
@@ -392,6 +427,12 @@ PAGES = {
             "description": 'Guías para usar MedLibra: turnos, pacientes, historia clínica, recetas, estudios, consentimientos y facturación.',
             "active_href": '/docs/',
             "is_index": True,
+        },
+        'logs.html': {
+            "title": 'Logs del sistema — Documentación MedLibra',
+            "description": None,
+            "active_href": '/docs/logs.html',
+            "is_index": False,
         },
         'pacientes.html': {
             "title": 'Pacientes — Documentación MedLibra',
@@ -455,6 +496,18 @@ PAGES = {
             "active_href": '/docs/compras-proveedores.html',
             "is_index": False,
         },
+        'configuracion.html': {
+            "title": 'Configuración — Documentación VentaLibra',
+            "description": None,
+            "active_href": '/docs/configuracion.html',
+            "is_index": False,
+        },
+        'cuenta-corriente.html': {
+            "title": 'Cuentas corrientes — Documentación VentaLibra',
+            "description": None,
+            "active_href": '/docs/cuenta-corriente.html',
+            "is_index": False,
+        },
         'facturacion.html': {
             "title": 'Facturación electrónica — Documentación VentaLibra',
             "description": None,
@@ -471,6 +524,12 @@ PAGES = {
             "title": 'Listas de precio — Documentación VentaLibra',
             "description": None,
             "active_href": '/docs/listas-de-precio.html',
+            "is_index": False,
+        },
+        'logs.html': {
+            "title": 'Logs del sistema — Documentación VentaLibra',
+            "description": None,
+            "active_href": '/docs/logs.html',
             "is_index": False,
         },
         'primeros-pasos.html': {

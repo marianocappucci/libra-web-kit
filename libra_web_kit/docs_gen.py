@@ -1,5 +1,5 @@
 """Generador de las paginas de `/docs/` de las 5 landings de la familia
-Libra -- extraido 2026-07-27 de las 82 paginas HTML reales (19 Contalibra,
+Libra -- extraido 2026-07-27 de 82 paginas HTML reales (19 Contalibra,
 23 Restolibra, 12 Gestiolibra, 16 MedLibra, 12 VentaLibra), que repetian
 inline el mismo navbar+sidebar+footer en cada archivo, sin ningun paso de
 build. Ver wiki/analyses/auditoria-duplicacion-familia-libra.md.
@@ -64,5 +64,5 @@ def render(site: str, filename: str) -> str:
 
 
 def render_all() -> dict[str, dict[str, str]]:
-    """{sitio: {archivo: html}} para los 5 sitios completos (82 paginas)."""
+    """{sitio: {archivo: html}} para los 5 sitios completos."""
     return {site: {fname: render(site, fname) for fname in list_pages(site)} for site in PAGES}

@@ -31,6 +31,7 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
             {"type": "link", "href": '/docs/libros-iva.html', "text": 'Libros IVA Digital'},
             {"type": "link", "href": '/docs/integraciones.html', "text": 'Integraciones'},
+            {"type": "link", "href": '/docs/logs.html', "text": 'Logs de actividad'},
         ],
     },
     'restolibra': {
@@ -65,6 +66,7 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
             {"type": "link", "href": '/docs/libros-iva.html', "text": 'Libros IVA Digital'},
             {"type": "link", "href": '/docs/integraciones.html', "text": 'Integraciones'},
+            {"type": "link", "href": '/docs/logs.html', "text": 'Logs de actividad'},
         ],
     },
     'gestiolibra': {
@@ -90,6 +92,8 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/dashboard.html', "text": 'Dashboard'},
             {"type": "section", "text": 'Cuenta'},
             {"type": "link", "href": '/docs/usuarios-roles.html', "text": 'Usuarios y roles'},
+            {"type": "link", "href": '/docs/logs.html', "text": 'Logs del sistema'},
+            {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
         ],
     },
     'medlibra': {
@@ -119,6 +123,8 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/dashboard.html', "text": 'Dashboard'},
             {"type": "section", "text": 'Cuenta'},
             {"type": "link", "href": '/docs/usuarios-roles.html', "text": 'Usuarios y roles'},
+            {"type": "link", "href": '/docs/logs.html', "text": 'Logs del sistema'},
+            {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
         ],
     },
     'ventalibra': {
@@ -138,6 +144,7 @@ SIDEBARS = {
             {"type": "section", "text": 'Compras'},
             {"type": "link", "href": '/docs/compras-proveedores.html', "text": 'Compras a proveedores'},
             {"type": "link", "href": '/docs/clientes-proveedores.html', "text": 'Clientes y proveedores'},
+            {"type": "link", "href": '/docs/cuenta-corriente.html', "text": 'Cuentas corrientes'},
             {"type": "section", "text": 'Caja y facturación'},
             {"type": "link", "href": '/docs/caja.html', "text": 'Caja'},
             {"type": "link", "href": '/docs/facturacion.html', "text": 'Facturación electrónica'},
@@ -145,6 +152,8 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
             {"type": "section", "text": 'Cuenta'},
             {"type": "link", "href": '/docs/usuarios-roles.html', "text": 'Usuarios y roles'},
+            {"type": "link", "href": '/docs/logs.html', "text": 'Logs del sistema'},
+            {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
         ],
     },
 }

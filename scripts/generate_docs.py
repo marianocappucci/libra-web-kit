@@ -7,7 +7,7 @@ sigue viviendo en `libra_web_kit/docs_content/<sitio>/<archivo>.html`
 (fragmento HTML, se edita ahi -- no en el HTML final generado).
 
 Uso: correr desde cualquier lado con el venv de libra-web-kit activo.
-    .venv/bin/python scripts/generate_docs.py            # escribe las 82 paginas
+    .venv/bin/python scripts/generate_docs.py            # escribe todas las paginas
     .venv/bin/python scripts/generate_docs.py --check     # solo verifica, no escribe (exit 1 si difiere)
 """
 import argparse
@@ -37,6 +37,7 @@ def main() -> int:
     proyectos_dir = Path(args.proyectos_dir)
     changed = []
     written = 0
+    total = sum(len(list_pages(s)) for s in PAGES)
     for site in PAGES:
         docs_dir = proyectos_dir / REPO_DIR_BY_SITE[site] / "public" / "docs"
         if not docs_dir.exists():
@@ -59,7 +60,7 @@ def main() -> int:
         if changed:
             print(f"\n{len(changed)} pagina(s) desactualizada(s)")
             return 1
-        print("Las 82 paginas ya coinciden con lo generado.")
+        print(f"Las {total} paginas ya coinciden con lo generado.")
         return 0
 
     print(f"[OK] {written} pagina(s) escritas, {sum(len(list_pages(s)) for s in PAGES) - written} sin cambios")
