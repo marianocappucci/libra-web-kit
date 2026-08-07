@@ -4,6 +4,33 @@
 sidebar, confirmado en la extraccion)."""
 
 SIDEBARS = {
+    'libradesk': {
+        "brand": 'LibraDesk',
+        "letter": 'L',
+        "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 LibraDesk · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
+        "sidebar": [
+            {"type": "section", "text": 'Inicio'},
+            {"type": "link", "href": '/docs/', "text": 'Introducción'},
+            {"type": "link", "href": '/docs/primeros-pasos.html', "text": 'Primeros pasos'},
+            {"type": "section", "text": 'Día a día'},
+            {"type": "link", "href": '/docs/dashboard.html', "text": 'Dashboard'},
+            {"type": "link", "href": '/docs/incidencias.html', "text": 'Incidencias'},
+            {"type": "link", "href": '/docs/recepcion-reparaciones.html', "text": 'Recepción y reparaciones'},
+            {"type": "section", "text": 'Inventario'},
+            {"type": "link", "href": '/docs/clientes.html', "text": 'Clientes'},
+            {"type": "link", "href": '/docs/equipos.html', "text": 'Equipos'},
+            {"type": "link", "href": '/docs/depositos.html', "text": 'Depósitos'},
+            {"type": "link", "href": '/docs/activos.html', "text": 'Activos'},
+            {"type": "link", "href": '/docs/contratos.html', "text": 'Equipos en alquiler'},
+            {"type": "section", "text": 'Comprobantes'},
+            {"type": "link", "href": '/docs/presupuestos-remitos.html', "text": 'Presupuestos y remitos'},
+            {"type": "section", "text": 'Gestión'},
+            {"type": "link", "href": '/docs/equipos-flota.html', "text": 'Equipos y flota'},
+            {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
+            {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
+            {"type": "link", "href": '/docs/usuarios-logs.html', "text": 'Usuarios y logs'},
+        ],
+    },
     'contalibra': {
         "brand": 'Contalibra',
         "letter": 'C',
