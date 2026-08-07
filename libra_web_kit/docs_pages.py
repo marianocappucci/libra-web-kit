@@ -7,6 +7,98 @@ coherencia entre este registro, docs_content/ y docs_sidebars.py en vez de
 contar."""
 
 PAGES = {
+    'libradesk': {
+        'index.html': {
+            "title": 'Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/',
+            "is_index": True,
+        },
+        'primeros-pasos.html': {
+            "title": 'Primeros pasos — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/primeros-pasos.html',
+            "is_index": False,
+        },
+        'dashboard.html': {
+            "title": 'Dashboard — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/dashboard.html',
+            "is_index": False,
+        },
+        'clientes.html': {
+            "title": 'Clientes — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/clientes.html',
+            "is_index": False,
+        },
+        'equipos.html': {
+            "title": 'Equipos — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/equipos.html',
+            "is_index": False,
+        },
+        'depositos.html': {
+            "title": 'Depósitos — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/depositos.html',
+            "is_index": False,
+        },
+        'incidencias.html': {
+            "title": 'Incidencias — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/incidencias.html',
+            "is_index": False,
+        },
+        'recepcion-reparaciones.html': {
+            "title": 'Recepción y reparaciones — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/recepcion-reparaciones.html',
+            "is_index": False,
+        },
+        'equipos-flota.html': {
+            "title": 'Equipos y flota — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/equipos-flota.html',
+            "is_index": False,
+        },
+        'contratos.html': {
+            "title": 'Equipos en alquiler — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/contratos.html',
+            "is_index": False,
+        },
+        'activos.html': {
+            "title": 'Activos — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/activos.html',
+            "is_index": False,
+        },
+        'presupuestos-remitos.html': {
+            "title": 'Presupuestos y remitos — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/presupuestos-remitos.html',
+            "is_index": False,
+        },
+        'reportes.html': {
+            "title": 'Reportes — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/reportes.html',
+            "is_index": False,
+        },
+        'configuracion.html': {
+            "title": 'Configuración — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/configuracion.html',
+            "is_index": False,
+        },
+        'usuarios-logs.html': {
+            "title": 'Usuarios y logs — Documentación LibraDesk',
+            "description": None,
+            "active_href": '/docs/usuarios-logs.html',
+            "is_index": False,
+        },
+    },
     'contalibra': {
         'caja-turnos.html': {
             "title": 'Caja y Turnos — Documentación Contalibra',
