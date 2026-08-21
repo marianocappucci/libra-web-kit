@@ -684,6 +684,12 @@ PAGES = {
             "active_href": '/docs/maestros.html',
             "is_index": False,
         },
+        'arca.html': {
+            "title": 'Facturación (ARCA) — Documentación LibraCargo',
+            "description": 'Cargar el certificado y la clave de cada razón social, y qué se valida al subirlos.',
+            "active_href": '/docs/arca.html',
+            "is_index": False,
+        },
         'ordenes.html': {
             "title": 'Órdenes de carga — Documentación LibraCargo',
             "description": 'Alta, edición, anulación y búsqueda de órdenes de carga.',

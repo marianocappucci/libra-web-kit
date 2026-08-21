@@ -198,6 +198,7 @@ SIDEBARS = {
             {"type": "section", "text": 'Configuración'},
             {"type": "link", "href": '/docs/empresa.html', "text": 'Datos de la empresa'},
             {"type": "link", "href": '/docs/maestros.html', "text": 'Maestros'},
+            {"type": "link", "href": '/docs/arca.html', "text": 'Facturación (ARCA)'},
             {"type": "section", "text": 'Día a día'},
             {"type": "link", "href": '/docs/ordenes.html', "text": 'Órdenes de carga'},
             {"type": "link", "href": '/docs/cuenta-corriente.html', "text": 'Cuenta corriente'},
