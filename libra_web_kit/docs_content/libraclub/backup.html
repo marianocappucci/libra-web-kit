@@ -1,0 +1,30 @@
+<h1>Backup y restauración</h1>
+<p class="docs-lead">Bajarte una copia completa de tu base de datos, y poder reponerla.</p>
+<h2>Bajar un backup</h2>
+<ol class="step-list">
+<li>Andá a <strong>Configuración → Datos / Backup</strong> (sólo administradores).</li>
+<li>Tocá <strong>Generar backup</strong>.</li>
+<li>Se descarga un <strong>ZIP</strong> con la base entera.</li>
+</ol>
+<div class="callout">
+<p><strong>El backup es toda tu instancia:</strong> sucursales, canchas, tarifas, clientes, reservas, bloqueos, canchas fijas, usuarios, el log de actividad y los datos de tu complejo, incluido el logo. No hay nada tuyo que viva fuera de la base.</p>
+</div>
+<h2>Restaurar</h2>
+<ol class="step-list">
+<li>En la misma pestaña, elegí el archivo de backup.</li>
+<li>Confirmá.</li>
+</ol>
+<p>La restauración tiene efecto <strong>en el acto</strong>: no hay que reiniciar nada ni esperar. Y antes de pisar nada, el sistema se guarda por su cuenta una copia del estado actual.</p>
+<div class="callout warn">
+<p><strong>Restaurar reemplaza todo lo que hay hoy</strong> por el contenido del archivo. Las reservas cargadas desde que se tomó ese backup se pierden. Antes de reponer una copia vieja, bajate una del estado actual.</p>
+</div>
+<h2>El archivo no se lee por dentro</h2>
+<div class="callout">
+<p>Adentro del ZIP hay un volcado <strong>binario y comprimido</strong> de la base. Abrirlo con un editor y no encontrar los nombres de tus clientes <strong>no significa que esté vacío</strong>: significa que no es texto. La única forma de saber si un backup sirve es restaurarlo.</p>
+</div>
+<h2>Con qué frecuencia</h2>
+<p>La instancia se respalda también del lado del servidor, sin que tengas que hacer nada. La copia que te bajás desde acá es <strong>tuya</strong> y sirve para lo que la del servidor no: llevarte tus datos, o quedarte tranquilo antes de una carga grande.</p>
+<div class="docs-nav-footer">
+<a href="/docs/logs.html">← Log de actividad</a>
+<span></span>
+</div>

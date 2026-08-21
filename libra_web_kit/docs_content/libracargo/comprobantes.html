@@ -1,0 +1,39 @@
+<h1>Comprobantes</h1>
+<p class="docs-lead">Agrupar las órdenes pendientes de un cliente en una factura, por razón social.</p>
+<h2>Facturar órdenes pendientes</h2>
+<ol class="step-list">
+<li>Andá a <strong>Comprobantes</strong> → <strong>Facturar pendientes</strong>.</li>
+<li>Elegí el <strong>cliente</strong> y la <strong>razón social</strong> con la que vas a facturar.</li>
+<li>El sistema te ofrece las órdenes pendientes <strong>de esa razón social</strong>. Tildá las que entran.</li>
+<li>Cargá el <strong>tipo y el número</strong> del comprobante.</li>
+<li>Confirmá.</li>
+</ol>
+<div class="callout">
+<p><strong>Los importes salen de las órdenes, no se tipean.</strong> Un total escrito a mano podría decir un número distinto del de las órdenes que agrupa, y esa diferencia después no se puede explicar.</p>
+</div>
+<h2>El IVA se suma por orden</h2>
+<p>El IVA del comprobante es la <strong>suma de los IVA de cada orden</strong>, no el IVA del neto total. Con dos órdenes de $10,03 la primera cuenta da $4,22 y la segunda $4,21. Además, así una misma factura admite órdenes con alícuotas distintas.</p>
+<h2>Qué pasa al confirmar</h2>
+<p>En un solo acto: se crea el comprobante, las órdenes pasan de <kbd>pendiente</kbd> a <kbd>facturada</kbd>, y se asienta el movimiento en la cuenta corriente del cliente. Las tres cosas juntas, o ninguna.</p>
+<h2>Anular un comprobante</h2>
+<table class="docs-table">
+<thead><tr><th>Qué pasa</th><th>Detalle</th></tr></thead>
+<tbody>
+<tr><td>El comprobante <strong>no se borra</strong></td><td>Queda marcado como anulado</td></tr>
+<tr><td>Las órdenes vuelven a <kbd>pendiente</kbd></td><td>Se pueden volver a facturar</td></tr>
+<tr><td>La cuenta corriente se revierte</td><td>Con un asiento <strong>nuevo</strong>, no borrando el anterior</td></tr>
+<tr><td>La reversión lleva la fecha <strong>del comprobante</strong></td><td>No la de hoy</td></tr>
+</tbody>
+</table>
+<div class="callout">
+<p><strong>Por qué la reversión lleva la fecha del comprobante:</strong> con la fecha de hoy, la cuenta corriente mostraría entre la factura y su anulación una deuda que los totales del período ya no reconocen. Con la fecha original, un comprobante anulado queda fuera de los totales en cualquier rango que se consulte.</p>
+</div>
+<h2>Los totales por razón social</h2>
+<p>La pantalla muestra, por razón social, <strong>lo que suman los comprobantes y lo que suman las órdenes que agrupan</strong>, y avisa en rojo cuando no coinciden. Es el mismo criterio de la <a href="/docs/cuenta-corriente.html">cuenta corriente</a>: un número que sale de dos lugares distintos y da igual, es un número en el que se puede confiar.</p>
+<div class="callout warn">
+<p><strong>El comprobante se registra, no se emite.</strong> El número lo tipea una persona: LibraCargo todavía no pide el CAE a ARCA. La emisión electrónica está planificada como una etapa propia.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/caja.html">← Caja</a>
+<a href="/docs/tablero.html">Tablero →</a>
+</div>

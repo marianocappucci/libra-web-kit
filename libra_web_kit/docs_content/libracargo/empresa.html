@@ -1,0 +1,31 @@
+<h1>Datos de la empresa</h1>
+<p class="docs-lead">La identidad de tu agencia: lo que sale en el encabezado de cada papel y debajo de LibraCargo en el menú.</p>
+<h2>Qué se carga</h2>
+<table class="docs-table">
+<thead><tr><th>Campo</th><th>Dónde se usa</th></tr></thead>
+<tbody>
+<tr><td>Razón social</td><td>Encabezado de las impresiones y nombre debajo de <em>LibraCargo</em> en la barra lateral</td></tr>
+<tr><td>CUIT</td><td>Encabezado de las impresiones</td></tr>
+<tr><td>Domicilio</td><td>Encabezado de las impresiones</td></tr>
+<tr><td>Condición de IVA</td><td>Encabezado de las impresiones</td></tr>
+<tr><td>Ingresos brutos</td><td>Encabezado de las impresiones</td></tr>
+<tr><td>Pie de página</td><td>Pie de la orden de carga y de los listados impresos</td></tr>
+<tr><td>Logo</td><td>Membrete de la orden de carga en papel</td></tr>
+</tbody>
+</table>
+<h2>El logo</h2>
+<p>Formatos aceptados: <strong>PNG, JPG y WebP</strong>, hasta <strong>2 MB</strong>.</p>
+<div class="callout warn">
+<p><strong>El SVG no se acepta, y es a propósito.</strong> Un SVG puede llevar scripts adentro, y el logo se sirve desde el mismo origen que el sistema — o sea, con tu sesión al alcance. La lista de formatos es blanca: lo que no está, no entra.</p>
+</div>
+<h2>Quién puede cambiarlo</h2>
+<p>Los datos de la empresa <strong>los lee cualquier usuario</strong> —porque cualquiera imprime un papel con el membrete— pero <strong>sólo un administrador los edita</strong>: la identidad fiscal no es algo que se toque desde el mostrador.</p>
+<div class="callout">
+<p><strong>Hay una sola configuración por instancia</strong>, y la base lo garantiza. Con dos configuraciones cargadas el sistema tendría que elegir una, y el papel podría salir con los datos de ayer sin que nadie se enterara.</p>
+</div>
+<h2>Se guarda en tu base, no en el servidor</h2>
+<p>Tanto los datos como el logo viven en la base de datos de tu instancia. Dos consecuencias prácticas: cambiar el teléfono <strong>no requiere que nadie redespliegue nada</strong>, y todo esto <strong>viaja en el backup</strong> (ver <a href="/docs/backup.html">Backup y restauración</a>).</p>
+<div class="docs-nav-footer">
+<a href="/docs/primeros-pasos.html">← Primeros pasos</a>
+<a href="/docs/maestros.html">Maestros →</a>
+</div>
