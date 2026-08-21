@@ -858,6 +858,12 @@ PAGES = {
             "active_href": '/docs/clientes.html',
             "is_index": False,
         },
+        'caja.html': {
+            "title": 'Caja — Documentación LibraClub',
+            "description": 'Abrir el turno, cobrar y cerrar con arqueo.',
+            "active_href": '/docs/caja.html',
+            "is_index": False,
+        },
         'usuarios.html': {
             "title": 'Usuarios — Documentación LibraClub',
             "description": 'Roles, altas, bajas y contraseñas.',

@@ -246,6 +246,7 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/canchas-fijas.html', "text": 'Canchas fijas'},
             {"type": "link", "href": '/docs/bloqueos.html', "text": 'Bloqueos'},
             {"type": "link", "href": '/docs/clientes.html', "text": 'Clientes'},
+            {"type": "link", "href": '/docs/caja.html', "text": 'Caja'},
             {"type": "section", "text": 'Cuenta'},
             {"type": "link", "href": '/docs/usuarios.html', "text": 'Usuarios'},
             {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
