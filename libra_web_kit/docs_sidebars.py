@@ -4,7 +4,13 @@
 sidebar, confirmado en la extraccion)."""
 
 SIDEBARS = {
+    # 🔴 Sidebar re-extraido de lo desplegado el 2026-08-21, junto con las 21
+    # paginas. El que habia aca era el de 15 paginas y ya no coincidia con el
+    # del sitio: le faltaban las 6 nuevas y tenia otra reparticion en secciones
+    # ("Clientes y equipos" e "Inventario y compras" en vez de "Inventario" y
+    # "Comprobantes"). Ver la nota de `docs_pages.py`.
     'libradesk': {
+
         "brand": 'LibraDesk',
         "letter": 'L',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 LibraDesk · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
@@ -12,20 +18,28 @@ SIDEBARS = {
             {"type": "section", "text": 'Inicio'},
             {"type": "link", "href": '/docs/', "text": 'Introducción'},
             {"type": "link", "href": '/docs/primeros-pasos.html', "text": 'Primeros pasos'},
+            {"type": "link", "href": '/docs/recorrido.html', "text": 'El recorrido completo'},
             {"type": "section", "text": 'Día a día'},
             {"type": "link", "href": '/docs/dashboard.html', "text": 'Dashboard'},
+            {"type": "link", "href": '/docs/agenda.html', "text": 'Agenda'},
             {"type": "link", "href": '/docs/incidencias.html', "text": 'Incidencias'},
             {"type": "link", "href": '/docs/recepcion-reparaciones.html', "text": 'Recepción y reparaciones'},
-            {"type": "section", "text": 'Inventario'},
+            {"type": "section", "text": 'Clientes y equipos'},
             {"type": "link", "href": '/docs/clientes.html', "text": 'Clientes'},
             {"type": "link", "href": '/docs/equipos.html', "text": 'Equipos'},
             {"type": "link", "href": '/docs/depositos.html', "text": 'Depósitos'},
-            {"type": "link", "href": '/docs/activos.html', "text": 'Activos'},
-            {"type": "link", "href": '/docs/contratos.html', "text": 'Equipos en alquiler'},
-            {"type": "section", "text": 'Comprobantes'},
-            {"type": "link", "href": '/docs/presupuestos-remitos.html', "text": 'Presupuestos y remitos'},
-            {"type": "section", "text": 'Gestión'},
             {"type": "link", "href": '/docs/equipos-flota.html', "text": 'Equipos y flota'},
+            {"type": "section", "text": 'Inventario y compras'},
+            {"type": "link", "href": '/docs/stock.html', "text": 'Stock y productos'},
+            {"type": "link", "href": '/docs/compras.html', "text": 'Compras'},
+            {"type": "section", "text": 'Ventas'},
+            {"type": "link", "href": '/docs/presupuestos-remitos.html', "text": 'Presupuestos y remitos'},
+            {"type": "link", "href": '/docs/ventas-cobranzas.html', "text": 'Ventas y cobranzas'},
+            {"type": "link", "href": '/docs/facturacion.html', "text": 'Enviar a facturar'},
+            {"type": "section", "text": 'Alquileres'},
+            {"type": "link", "href": '/docs/contratos.html', "text": 'Equipos en alquiler'},
+            {"type": "link", "href": '/docs/activos.html', "text": 'Activos'},
+            {"type": "section", "text": 'Administración'},
             {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
             {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
             {"type": "link", "href": '/docs/usuarios-logs.html', "text": 'Usuarios y logs'},
