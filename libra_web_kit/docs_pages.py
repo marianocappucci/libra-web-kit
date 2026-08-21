@@ -864,6 +864,12 @@ PAGES = {
             "active_href": '/docs/caja.html',
             "is_index": False,
         },
+        'cuenta-corriente.html': {
+            "title": 'Cuenta corriente — Documentación LibraClub',
+            "description": 'Fiar una reserva, cobrar a cuenta y ver quién debe.',
+            "active_href": '/docs/cuenta-corriente.html',
+            "is_index": False,
+        },
         'usuarios.html': {
             "title": 'Usuarios — Documentación LibraClub',
             "description": 'Roles, altas, bajas y contraseñas.',
