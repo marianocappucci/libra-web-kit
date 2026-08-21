@@ -3,13 +3,66 @@
 <h2>1. Datos de la empresa</h2>
 <p>En <strong>Configuración → Empresa</strong> cargá razón social, CUIT, domicilio, condición de IVA y el logo. Esos datos son los que salen impresos en presupuestos, remitos y comprobantes de recepción, así que conviene completarlos antes de emitir el primero.</p>
 <h2>2. Tu gente</h2>
-<p>En <strong>Equipos y flota → Personal</strong> cargá a quienes trabajan: cada persona puede ser técnico, recepcionista, vendedor o responsable, y los roles son banderas — alguien puede ser técnico <em>y</em> responsable a la vez.</p>
+<p>En <strong>Administración → Técnicos</strong> cargá a quienes trabajan: cada persona puede ser técnico, recepcionista, vendedor o responsable, y los roles son banderas — alguien puede ser técnico <em>y</em> responsable a la vez.</p>
+<div class="callout"><p>La pantalla se llama <strong>Técnicos</strong> aunque ahí entre también quien recibe en el mostrador y quien vende, y <strong>sólo la abre un administrador</strong>. No confundirla con <a href="/docs/usuarios-logs.html">Usuarios</a>, que es quién puede entrar al sistema: una persona puede estar cargada como técnico sin tener usuario propio.</p></div>
 <h2>3. Clientes y sus sectores</h2>
 <p>Un cliente puede tener sectores (Administración, Guardia, Depósito…) para ubicar dónde está cada equipo dentro de su edificio. No es obligatorio, pero cuando el cliente tiene más de un piso se agradece.</p>
 <h2>4. Depósitos</h2>
 <p>Cargá al menos un depósito propio — el taller — y, si guardás cosas en la sede del cliente, uno por cliente. Todo equipo vive en un depósito, y ahí es donde después se ve qué hay en cada lugar.</p>
-<h2>5. Sucursales, si tenés más de una</h2>
-<p>Si trabajás desde más de un local, cargalas en <strong>Sucursales</strong>. No hace falta para operar, pero después no se puede repartir el stock entre lugares que no existen.</p>
+<h2>5. Cuadrillas y vehículos</h2>
+<p>En <strong>Mesa de ayuda → Equipos y flota</strong> armá las cuadrillas —quiénes salen juntos— y cargá los vehículos con su patente. Lo que se agenda es una cuadrilla, no una persona suelta, y la patente de la hoja de ruta sale de acá.</p>
+<h2>6. Sucursales, si tenés más de una</h2>
+<p>Si trabajás desde más de un local, cargalas en <strong>Administración → Sucursales</strong>. No hace falta para operar, pero después no se puede repartir el stock entre lugares que no existen.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 404" role="img" aria-label="Los seis pasos de la puesta en marcha y en qué pantalla se hace cada uno" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los seis pasos de la puesta en marcha y en qué pantalla se hace cada uno</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="34" r="15" fill="#4f46e5"/>
+<text x="38" y="39" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">1</text>
+<text x="66" y="30" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Datos de tu empresa</text>
+<text x="66" y="48" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Pestaña «Empresa». Es lo que sale impreso en cada comprobante.</text>
+<text x="696" y="30" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Configuración</text>
+<text x="696" y="47" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Administración  ▸</text>
+<rect x="10" y="70" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="96" r="15" fill="#4f46e5"/>
+<text x="38" y="101" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">2</text>
+<text x="66" y="92" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Tu gente</text>
+<text x="66" y="110" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Cada persona con sus roles. Sólo un administrador entra acá.</text>
+<text x="696" y="92" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Técnicos</text>
+<text x="696" y="109" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Administración  ▸</text>
+<rect x="10" y="132" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="158" r="15" fill="#4f46e5"/>
+<text x="38" y="163" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">3</text>
+<text x="66" y="154" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Clientes</text>
+<text x="66" y="172" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Con su CUIT y su condición de IVA, que deciden cómo sale el PDF.</text>
+<text x="696" y="154" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Clientes</text>
+<text x="696" y="171" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Mesa de ayuda  ▸</text>
+<rect x="10" y="194" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="220" r="15" fill="#4f46e5"/>
+<text x="38" y="225" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">4</text>
+<text x="66" y="216" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Depósitos</text>
+<text x="66" y="234" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Al menos el taller. Todo equipo vive en un depósito.</text>
+<text x="696" y="216" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Depósitos</text>
+<text x="696" y="233" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Mesa de ayuda  ▸</text>
+<rect x="10" y="256" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="282" r="15" fill="#4f46e5"/>
+<text x="38" y="287" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">5</text>
+<text x="66" y="278" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Cuadrillas y vehículos</text>
+<text x="66" y="296" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Quién sale junto y en qué móvil. Alimenta la hoja de ruta.</text>
+<text x="696" y="278" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Equipos y flota</text>
+<text x="696" y="295" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Mesa de ayuda  ▸</text>
+<rect x="10" y="318" width="700" height="52" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<circle cx="38" cy="344" r="15" fill="#4f46e5"/>
+<text x="38" y="349" font-size="14" fill="#ffffff" font-weight="800" text-anchor="middle">6</text>
+<text x="66" y="340" font-size="13" fill="#0f172a" font-weight="700" text-anchor="start">Sucursales</text>
+<text x="66" y="358" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Sólo si trabajás desde más de un local.</text>
+<text x="696" y="340" font-size="12" fill="#4338ca" font-weight="700" text-anchor="end">Sucursales</text>
+<text x="696" y="357" font-size="10" fill="#64748b" font-weight="400" text-anchor="end">Administración  ▸</text>
+<text x="10" y="392" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">La columna de la derecha dice en qué grupo del menú lateral está cada pantalla.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Los seis pasos de la puesta en marcha y en qué pantalla se hace cada uno.</figcaption>
+</figure>
 <h2>Y listo</h2>
 <p>Con eso ya podés recibir un equipo, abrir una incidencia y emitir un presupuesto.</p>
 <div class="callout"><p>Si contrataste el plan <strong>Premium</strong>, quedan dos cosas más antes de vender: cargar los <a href="/docs/stock.html">productos y sus depósitos de stock</a>, y definir al menos una lista de precios.</p></div>
