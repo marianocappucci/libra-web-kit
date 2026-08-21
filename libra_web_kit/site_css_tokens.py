@@ -319,4 +319,106 @@ SITES = {
         "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
         "trailing": "",
     },
+    # LibraCargo y LibraClub (2026-08-20) son los dos unicos sitios que NO se
+    # extrajeron de un `style.css` ya desplegado: nacen desde el template, con
+    # los slots minimos que los otros seis ya habian estabilizado. El
+    # `--brand` no se eligio aca — es el color medido de su icono en
+    # `diseños/kit-libra-v1/`, el mismo que usa la app (ver el concepto
+    # `identidad-visual-suite-libra` del wiki). Elegir un color propio para la
+    # landing habria dejado el sitio y el producto de dos colores distintos.
+    "libracargo": {
+        "tokens": (
+            "  --brand:       #012c83;\n"
+            "  --brand-dark:  #001d5c;\n"
+            "  --brand-light: #eef3fc;\n"
+            "  --accent:      #10b981;\n"
+            "  --dark:        #0f172a;\n"
+            "  --dark-2:      #1e293b;\n"
+            "  --muted:       #64748b;\n"
+            "  --border:      #e2e8f0;\n"
+            "  --bg:          #f8fafc;\n"
+        ),
+        "hero_bg": (
+            "    linear-gradient(to bottom, rgba(0,10,32,.78) 0%, rgba(0,10,32,.60) 60%, rgba(0,10,32,.82) 100%),\n"
+            "    linear-gradient(135deg, #001233 0%, #012c83 100%);\n"
+        ),
+        "hero_before": (
+            ".hero::before {\n"
+            "  content: '';\n"
+            "  position: absolute; inset: 0;\n"
+            "  background: radial-gradient(ellipse at 60% 40%, rgba(1,44,131,.35) 0%, transparent 65%);\n"
+            "}\n"
+        ),
+        "hero_badge": (
+            "  display: inline-block; background: rgba(1,44,131,.35);\n"
+            "  border: 1px solid rgba(122,162,255,.45);\n"
+            "  color: #a8c3ff; font-size: .82rem; font-weight: 600;\n"
+        ),
+        "hero_span_p": (
+            ".hero h1 span { color: #7aa2ff; }\n"
+            ".hero p { font-size: 1.15rem; color: #94a3b8; margin: 0 auto 2.5rem;\n"
+        ),
+        "hero_extra": "",
+        "badge_estandar": ".badge-estandar { background: #dbeafe; color: #1e40af; }\n",
+        "badge_extra": ".badge-incluido { background: #e0e7ff; color: #012c83; }\n",
+        "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(1,44,131,.18);\n",
+        "plan_features_muted": ".plan-features li.muted { color: #94a3b8; }\n",
+        "cta_bg": "  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);\n",
+        "cta_p": ".cta-section p  { color: #bfd3ff; margin: 0 auto 2rem; max-width: 500px; }\n",
+        "footer_bg": "  background: var(--dark); color: #94a3b8;\n",
+        "footer_tagline": ".footer-tagline { font-size: .85rem; color: #64748b; margin-top: .3rem; }\n",
+        "footer_copy_border": "               border-top: 1px solid #1e293b;\n",
+        "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
+        "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
+        "trailing": "",
+    },
+    "libraclub": {
+        "tokens": (
+            "  --brand:       #017b4b;\n"
+            "  --brand-dark:  #015c38;\n"
+            "  --brand-light: #ecfdf5;\n"
+            # El unico sitio cuyo `--accent` no es verde: con `--brand` ya
+            # verde, un accent #10b981 no se distingue de la marca y deja de
+            # acentuar nada.
+            "  --accent:      #f59e0b;\n"
+            "  --dark:        #0f172a;\n"
+            "  --dark-2:      #1e293b;\n"
+            "  --muted:       #64748b;\n"
+            "  --border:      #e2e8f0;\n"
+            "  --bg:          #f8fafc;\n"
+        ),
+        "hero_bg": (
+            "    linear-gradient(to bottom, rgba(2,25,17,.78) 0%, rgba(2,25,17,.60) 60%, rgba(2,25,17,.82) 100%),\n"
+            "    linear-gradient(135deg, #04231a 0%, #016340 100%);\n"
+        ),
+        "hero_before": (
+            ".hero::before {\n"
+            "  content: '';\n"
+            "  position: absolute; inset: 0;\n"
+            "  background: radial-gradient(ellipse at 60% 40%, rgba(1,123,75,.32) 0%, transparent 65%);\n"
+            "}\n"
+        ),
+        "hero_badge": (
+            "  display: inline-block; background: rgba(1,123,75,.30);\n"
+            "  border: 1px solid rgba(52,211,153,.45);\n"
+            "  color: #6ee7b7; font-size: .82rem; font-weight: 600;\n"
+        ),
+        "hero_span_p": (
+            ".hero h1 span { color: #34d399; }\n"
+            ".hero p { font-size: 1.15rem; color: #a7b8b0; margin: 0 auto 2.5rem;\n"
+        ),
+        "hero_extra": "",
+        "badge_estandar": ".badge-estandar { background: #d1fae5; color: #065f46; }\n",
+        "badge_extra": ".badge-incluido { background: #d1fae5; color: #015c38; }\n",
+        "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(1,123,75,.18);\n",
+        "plan_features_muted": ".plan-features li.muted { color: #94a3b8; }\n",
+        "cta_bg": "  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);\n",
+        "cta_p": ".cta-section p  { color: #a7f3d0; margin: 0 auto 2rem; max-width: 500px; }\n",
+        "footer_bg": "  background: var(--dark); color: #94a3b8;\n",
+        "footer_tagline": ".footer-tagline { font-size: .85rem; color: #64748b; margin-top: .3rem; }\n",
+        "footer_copy_border": "               border-top: 1px solid #1e293b;\n",
+        "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
+        "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
+        "trailing": "",
+    },
 }

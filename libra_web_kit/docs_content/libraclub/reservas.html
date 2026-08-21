@@ -1,0 +1,43 @@
+<h1>Reservas</h1>
+<p class="docs-lead">Tomar el turno, confirmarlo, cancelarlo o marcar que no vinieron.</p>
+<h2>Tomar una reserva</h2>
+<ol class="step-list">
+<li>En la <a href="/docs/agenda.html">agenda</a>, tocá el turno libre.</li>
+<li>Elegí el <strong>cliente</strong>, o <strong>cargá uno nuevo en el mismo paso</strong> — sin salir del diálogo.</li>
+<li>Elegí <strong>cuántos turnos seguidos</strong> toma.</li>
+<li>Elegí el <strong>origen</strong>: mostrador, teléfono, WhatsApp o portal.</li>
+<li>Elegí el <strong>estado</strong> en el que queda.</li>
+<li>Anotá observaciones si hace falta, y confirmá.</li>
+</ol>
+<div class="callout">
+<p><strong>Cargar el cliente desde acá es a propósito.</strong> Quien atiende el mostrador tiene que poder tomarle la reserva a alguien que llama por primera vez: si el alta de clientes fuera de administrador, en la práctica todo terminaría cargado bajo un cliente genérico llamado "Particular".</p>
+</div>
+<h2>Los estados</h2>
+<table class="docs-table">
+<thead><tr><th>Estado</th><th>Qué significa</th><th>¿Ocupa la cancha?</th></tr></thead>
+<tbody>
+<tr><td><kbd>provisoria</kbd></td><td>Retenida sin confirmar, con vencimiento</td><td>Sí</td></tr>
+<tr><td><kbd>pendiente_pago</kbd></td><td>Esperando la seña. Ya hubo intención de pago</td><td>Sí</td></tr>
+<tr><td><kbd>confirmada</kbd></td><td>El turno está tomado</td><td>Sí</td></tr>
+<tr><td><kbd>jugada</kbd></td><td>Ya se jugó</td><td>Sí</td></tr>
+<tr><td><kbd>cancelada</kbd></td><td>No se va a jugar. Con motivo</td><td>No</td></tr>
+<tr><td><kbd>ausente</kbd></td><td>El cliente no vino</td><td>No</td></tr>
+<tr><td><kbd>bloqueo</kbd></td><td>No es una reserva. Ver <a href="/docs/bloqueos.html">Bloqueos</a></td><td>Sí</td></tr>
+</tbody>
+</table>
+<div class="callout">
+<p><strong>Ausente no es lo mismo que cancelada</strong>, aunque las dos liberen la cancha. Cancelada es "avisó"; ausente es "no vino y no avisó". La diferencia es el número que después dice si conviene empezar a pedir seña.</p>
+</div>
+<h2>El precio</h2>
+<p>Con <strong>un turno</strong>, el precio lo resuelve el <a href="/docs/tarifas.html">tarifario</a> y la seña sale sola del porcentaje de esa tarifa.</p>
+<div class="callout warn">
+<p>Con <strong>más de un turno</strong>, el diálogo muestra la cuenta (<em>3 × $14.000 = $42.000</em>) y manda ese importe explícito. En ese caso <strong>no se calcula seña automáticamente</strong>: si corresponde, se acuerda con el cliente.</p>
+</div>
+<h2>Cancelar</h2>
+<p>Cancelar <strong>exige un motivo</strong>, y no es un capricho de la pantalla: sin él, una discusión con un cliente dentro de un mes no se puede reconstruir. La reserva queda en el listado como <kbd>cancelada</kbd> — <strong>no se borra</strong> — y el turno vuelve a verse libre en la agenda.</p>
+<h2>Cuando el turno ya está tomado</h2>
+<p>Si mientras cargabas la reserva alguien tomó ese mismo turno, el sistema lo rechaza con el horario ocupado, <strong>deja el diálogo abierto con todo lo que escribiste</strong> y no crea nada. No es una validación de pantalla que se puede saltear: es la base de datos la que garantiza que dos reservas no se pisen, aunque lleguen en el mismo instante.</p>
+<div class="docs-nav-footer">
+<a href="/docs/agenda.html">← Agenda</a>
+<a href="/docs/canchas-fijas.html">Canchas fijas →</a>
+</div>

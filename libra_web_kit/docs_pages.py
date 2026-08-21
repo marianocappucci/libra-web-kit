@@ -655,4 +655,186 @@ PAGES = {
             "is_index": False,
         },
     },
+    # LibraCargo y LibraClub (2026-08-20): los dos unicos sitios cuyas paginas
+    # se escribieron para el generador en vez de extraerse de HTML ya
+    # desplegado. Por eso llevan `description` — las 82 paginas extraidas la
+    # perdieron en la extraccion y no se invento una para ellas.
+    'libracargo': {
+        'index.html': {
+            "title": 'Documentación LibraCargo',
+            "description": 'Guías para usar LibraCargo: órdenes de carga, cuentas corrientes, caja, comprobantes y reportes.',
+            "active_href": '/docs/',
+            "is_index": True,
+        },
+        'primeros-pasos.html': {
+            "title": 'Primeros pasos — Documentación LibraCargo',
+            "description": 'De una instancia vacía a la primera orden de carga facturada.',
+            "active_href": '/docs/primeros-pasos.html',
+            "is_index": False,
+        },
+        'empresa.html': {
+            "title": 'Datos de la empresa — Documentación LibraCargo',
+            "description": 'Razón social, CUIT, domicilio, logo y pie de los papeles.',
+            "active_href": '/docs/empresa.html',
+            "is_index": False,
+        },
+        'maestros.html': {
+            "title": 'Maestros — Documentación LibraCargo',
+            "description": 'Terceros, choferes, vehículos, localidades, tipos de carga y razones sociales.',
+            "active_href": '/docs/maestros.html',
+            "is_index": False,
+        },
+        'arca.html': {
+            "title": 'Facturación (ARCA) — Documentación LibraCargo',
+            "description": 'Cargar el certificado y la clave de cada razón social, y qué se valida al subirlos.',
+            "active_href": '/docs/arca.html',
+            "is_index": False,
+        },
+        'ordenes.html': {
+            "title": 'Órdenes de carga — Documentación LibraCargo',
+            "description": 'Alta, edición, anulación y búsqueda de órdenes de carga.',
+            "active_href": '/docs/ordenes.html',
+            "is_index": False,
+        },
+        'cuenta-corriente.html': {
+            "title": 'Cuenta corriente — Documentación LibraCargo',
+            "description": 'Las cuentas de clientes, fleteros y proveedores, con el saldo verificado por dos caminos.',
+            "active_href": '/docs/cuenta-corriente.html',
+            "is_index": False,
+        },
+        'caja.html': {
+            "title": 'Caja — Documentación LibraCargo',
+            "description": 'Cobros, pagos y gastos, con su contrapartida en la cuenta corriente.',
+            "active_href": '/docs/caja.html',
+            "is_index": False,
+        },
+        'comprobantes.html': {
+            "title": 'Comprobantes — Documentación LibraCargo',
+            "description": 'Facturar órdenes pendientes por razón social, y anular sin borrar.',
+            "active_href": '/docs/comprobantes.html',
+            "is_index": False,
+        },
+        'tablero.html': {
+            "title": 'Tablero — Documentación LibraCargo',
+            "description": 'La pantalla de Inicio: cómo viene el mes y cuánto hay para cobrar.',
+            "active_href": '/docs/tablero.html',
+            "is_index": False,
+        },
+        'reportes.html': {
+            "title": 'Reportes — Documentación LibraCargo',
+            "description": 'Los ocho reportes y sus parámetros.',
+            "active_href": '/docs/reportes.html',
+            "is_index": False,
+        },
+        'impresion.html': {
+            "title": 'Impresión de listados — Documentación LibraCargo',
+            "description": 'Cómo se imprimen los listados y los reportes, con membrete y filtros.',
+            "active_href": '/docs/impresion.html',
+            "is_index": False,
+        },
+        'usuarios.html': {
+            "title": 'Usuarios — Documentación LibraCargo',
+            "description": 'Roles, altas, bajas y contraseñas.',
+            "active_href": '/docs/usuarios.html',
+            "is_index": False,
+        },
+        'logs.html': {
+            "title": 'Log de actividad — Documentación LibraCargo',
+            "description": 'Quién hizo qué, cuándo y qué cambió.',
+            "active_href": '/docs/logs.html',
+            "is_index": False,
+        },
+        'backup.html': {
+            "title": 'Backup y restauración — Documentación LibraCargo',
+            "description": 'Bajarte una copia completa de tu base de datos, y poder reponerla.',
+            "active_href": '/docs/backup.html',
+            "is_index": False,
+        },
+    },
+    'libraclub': {
+        'index.html': {
+            "title": 'Documentación LibraClub',
+            "description": 'Guías para usar LibraClub: canchas, tarifas, agenda, reservas y canchas fijas.',
+            "active_href": '/docs/',
+            "is_index": True,
+        },
+        'primeros-pasos.html': {
+            "title": 'Primeros pasos — Documentación LibraClub',
+            "description": 'De un complejo recién dado de alta a la primera reserva tomada.',
+            "active_href": '/docs/primeros-pasos.html',
+            "is_index": False,
+        },
+        'sucursales.html': {
+            "title": 'Sucursales — Documentación LibraClub',
+            "description": 'Las sedes del complejo y su punto de venta.',
+            "active_href": '/docs/sucursales.html',
+            "is_index": False,
+        },
+        'canchas.html': {
+            "title": 'Canchas — Documentación LibraClub',
+            "description": 'Deporte, duración del turno, techada, iluminación y superficie.',
+            "active_href": '/docs/canchas.html',
+            "is_index": False,
+        },
+        'tarifas.html': {
+            "title": 'Tarifas — Documentación LibraClub',
+            "description": 'El tarifario por cancha, día y franja, y cuál gana cuando hay varias.',
+            "active_href": '/docs/tarifas.html',
+            "is_index": False,
+        },
+        'agenda.html': {
+            "title": 'Agenda — Documentación LibraClub',
+            "description": 'La grilla semanal: qué cancha está libre, a qué hora y por cuánto.',
+            "active_href": '/docs/agenda.html',
+            "is_index": False,
+        },
+        'reservas.html': {
+            "title": 'Reservas — Documentación LibraClub',
+            "description": 'Tomar, confirmar, cancelar y marcar ausente.',
+            "active_href": '/docs/reservas.html',
+            "is_index": False,
+        },
+        'canchas-fijas.html': {
+            "title": 'Canchas fijas — Documentación LibraClub',
+            "description": 'Reservas semanales recurrentes, y qué pasa si una fecha está ocupada.',
+            "active_href": '/docs/canchas-fijas.html',
+            "is_index": False,
+        },
+        'bloqueos.html': {
+            "title": 'Bloqueos — Documentación LibraClub',
+            "description": 'Cerrar una cancha por mantenimiento, lluvia, torneo o uso interno.',
+            "active_href": '/docs/bloqueos.html',
+            "is_index": False,
+        },
+        'clientes.html': {
+            "title": 'Clientes — Documentación LibraClub',
+            "description": 'La ficha de quien reserva, con buscador por nombre, teléfono o documento.',
+            "active_href": '/docs/clientes.html',
+            "is_index": False,
+        },
+        'usuarios.html': {
+            "title": 'Usuarios — Documentación LibraClub',
+            "description": 'Roles, altas, bajas y contraseñas.',
+            "active_href": '/docs/usuarios.html',
+            "is_index": False,
+        },
+        'configuracion.html': {
+            "title": 'Configuración — Documentación LibraClub',
+            "description": 'Datos del complejo, logo, correo saliente y backup.',
+            "active_href": '/docs/configuracion.html',
+            "is_index": False,
+        },
+        'logs.html': {
+            "title": 'Log de actividad — Documentación LibraClub',
+            "description": 'Quién hizo qué y quién entró, en dos pestañas.',
+            "active_href": '/docs/logs.html',
+            "is_index": False,
+        },
+        'backup.html': {
+            "title": 'Backup y restauración — Documentación LibraClub',
+            "description": 'Bajarte una copia completa de tu base de datos, y poder reponerla.',
+            "active_href": '/docs/backup.html',
+            "is_index": False,
+        },
+    },
 }
