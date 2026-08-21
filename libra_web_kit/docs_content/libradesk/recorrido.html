@@ -22,7 +22,7 @@
 <h2>Etapa 2 · La salida a la calle</h2>
 
 <ol class="step-list">
-  <li><strong>Agendá la visita.</strong> En la incidencia, poné fecha y hora, la duración prevista y qué cuadrilla va. Si esa cuadrilla ya tiene otro trabajo a esa hora, el sistema avisa.</li>
+  <li><strong>Agendá la visita.</strong> En la incidencia, poné fecha y hora, la duración prevista y qué cuadrilla va. Si esa cuadrilla ya tiene otro trabajo pisado a esa hora, <strong>el sistema no te deja guardar</strong> y te dice con cuál choca: no es un aviso que se pueda pasar de largo.</li>
   <li><strong>Mirá la agenda del día.</strong> En <a href="/docs/agenda.html"><strong>Agenda</strong></a>, elegí el día: ahí está la salida ordenada por hora, con el domicilio y la patente del vehículo de la cuadrilla.</li>
   <li><strong>Imprimí la hoja de ruta.</strong> El botón de la agenda saca el PDF <em>del día que estás mirando</em>: las paradas en orden, con los renglones para anotar hora de llegada y de salida, y el kilometraje al salir y al volver.</li>
 </ol>
@@ -42,6 +42,35 @@
 <h2>Etapa 4 · El cierre, que son dos</h2>
 
 <p>Acá está la decisión más importante del circuito, y conviene entenderla antes de seguir.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 154" role="img" aria-label="Los cuatro estados de una incidencia y la barrera entre resuelta y cerrada" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los cuatro estados de una incidencia y la barrera entre resuelta y cerrada</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="158" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="89.0" y="32" font-size="14" fill="#64748b" font-weight="800" text-anchor="middle">Abierto</text>
+<text x="89.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Entró el pedido</text>
+<line x1="172" y1="41" x2="186.66666666666666" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="190.66666666666666" y="8" width="158" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="269.66666666666663" y="32" font-size="14" fill="#64748b" font-weight="800" text-anchor="middle">En progreso</text>
+<text x="269.66666666666663" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Alguien la está haciendo</text>
+<line x1="352.66666666666663" y1="41" x2="367.3333333333333" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="371.3333333333333" y="8" width="158" height="66" rx="10" fill="#eef2ff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="450.3333333333333" y="32" font-size="14" fill="#4338ca" font-weight="800" text-anchor="middle">Resuelta</text>
+<text x="450.3333333333333" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El técnico terminó</text>
+<line x1="533.3333333333333" y1="41" x2="547.9999999999999" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="552.0" y="8" width="158" height="66" rx="10" fill="#d1fae5" stroke="#cbd5e1" stroke-width="1"/>
+<text x="631.0" y="32" font-size="14" fill="#065f46" font-weight="800" text-anchor="middle">Cerrado</text>
+<text x="631.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Administración controló</text>
+<text x="631.0" y="63" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">y la manda a facturar</text>
+<line x1="540.6666666666666" y1="4" x2="540.6666666666666" y2="92" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="532.6666666666666" y="88" font-size="10" fill="#b45309" font-weight="700" text-anchor="end">el trabajo está hecho</text>
+<text x="548.6666666666666" y="88" font-size="10" fill="#b45309" font-weight="700" text-anchor="start">y alguien lo controló</text>
+<rect x="10" y="100" width="700" height="44" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="24" y="122" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Un remito sólo se emite sobre incidencias CERRADAS.</text>
+<text x="24" y="138" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Lo que habilita a cobrar no es que el trabajo esté hecho, sino que alguien lo haya controlado.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Los cuatro estados de una incidencia. Entre «resuelta» y «cerrada» hay una barrera deliberada: el trabajo hecho no habilita a cobrar, el control sí.</figcaption>
+</figure>
 
 <table class="docs-table">
   <thead>
@@ -93,6 +122,40 @@
 <h2>Etapa 7 · Los otros tres caminos</h2>
 
 <p>El trabajo de un técnico no es lo único que se factura. Los otros tres llegan al mismo remito de la etapa 5, por caminos propios. Probá al menos uno.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 246" role="img" aria-label="Los cuatro orígenes de lo facturable convergen en un remito único" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los cuatro orígenes de lo facturable convergen en un remito único</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="92.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Trabajos de mesa de ayuda</text>
+<text x="92.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Incidencias cerradas,</text>
+<text x="92.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">agrupadas por cliente</text>
+<line x1="92.5" y1="74" x2="92.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="195" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="277.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Presupuesto aceptado</text>
+<text x="277.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Se convierte,</text>
+<text x="277.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">no se manda solo</text>
+<line x1="277.5" y1="74" x2="277.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="380" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="462.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Cuota de alquiler</text>
+<text x="462.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El devengado</text>
+<text x="462.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">del contrato</text>
+<line x1="462.5" y1="74" x2="462.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="565" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="647.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Venta de equipo</text>
+<text x="647.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Genera su remito</text>
+<text x="647.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">al confirmarse</text>
+<line x1="647.5" y1="74" x2="647.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="10" y="100" width="700" height="54" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="360.0" y="124" font-size="15" fill="#4338ca" font-weight="800" text-anchor="middle" letter-spacing="1.5">REMITO</text>
+<text x="360.0" y="142" font-size="11" fill="#4338ca" font-weight="400" text-anchor="middle">La única puerta. Mientras haya una sola, nada se cobra dos veces.</text>
+<line x1="360.0" y1="158" x2="360.0" y2="182" stroke="#4f46e5" stroke-width="1.5" marker-end="url(#pta-brand)"/>
+<rect x="10" y="186" width="700" height="50" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="360.0" y="208" font-size="13" fill="#0f172a" font-weight="700" text-anchor="middle">Enviar a facturar</text>
+<text x="360.0" y="225" font-size="11" fill="#64748b" font-weight="400" text-anchor="middle">El comprobante queda como borrador en tu sistema contable. LibraDesk no emite la factura.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Los cuatro orígenes de lo facturable y la puerta única por la que pasan todos.</figcaption>
+</figure>
 
 <h3>Un presupuesto aceptado</h3>
 <p>Cargá un presupuesto, marcalo aceptado y convertilo. Sale un remito, y el presupuesto queda atado a él. Fijate que después <strong>no aparece dos veces</strong> en la bandeja: el presupuesto no se manda solo, se manda su remito.</p>
@@ -100,7 +163,7 @@
 <h3>Un alquiler</h3>
 <ol class="step-list">
   <li>Cargá un <strong>contrato</strong> de alquiler con su equipo y su precio.</li>
-  <li>Generá la <strong>cuota del mes</strong>. Hay una previsualización que muestra qué se generaría <em>sin escribir nada</em>: mirala antes de confirmar.</li>
+  <li>Generá la <strong>cuota del mes</strong> desde <strong>Alquileres → Cuotas</strong>, que es la pantalla del devengado de todos los contratos. Hay una previsualización que muestra qué se generaría <em>sin escribir nada</em>: mirala antes de confirmar.</li>
   <li>Convertí la cuota en remito. Entra por la misma puerta que los trabajos.</li>
 </ol>
 <p>El mes se cobra adelantado y se prorratea por días en las dos puntas: un alquiler que arranca el 20 cobra la parte que corresponde, no el mes entero. Y el importe <strong>se congela al generar</strong>, así que si mañana actualizás el precio, la cuota ya emitida no cambia.</p>
