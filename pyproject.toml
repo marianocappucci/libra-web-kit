@@ -26,7 +26,22 @@ dev = [
     "httpx>=0.27",
     "beautifulsoup4>=4.12",
     "lxml>=5.0",
+    # Solo para `legal_gen` y `scripts/generate_legal.py`. Van en dev y no en las
+    # dependencias del paquete porque los contenedores de las landings sirven
+    # HTML ya generado: meter libraauth ahi les arrastraria SQLAlchemy y un motor
+    # de autenticacion entero para servir archivos estaticos.
+    #
+    # 🔴 El pin es lo que ata la pagina publicada al texto que las instancias
+    # exigen aceptar. Al subir la version del contrato hay que subirlo aca
+    # tambien, o la web queda publicando la anterior sin que nada falle.
+    "markdown>=3.6",
+    "libraauth @ git+https://github.com/marianocappucci/libraauth.git@v0.30.0",
 ]
+
+[tool.hatch.metadata]
+# Habilita el `libraauth @ git+https://...` del extra `dev`. Mismo patron que
+# los ocho productos, que ya declaran asi sus motores.
+allow-direct-references = true
 
 [tool.hatch.version]
 source = "vcs"
