@@ -1,0 +1,38 @@
+<h1>Órdenes de carga</h1>
+<p class="docs-lead">El núcleo del sistema: el viaje que tomaste, a quién se lo asignaste y cuánto deja.</p>
+<h2>Cargar una orden</h2>
+<ol class="step-list">
+<li>Andá a <strong>Órdenes de carga</strong> → <strong>Nueva orden</strong>.</li>
+<li>Elegí el <strong>cliente</strong> y la <strong>razón social</strong> con la que se va a facturar.</li>
+<li>Cargá el <strong>remito</strong>, el <strong>origen</strong> y el <strong>destino</strong>.</li>
+<li>Elegí el <strong>tipo de carga</strong> y la <strong>cantidad</strong>.</li>
+<li>Asigná <strong>fletero</strong>, <strong>chofer</strong> y <strong>vehículo</strong>.</li>
+<li>Cargá la <strong>tarifa</strong> y la <strong>comisión</strong>, y guardá.</li>
+</ol>
+<div class="callout">
+<p><strong>El IVA y el total no se tipean: los calcula el sistema</strong> a partir de la tarifa y la alícuota. No son campos editables, y un total mandado a mano se ignora. Un importe que puede escribir cualquiera es un importe que después nadie puede auditar.</p>
+</div>
+<p>El origen y el destino <strong>tienen que ser distintos</strong>. La regla está en el formulario, en la API y en la base de datos: las tres tienen que estar de acuerdo para que la orden se guarde.</p>
+<h2>Buscar órdenes</h2>
+<p>El listado tiene <strong>doce filtros que se combinan entre sí</strong>: por cliente, por fletero, por rango de fechas, por origen, por destino, por remito, por razón social, por estado de facturación y más. Combinándolos salen todas las búsquedas que en un sistema viejo eran una pantalla distinta cada una.</p>
+<div class="callout">
+<p><strong>El filtro más usado es "pendientes de facturar"</strong>: son las órdenes que todavía no salieron en ningún comprobante. Desde ahí se pasa directo a <a href="/docs/comprobantes.html">facturar</a>.</p>
+</div>
+<h2>Editar y anular</h2>
+<table class="docs-table">
+<thead><tr><th>Situación</th><th>Qué se puede hacer</th></tr></thead>
+<tbody>
+<tr><td>Orden pendiente</td><td>Editar cualquier campo, o anularla</td></tr>
+<tr><td>Orden ya facturada</td><td><strong>Ni editar ni anular.</strong> Primero hay que anular el comprobante</td></tr>
+<tr><td>Orden anulada</td><td>Queda en el listado, marcada. No se borra</td></tr>
+</tbody>
+</table>
+<div class="callout warn">
+<p><strong>Las órdenes se anulan, no se borran</strong> — ni siquiera las cargadas por error. La orden es el origen de los movimientos de cuenta corriente del cliente y del fletero: borrarla los dejaría sin explicación. Y el número saltaría: el listado iría del 3.411 al 3.413 sin que nadie pudiera decir después qué había en el medio.</p>
+</div>
+<h2>La orden en papel</h2>
+<p>Cada orden se imprime como el documento que viaja con el camión: membrete con tu logo y tus datos, número, fecha, cliente, remito, origen y destino, tipo y cantidad, fletero, chofer y vehículo, los importes con el IVA discriminado, las observaciones, <strong>las dos firmas</strong> —transportista y recibí conforme— y tu pie configurable.</p>
+<div class="docs-nav-footer">
+<a href="/docs/arca.html">← Facturación (ARCA)</a>
+<a href="/docs/cuenta-corriente.html">Cuenta corriente →</a>
+</div>

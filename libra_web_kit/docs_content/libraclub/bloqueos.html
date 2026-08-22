@@ -1,0 +1,24 @@
+<h1>Bloqueos</h1>
+<p class="docs-lead">Cerrar una cancha por mantenimiento, lluvia, torneo o uso interno.</p>
+<h2>Qué es un bloqueo</h2>
+<p>Un bloqueo <strong>ocupa la cancha igual que una reserva</strong>, pero no tiene cliente ni precio. Sirve para que nadie —ni desde el mostrador ni, más adelante, desde el portal— pueda tomar un turno que en realidad no está disponible.</p>
+<h2>Cargar un bloqueo</h2>
+<ol class="step-list">
+<li>En la <a href="/docs/agenda.html">agenda</a>, tocá el turno que querés cerrar.</li>
+<li>Elegí <strong>bloqueo</strong> en vez de reserva.</li>
+<li>Escribí el <strong>motivo</strong>: mantenimiento, lluvia, torneo, uso interno.</li>
+<li>Confirmá.</li>
+</ol>
+<div class="callout">
+<p><strong>Un bloqueo no lleva cliente, y una reserva sí.</strong> No hay forma de guardar un bloqueo a nombre de alguien ni una reserva sin nadie: la base de datos exige una de las dos formas, no la mitad de cada una.</p>
+</div>
+<h2>Por qué el bloqueo vive junto a las reservas</h2>
+<div class="callout warn">
+<p>Es la decisión que hace que el bloqueo <strong>realmente bloquee</strong>. La garantía de que dos cosas no ocupen la misma cancha a la misma hora la da el motor de la base, y sólo puede mirar <em>su propia tabla</em>: un bloqueo guardado aparte sería una lista que alguien tiene que acordarse de consultar antes de reservar — y el día que no se consulta, se reserva encima del mantenimiento.</p>
+</div>
+<h2>Sacar un bloqueo</h2>
+<p>Se cancela como cualquier otra fila de la agenda, con su motivo. El turno vuelve a verse libre.</p>
+<div class="docs-nav-footer">
+<a href="/docs/canchas-fijas.html">← Canchas fijas</a>
+<a href="/docs/clientes.html">Clientes →</a>
+</div>

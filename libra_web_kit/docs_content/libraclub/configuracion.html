@@ -1,0 +1,25 @@
+<h1>Configuración</h1>
+<p class="docs-lead">Los datos de tu complejo, el correo saliente y el backup de tu base. Sólo para administradores.</p>
+<h2>Empresa</h2>
+<p>Razón social, CUIT, domicilio, condición de IVA y el <strong>logo</strong> del complejo. Es la identidad de tu instancia: el nombre que se ve en el sistema y el que va a salir en los papeles.</p>
+<div class="callout">
+<p><strong>Se guarda en tu base de datos, no en el servidor.</strong> Cambiar el teléfono no requiere que nadie redespliegue nada, y todo esto <strong>viaja en el backup</strong>.</p>
+</div>
+<h2>Correo</h2>
+<p>La configuración del servidor de correo saliente (SMTP) de tu complejo. La contraseña se guarda <strong>cifrada</strong>.</p>
+<h2>Datos / Backup</h2>
+<p>Ver <a href="/docs/backup.html">Backup y restauración</a>.</p>
+<h2>ARCA</h2>
+<p>El <strong>certificado y la clave privada</strong> con los que tu complejo se identifica ante ARCA, y tu punto de venta. Los archivos se validan <strong>al subirlos</strong> y no el día que haya que facturar: ahí se detectan los tres errores de armado que no se ven mirando el nombre del archivo — subir el pedido de certificado en vez del certificado, cruzar los dos campos, y el más difícil de todos, que <strong>el certificado y la clave no sean pareja</strong>.</p>
+<div class="callout warn">
+<p><strong>Todavía no se emite ningún comprobante.</strong> Esta pestaña es la preparación: cargar las credenciales y que estén bien. Facturar es lo que viene después.</p>
+</div>
+<div class="callout">
+<p>Los certificados de ARCA <strong>duran dos años</strong>, y el día que vencen la facturación deja de andar sin que nadie haya tocado nada. La pantalla te muestra siempre cuándo vence el tuyo.</p>
+</div>
+<h2>Quién puede</h2>
+<p>Configuración es <strong>sólo de administrador</strong>, entera. Un encargado no ve la entrada en el menú.</p>
+<div class="docs-nav-footer">
+<a href="/docs/usuarios.html">← Usuarios</a>
+<a href="/docs/logs.html">Log de actividad →</a>
+</div>

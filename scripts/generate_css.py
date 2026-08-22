@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Regenera `public/css/style.css` en los 5 repos hermanos de landings
-(Contalibra, Restolibra, Gestiolibra, MedLibra, VentaLibra) a partir de
-`libra_web_kit.css_gen` — fuente de verdad unica para el CSS compartido.
+"""Regenera `public/css/style.css` en los repos hermanos de landings a partir
+de `libra_web_kit.css_gen` — fuente de verdad unica para el CSS compartido.
 
 Uso: correr desde cualquier lado con el venv de libra-web-kit activo.
-    .venv/bin/python scripts/generate_css.py            # escribe los 5
+    .venv/bin/python scripts/generate_css.py            # escribe todos
     .venv/bin/python scripts/generate_css.py --check     # solo verifica, no escribe (exit 1 si difiere)
 
-Asume que los 5 repos viven como hermanos de `libra-web-kit` en
-`~/proyectos/` (mismo layout que documenta wiki/entities/*-web.md).
+Asume que los repos viven como hermanos de `libra-web-kit` en `~/proyectos/`
+(mismo layout que documenta wiki/entities/*-web.md). El que no este clonado se
+saltea con un aviso.
 """
 import argparse
 import sys
@@ -16,6 +16,11 @@ from pathlib import Path
 
 from libra_web_kit.css_gen import render_all
 
+#: 🔴 Un sitio nuevo en `site_css_tokens.SITES` que no aparezca aca **no se
+#: escribe en ningun lado**, y el script termina en 0 igual. Por eso hay un
+#: test que exige que las dos listas coincidan
+#: (tests/test_css_gen.py::test_todos_los_sitios_tienen_repo_destino) en vez de
+#: confiar en que quien agrega un sitio se acuerde de las dos mitades.
 REPO_DIR_BY_SITE = {
     "contalibra": "contalibra.com.ar",
     "restolibra": "restolibra.com.ar",
@@ -23,6 +28,8 @@ REPO_DIR_BY_SITE = {
     "medlibra": "medlibra_web",
     "ventalibra": "ventalibra_web",
     "libradesk": "libradesk_web",
+    "libracargo": "libracargo_web",
+    "libraclub": "libraclub_web",
 }
 
 

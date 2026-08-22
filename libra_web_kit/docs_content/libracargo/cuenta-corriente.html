@@ -1,0 +1,29 @@
+<h1>Cuenta corriente</h1>
+<p class="docs-lead">Las tres cuentas de una agencia de cargas: lo que te debe el cliente, lo que le debés al fletero y lo que le debés al proveedor.</p>
+<h2>Una cuenta es un tercero y un rol</h2>
+<p>La cuenta no es del tercero: es del par <strong>(tercero, rol)</strong>. Un mismo tercero que es cliente y fletero tiene <strong>dos cuentas separadas</strong>, y se mueven en direcciones opuestas sobre la misma operación.</p>
+<table class="docs-table">
+<thead><tr><th>Cuenta</th><th>Qué la sube</th><th>Qué la baja</th></tr></thead>
+<tbody>
+<tr><td><kbd>cliente</kbd></td><td>El alta de una orden y la factura</td><td>El cobro</td></tr>
+<tr><td><kbd>fletero</kbd></td><td>La comisión asentada al dar de alta la orden</td><td>El pago al fletero</td></tr>
+<tr><td><kbd>proveedor</kbd></td><td>Un movimiento de <a href="/docs/caja.html">caja</a> a su nombre</td><td>El pago</td></tr>
+</tbody>
+</table>
+<p>Las cuentas de <strong>clientes y fleteros</strong> se abren desde esta pantalla eligiendo el tercero y el rol. Las de <strong>proveedores</strong> se consultan hoy desde el <a href="/docs/reportes.html">reporte de saldos</a>, que las trae junto con las otras dos.</p>
+<div class="callout">
+<p><strong>Un movimiento con tercero pero sin rol se rechaza</strong> en vez de adivinar. Es la misma razón por la que existen dos cuentas: elegir mal la cuenta no da un error, da un saldo equivocado que nadie mira hasta que hay que cobrar.</p>
+</div>
+<h2>El saldo, calculado por dos caminos</h2>
+<p>La pantalla muestra <strong>dos saldos del mismo período</strong> y avisa en rojo cuando no coinciden. No es redundancia: uno lo suma la base de datos de una vez, el otro se acumula movimiento por movimiento. Si los dos dan lo mismo, el saldo no depende de dónde se hizo la cuenta.</p>
+<div class="callout warn">
+<p><strong>Si aparece el aviso rojo, el saldo no se usa hasta entender por qué.</strong> Mostrar un solo número haría que un saldo divergente se viera igual de confiable que uno sano — que es justamente la situación en la que no hay que confiar en él.</p>
+</div>
+<h2>El acumulado</h2>
+<p>Los movimientos se listan por <strong>fecha y número</strong>, con el saldo acumulado fila por fila. El desempate por número importa: sin él, la misma cuenta impresa dos veces podría salir en distinto orden y dar dos papeles distintos.</p>
+<h2>Ver todos los saldos de una vez</h2>
+<p>El <a href="/docs/reportes.html">reporte de <strong>Saldos de cuenta corriente</strong></a> trae las tres cuentas juntas, con el último movimiento de cada una y la opción de esconder las que están en cero.</p>
+<div class="docs-nav-footer">
+<a href="/docs/ordenes.html">← Órdenes de carga</a>
+<a href="/docs/caja.html">Caja →</a>
+</div>

@@ -1,0 +1,34 @@
+<h1>Usuarios</h1>
+<p class="docs-lead">Quién entra al sistema y qué puede hacer.</p>
+<h2>Los roles</h2>
+<table class="docs-table">
+<thead><tr><th>Rol</th><th>Qué puede hacer</th></tr></thead>
+<tbody>
+<tr><td><kbd>admin</kbd></td><td>Todo: además, administrar usuarios, editar los datos de la empresa y ver el <a href="/docs/logs.html">log de actividad</a></td></tr>
+<tr><td><kbd>staff</kbd></td><td>La operación completa: órdenes, cuentas corrientes, caja, comprobantes, reportes e impresión</td></tr>
+</tbody>
+</table>
+<div class="callout">
+<p><strong>El menú esconde lo que tu rol no puede usar</strong>, pero quien decide es el servidor. Un operador que llegara igual a una pantalla de administración recibiría un rechazo del sistema, no una pantalla a medias.</p>
+</div>
+<h2>Dar de alta un usuario</h2>
+<ol class="step-list">
+<li>Andá a <strong>Administración → Usuarios</strong> (sólo administradores).</li>
+<li><strong>Nuevo usuario</strong>: nombre, usuario, correo y rol.</li>
+<li>Asignale una contraseña inicial.</li>
+<li>Guardá. Ya puede entrar.</li>
+</ol>
+<h2>Dar de baja</h2>
+<p>Lo recomendable es <strong>desactivar</strong> en vez de eliminar: un usuario desactivado no puede entrar más, y lo que hizo sigue teniendo nombre en el <a href="/docs/logs.html">log de actividad</a>.</p>
+<div class="callout">
+<p><strong>Nadie puede desactivarse ni borrarse a sí mismo.</strong> Es la protección contra quedarse sin ningún administrador con la sesión abierta.</p>
+</div>
+<h2>Cambiar la contraseña</h2>
+<p>Cada usuario puede cambiar la suya desde su propio menú. Un administrador puede reasignar la de cualquiera — por ejemplo cuando alguien la olvida.</p>
+<div class="callout warn">
+<p><strong>Usuarios ilimitados.</strong> No se cobra por usuario: dar de alta a todo el que trabaja en la agencia no encarece nada, y es mejor que cinco personas compartan cinco usuarios y no uno.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/impresion.html">← Impresión de listados</a>
+<a href="/docs/logs.html">Log de actividad →</a>
+</div>

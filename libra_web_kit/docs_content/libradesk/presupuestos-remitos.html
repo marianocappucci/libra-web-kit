@@ -2,14 +2,48 @@
 <p class="docs-lead">Los dos documentos que acompañan al trabajo, con su PDF listo para enviar.</p>
 <h2>Catálogo de servicios</h2>
 <p>Los ítems salen de un catálogo con descripción, precio y alícuota de IVA, pero <strong>también podés escribir un ítem libre</strong>: al tipear, el sistema sugiere del catálogo; si no elegís ninguna sugerencia, queda el texto que escribiste.</p>
-<div class="docs-callout"><p>El comprobante <strong>copia</strong> la descripción y el precio, no los referencia. Si mañana cambiás el precio del catálogo, los presupuestos ya enviados siguen diciendo lo que decían — que es lo que corresponde.</p></div>
+<div class="callout"><p>El comprobante <strong>copia</strong> la descripción y el precio, no los referencia. Si mañana cambiás el precio del catálogo, los presupuestos ya enviados siguen diciendo lo que decían — que es lo que corresponde.</p></div>
 <h2>IVA</h2>
 <p>La alícuota es una propiedad del servicio (21 %, 10,5 %, 27 % o exento), y la <strong>condición de IVA del cliente</strong> decide si el impuesto se discrimina o va incluido en el precio. El PDF lee la condición al generarse: si estaba mal cargada, corregirla arregla también los presupuestos ya emitidos.</p>
 <h2>Estados del presupuesto</h2>
 <p>Borrador, enviado, aceptado o rechazado. El estado es lo que después permite saber cuánto de lo presupuestado se convirtió en trabajo.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img" aria-label="Los estados de un presupuesto y su conversión en remito" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los estados de un presupuesto y su conversión en remito</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="150" height="56" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="85.0" y="32" font-size="13" fill="#64748b" font-weight="800" text-anchor="middle">Borrador</text>
+<text x="85.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Se está armando</text>
+<line x1="163" y1="36" x2="187" y2="36" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="190" y="8" width="150" height="56" rx="10" fill="#eef2ff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="265.0" y="32" font-size="13" fill="#4338ca" font-weight="800" text-anchor="middle">Enviado</text>
+<text x="265.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Salió al cliente</text>
+<line x1="343" y1="36" x2="367" y2="36" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="370" y="8" width="150" height="56" rx="10" fill="#d1fae5" stroke="#cbd5e1" stroke-width="1"/>
+<text x="445.0" y="32" font-size="13" fill="#065f46" font-weight="800" text-anchor="middle">Aceptado</text>
+<text x="445.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El cliente dijo que sí</text>
+<line x1="553" y1="36" x2="577" y2="36" stroke="#4f46e5" stroke-width="1.5" marker-end="url(#pta-brand)"/>
+<rect x="580" y="8" width="160" height="56" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="660" y="32" font-size="13" fill="#4338ca" font-weight="800" text-anchor="middle">Remito</text>
+<text x="660" y="50" font-size="10" fill="#4338ca" font-weight="400" text-anchor="middle">Un click, y no duplica</text>
+<rect x="190" y="78" width="150" height="46" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="265.0" y="98" font-size="12" fill="#64748b" font-weight="700" text-anchor="middle">Rechazado</text>
+<text x="265.0" y="114" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El cliente dijo que no</text>
+<line x1="265.0" y1="66" x2="265.0" y2="76" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<rect x="370" y="78" width="150" height="46" rx="10" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+<text x="445.0" y="98" font-size="12" fill="#b45309" font-weight="700" text-anchor="middle">Vencido</text>
+<text x="445.0" y="114" font-size="10" fill="#92400e" font-weight="400" text-anchor="middle">Automático, por fecha</text>
+<text x="10" y="148" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">El vencimiento no hay que agendarlo: un presupuesto enviado cuya validez pasó ya figura vencido al abrir el listado.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">El recorrido de un presupuesto. Sólo el aceptado se convierte en remito, y la conversión no duplica: si ya se convirtió, devuelve el remito que existe.</figcaption>
+</figure>
+<div class="callout"><p>El vencimiento es <strong>automático</strong>: un presupuesto enviado cuya fecha de validez pasó ya figura vencido cuando abrís el listado. No hay nada que agendar ni ninguna tarea que recordar correr.</p></div>
+<h2>De presupuesto a remito</h2>
+<p>Un presupuesto aceptado se convierte en remito con un click, y la conversión es <strong>idempotente</strong>: si ya se convirtió, te devuelve el remito que existe en vez de emitir un segundo por el mismo trabajo.</p>
 <h2>Remitos</h2>
 <p>El remito documenta la entrega de bienes o trabajos. Misma mecánica de ítems y misma numeración correlativa.</p>
+<p>Es además <strong>el único documento que habilita a facturar</strong>: lo que se manda a <a href="/docs/facturacion.html">facturación</a> es la entrega hecha, no la oferta aceptada. Las <a href="/docs/ventas-cobranzas.html">ventas</a> y los trabajos de mesa de ayuda llegan ahí convirtiéndose en remito primero.</p>
 <div class="docs-nav-footer">
-<a href="/docs/activos.html">← Activos</a>
-<a href="/docs/reportes.html">Reportes →</a>
+<a href="/docs/compras.html">← Compras</a>
+<a href="/docs/ventas-cobranzas.html">Ventas y cobranzas →</a>
 </div>

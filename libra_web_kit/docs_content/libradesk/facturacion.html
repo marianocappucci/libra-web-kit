@@ -1,0 +1,23 @@
+<h1>Enviar a facturar</h1>
+<p class="docs-lead">El puente entre lo que entregaste y el sistema que emite la factura.</p>
+<div class="callout"><p>Módulo del plan <strong>Premium</strong>, y sólo para administradores: armar un comprobante es trabajo de cualquiera del equipo; decidir que se le cobre al cliente, no.</p></div>
+<h2>Qué hace y qué no</h2>
+<p><strong>LibraDesk no factura y no va a facturar.</strong> Arma el comprobante con lo que efectivamente se entregó y lo deja en la bandeja del sistema contable, donde una persona lo revisa y lo emite. Acá no hay CAE, no hay numeración fiscal y no hay nada irreversible: lo peor que puede pasar es que quede una fila de más en una bandeja, y se descarta con un click.</p>
+<h2>Sólo se manda el remito</h2>
+<p>La única fuente es el <a href="/docs/presupuestos-remitos.html">remito</a> —el diagrama de los cuatro orígenes está en <a href="/docs/recorrido.html">El recorrido completo</a>—. Un presupuesto aceptado es una oferta aceptada — todavía no pasó nada que facturar. Los otros orígenes del sistema llegan a facturación <strong>convirtiéndose en remito</strong> primero, no por un camino propio: la venta genera el suyo, y los trabajos de mesa de ayuda se agrupan en uno.</p>
+<h2>Varios trabajos, un solo remito</h2>
+<p>Se pueden juntar varias incidencias cerradas de un mismo cliente en un remito único, con el detalle renglón por renglón. Es lo que evita mandarle al cliente cinco comprobantes por una semana de trabajo.</p>
+<h2>A dónde va</h2>
+<table class="docs-table">
+<tr><th>Destino</th><th>Qué es</th></tr>
+<tr><td><strong>Contalibra</strong></td><td>El sistema contable de la misma familia. Si tenés los dos contratados, el remito aparece en su bandeja de comprobantes pendientes con el cliente ya identificado.</td></tr>
+<tr><td><strong>SOS Contador</strong></td><td>Si tu estudio contable ya trabaja con SOS Contador, LibraDesk manda ahí. Es un destino nativo: no hay que cambiar de sistema ni de contador.</td></tr>
+<tr><td><strong>Otro sistema con API</strong></td><td>El puente está hecho para tener varios destinos. Si el sistema que usás expone una API de comprobantes, se le suma un adaptador y funciona igual que los otros dos.</td></tr>
+</table>
+<h2>Cómo se configura</h2>
+<p>El emparejamiento lo hacemos nosotros al dar de alta la instancia, no se toca desde una pantalla: es una credencial de otro servicio y se define una vez. En <a href="/docs/configuracion.html">Configuración</a> ves si está conectado y a qué destino, nunca la credencial en sí.</p>
+<div class="callout"><p>El puente <strong>falla cerrado</strong>: sin destino configurado no se manda nada a ningún lado. Un cliente con el módulo habilitado y sin emparejar tiene la pantalla, no el envío.</p></div>
+<div class="docs-nav-footer">
+<a href="/docs/ventas-cobranzas.html">← Ventas y cobranzas</a>
+<a href="/docs/contratos.html">Equipos en alquiler →</a>
+</div>

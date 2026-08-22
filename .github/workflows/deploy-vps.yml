@@ -36,7 +36,16 @@ jobs:
       - name: Sync archivos al VPS
         uses: burnett01/rsync-deployments@7.0.1
         with:
-          switches: -avz --delete --exclude='.git' --exclude='.github' --exclude='*.md' --exclude='.claude' --exclude='.env'
+          # 🔴 El `--include` de `public/legal/*.md` va ANTES del `--exclude`
+          # de `*.md`: rsync aplica la primera regla que matchea, asi que al
+          # reves no serviria de nada.
+          #
+          # Existe porque `--exclude='*.md'` —puesto para no publicar el README
+          # del repo— tambien se llevaba el **texto original del contrato**, que
+          # es lo unico que hace verificable el sha256 que la pagina anuncia.
+          # El sintoma no se parecia a la causa: el HTML se publicaba y daba
+          # 200 en los ocho sitios, y el `.md` daba 404 en los ocho.
+          switches: -avz --delete --exclude='.git' --exclude='.github' --include='public/legal/*.md' --exclude='*.md' --exclude='.claude' --exclude='.env'
           path: ./
           remote_path: ${{ inputs.remote_path }}
           remote_host: 149.50.136.218

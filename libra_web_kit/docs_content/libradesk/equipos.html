@@ -1,10 +1,46 @@
 <h1>Equipos</h1>
 <p class="docs-lead">El inventario: qué equipo es, de quién, dónde está y hasta cuándo tiene garantía.</p>
+<h2>Qué es un equipo, y qué no</h2>
+<p>Es la confusión más común al empezar, porque LibraDesk lleva <strong>tres inventarios distintos</strong> y la pregunta que los separa es de quién es la cosa.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 186" role="img" aria-label="Las tres clases de inventario: equipo del cliente, activo propio y producto de stock" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Las tres clases de inventario: equipo del cliente, activo propio y producto de stock</title>
+<rect x="10" y="8" width="226" height="148" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="10" y="8" width="226" height="5" rx="2.5" fill="#4f46e5"/>
+<text x="28" y="42" font-size="16" fill="#0f172a" font-weight="800" text-anchor="start">Equipo</text>
+<text x="28" y="61" font-size="11" fill="#4f46e5" font-weight="700" text-anchor="start">Es del cliente</text>
+<text x="28" y="84" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Vos lo atendés. Vive en un depósito,</text>
+<text x="28" y="98" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">tiene garantía y su historial de</text>
+<text x="28" y="112" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">incidencias.</text>
+<line x1="28" y1="128" x2="218" y2="128" stroke="#cbd5e1"/>
+<text x="28" y="145" font-size="10" fill="#1e293b" font-weight="700" text-anchor="start">Mesa de ayuda ▸ Equipos</text>
+<rect x="247.0" y="8" width="226" height="148" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="247.0" y="8" width="226" height="5" rx="2.5" fill="#0891b2"/>
+<text x="265.0" y="42" font-size="16" fill="#0f172a" font-weight="800" text-anchor="start">Activo</text>
+<text x="265.0" y="61" font-size="11" fill="#0891b2" font-weight="700" text-anchor="start">Es tuyo, está en el cliente</text>
+<text x="265.0" y="84" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Colocado bajo un contrato de</text>
+<text x="265.0" y="98" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">alquiler, comodato, préstamo</text>
+<text x="265.0" y="112" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">o leasing.</text>
+<line x1="265.0" y1="128" x2="455.0" y2="128" stroke="#cbd5e1"/>
+<text x="265.0" y="145" font-size="10" fill="#1e293b" font-weight="700" text-anchor="start">Alquileres ▸ Activos</text>
+<rect x="484.0" y="8" width="226" height="148" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<rect x="484.0" y="8" width="226" height="5" rx="2.5" fill="#10b981"/>
+<text x="502.0" y="42" font-size="16" fill="#0f172a" font-weight="800" text-anchor="start">Producto</text>
+<text x="502.0" y="61" font-size="11" fill="#10b981" font-weight="700" text-anchor="start">Es mercadería</text>
+<text x="502.0" y="84" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Cables, tóners, repuestos. Se</text>
+<text x="502.0" y="98" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">compra, se consume en un trabajo</text>
+<text x="502.0" y="112" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">o se vende.</text>
+<line x1="502.0" y1="128" x2="692.0" y2="128" stroke="#cbd5e1"/>
+<text x="502.0" y="145" font-size="10" fill="#1e293b" font-weight="700" text-anchor="start">Inventario ▸ Productos</text>
+<text x="10" y="174" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Son tres inventarios distintos y no se mezclan. La pregunta que los separa es de quién es la cosa.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Equipo, activo y producto son tres cosas distintas y viven en tres grupos distintos del menú.</figcaption>
+</figure>
 <h2>Ficha</h2>
 <p>Tipo, marca, modelo y número de serie. La serie es lo que identifica al equipo de verdad: dos notebooks del mismo modelo sólo se distinguen por ahí.</p>
 <h2>Dónde está</h2>
 <p>Cada equipo vive en un <a href="/docs/depositos.html">depósito</a> y, opcionalmente, en un sector y una ubicación de oficina. Cambiar cualquiera de esos tres genera un <strong>movimiento de traslado</strong> con origen y destino: el historial de dónde estuvo se arma solo.</p>
-<div class="docs-callout"><p>Un equipo sólo puede guardarse en un depósito <strong>propio de la empresa</strong> o en uno <strong>de su cliente</strong>. Si intentás moverlo al depósito de otro cliente, el sistema lo rechaza.</p></div>
+<div class="callout"><p>Un equipo sólo puede guardarse en un depósito <strong>propio de la empresa</strong> o en uno <strong>de su cliente</strong>. Si intentás moverlo al depósito de otro cliente, el sistema lo rechaza.</p></div>
 <h2>Garantía</h2>
 <p>La fecha de vencimiento de garantía alimenta el bloque del dashboard y el <a href="/docs/reportes.html">reporte de garantías</a>, que muestra lo que vence dentro del horizonte elegido y lo que ya venció.</p>
 <h2>Estado</h2>

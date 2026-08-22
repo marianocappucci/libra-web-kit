@@ -1,0 +1,211 @@
+<h1>El recorrido completo</h1>
+<p class="docs-lead">Un trabajo de punta a punta, para hacerlo vos en el sistema y ver adónde va a parar cada dato que cargás. Son unos veinte minutos.</p>
+
+<p>El resto de la documentación explica pantalla por pantalla. Esta página hace lo contrario: sigue <strong>un solo trabajo</strong> desde que entra el llamado hasta que el comprobante queda listo para facturar, y en cada paso te dice <strong>dónde mirar después</strong> para ver que el dato se movió solo.</p>
+
+<p>La idea es que lo hagas cargando datos de prueba. Nada de lo que hagas acá es irreversible: LibraDesk no emite facturas ni toma numeración fiscal.</p>
+
+<div class="callout"><p><strong>Antes de arrancar</strong> conviene tener hechos los <a href="/docs/primeros-pasos.html">primeros pasos</a>: los datos de tu empresa, una persona cargada, un cliente y un depósito. Con eso alcanza.</p></div>
+
+<h2>Etapa 1 · Entra el trabajo</h2>
+
+<ol class="step-list">
+  <li><strong>Cargá un cliente.</strong> En <strong>Clientes → Nuevo</strong>. Poné domicilio y ciudad: los vas a necesitar en la hoja de ruta.</li>
+  <li><strong>Cargale un equipo.</strong> Desde la ficha del cliente, en <strong>Equipos</strong>. Es el parque del cliente: lo que está instalado en su casa o su oficina.</li>
+  <li><strong>Abrí una incidencia.</strong> En <strong>Incidencias → Nueva</strong>, elegí ese cliente y ese equipo, poné quién llamó, una descripción y la prioridad.</li>
+</ol>
+
+<p><strong>Andá a mirar:</strong> la ficha del cliente ya muestra la incidencia en su historial, la ficha del equipo también, y el <a href="/docs/dashboard.html">dashboard</a> la cuenta entre las abiertas. No cargaste el mismo dato tres veces: lo cargaste una y aparece en los tres lugares.</p>
+
+<div class="callout"><p><strong>Quién llamó no es el cliente.</strong> El cliente es la empresa que factura; quien llamó es la persona que atendió el teléfono del otro lado. Se guardan por separado porque cuando hay que devolver el llamado, el nombre que sirve es el segundo.</p></div>
+
+<h2>Etapa 2 · La salida a la calle</h2>
+
+<ol class="step-list">
+  <li><strong>Agendá la visita.</strong> En la incidencia, poné fecha y hora, la duración prevista y qué cuadrilla va. Si esa cuadrilla ya tiene otro trabajo pisado a esa hora, <strong>el sistema no te deja guardar</strong> y te dice con cuál choca: no es un aviso que se pueda pasar de largo.</li>
+  <li><strong>Mirá la agenda del día.</strong> En <a href="/docs/agenda.html"><strong>Agenda</strong></a>, elegí el día: ahí está la salida ordenada por hora, con el domicilio y la patente del vehículo de la cuadrilla.</li>
+  <li><strong>Imprimí la hoja de ruta.</strong> El botón de la agenda saca el PDF <em>del día que estás mirando</em>: las paradas en orden, con los renglones para anotar hora de llegada y de salida, y el kilometraje al salir y al volver.</li>
+</ol>
+
+<p><strong>Fijate en un detalle:</strong> la patente no la cargaste en la incidencia. Sale de la cuadrilla, que tiene su vehículo asignado. Si mañana esa cuadrilla cambia de camioneta, cambia en un solo lugar y las hojas de ruta salen bien sin tocar ningún trabajo.</p>
+
+<h2>Etapa 3 · El trabajo</h2>
+
+<ol class="step-list">
+  <li><strong>Pasala a «en progreso»</strong> y cargá las horas y la modalidad —en sitio o remoto—.</li>
+  <li><strong>Cargá un material.</strong> En la misma incidencia, sumá un producto del depósito.</li>
+  <li><strong>Andá al depósito.</strong> En <a href="/docs/stock.html"><strong>Stock</strong></a>, mirá ese producto: <strong>ya tiene una unidad menos</strong>, y el movimiento dice de qué incidencia salió.</li>
+</ol>
+
+<div class="callout"><p><strong>El stock se mueve al cargar el material, no al cerrar el trabajo.</strong> Porque un trabajo se puede reabrir, y porque mientras tanto el depósito estaría diciendo que la pieza sigue ahí cuando ya viaja en la camioneta. Si el material vuelve, se marca como devuelto y no se cobra.</p></div>
+
+<h2>Etapa 4 · El cierre, que son dos</h2>
+
+<p>Acá está la decisión más importante del circuito, y conviene entenderla antes de seguir.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 154" role="img" aria-label="Los cuatro estados de una incidencia y la barrera entre resuelta y cerrada" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los cuatro estados de una incidencia y la barrera entre resuelta y cerrada</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="158" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="89.0" y="32" font-size="14" fill="#64748b" font-weight="800" text-anchor="middle">Abierto</text>
+<text x="89.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Entró el pedido</text>
+<line x1="172" y1="41" x2="186.66666666666666" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="190.66666666666666" y="8" width="158" height="66" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="269.66666666666663" y="32" font-size="14" fill="#64748b" font-weight="800" text-anchor="middle">En progreso</text>
+<text x="269.66666666666663" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Alguien la está haciendo</text>
+<line x1="352.66666666666663" y1="41" x2="367.3333333333333" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="371.3333333333333" y="8" width="158" height="66" rx="10" fill="#eef2ff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="450.3333333333333" y="32" font-size="14" fill="#4338ca" font-weight="800" text-anchor="middle">Resuelta</text>
+<text x="450.3333333333333" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El técnico terminó</text>
+<line x1="533.3333333333333" y1="41" x2="547.9999999999999" y2="41" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="552.0" y="8" width="158" height="66" rx="10" fill="#d1fae5" stroke="#cbd5e1" stroke-width="1"/>
+<text x="631.0" y="32" font-size="14" fill="#065f46" font-weight="800" text-anchor="middle">Cerrado</text>
+<text x="631.0" y="50" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Administración controló</text>
+<text x="631.0" y="63" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">y la manda a facturar</text>
+<line x1="540.6666666666666" y1="4" x2="540.6666666666666" y2="92" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 3"/>
+<text x="532.6666666666666" y="88" font-size="10" fill="#b45309" font-weight="700" text-anchor="end">el trabajo está hecho</text>
+<text x="548.6666666666666" y="88" font-size="10" fill="#b45309" font-weight="700" text-anchor="start">y alguien lo controló</text>
+<rect x="10" y="100" width="700" height="44" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="24" y="122" font-size="12" fill="#0f172a" font-weight="700" text-anchor="start">Un remito sólo se emite sobre incidencias CERRADAS.</text>
+<text x="24" y="138" font-size="11" fill="#64748b" font-weight="400" text-anchor="start">Lo que habilita a cobrar no es que el trabajo esté hecho, sino que alguien lo haya controlado.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Los cuatro estados de una incidencia. Entre «resuelta» y «cerrada» hay una barrera deliberada: el trabajo hecho no habilita a cobrar, el control sí.</figcaption>
+</figure>
+
+<table class="docs-table">
+  <thead>
+    <tr><th>Estado</th><th>Qué significa</th><th>Quién lo pone</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Resuelta</strong></td><td>El técnico terminó el trabajo.</td><td>Quien ejecutó</td></tr>
+    <tr><td><strong>Cerrado</strong></td><td>Alguien controló el papel firmado contra la hoja de ruta y <strong>decidió que va a facturación</strong>.</td><td>Quien administra</td></tr>
+  </tbody>
+</table>
+
+<ol class="step-list">
+  <li><strong>Marcala resuelta</strong> y anotá el número del comprobante que firmó el cliente, si usás talonario en papel.</li>
+  <li><strong>Cerrala.</strong> Recién ahí queda disponible para facturar.</li>
+</ol>
+
+<p><strong>Probá esto:</strong> intentá emitir el remito con la incidencia en «resuelta». No te va a dejar, y te va a decir por qué. Es a propósito: lo que habilita a cobrar no es que el trabajo esté hecho, sino que alguien lo haya controlado.</p>
+
+<div class="callout warn"><p><strong>Si el cliente paga un abono mensual</strong>, antes de cerrar hay que declarar qué parte de <em>este</em> trabajo cubre el abono: todo, nada o una parte. Con el campo vacío el sistema no deja seguir — y eso es lo que impide facturarle de más a alguien que ya paga por mes.</p></div>
+
+<h2>Etapa 5 · El remito</h2>
+
+<p>Todo lo que se factura pasa por un remito. Es la única puerta, y es a propósito: mientras haya una sola, no hay forma de cobrar dos veces el mismo trabajo.</p>
+
+<ol class="step-list">
+  <li><strong>Repetí las etapas 1 a 4</strong> con dos incidencias más del mismo cliente. Total son tres trabajos cerrados.</li>
+  <li><strong>En la grilla de incidencias, tildá las tres</strong> y emití el remito.</li>
+  <li><strong>Abrí el PDF.</strong> Sale <strong>una línea por trabajo</strong>, encabezada por el número del papel firmado, y los materiales de cada uno debajo del suyo.</li>
+</ol>
+
+<p><strong>Probá los bordes:</strong></p>
+<ul>
+  <li>Tildá dos incidencias de <strong>clientes distintos</strong>: la acción se apaga y dice por qué. Un remito se emite a nombre de uno solo.</li>
+  <li>Volvé a emitir el remito sobre las mismas tres: te devuelve el mismo, no uno nuevo. El doble click no duplica nada.</li>
+  <li>Mezclá una ya remitada con una nueva: falla entera, y está bien que falle. Devolverte el remito viejo dejaría el trabajo nuevo sin facturar y sin avisarte.</li>
+</ul>
+
+<h2>Etapa 6 · Enviar a facturar</h2>
+
+<ol class="step-list">
+  <li><strong>Andá a <a href="/docs/facturacion.html">Facturación</a>.</strong> Ahí están los remitos con el estado de su envío ya anotado, para que no tengas que mandarlo de nuevo para averiguar si ya fue.</li>
+  <li><strong>Revisá los importes</strong> antes de mandar. Este es el último punto donde se corrigen.</li>
+  <li><strong>Mandalo</strong>, si tu instancia tiene el enlace configurado con tu sistema contable.</li>
+  <li><strong>Mirá la cuenta corriente del cliente:</strong> el importe quedó debitado ahí, sin que lo cargues aparte.</li>
+</ol>
+
+<div class="callout"><p><strong>LibraDesk no factura, y está decidido que no lo haga.</strong> Arma el comprobante y lo deja en la bandeja de tu sistema contable —Contalibra, SOS Contador u otro con API—, donde una persona lo revisa y lo emite ante ARCA. Acá no hay CAE ni numeración fiscal: nada de lo que hagas en esta pantalla es irreversible.</p></div>
+
+<h2>Etapa 7 · Los otros tres caminos</h2>
+
+<p>El trabajo de un técnico no es lo único que se factura. Los otros tres llegan al mismo remito de la etapa 5, por caminos propios. Probá al menos uno.</p>
+<figure style="margin:1.75rem 0;padding:1.1rem;border:1px solid #e2e8f0;border-radius:12px;background:#fff">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 246" role="img" aria-label="Los cuatro orígenes de lo facturable convergen en un remito único" style="width:100%;height:auto;display:block;font-family:Inter, system-ui, -apple-system, sans-serif">
+<title>Los cuatro orígenes de lo facturable convergen en un remito único</title>
+<defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker><marker id="pta-brand" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4f46e5"/></marker></defs>
+<rect x="10" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="92.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Trabajos de mesa de ayuda</text>
+<text x="92.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Incidencias cerradas,</text>
+<text x="92.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">agrupadas por cliente</text>
+<line x1="92.5" y1="74" x2="92.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="195" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="277.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Presupuesto aceptado</text>
+<text x="277.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Se convierte,</text>
+<text x="277.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">no se manda solo</text>
+<line x1="277.5" y1="74" x2="277.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="380" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="462.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Cuota de alquiler</text>
+<text x="462.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">El devengado</text>
+<text x="462.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">del contrato</text>
+<line x1="462.5" y1="74" x2="462.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="565" y="8" width="165" height="62" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+<text x="647.5" y="30" font-size="11" fill="#0f172a" font-weight="700" text-anchor="middle">Venta de equipo</text>
+<text x="647.5" y="46" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">Genera su remito</text>
+<text x="647.5" y="59" font-size="10" fill="#64748b" font-weight="400" text-anchor="middle">al confirmarse</text>
+<line x1="647.5" y1="74" x2="647.5" y2="96" stroke="#64748b" stroke-width="1.5" marker-end="url(#pta)"/>
+<rect x="10" y="100" width="700" height="54" rx="10" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+<text x="360.0" y="124" font-size="15" fill="#4338ca" font-weight="800" text-anchor="middle" letter-spacing="1.5">REMITO</text>
+<text x="360.0" y="142" font-size="11" fill="#4338ca" font-weight="400" text-anchor="middle">La única puerta. Mientras haya una sola, nada se cobra dos veces.</text>
+<line x1="360.0" y1="158" x2="360.0" y2="182" stroke="#4f46e5" stroke-width="1.5" marker-end="url(#pta-brand)"/>
+<rect x="10" y="186" width="700" height="50" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+<text x="360.0" y="208" font-size="13" fill="#0f172a" font-weight="700" text-anchor="middle">Enviar a facturar</text>
+<text x="360.0" y="225" font-size="11" fill="#64748b" font-weight="400" text-anchor="middle">El comprobante queda como borrador en tu sistema contable. LibraDesk no emite la factura.</text>
+</svg>
+<figcaption style="margin-top:.85rem;font-size:.82rem;line-height:1.5;color:#64748b;text-align:center">Los cuatro orígenes de lo facturable y la puerta única por la que pasan todos.</figcaption>
+</figure>
+
+<h3>Un presupuesto aceptado</h3>
+<p>Cargá un presupuesto, marcalo aceptado y convertilo. Sale un remito, y el presupuesto queda atado a él. Fijate que después <strong>no aparece dos veces</strong> en la bandeja: el presupuesto no se manda solo, se manda su remito.</p>
+
+<h3>Un alquiler</h3>
+<ol class="step-list">
+  <li>Cargá un <strong>contrato</strong> de alquiler con su equipo y su precio.</li>
+  <li>Generá la <strong>cuota del mes</strong> desde <strong>Alquileres → Cuotas</strong>, que es la pantalla del devengado de todos los contratos. Hay una previsualización que muestra qué se generaría <em>sin escribir nada</em>: mirala antes de confirmar.</li>
+  <li>Convertí la cuota en remito. Entra por la misma puerta que los trabajos.</li>
+</ol>
+<p>El mes se cobra adelantado y se prorratea por días en las dos puntas: un alquiler que arranca el 20 cobra la parte que corresponde, no el mes entero. Y el importe <strong>se congela al generar</strong>, así que si mañana actualizás el precio, la cuota ya emitida no cambia.</p>
+
+<h3>Una venta de equipo</h3>
+<p>Cargá una venta. Vas a ver tres cosas moverse a la vez: el <strong>stock baja</strong>, la venta <strong>genera su remito</strong>, y si el producto está marcado como equipo, <strong>queda una ficha en el parque del cliente</strong>. El próximo reclamo sobre ese equipo lo va a encontrar sin que nadie lo cargue a mano.</p>
+
+<h2>El rastro completo</h2>
+
+<p>Esto es lo que quedó registrado sin que lo cargaras dos veces.</p>
+
+<table class="docs-table">
+  <thead>
+    <tr><th>Lo que cargaste</th><th>Dónde reapareció solo</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>La incidencia</td><td>Historial del cliente, historial del equipo, dashboard, agenda del día</td></tr>
+    <tr><td>La cuadrilla asignada</td><td>Hoja de ruta, con el domicilio del cliente y la patente del vehículo</td></tr>
+    <tr><td>El material</td><td>Movimiento de stock del depósito, y línea en el remito</td></tr>
+    <tr><td>Las horas</td><td>Línea del remito, al precio de la lista de ese cliente</td></tr>
+    <tr><td>El número del papel firmado</td><td>Encabezando su línea del remito, para conciliar renglón por renglón</td></tr>
+    <tr><td>El remito enviado</td><td>Débito en la cuenta corriente del cliente</td></tr>
+    <tr><td>La venta de un equipo</td><td>Stock, remito y ficha nueva en el parque del cliente</td></tr>
+  </tbody>
+</table>
+
+<h2>Qué no va a pasar</h2>
+
+<p>Para que no lo busques: esto es deliberado, no algo que falte configurar.</p>
+
+<ul>
+  <li><strong>No sale ninguna factura.</strong> El comprobante queda como borrador del lado contable y lo emite una persona.</li>
+  <li><strong>Nadie te avisa cuando la factura se emite.</strong> Del lado de LibraDesk, lo último que se sabe es «enviado».</li>
+  <li><strong>La conformidad del cliente es en papel.</strong> Lo que entra al sistema es el número del talonario, que es la llave entre el papel firmado y el trabajo.</li>
+  <li><strong>La prioridad no arranca ningún reloj.</strong> Es una etiqueta para ordenar, no un plazo comprometido.</li>
+  <li><strong>Un abono sin frecuencia de visita cargada no genera visitas.</strong> Cobra la cuota y nada más, hasta que le digas cada cuánto hay que ir.</li>
+  <li><strong>Un cliente sin lista de precios asignada cotiza por la general.</strong> Las listas por cliente existen, pero hay que asignarlas.</li>
+</ul>
+
+<div class="callout success"><p><strong>Si algo del recorrido no se comporta como dice acá, contanos.</strong> Esta página describe el circuito tal como está construido; cuando la realidad de tu empresa no entra en él, lo que se cambia es el sistema.</p></div>
+
+<div class="docs-nav-footer">
+<a href="/docs/primeros-pasos.html">← Primeros pasos</a>
+<a href="/docs/dashboard.html">Dashboard →</a>
+</div>

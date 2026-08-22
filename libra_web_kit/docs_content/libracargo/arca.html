@@ -1,0 +1,41 @@
+<h1>Facturación (ARCA)</h1>
+<p class="docs-lead">Cargar el certificado y la clave privada con los que tu razón social se identifica ante ARCA.</p>
+<h2>Una configuración por razón social</h2>
+<p>El certificado de ARCA pertenece a <strong>un CUIT</strong>, y el CUIT lo tiene la <a href="/docs/maestros.html">razón social</a>. Si facturás con dos razones sociales propias, cada una lleva su certificado, su clave y su punto de venta.</p>
+<h2>Cargar el certificado</h2>
+<ol class="step-list">
+<li>Andá a <strong>⚙ Configuración → Facturación (ARCA)</strong> (sólo administradores).</li>
+<li>Elegí la razón social.</li>
+<li>Subí el <strong>certificado</strong> (el <code>.crt</code> que te devolvió ARCA) y tu <strong>clave privada</strong>.</li>
+<li>Guardá.</li>
+</ol>
+<h2>Los archivos se validan al subirlos</h2>
+<div class="callout">
+<p><strong>Y no el día que se factura</strong>, que es cuando duele. Hay tres errores de armado que no se ven mirando el nombre del archivo:</p>
+</div>
+<table class="docs-table">
+<thead><tr><th>Error</th><th>Qué pasa si no se detecta</th></tr></thead>
+<tbody>
+<tr><td>Subir el <code>.csr</code> en vez del <code>.crt</code></td><td>El <code>.csr</code> es el <em>pedido</em> de certificado, no el certificado</td></tr>
+<tr><td>Cambiar de campo el certificado y la clave</td><td>Los dos archivos son válidos, pero están al revés</td></tr>
+<tr><td><strong>Que no sean pareja</strong></td><td>Son dos archivos válidos, se ven perfectos, y ARCA rechaza con un error genérico que no dice cuál de los dos está mal</td></tr>
+</tbody>
+</table>
+<p>El tercero es el que más cuesta encontrar solo. El sistema compara la clave pública del certificado contra la de tu clave privada y te avisa en el momento.</p>
+<h2>El vencimiento</h2>
+<div class="callout warn">
+<p><strong>Los certificados de ARCA duran dos años</strong>, y el día que vencen la facturación deja de andar sin que nadie haya tocado nada. La pantalla te muestra siempre cuándo vence el tuyo.</p>
+</div>
+<h2>Dónde se guardan</h2>
+<p>En tu base de datos, no en el disco del servidor — igual que el logo. Es lo que hace que el <a href="/docs/backup.html">backup</a> sea completo: con las credenciales afuera, restaurar una copia dejaría una instancia que no puede facturar <strong>y que no lo dice</strong>.</p>
+<div class="callout warn">
+<p><strong>La contracara, y conviene saberla:</strong> el ZIP de backup que te descargás <strong>lleva adentro tu clave privada</strong>. Es tu clave y tu backup, pero no lo mandes por mail.</p>
+</div>
+<h2>Todavía no se emite desde acá</h2>
+<div class="callout">
+<p>Esta pantalla es la <strong>configuración</strong>. Los <a href="/docs/comprobantes.html">comprobantes</a> hoy se registran con el número tipeado; pedirle el CAE a ARCA es la etapa siguiente, y esto es lo que hay que tener listo para cuando llegue.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/maestros.html">← Maestros</a>
+<a href="/docs/ordenes.html">Órdenes de carga →</a>
+</div>
