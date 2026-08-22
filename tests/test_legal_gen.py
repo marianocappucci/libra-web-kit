@@ -107,6 +107,19 @@ def test_el_html_publica_las_clausulas_del_contrato(frase):
 
 # ── 4. Presentación ──────────────────────────────────────────────────────────
 
+def test_el_html_sale_del_motor_y_el_kit_solo_le_pone_la_clase():
+    """🔴 Un convertidor por lado dejaría al cliente leyendo el mismo contrato con
+    otro formato —otras negritas, una tabla que en un lado se ve y en el otro
+    no— sin que nada falle. Acá se fija que la página es exactamente el HTML de
+    `libraauth` más la clase de las tablas."""
+    from libraauth.terminos import texto_html
+
+    from libra_web_kit.legal_gen import _a_html
+
+    assert _a_html() == texto_html().replace("<table>", '<table class="docs-table">')
+    assert _a_html() in render("contalibra")
+
+
 def test_las_tablas_llevan_la_clase_del_kit():
     html = render("libraclub")
     assert "<table>" not in html

@@ -26,16 +26,19 @@ dev = [
     "httpx>=0.27",
     "beautifulsoup4>=4.12",
     "lxml>=5.0",
-    # Solo para `legal_gen` y `scripts/generate_legal.py`. Van en dev y no en las
+    # Solo para `legal_gen` y `scripts/generate_legal.py`. Va en dev y no en las
     # dependencias del paquete porque los contenedores de las landings sirven
     # HTML ya generado: meter libraauth ahi les arrastraria SQLAlchemy y un motor
     # de autenticacion entero para servir archivos estaticos.
     #
+    # De aca sale el TEXTO del contrato, su hash y su conversion a HTML — los
+    # tres del mismo modulo que usan las instancias, para que la pagina publicada
+    # y la que se acepta adentro del sistema no puedan divergir.
+    #
     # 🔴 El pin es lo que ata la pagina publicada al texto que las instancias
     # exigen aceptar. Al subir la version del contrato hay que subirlo aca
     # tambien, o la web queda publicando la anterior sin que nada falle.
-    "markdown>=3.6",
-    "libraauth @ git+https://github.com/marianocappucci/libraauth.git@v0.30.0",
+    "libraauth @ git+https://github.com/marianocappucci/libraauth.git@v0.31.0",
 ]
 
 [tool.hatch.metadata]

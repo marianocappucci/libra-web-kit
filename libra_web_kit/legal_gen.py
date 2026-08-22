@@ -27,9 +27,8 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from libra_web_kit.docs_sidebars import SIDEBARS
 
 try:
-    import markdown as _markdown
     from libraauth.terminos import (
-        VERSION_VIGENTE, VIGENTE_DESDE, hash_vigente, texto_vigente,
+        VERSION_VIGENTE, VIGENTE_DESDE, hash_vigente, texto_html, texto_vigente,
     )
 except ModuleNotFoundError as exc:  # pragma: no cover - camino de instalacion
     raise ModuleNotFoundError(
@@ -60,17 +59,23 @@ def sitios() -> list[str]:
     return sorted(SIDEBARS)
 
 
-def _a_html(texto_md: str) -> str:
-    """Markdown -> HTML, con las tablas tomando la clase que el CSS del kit ya
-    define.
+def _a_html() -> str:
+    """El HTML del contrato, con las tablas tomando la clase que el CSS del kit
+    ya define.
 
-    `markdown` emite `<table>` pelado y todo el estilo de tablas de
-    `style.css.template` cuelga de `.docs-table`. Sin este reemplazo las dos
-    tablas del contrato —la de severidades de soporte y la del Anexo II— salen
-    sin bordes ni encabezado, que es justo donde se nota.
+    🔑 **La conversion no se hace aca**: sale de `libraauth.terminos.texto_html()`,
+    el mismo convertidor que usa la pantalla de aceptacion adentro del sistema.
+    Convertir por separado habria dejado al cliente leyendo el mismo contrato con
+    otras negritas o una tabla que en un lado se ve y en el otro no, sin que nada
+    falle.
+
+    Lo unico que se agrega aca es la clase: el motor devuelve HTML pelado a
+    proposito, porque el estilo es lo unico que legitimamente cambia entre una
+    landing y una SPA. Todo el estilo de tablas de `style.css.template` cuelga de
+    `.docs-table`; sin este reemplazo las dos tablas del contrato —severidades de
+    soporte y Anexo II— salen sin bordes ni encabezado.
     """
-    html = _markdown.markdown(texto_md, extensions=["tables", "sane_lists"])
-    return html.replace("<table>", '<table class="docs-table">')
+    return texto_html().replace("<table>", '<table class="docs-table">')
 
 
 def render(site: str) -> str:
@@ -88,7 +93,7 @@ def render(site: str) -> str:
         vigente_desde=VIGENTE_DESDE,
         hash_texto=hash_vigente(),
         archivo_markdown="/" + RUTA_MARKDOWN,
-        contenido_html=_a_html(texto_vigente()),
+        contenido_html=_a_html(),
     )
 
 
