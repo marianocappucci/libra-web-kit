@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Términos y Condiciones del Servicio — {{ brand }}</title>
+  <meta name="description" content="Términos y Condiciones del Servicio de {{ brand }} — versión {{ version }}, vigente desde el {{ vigente_desde }}.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="navbar-brand" style="text-decoration:none"><div class="logo-icon">{{ letter }}</div>{{ brand }}</a>
+  <div class="navbar-links">
+    <a href="/#funciones">Funciones</a>
+    <a href="/#planes">Planes</a>
+    <a href="/docs/">Documentación</a>
+    <a href="/legal/terminos" class="active" style="color:var(--brand)">Términos</a>
+  </div>
+</nav>
+
+<div class="docs-wrapper" style="justify-content:center">
+  <main class="docs-content">
+
+    <div class="callout">
+      <strong>Versión {{ version }}</strong> · vigente desde el {{ vigente_desde }}.<br>
+      Este es el texto que se acepta al ingresar al sistema. Su huella
+      <strong>SHA-256</strong> es
+      <code style="word-break:break-all">{{ hash_texto }}</code>.
+      Se puede verificar sobre el
+      <a href="{{ archivo_markdown }}">texto original en Markdown</a>
+      con <code>sha256sum</code>.
+    </div>
+
+    {{ contenido_html | safe }}
+
+  </main>
+</div>
+
+{{ footer_html | safe }}
+</body>
+</html>
