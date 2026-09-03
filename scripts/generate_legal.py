@@ -17,7 +17,11 @@ import sys
 from pathlib import Path
 
 from libra_web_kit.legal_gen import (
-    RUTA_HTML, RUTA_MARKDOWN, markdown_publicado, render, sitios,
+    RUTA_HTML,
+    RUTA_MARKDOWN,
+    markdown_publicado,
+    render,
+    sitios,
 )
 
 #: 🔴 Mismo riesgo que en `generate_docs.py` y `generate_css.py`: un sitio de

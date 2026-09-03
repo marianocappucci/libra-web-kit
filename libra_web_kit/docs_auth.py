@@ -24,9 +24,9 @@ import time
 from dataclasses import dataclass
 
 import httpx
-from fastapi import FastAPI, Request, Form
+from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
-from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
+from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 
 COOKIE_NAME = "docs_session"
 MAX_AGE = 86400 * 7  # 7 dias
