@@ -31,10 +31,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Sync archivos al VPS
-        uses: burnett01/rsync-deployments@7.0.1
+        uses: burnett01/rsync-deployments@9.0.0
         with:
           # 🔴 El `--include` de `public/legal/*.md` va ANTES del `--exclude`
           # de `*.md`: rsync aplica la primera regla que matchea, asi que al
@@ -54,7 +54,7 @@ jobs:
           remote_key: ${{ secrets.VPS_DEPLOY_KEY }}
 
       - name: Rebuild y restart Docker
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: 149.50.136.218
           port: 5384
@@ -82,7 +82,7 @@ jobs:
             echo "Deploy OK: $(date)"
 
       - name: Verificar que la pagina servida cambio
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: 149.50.136.218
           port: 5384
