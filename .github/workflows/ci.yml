@@ -31,6 +31,55 @@ jobs:
         with:
           python-version: "3.12"
 
+      # Los repos de la familia vuelven a PRIVADO el 2026-09-01: sin
+      # credenciales, `pip` no puede clonarlos y el build falla adentro del
+      # install, con un error de git que no dice cual repo fallo.
+      #
+      # Una deploy key ES una identidad por repo, y con dos o mas cargadas SSH
+      # las ofrece en orden: GitHub autentica con la primera que acepta, que
+      # puede no ser la del repo que se esta clonando. Por eso el alias
+      # `github-<repo>` con `IdentitiesOnly yes`, y no `github.com` a secas.
+      #
+      # Estructura generalizada (la misma de libradesk/gestiolibra/medlibra):
+      # agregar una dependencia privada nueva es una linea de `configurar`.
+      - name: Configurar acceso SSH a las dependencias privadas de Libra
+        env:
+          LIBRAAUTH_DEPLOY_KEY: ${{ secrets.LIBRAAUTH_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          configurar() {
+            repo=$1; clave=$2
+            if [ -z "$clave" ]; then
+              echo "::error::Falta el secret con la deploy key de $repo en este repositorio."
+              echo "Sin el, pip no puede clonar $repo (repo privado) y el build falla."
+              echo "Es la clave privada de una deploy key de solo lectura sobre marianocappucci/$repo."
+              exit 1
+            fi
+            printf '%s\n' "$clave" > ~/.ssh/id_"$repo"
+            chmod 600 ~/.ssh/id_"$repo"
+            printf 'Host github-%s\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_%s\n  IdentitiesOnly yes\n' \
+              "$repo" "$repo" >> ~/.ssh/config
+            git config --global \
+              url."git@github-$repo:marianocappucci/$repo".insteadOf \
+              "https://github.com/marianocappucci/$repo"
+          }
+          configurar libraauth "$LIBRAAUTH_DEPLOY_KEY"
+
+      # Confirma que cada clave autentica contra SU repo y no contra otro: es
+      # exactamente el modo de fallar que motiva los alias de arriba, y sin
+      # este paso recien se notaria adentro del pip install.
+      - name: Verificar que cada deploy key resuelve a su propio repo
+        run: |
+          for repo in libraauth; do
+            saludo=$(ssh -o StrictHostKeyChecking=yes -T "git@github-$repo" 2>&1 || true)
+            echo "$repo -> $saludo"
+            case "$saludo" in
+              *"marianocappucci/$repo"*) ;;
+              *) echo "::error::La deploy key de $repo no resuelve a marianocappucci/$repo."; exit 1 ;;
+            esac
+          done
+
       - name: Install package + dev deps
         run: pip install -e ".[dev]"
 
