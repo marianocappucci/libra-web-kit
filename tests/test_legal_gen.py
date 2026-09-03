@@ -22,12 +22,17 @@ import re
 from pathlib import Path
 
 import pytest
+from libraauth.terminos import VERSION_VIGENTE, hash_vigente, texto_vigente
 
 from libra_web_kit.docs_sidebars import SIDEBARS
 from libra_web_kit.legal_gen import (
-    RUTA_HTML, RUTA_MARKDOWN, markdown_publicado, render, render_all, sitios,
+    RUTA_HTML,
+    RUTA_MARKDOWN,
+    markdown_publicado,
+    render,
+    render_all,
+    sitios,
 )
-from libraauth.terminos import VERSION_VIGENTE, hash_vigente, texto_vigente
 
 RAIZ = Path(__file__).resolve().parents[1]
 
@@ -129,8 +134,8 @@ def test_las_tablas_llevan_la_clase_del_kit():
 def test_las_paginas_de_docs_linkean_a_los_terminos():
     """La página publicada tiene que ser alcanzable. Sin este link sólo llega
     quien ya tiene la URL."""
-    from libra_web_kit.docs_gen import render as render_docs
     from libra_web_kit.docs_gen import list_pages
+    from libra_web_kit.docs_gen import render as render_docs
 
     html = render_docs("contalibra", list_pages("contalibra")[0])
     assert 'href="/legal/terminos"' in html

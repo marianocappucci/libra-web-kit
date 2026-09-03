@@ -5,7 +5,7 @@ import httpx
 import pytest
 from fastapi.testclient import TestClient
 
-from libra_web_kit.docs_auth import build_docs_login_app, DocsLoginTheme
+from libra_web_kit.docs_auth import DocsLoginTheme, build_docs_login_app
 
 
 @pytest.fixture(autouse=True)

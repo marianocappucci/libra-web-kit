@@ -28,7 +28,11 @@ from libra_web_kit.docs_sidebars import SIDEBARS
 
 try:
     from libraauth.terminos import (
-        VERSION_VIGENTE, VIGENTE_DESDE, hash_vigente, texto_html, texto_vigente,
+        VERSION_VIGENTE,
+        VIGENTE_DESDE,
+        hash_vigente,
+        texto_html,
+        texto_vigente,
     )
 except ModuleNotFoundError as exc:  # pragma: no cover - camino de instalacion
     raise ModuleNotFoundError(
