@@ -1,0 +1,73 @@
+name: Bump de motores
+
+# Reusable: cada consumidor de la familia lo llama con un caller de ~10 lineas
+# (schedule diario + boton manual). Al detectar que el tag publicado de un motor
+# es mas nuevo que el pin del consumidor, abre en ESE consumidor un PR de bump
+# --uno por motor--, con su CI corriendo. Es "lo que se hacia a mano con un
+# worktree por producto", una vez por repo y disparado por tiempo.
+#
+# 🔴 Por que una GitHub App y no el GITHUB_TOKEN por defecto: un PR abierto con
+# el GITHUB_TOKEN del repo NO dispara el workflow `pull_request` (proteccion
+# anti-loop de GitHub), y el CI de la familia corre SOLO `on: pull_request`.
+# Con el token de la App `libra-bump` el PR lo abre otra identidad, asi que el
+# CI corre solo sobre el --que es lo que hace util al PR-. No es un PAT: la App
+# tiene permisos finos (contents + pull_requests), no vence, y no cuelga de la
+# sesion de una persona. Ver la doc de E3 en el wiki para crearla.
+
+on:
+  workflow_call:
+    # Sin inputs: el script detecta que motores pinea el repo leyendo su
+    # pyproject.toml y su package.json. Una sola fuente de verdad: el pin real.
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout del consumidor
+        uses: actions/checkout@v4
+        with:
+          # `fetch-depth: 0` para que `git ls-remote --heads origin` vea las
+          # ramas de bump ya abiertas y el script no duplique un PR.
+          fetch-depth: 0
+
+      - name: Traer el script de bump desde libra-web-kit
+        uses: actions/checkout@v4
+        with:
+          repository: marianocappucci/libra-web-kit
+          ref: main
+          path: _bump
+          # El script vive en UN solo lugar: un arreglo se propaga a los diez
+          # consumidores sin tocar sus repos.
+          sparse-checkout: bump_motores.py
+          sparse-checkout-cone-mode: false
+
+      - name: Node (para re-resolver el lock de los pines de package.json)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Token de la App libra-bump
+        id: token
+        continue-on-error: true
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.LIBRA_BUMP_APP_ID }}
+          private-key: ${{ secrets.LIBRA_BUMP_APP_KEY }}
+
+      - name: Abrir los PR de bump
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          # Sin la App configurada el paso NO falla: deja un warning y sale, para
+          # que el workflow se pueda agregar antes de crear la App sin que el CI
+          # quede rojo a diario. Cuando la App exista, empieza a abrir PRs solo.
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::warning::Falta la App libra-bump (secrets LIBRA_BUMP_APP_ID / LIBRA_BUMP_APP_KEY). El bump no corrio. Ver la doc de E3 en el wiki."
+            exit 0
+          fi
+          git config user.name "libra-bump[bot]"
+          git config user.email "libra-bump[bot]@users.noreply.github.com"
+          python3 _bump/bump_motores.py --apply
