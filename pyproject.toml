@@ -23,6 +23,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0",
+    "pytest-cov>=6.0",
     "httpx>=0.27",
     "beautifulsoup4>=4.12",
     "lxml>=5.0",
@@ -59,15 +60,15 @@ packages = ["libra_web_kit"]
 testpaths = ["tests"]
 
 [tool.coverage.run]
-source = ["app"]
+source = ["libra_web_kit"]
 branch = true
-omit = ["*/tests/*", "*/migrations/*", "*/.venv/*"]
+omit = ["*/tests/*", "*/.venv/*"]
 
 [tool.coverage.report]
 show_missing = true
 # Piso de cobertura. Es un TRINQUETE, no una meta: se fija 2 puntos por
-# debajo de lo que el repo mide HOY (93%%, medido en el CI del
-# 2026-09-03), asi que pasa holgado y lo unico que puede ponerlo en rojo es
+# debajo de lo que el repo mide HOY (90,36% con branch coverage,
+# medido el 2026-09-03), asi que pasa holgado y lo unico que puede ponerlo en rojo es
 # una regresion. Cuando la cobertura suba de verdad, subir tambien este
 # numero -- nunca bajarlo para que pase un cambio.
-fail_under = 91
+fail_under = 88
