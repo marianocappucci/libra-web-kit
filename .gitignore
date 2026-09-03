@@ -2,3 +2,8 @@
 __pycache__/
 *.pyc
 *.egg-info/
+
+# Datos de una corrida de cobertura, no del repo.
+.coverage
+.coverage.*
+htmlcov/

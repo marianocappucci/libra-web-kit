@@ -84,4 +84,4 @@ jobs:
         run: pip install -e ".[dev]"
 
       - name: Run tests
-        run: pytest -v
+        run: pytest -v --cov --cov-report=term-missing
