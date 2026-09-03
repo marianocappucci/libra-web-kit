@@ -128,12 +128,13 @@ def _refrescar_lock(repo_dir: str, rel_pkg: str, repo: str, nueva: str) -> str |
     return os.path.relpath(os.path.join(fe, "package-lock.json"), repo_dir)
 
 
-def _rama_o_pr_existe(rama: str) -> bool:
-    remoto = _sh("git", "ls-remote", "--heads", "origin", rama, check=False).strip()
+def _rama_o_pr_existe(repo_dir: str, rama: str) -> bool:
+    remoto = _sh("git", "ls-remote", "--heads", "origin", rama,
+                 cwd=repo_dir, check=False).strip()
     if remoto:
         return True
     pr = _sh("gh", "pr", "list", "--head", rama, "--state", "all",
-             "--json", "number", check=False).strip()
+             "--json", "number", cwd=repo_dir, check=False).strip()
     try:
         return bool(json.loads(pr or "[]"))
     except json.JSONDecodeError:
@@ -162,7 +163,7 @@ def procesar(repo_dir: str, dry_run: bool) -> int:
                 print(f"      cambiaria {u['archivo']} ({u['tipo']})")
             hechos += 1
             continue
-        if _rama_o_pr_existe(rama):
+        if _rama_o_pr_existe(repo_dir, rama):
             print("      ya hay rama o PR para este bump, salteo")
             continue
         _sh("git", "checkout", "-B", rama, cwd=repo_dir)
