@@ -13,6 +13,10 @@ Formatos de pin que entiende, que son los dos que usa la familia:
   pyproject.toml  "libracore[extras] @ git+https://github.com/OWNER/libracore.git@vX.Y.Z",
   package.json    "libra-ui": "github:OWNER/libra-ui#vX.Y.Z",
 
+Para el pin de pyproject.toml, si el repo tiene `uv.lock` (F1), lo regenera con
+`uv lock` en el mismo commit: el CI instala con `uv sync --locked` y un lock
+viejo pondria rojo el PR de bump.
+
 Para el pin de package.json ademas re-resuelve el `package-lock.json` con
 `npm install`, porque el lock guarda el SHA del tag y no se mueve solo — es el
 mismo pozo que aparecio al bumpear a mano (el lock decia la version nueva y
@@ -156,6 +160,17 @@ def _refrescar_lock(repo_dir: str, rel_pkg: str, repo: str, nueva: str) -> str |
     _sh("npm", "install", f"{repo}@github:{OWNER}/{repo}#{nueva}",
         "--no-audit", "--no-fund", cwd=fe)
     return os.path.relpath(os.path.join(fe, "package-lock.json"), repo_dir)
+
+
+def _refrescar_lock_py(repo_dir: str) -> str | None:
+    """Si el repo tiene `uv.lock` (F1, 2026-09-05), un pin nuevo en pyproject
+    lo deja desactualizado y el CI --que instala con `uv sync --locked`-- pone
+    rojo el PR de bump. Se regenera aca, en el mismo commit que el pin, igual
+    que el package-lock para los pines de npm."""
+    if not os.path.isfile(os.path.join(repo_dir, "uv.lock")):
+        return None
+    _sh("uv", "lock", cwd=repo_dir)
+    return "uv.lock"
 
 
 def _rama_o_pr_existe(repo_dir: str, rama: str) -> bool:
@@ -339,6 +354,10 @@ def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> int:
             if u["tipo"] == "js":
                 lock = _refrescar_lock(repo_dir, u["archivo"], repo, ultimo)
                 if lock:
+                    tocados.append(lock)
+            elif u["tipo"] == "py":
+                lock = _refrescar_lock_py(repo_dir)
+                if lock and lock not in tocados:
                     tocados.append(lock)
         _sh("git", "add", *tocados, cwd=repo_dir)
         cuerpo = (
