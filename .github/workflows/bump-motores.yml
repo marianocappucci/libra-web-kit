@@ -55,7 +55,15 @@ jobs:
       - name: Node (para re-resolver el lock de los pines de package.json)
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+
+      # F1 (2026-09-05): los consumidores con uv.lock lo regeneran en el mismo
+      # commit que el pin; sin uv el bump dejaria el lock viejo y el CI del PR
+      # (uv sync --locked) saldria rojo. Misma version que el CI y las imagenes.
+      - name: uv (para regenerar uv.lock de los pines de pyproject.toml)
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.10"
 
       - name: Token de la App libra-bump
         id: token

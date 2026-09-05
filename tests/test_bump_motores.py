@@ -176,3 +176,17 @@ def test_un_merge_que_falla_no_cuenta(monkeypatch, comandos):
     monkeypatch.setattr(bm.subprocess, "run", run_fallido)
     r = bm.superar_y_mergear(".", {"libracore": [{"ver": "v1.80.0"}]}, {"libracore": "v1.83.0"}, dry_run=False)
     assert r == (0, 0)
+
+
+# ---------------------------------------------------------------- uv.lock (F1)
+
+def test_sin_uv_lock_no_regenera_nada(tmp_path, comandos):
+    assert bm._refrescar_lock_py(str(tmp_path)) is None
+    assert comandos == []
+
+
+def test_con_uv_lock_corre_uv_lock_y_lo_devuelve_para_commitear(tmp_path, comandos):
+    (tmp_path / "uv.lock").write_text("version = 1
+")
+    assert bm._refrescar_lock_py(str(tmp_path)) == "uv.lock"
+    assert comandos == [["uv", "lock"]]
