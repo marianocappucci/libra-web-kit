@@ -186,7 +186,6 @@ def test_sin_uv_lock_no_regenera_nada(tmp_path, comandos):
 
 
 def test_con_uv_lock_corre_uv_lock_y_lo_devuelve_para_commitear(tmp_path, comandos):
-    (tmp_path / "uv.lock").write_text("version = 1
-")
+    (tmp_path / "uv.lock").write_text("version = 1")
     assert bm._refrescar_lock_py(str(tmp_path)) == "uv.lock"
     assert comandos == [["uv", "lock"]]
