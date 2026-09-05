@@ -1,5 +1,7 @@
 """Abre, en el repo del consumidor donde se lo corre, un PR por cada motor de la
-familia Libra cuyo tag publicado sea mas nuevo que el pin actual.
+familia Libra cuyo tag publicado sea mas nuevo que el pin actual. Y, desde F0
+(2026-09-05), tambien **cierra** los PR de bump que quedaron superados y
+**mergea** los que ya estan en verde.
 
 Es "lo que se hacia a mano con un worktree por producto", una vez por repo,
 disparado por el reusable workflow `bump-motores.yml` de este mismo repo
@@ -16,9 +18,26 @@ Para el pin de package.json ademas re-resuelve el `package-lock.json` con
 mismo pozo que aparecio al bumpear a mano (el lock decia la version nueva y
 node_modules seguia en la vieja).
 
-No hace nada si el pin ya esta al dia, y es idempotente: si ya existe la rama o
-el PR para ese bump, lo deja como esta. En `--dry-run` (el default) imprime lo
-que haria y no toca nada ni la red de escritura.
+Las tres pasadas, en este orden:
+
+1. **Abrir**: un PR por motor atrasado, en la rama `chore/bump-<motor>-<tag>`.
+   Idempotente: si ya existe la rama o el PR para ese bump, lo deja como esta.
+2. **Superar**: si el motor ya tiene un PR de bump abierto a una version MAS
+   VIEJA que la que se acaba de abrir (o que ya estaba abierta), ese PR se
+   cierra con un comentario que apunta al nuevo y se borra su rama. Antes de
+   esto un motor que publicaba dos tags en dos dias dejaba dos PR abiertos por
+   consumidor (medido el 2026-09-05: 6 repos con dos PR de libracore).
+3. **Mergear**: un PR de bump abierto a la ULTIMA version del motor, con todos
+   sus checks en verde (y al menos uno), mergeable, y cuyo salto no es de
+   version mayor, se mergea con squash. El CI del consumidor es el gate — es
+   el mismo criterio que se aplicaba a mano ("mergear solo si queda verde"),
+   sin la persona en el medio. Un salto de mayor (X distinta) queda abierto
+   para que lo mire alguien, verde o no: en semver eso declara ruptura.
+   Los PR de `dependabot` del grupo `actions` reciben el mismo trato: son
+   cambios de workflow que el propio CI del PR ya ejercito.
+
+En `--dry-run` (el default) imprime lo que haria y no toca nada ni la red de
+escritura. `--no-mergear` deja la pasada 3 apagada.
 """
 from __future__ import annotations
 
@@ -28,8 +47,8 @@ import os
 import re
 import subprocess
 import sys
-import tomllib
-import urllib.request
+import tomllib  # noqa: F401  (documenta que el script exige Python 3.11+)
+import urllib.request  # noqa: F401
 
 OWNER = "marianocappucci"
 # Los siete motores de la familia. El script solo actua sobre los que el repo
@@ -51,6 +70,17 @@ _JS = re.compile(
     r'("(?P<name>libra[\w-]*)"\s*:\s*"github:' + re.escape(OWNER) +
     r'/(?P<repo>libra[\w-]*)#)(?P<ver>v\d+\.\d+\.\d+)"'
 )
+# --- rama de bump: chore/bump-<motor>-vX.Y.Z
+_RAMA_BUMP = re.compile(r"^chore/bump-(?P<repo>libra[\w-]*)-(?P<ver>v\d+\.\d+\.\d+)$")
+# --- rama de dependabot para el grupo de GitHub Actions
+_RAMA_DEPENDABOT_ACTIONS = re.compile(r"^dependabot/github_actions/")
+
+# Conclusiones de un check que cuentan como "verde". `SKIPPED` y `NEUTRAL`
+# no ponen rojo (un job con `if:` que no aplico), pero tampoco alcanzan
+# solos: hace falta al menos un SUCCESS de verdad --un cero esperado necesita
+# un positivo--.
+_VERDES = {"SUCCESS", "SKIPPED", "NEUTRAL"}
+_ROJOS = {"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "ERROR", "STARTUP_FAILURE"}
 
 
 def _semver(tag: str) -> tuple[int, int, int] | None:
@@ -141,15 +171,150 @@ def _rama_o_pr_existe(repo_dir: str, rama: str) -> bool:
         return False
 
 
-def procesar(repo_dir: str, dry_run: bool) -> int:
+# ---------------------------------------------------------------- pasadas 2 y 3
+
+def _prs_abiertos(repo_dir: str) -> list[dict]:
+    """Los PR abiertos del repo con lo que hace falta para decidir sobre ellos."""
+    out = _sh("gh", "pr", "list", "--state", "open", "--limit", "100",
+              "--json", "number,headRefName,baseRefName,mergeable,statusCheckRollup,author",
+              cwd=repo_dir, check=False).strip()
+    try:
+        return json.loads(out or "[]")
+    except json.JSONDecodeError:
+        return []
+
+
+def _bumps_abiertos(prs: list[dict]) -> list[dict]:
+    """Solo los PR cuya rama es de bump, con `repo` y `ver` ya parseados."""
+    res = []
+    for pr in prs:
+        m = _RAMA_BUMP.match(pr.get("headRefName") or "")
+        if m and _semver(m["ver"]):
+            res.append({**pr, "repo": m["repo"], "ver": m["ver"]})
+    return res
+
+
+def _superados(bumps: list[dict], repo: str, ultimo: str) -> list[dict]:
+    """PR de bump de `repo` a una version mas vieja que `ultimo`: hay uno mas
+    nuevo (abierto o por abrir) que los deja sin sentido."""
+    return [b for b in bumps if b["repo"] == repo and _semver(b["ver"]) < _semver(ultimo)]
+
+
+def _checks_en_verde(rollup: list[dict] | None) -> bool:
+    """True solo si TODOS los checks terminaron sin rojo y hay al menos un
+    SUCCESS. Sin checks (lista vacia) es False: un PR sin CI no se mergea."""
+    if not rollup:
+        return False
+    hubo_exito = False
+    for c in rollup:
+        estado = (c.get("conclusion") or c.get("state") or "").upper()
+        if estado in _ROJOS:
+            return False
+        if estado == "SUCCESS":
+            hubo_exito = True
+        elif estado not in _VERDES:
+            # PENDING, IN_PROGRESS, QUEUED, EXPECTED, "" ... todavia no termino
+            return False
+    return hubo_exito
+
+
+def _salto_es_mayor(actual: str, nueva: str) -> bool:
+    """Cambio de version MAYOR (X distinta). En 0.x tambien puede haber
+    ruptura, pero ahi el CI es el que decide; el salto de mayor se deja
+    siempre a una persona porque en semver es una declaracion explicita."""
+    a, n = _semver(actual), _semver(nueva)
+    return bool(a and n) and a[0] != n[0]
+
+
+def _mergeable(pr: dict) -> bool:
+    # gh devuelve MERGEABLE / CONFLICTING / UNKNOWN; UNKNOWN es "todavia no lo
+    # calculo", y no se mergea a ciegas.
+    return (pr.get("mergeable") or "").upper() == "MERGEABLE"
+
+
+def _cerrar_superado(repo_dir: str, pr: dict, motivo: str, dry_run: bool) -> None:
+    print(f"      cierro #{pr['number']} ({pr['headRefName']}): {motivo}")
+    if dry_run:
+        return
+    _sh("gh", "pr", "close", str(pr["number"]), "--delete-branch",
+        "--comment", f"Superado: {motivo}. Lo cierra el workflow `bump-motores`.",
+        cwd=repo_dir, check=False)
+
+
+def _mergear(repo_dir: str, pr: dict, dry_run: bool) -> bool:
+    print(f"      mergeo #{pr['number']} ({pr['headRefName']}): checks en verde")
+    if dry_run:
+        return True
+    r = subprocess.run(
+        ["gh", "pr", "merge", str(pr["number"]), "--squash", "--delete-branch"],
+        cwd=repo_dir, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(f"      no se pudo mergear #{pr['number']}: {r.stderr.strip()[:300]}")
+        return False
+    return True
+
+
+def superar_y_mergear(repo_dir: str, pines: dict, ultimos: dict, dry_run: bool,
+                      mergear: bool = True) -> tuple[int, int]:
+    """Pasadas 2 y 3 sobre los PR abiertos. Devuelve (cerrados, mergeados)."""
+    prs = _prs_abiertos(repo_dir)
+    bumps = _bumps_abiertos(prs)
+    cerrados = mergeados = 0
+
+    # 2. superar: por cada motor, los bumps a una version mas vieja que la ultima
+    for repo, ultimo in sorted(ultimos.items()):
+        if not ultimo:
+            continue
+        for viejo in _superados(bumps, repo, ultimo):
+            _cerrar_superado(repo_dir, viejo, f"{repo} ya va por {ultimo}", dry_run)
+            cerrados += 1
+
+    if not mergear:
+        return cerrados, mergeados
+
+    # 3. mergear: bumps a la ultima version, en verde, sin salto de mayor
+    for b in bumps:
+        ultimo = ultimos.get(b["repo"])
+        if not ultimo or b["ver"] != ultimo:
+            continue
+        actual = min((u["ver"] for u in pines.get(b["repo"], [])), key=_semver, default=None)
+        if actual and _salto_es_mayor(actual, b["ver"]):
+            print(f"      #{b['number']}: salto de mayor {actual} -> {b['ver']}, queda para una persona")
+            continue
+        if not _checks_en_verde(b.get("statusCheckRollup")):
+            print(f"      #{b['number']}: checks no estan (todos) en verde todavia")
+            continue
+        if not _mergeable(b):
+            print(f"      #{b['number']}: mergeable={b.get('mergeable')}, no se toca")
+            continue
+        if _mergear(repo_dir, b, dry_run):
+            mergeados += 1
+
+    # 3b. dependabot, grupo de GitHub Actions: mismo gate, mismo destino
+    for pr in prs:
+        if not _RAMA_DEPENDABOT_ACTIONS.match(pr.get("headRefName") or ""):
+            continue
+        if not _checks_en_verde(pr.get("statusCheckRollup")) or not _mergeable(pr):
+            print(f"      #{pr['number']} ({pr['headRefName']}): dependabot sin verde o sin mergeable, queda")
+            continue
+        if _mergear(repo_dir, pr, dry_run):
+            mergeados += 1
+    return cerrados, mergeados
+
+
+# ---------------------------------------------------------------- pasada 1
+
+def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> int:
     pines = _pines(repo_dir)
     if not pines:
         print("Este repo no pinea ningun motor de la familia.")
         return 0
     hechos = 0
+    ultimos: dict = {}
     for repo, usos in sorted(pines.items()):
         actual = min((u["ver"] for u in usos), key=_semver)  # el mas atrasado de sus usos
         ultimo = _ultimo_tag(repo)
+        ultimos[repo] = ultimo
         if ultimo is None:
             print(f"  {repo}: no pude leer los tags, salteo")
             continue
@@ -181,7 +346,8 @@ def procesar(repo_dir: str, dry_run: bool) -> int:
             f"Lo abre el workflow `bump-motores` (cron diario) al detectar que el tag "
             f"publicado del motor es mas nuevo que el pin de este repo. Es el mismo "
             f"cambio que antes se hacia a mano con un worktree por producto.\n\n"
-            f"El CI de este PR es la verificacion: mergear solo si queda verde.\n\n"
+            f"El CI de este PR es la verificacion: si queda verde y el salto no es de "
+            f"version mayor, el mismo workflow lo mergea en su proxima corrida.\n\n"
             f"\U0001f916 Generated with [Claude Code](https://claude.com/claude-code)\n"
         )
         _sh("git", "commit", "-m",
@@ -191,6 +357,13 @@ def procesar(repo_dir: str, dry_run: bool) -> int:
             "--title", f"chore: el pin de {repo} pasa a {ultimo}",
             "--body", cuerpo, cwd=repo_dir)
         hechos += 1
+
+    # volver a la rama base antes de tocar PRs ajenos: los merges no dependen
+    # del checkout, pero un `gh pr close --delete-branch` de la rama actual si.
+    if not dry_run:
+        _sh("git", "checkout", "-q", "develop", cwd=repo_dir, check=False)
+    cerrados, mergeados = superar_y_mergear(repo_dir, pines, ultimos, dry_run, mergear)
+    print(f"  PR superados cerrados: {cerrados} | mergeados en verde: {mergeados}")
     return hechos
 
 
@@ -198,9 +371,12 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo-dir", default=".")
     ap.add_argument("--apply", action="store_true",
-                    help="Abre los PR de verdad. Sin esto, dry-run.")
+                    help="Abre, cierra y mergea los PR de verdad. Sin esto, dry-run.")
+    ap.add_argument("--no-mergear", action="store_true",
+                    help="No mergea los PR en verde (deja las pasadas 1 y 2).")
     args = ap.parse_args()
-    n = procesar(os.path.abspath(args.repo_dir), dry_run=not args.apply)
+    n = procesar(os.path.abspath(args.repo_dir), dry_run=not args.apply,
+                 mergear=not args.no_mergear)
     print(f"\n{'PRs abiertos' if args.apply else 'bumps que se abririan'}: {n}")
     return 0
 
