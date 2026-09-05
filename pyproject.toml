@@ -39,7 +39,7 @@ dev = [
     # 🔴 El pin es lo que ata la pagina publicada al texto que las instancias
     # exigen aceptar. Al subir la version del contrato hay que subirlo aca
     # tambien, o la web queda publicando la anterior sin que nada falle.
-    "libraauth @ git+https://github.com/marianocappucci/libraauth.git@v0.31.0",
+    "libraauth @ git+https://github.com/marianocappucci/libraauth.git@v0.36.0",
 ]
 
 [tool.hatch.metadata]
