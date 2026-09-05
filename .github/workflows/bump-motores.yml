@@ -1,6 +1,14 @@
 name: Bump de motores
 
 # Reusable: cada consumidor de la familia lo llama con un caller de ~10 lineas
+#
+# Desde F0 (2026-09-05) el script hace tres pasadas y no una: abre el PR de
+# bump, CIERRA los bumps del mismo motor que quedaron superados por un tag mas
+# nuevo, y MERGEA (squash) los bumps a la ultima version que tengan todos los
+# checks en verde, sean mergeables y no salten de version mayor. El CI del
+# consumidor sigue siendo el unico gate; lo que se saca es la persona que
+# miraba el verde y apretaba el boton ocho veces. Los PR de dependabot del
+# grupo `actions` entran en la misma pasada. Detalle en el docstring del script.
 # (schedule diario + boton manual). Al detectar que el tag publicado de un motor
 # es mas nuevo que el pin del consumidor, abre en ESE consumidor un PR de bump
 # --uno por motor--, con su CI corriendo. Es "lo que se hacia a mano con un
