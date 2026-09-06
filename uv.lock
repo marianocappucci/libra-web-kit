@@ -474,7 +474,7 @@ requires-dist = [
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
     { name = "itsdangerous", specifier = ">=2.2.0" },
     { name = "jinja2", specifier = ">=3.1.4" },
-    { name = "libraauth", marker = "extra == 'dev'", git = "https://github.com/marianocappucci/libraauth.git?rev=v0.31.0" },
+    { name = "libraauth", marker = "extra == 'dev'", git = "https://github.com/marianocappucci/libraauth.git?rev=v0.36.0" },
     { name = "lxml", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.0" },
@@ -484,8 +484,8 @@ provides-extras = ["dev"]
 
 [[package]]
 name = "libraauth"
-version = "0.31.0"
-source = { git = "https://github.com/marianocappucci/libraauth.git?rev=v0.31.0#7bcf19e23beda9d51b171050dbc671bc102a2887" }
+version = "0.36.0"
+source = { git = "https://github.com/marianocappucci/libraauth.git?rev=v0.36.0#d817f8e0e5cea9207e5f1264b1414517816ab7b8" }
 dependencies = [
     { name = "cryptography" },
     { name = "fastapi" },
