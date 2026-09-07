@@ -34,6 +34,20 @@ on:
     secrets:
       VPS_DEPLOY_KEY:
         required: true
+      # 🔴 La direccion del VPS sale de secrets desde el 2026-09-07, no de este
+      # archivo. El repo es publico: hasta esa fecha `deploy-vps.yml` publicaba
+      # la IP, el puerto no estandar y que el usuario de SSH es `root`, y ese
+      # fue el unico lugar donde el puerto y el usuario estaban a la vista.
+      # La IP no se gana nada escondiendola --los ocho dominios resuelven ahi--
+      # pero el puerto y el usuario si. Ademas los secrets se enmascaran en el
+      # log, que en un repo publico tambien lo lee cualquiera.
+      # Ver wiki/analyses/incidente-acceso-no-autorizado-vps-2026-09-06.md
+      VPS_HOST:
+        required: true
+      VPS_PORT:
+        required: true
+      VPS_USER:
+        required: true
 
 jobs:
   deploy:
@@ -58,17 +72,17 @@ jobs:
           switches: -avz --delete --exclude='.git' --exclude='.github' --include='public/legal/*.md' --exclude='*.md' --exclude='.claude' --exclude='.env'
           path: ./
           remote_path: ${{ inputs.remote_path }}
-          remote_host: 149.50.136.218
-          remote_port: 5384
-          remote_user: root
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_port: ${{ secrets.VPS_PORT }}
+          remote_user: ${{ secrets.VPS_USER }}
           remote_key: ${{ secrets.VPS_DEPLOY_KEY }}
 
       - name: Rebuild y restart Docker
         uses: appleboy/ssh-action@v1.2.5
         with:
-          host: 149.50.136.218
-          port: 5384
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_DEPLOY_KEY }}
           script: |
             # 🔴 `set -euo pipefail` y NO un `echo` final que tape el codigo de
@@ -94,9 +108,9 @@ jobs:
       - name: Verificar que la pagina servida cambio
         uses: appleboy/ssh-action@v1.2.5
         with:
-          host: 149.50.136.218
-          port: 5384
-          username: root
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT }}
+          username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_DEPLOY_KEY }}
           script: |
             # La contraprueba del paso anterior: que lo que SIRVE el contenedor
