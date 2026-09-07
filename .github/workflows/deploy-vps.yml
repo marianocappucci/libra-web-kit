@@ -21,6 +21,16 @@ on:
         description: "Ruta absoluta en el VPS donde vive el checkout (con barra final)."
         required: true
         type: string
+      servicio_web:
+        # `restolibra_web` llama al suyo `restolibra-web` y los otros siete
+        # `web`. Estaba hardcodeado en la verificacion de abajo, asi que ese
+        # deploy fallaba con `no such service: web` desde el 2026-08-22 --con el
+        # rsync y el rebuild ya hechos, o sea que el sitio quedaba bien y el
+        # workflow en rojo. El default deja a los siete como estaban.
+        description: "Nombre del servicio del compose que sirve la pagina."
+        required: false
+        default: web
+        type: string
     secrets:
       VPS_DEPLOY_KEY:
         required: true
@@ -95,9 +105,9 @@ jobs:
             # afuera.
             set -euo pipefail
             cd ${{ inputs.remote_path }}
-            contenedor=$(docker compose ps -q web)
+            contenedor=$(docker compose ps -q ${{ inputs.servicio_web }})
             if [ -z "$contenedor" ]; then
-              echo "!! no hay contenedor 'web' corriendo"; exit 1
+              echo "!! no hay contenedor '${{ inputs.servicio_web }}' corriendo"; exit 1
             fi
             en_disco=$(md5sum public/index.html | cut -d' ' -f1)
             servido=$(docker exec "$contenedor" md5sum /usr/share/nginx/html/index.html | cut -d' ' -f1)
