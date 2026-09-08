@@ -189,3 +189,88 @@ def test_con_uv_lock_corre_uv_lock_y_lo_devuelve_para_commitear(tmp_path, comand
     (tmp_path / "uv.lock").write_text("version = 1")
     assert bm._refrescar_lock_py(str(tmp_path)) == "uv.lock"
     assert comandos == [["uv", "lock"]]
+
+
+# ------------------------------------------------- pasada 1: aislar el fallo
+
+
+def _procesar_con(monkeypatch, pines, ultimos, rotos=()):
+    """Corre la pasada 1 sin red. `rotos` son los motores cuyo `_abrir_bump`
+    revienta, que es como se comporta `npm install` cuando un peer no resuelve.
+    Devuelve (resultado, motores efectivamente intentados)."""
+    intentados: list[str] = []
+
+    def falso_abrir(repo_dir, repo, usos, actual, ultimo, rama, base):
+        intentados.append(repo)
+        if repo in rotos:
+            raise RuntimeError(f"npm install {repo} -> 1\nERESOLVE")
+
+    monkeypatch.setattr(bm, "_pines", lambda repo_dir: pines)
+    monkeypatch.setattr(bm, "_ultimo_tag", lambda repo: ultimos[repo])
+    monkeypatch.setattr(bm, "_rama_o_pr_existe", lambda repo_dir, rama: False)
+    monkeypatch.setattr(bm, "_abrir_bump", falso_abrir)
+    monkeypatch.setattr(bm, "superar_y_mergear",
+                        lambda *a, **k: (0, 0))
+    return bm.procesar(".", dry_run=False), intentados
+
+
+_PINES_DE_UN_BACKOFFICE = {
+    # El orden del dict no importa: `procesar` los recorre ordenados, y asi
+    # `libra-ui` cae ANTES que los dos de Python. Es el caso real.
+    "libra-ui": [{"ver": "v0.59.0", "archivo": "frontend/package.json", "tipo": "js"}],
+    "libraauth": [{"ver": "v0.36.0", "archivo": "backend/pyproject.toml", "tipo": "py"}],
+    "libracore": [{"ver": "v1.77.0", "archivo": "backend/pyproject.toml", "tipo": "py"}],
+}
+_ULTIMOS = {"libra-ui": "v0.65.0", "libraauth": "v0.37.0", "libracore": "v1.89.0"}
+
+
+def test_un_motor_que_no_se_puede_bumpear_no_tapa_a_los_otros(monkeypatch, comandos):
+    """El caso que dejo a libra-panel y libra-backoffice ocho versiones atras."""
+    (hechos, fallidos), intentados = _procesar_con(
+        monkeypatch, _PINES_DE_UN_BACKOFFICE, _ULTIMOS, rotos={"libra-ui"})
+    # Los tres se intentaron, aunque el primero de la lista se rompiera.
+    assert intentados == ["libra-ui", "libraauth", "libracore"]
+    assert hechos == 2
+    assert fallidos == ["libra-ui"]
+
+
+def test_el_fallo_de_un_motor_sale_en_rojo_igual(monkeypatch, comandos):
+    """Aislar el fallo es para que los demas avancen, no para esconderlo."""
+    monkeypatch.setattr(bm, "_pines", lambda repo_dir: _PINES_DE_UN_BACKOFFICE)
+    monkeypatch.setattr(bm, "_ultimo_tag", lambda repo: _ULTIMOS[repo])
+    monkeypatch.setattr(bm, "_rama_o_pr_existe", lambda repo_dir, rama: False)
+    monkeypatch.setattr(bm, "superar_y_mergear", lambda *a, **k: (0, 0))
+
+    def falso_abrir(repo_dir, repo, usos, actual, ultimo, rama, base):
+        if repo == "libra-ui":
+            raise RuntimeError("ERESOLVE")
+
+    monkeypatch.setattr(bm, "_abrir_bump", falso_abrir)
+    monkeypatch.setattr(bm.sys, "argv", ["bump_motores.py", "--apply"])
+    assert bm.main() == 1
+
+    # Control: sin ningun motor roto, el mismo camino sale en verde. Sin esto,
+    # un `return 1` incondicional pasaria el assert de arriba.
+    monkeypatch.setattr(bm, "_abrir_bump", lambda *a, **k: None)
+    assert bm.main() == 0
+
+
+def test_cada_bump_parte_del_commit_base_y_no_del_anterior(monkeypatch, comandos):
+    """Si el segundo bump saliera de la rama del primero, su PR se llevaria
+    adentro el cambio del primero y dejaria de ser revisable por separado."""
+    monkeypatch.setattr(bm, "_pines", lambda repo_dir: _PINES_DE_UN_BACKOFFICE)
+    monkeypatch.setattr(bm, "_ultimo_tag", lambda repo: _ULTIMOS[repo])
+    monkeypatch.setattr(bm, "_rama_o_pr_existe", lambda repo_dir, rama: False)
+    monkeypatch.setattr(bm, "superar_y_mergear", lambda *a, **k: (0, 0))
+    monkeypatch.setattr(bm, "_cambiar_pin", lambda *a, **k: None)
+    monkeypatch.setattr(bm, "_refrescar_lock", lambda *a, **k: None)
+    monkeypatch.setattr(bm, "_refrescar_lock_py", lambda *a, **k: None)
+    bm.procesar(".", dry_run=False)
+
+    base = next(c for c in comandos if c[:3] == ["git", "rev-parse", "HEAD"])
+    assert base  # se pidio el commit base una vez, al arrancar
+    checkouts = [c for c in comandos if c[:3] == ["git", "checkout", "-B"]]
+    assert len(checkouts) == 3
+    # El cuarto argumento es el punto de partida, y es el MISMO en los tres.
+    puntos = {c[4] for c in checkouts}
+    assert len(puntos) == 1, f"cada bump partio de otro lado: {puntos}"
