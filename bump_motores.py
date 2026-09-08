@@ -319,13 +319,69 @@ def superar_y_mergear(repo_dir: str, pines: dict, ultimos: dict, dry_run: bool,
 
 # ---------------------------------------------------------------- pasada 1
 
-def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> int:
+def _abrir_bump(repo_dir: str, repo: str, usos: list, actual: str, ultimo: str,
+                rama: str, base: str) -> None:
+    """Abre el PR de bump de UN motor, partiendo siempre de `base`.
+
+    Cualquier fallo sale como excepcion y lo aisla `procesar`: aca no se atrapa
+    nada, para no confundir "no habia nada que hacer" con "se rompio".
+    """
+    _sh("git", "checkout", "-B", rama, base, cwd=repo_dir)
+    tocados = []
+    for u in usos:
+        _cambiar_pin(repo_dir, u["archivo"], u["tipo"], repo, ultimo)
+        tocados.append(u["archivo"])
+        if u["tipo"] == "js":
+            lock = _refrescar_lock(repo_dir, u["archivo"], repo, ultimo)
+            if lock:
+                tocados.append(lock)
+        elif u["tipo"] == "py":
+            lock = _refrescar_lock_py(repo_dir)
+            if lock and lock not in tocados:
+                tocados.append(lock)
+    _sh("git", "add", *tocados, cwd=repo_dir)
+    cuerpo = (
+        f"Bump automatico de **{repo}** de `{actual}` a `{ultimo}`.\n\n"
+        f"Lo abre el workflow `bump-motores` (cron diario) al detectar que el tag "
+        f"publicado del motor es mas nuevo que el pin de este repo. Es el mismo "
+        f"cambio que antes se hacia a mano con un worktree por producto.\n\n"
+        f"El CI de este PR es la verificacion: si queda verde y el salto no es de "
+        f"version mayor, el mismo workflow lo mergea en su proxima corrida.\n\n"
+        f"\U0001f916 Generated with [Claude Code](https://claude.com/claude-code)\n"
+    )
+    _sh("git", "commit", "-m",
+        f"chore: el pin de {repo} pasa de {actual} a {ultimo}", cwd=repo_dir)
+    _sh("git", "push", "-u", "origin", rama, cwd=repo_dir)
+    _sh("gh", "pr", "create", "--base", "develop", "--head", rama,
+        "--title", f"chore: el pin de {repo} pasa a {ultimo}",
+        "--body", cuerpo, cwd=repo_dir)
+
+
+def _volver_a_base(repo_dir: str, base: str) -> None:
+    """Deja el repo como estaba antes de un bump que fallo a mitad de camino.
+
+    Descarta lo modificado en archivos YA VERSIONADOS --el pin cambiado, un lock
+    a medio regenerar-- y vuelve al commit base. **No toca nada sin versionar**:
+    `node_modules` y los caches no los ensucio este script, y una limpieza de
+    error que borra de mas es peor que el error.
+    """
+    _sh("git", "checkout", "--", ".", cwd=repo_dir, check=False)
+    _sh("git", "checkout", "-q", base, cwd=repo_dir, check=False)
+
+
+def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> tuple[int, list]:
+    """Devuelve (bumps abiertos, motores cuyo bump fallo)."""
     pines = _pines(repo_dir)
     if not pines:
         print("Este repo no pinea ningun motor de la familia.")
-        return 0
+        return 0, []
     hechos = 0
+    fallidos: list = []
     ultimos: dict = {}
+    # 🔴 El commit donde arranco la corrida. Cada bump sale de ACA y no de donde
+    # quedo el anterior: si no, el segundo PR del dia se lleva adentro el cambio
+    # del primero y deja de ser revisable por separado.
+    base = "" if dry_run else _sh("git", "rev-parse", "HEAD", cwd=repo_dir).strip()
     for repo, usos in sorted(pines.items()):
         actual = min((u["ver"] for u in usos), key=_semver)  # el mas atrasado de sus usos
         ultimo = _ultimo_tag(repo)
@@ -346,36 +402,19 @@ def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> int:
         if _rama_o_pr_existe(repo_dir, rama):
             print("      ya hay rama o PR para este bump, salteo")
             continue
-        _sh("git", "checkout", "-B", rama, cwd=repo_dir)
-        tocados = []
-        for u in usos:
-            _cambiar_pin(repo_dir, u["archivo"], u["tipo"], repo, ultimo)
-            tocados.append(u["archivo"])
-            if u["tipo"] == "js":
-                lock = _refrescar_lock(repo_dir, u["archivo"], repo, ultimo)
-                if lock:
-                    tocados.append(lock)
-            elif u["tipo"] == "py":
-                lock = _refrescar_lock_py(repo_dir)
-                if lock and lock not in tocados:
-                    tocados.append(lock)
-        _sh("git", "add", *tocados, cwd=repo_dir)
-        cuerpo = (
-            f"Bump automatico de **{repo}** de `{actual}` a `{ultimo}`.\n\n"
-            f"Lo abre el workflow `bump-motores` (cron diario) al detectar que el tag "
-            f"publicado del motor es mas nuevo que el pin de este repo. Es el mismo "
-            f"cambio que antes se hacia a mano con un worktree por producto.\n\n"
-            f"El CI de este PR es la verificacion: si queda verde y el salto no es de "
-            f"version mayor, el mismo workflow lo mergea en su proxima corrida.\n\n"
-            f"\U0001f916 Generated with [Claude Code](https://claude.com/claude-code)\n"
-        )
-        _sh("git", "commit", "-m",
-            f"chore: el pin de {repo} pasa de {actual} a {ultimo}", cwd=repo_dir)
-        _sh("git", "push", "-u", "origin", rama, cwd=repo_dir)
-        _sh("gh", "pr", "create", "--base", "develop", "--head", rama,
-            "--title", f"chore: el pin de {repo} pasa a {ultimo}",
-            "--body", cuerpo, cwd=repo_dir)
-        hechos += 1
+        # 🔴 Un motor que no se puede bumpear NO puede tapar a los demas. Hasta
+        # el 2026-09-08 la excepcion se propagaba y mataba la corrida entera:
+        # `libra-ui` no resolvia su peer de zod en tres consumidores y, como los
+        # motores se recorren ordenados y va primero, `libraauth` y `libracore`
+        # ni se miraban. Los dos backoffices quedaron ocho versiones de libracore
+        # atras, y lo que salia rojo era el bump de OTRO motor.
+        try:
+            _abrir_bump(repo_dir, repo, usos, actual, ultimo, rama, base)
+            hechos += 1
+        except Exception as e:
+            print(f"      {repo}: fallo el bump, sigo con el resto\n{e}")
+            fallidos.append(repo)
+            _volver_a_base(repo_dir, base)
 
     # volver a la rama base antes de tocar PRs ajenos: los merges no dependen
     # del checkout, pero un `gh pr close --delete-branch` de la rama actual si.
@@ -383,7 +422,7 @@ def procesar(repo_dir: str, dry_run: bool, mergear: bool = True) -> int:
         _sh("git", "checkout", "-q", "develop", cwd=repo_dir, check=False)
     cerrados, mergeados = superar_y_mergear(repo_dir, pines, ultimos, dry_run, mergear)
     print(f"  PR superados cerrados: {cerrados} | mergeados en verde: {mergeados}")
-    return hechos
+    return hechos, fallidos
 
 
 def main() -> int:
@@ -394,9 +433,15 @@ def main() -> int:
     ap.add_argument("--no-mergear", action="store_true",
                     help="No mergea los PR en verde (deja las pasadas 1 y 2).")
     args = ap.parse_args()
-    n = procesar(os.path.abspath(args.repo_dir), dry_run=not args.apply,
-                 mergear=not args.no_mergear)
+    n, fallidos = procesar(os.path.abspath(args.repo_dir), dry_run=not args.apply,
+                           mergear=not args.no_mergear)
     print(f"\n{'PRs abiertos' if args.apply else 'bumps que se abririan'}: {n}")
+    if fallidos:
+        # Sale en rojo igual: aislar el fallo es para que los demas motores
+        # avancen, no para esconderlo. Sin esto la corrida quedaria verde con un
+        # motor sin bumpear y nadie se enteraria.
+        print(f"motores que fallaron: {', '.join(fallidos)}")
+        return 1
     return 0
 
 
