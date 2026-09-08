@@ -191,6 +191,39 @@ def test_con_uv_lock_corre_uv_lock_y_lo_devuelve_para_commitear(tmp_path, comand
     assert comandos == [["uv", "lock"]]
 
 
+# ------------------------------------------- repos con el backend en backend/
+
+
+def test_ve_los_pines_de_backend_pyproject(tmp_path):
+    """Lo que dejo a libra-panel y libra-backoffice fuera del bump: sus pines de
+    Python no estan en la raiz, y el script solo miraba ahi."""
+    (tmp_path / "backend").mkdir()
+    (tmp_path / "backend" / "pyproject.toml").write_text(
+        'dependencies = [\n'
+        '    "libracore @ git+https://github.com/marianocappucci/libracore.git@v1.77.0",\n'
+        ']\n'
+    )
+    pines = bm._pines(str(tmp_path))
+    assert "libracore" in pines
+    assert pines["libracore"][0]["archivo"] == "backend/pyproject.toml"
+    assert pines["libracore"][0]["ver"] == "v1.77.0"
+
+
+def test_el_uv_lock_se_regenera_al_lado_de_su_pyproject(tmp_path, comandos):
+    """`uv lock` corrido en la raiz de un repo con backend propio no resuelve el
+    proyecto que se acaba de tocar."""
+    (tmp_path / "backend").mkdir()
+    (tmp_path / "backend" / "uv.lock").write_text("version = 1")
+    assert bm._refrescar_lock_py(str(tmp_path), "backend/pyproject.toml") == "backend/uv.lock"
+    assert comandos == [["uv", "lock"]]
+
+    # Control: el lock de la raiz no existe, asi que un repo plano no encuentra
+    # nada y no corre nada. Sin esto, un `return "backend/uv.lock"` fijo pasaria.
+    comandos.clear()
+    assert bm._refrescar_lock_py(str(tmp_path)) is None
+    assert comandos == []
+
+
 # ------------------------------------------------- pasada 1: aislar el fallo
 
 

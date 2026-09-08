@@ -117,6 +117,12 @@ def _pines(repo_dir: str) -> dict:
     encontrados: dict = {}
     for rel, rx, tipo in [
         ("pyproject.toml", _PY, "py"),
+        # 🔴 `libra-panel` y `libra-backoffice` no son planos: su backend cuelga
+        # de `backend/`. Sin esta linea sus pines de Python eran INVISIBLES para
+        # el bump --no fallaba, no los veia-- y quedaron congelados donde los
+        # dejo la ultima mano: libracore v1.41.0 y v1.77.0 contra el v1.89.0 del
+        # resto del parque, a 2026-09-07.
+        ("backend/pyproject.toml", _PY, "py"),
         ("frontend/package.json", _JS, "js"),
         ("package.json", _JS, "js"),
     ]:
@@ -162,15 +168,22 @@ def _refrescar_lock(repo_dir: str, rel_pkg: str, repo: str, nueva: str) -> str |
     return os.path.relpath(os.path.join(fe, "package-lock.json"), repo_dir)
 
 
-def _refrescar_lock_py(repo_dir: str) -> str | None:
-    """Si el repo tiene `uv.lock` (F1, 2026-09-05), un pin nuevo en pyproject
-    lo deja desactualizado y el CI --que instala con `uv sync --locked`-- pone
-    rojo el PR de bump. Se regenera aca, en el mismo commit que el pin, igual
-    que el package-lock para los pines de npm."""
-    if not os.path.isfile(os.path.join(repo_dir, "uv.lock")):
+def _refrescar_lock_py(repo_dir: str, rel_py: str = "pyproject.toml") -> str | None:
+    """Si el repo tiene `uv.lock` (F1, 2026-09-05), un pin nuevo en pyproject lo
+    deja desactualizado y el CI --que instala con `uv sync --locked`-- pone rojo
+    el PR de bump. Se regenera aca, en el mismo commit que el pin, igual que el
+    package-lock para los pines de npm.
+
+    El lock se busca **al lado del pyproject que se acaba de tocar**, no en la
+    raiz: en los repos con backend propio vive en `backend/uv.lock`, y `uv lock`
+    tiene que correr ahi o resuelve otro proyecto.
+    """
+    base = os.path.dirname(os.path.join(repo_dir, rel_py)) or repo_dir
+    lock = os.path.join(base, "uv.lock")
+    if not os.path.isfile(lock):
         return None
-    _sh("uv", "lock", cwd=repo_dir)
-    return "uv.lock"
+    _sh("uv", "lock", cwd=base)
+    return os.path.relpath(lock, repo_dir)
 
 
 def _rama_o_pr_existe(repo_dir: str, rama: str) -> bool:
@@ -336,7 +349,7 @@ def _abrir_bump(repo_dir: str, repo: str, usos: list, actual: str, ultimo: str,
             if lock:
                 tocados.append(lock)
         elif u["tipo"] == "py":
-            lock = _refrescar_lock_py(repo_dir)
+            lock = _refrescar_lock_py(repo_dir, u["archivo"])
             if lock and lock not in tocados:
                 tocados.append(lock)
     _sh("git", "add", *tocados, cwd=repo_dir)
