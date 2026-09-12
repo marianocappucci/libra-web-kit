@@ -75,3 +75,33 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
   (`publish-nginx-image.yml`, `deploy-vps.yml`) en el kit.
 - Consecuencias: una sola imagen y un solo pipeline de publicación/deploy para las
   landings.
+
+## ADR-007 — El bloqueo de `/login-docs` cuenta por la IP del cliente, no por la del proxy
+
+- Estado: aceptada
+- Fecha: 2026-09-12
+- Contexto: la cadena es cliente → NPM → nginx de la landing → `docs_auth`.
+  `docs_auth` contaba los fallidos por `request.client.host`, que es siempre el
+  nginx de la landing, y el `limit_req` del nginx contaba por `$remote_addr`, que
+  es siempre NPM. Los dos bloqueos eran globales: cinco fallos de cualquiera
+  dejaban a todos afuera de `/docs/` durante 15 minutos, y el `limit_req` daba 5
+  pedidos por minuto entre todos los usuarios. Además, los puertos de las landings
+  están publicados en el host, así que se puede llegar al nginx sin pasar por NPM.
+- Decisión:
+  - `docs_auth.ip_del_request` aplica la regla del ADR-013 de libraauth: recorre
+    `X-Forwarded-For` desde la derecha salteando las redes de Docker y loopback, y
+    lo lee sólo si el par directo es una de ellas.
+  - Es una **copia**, no un import: libraauth les arrastraría SQLAlchemy a las
+    landings. Un test la corre junto a la de libraauth (que está en el extra
+    `dev`) contra los mismos casos, así que no puede divergir en silencio.
+  - Usa la misma variable de entorno para agregar un salto,
+    `LIBRAAUTH_PROXIES_DE_CONFIANZA`.
+  - La plantilla nginx usa `real_ip` con las mismas redes, así que `limit_req`
+    cuenta por cliente, y en `/login-docs` agrega su salto con
+    `$proxy_add_x_forwarded_for`. Quien entra por el puerto publicado queda con su
+    IP real a la derecha, en vez de elegirla.
+- Consecuencias: los dos bloqueos pasan a ser por cliente. Detrás de un proxy que
+  no esté en la lista (un CDN delante de NPM), todos los clientes volverían a
+  verse con la misma IP; el salto se declara en `LIBRAAUTH_PROXIES_DE_CONFIANZA`
+  y en el `set_real_ip_from` de la plantilla. Llega a las landings recién cuando
+  suben el pin del paquete y el tag de la imagen `libra-nginx-web`.

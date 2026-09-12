@@ -16,7 +16,16 @@ El usuario escribe directamente su subdominio en vez de elegirlo de un
 Incluye rate limiting por IP (5 intentos fallidos / 15 min, mismo patrón
 que `AdminAuth` de `libracore.auth`) -- agregado el mismo día en P0 del
 mismo plan de consolidación, nace incluido acá.
+
+La IP con la que se cuenta es la del cliente y no la del proxy: ver
+`ip_del_request` y el ADR-007 (2026-09-12). Hasta entonces se contaba por
+`request.client.host`, que detrás de NPM y del nginx de la landing es siempre
+el mismo contenedor, así que cinco fallos de cualquiera dejaban a todos
+afuera de `/docs/` durante 15 minutos.
 """
+import functools
+import ipaddress
+import logging
 import os
 import re
 import threading
@@ -34,6 +43,85 @@ SLUG_RE = re.compile(r"^[a-z0-9-]{1,63}$")
 
 LOGIN_MAX_INTENTOS = 5
 LOGIN_VENTANA_SEGUNDOS = 15 * 60
+
+_log = logging.getLogger(__name__)
+
+#: Las redes de nuestros proxies: las que Nginx Proxy Manager declara en su
+#: `set_real_ip_from` para la red de Docker, mas loopback. **Una lista
+#: explicita, no `ipaddress.is_private`**: ese predicado tambien da `True` para
+#: los rangos de documentacion (`192.0.2.0/24`, `198.51.100.0/24`,
+#: `203.0.113.0/24`) y otros reservados, y con el cualquiera de esas pasaria
+#: por proxy. Es la misma lista que `libraauth.auth_events`.
+REDES_DE_CONFIANZA = tuple(ipaddress.ip_network(r) for r in (
+    "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "127.0.0.0/8",
+    "::1/128", "fc00::/7",
+))
+
+#: Redes de proxy ADICIONALES, separadas por coma. Es **la misma variable que
+#: libraauth**, a proposito: el dia que haya un salto mas (un CDN delante de
+#: NPM) se declara igual en toda la familia. Se suman a la lista, no la
+#: reemplazan: reemplazar dejaria sacar por error la red de Docker.
+PROXIES_ENV = "LIBRAAUTH_PROXIES_DE_CONFIANZA"
+
+
+@functools.lru_cache(maxsize=8)
+def _redes(extra: str) -> tuple:
+    """Las redes de confianza para un valor de la variable. Cacheado por valor:
+    se parsea una vez, y un error se loguea una vez y no en cada login."""
+    redes = list(REDES_DE_CONFIANZA)
+    for parte in extra.split(","):
+        parte = parte.strip()
+        if not parte:
+            continue
+        try:
+            redes.append(ipaddress.ip_network(parte, strict=False))
+        except ValueError:
+            # Una entrada mal escrita no puede tirar abajo el login: se ignora,
+            # y queda dicho en el log.
+            _log.error("%s: %r no es una red; se ignora", PROXIES_ENV, parte)
+    return tuple(redes)
+
+
+def _es_proxy_de_confianza(valor: str) -> bool:
+    try:
+        ip = ipaddress.ip_address(valor.strip())
+    except ValueError:
+        # "testclient", "unknown", una IP con puerto: nada que no sea una IP
+        # pelada puede ser un proxy nuestro.
+        return False
+    if isinstance(ip, ipaddress.IPv6Address) and ip.ipv4_mapped:
+        ip = ip.ipv4_mapped
+    return any(ip in red for red in _redes(os.environ.get(PROXIES_ENV, "")))
+
+
+def ip_del_request(request: Request) -> str:
+    """La IP del cliente, **la que el cliente no puede elegir** (ADR-007).
+
+    🔑 **Es una copia de `libraauth.auth_events.ip_del_request`** (ADR-013 de
+    libraauth), y no un import: libraauth les arrastraria SQLAlchemy y un motor
+    de autenticacion entero a contenedores que solo sirven un formulario. Para
+    que la copia no diverja, `tests/test_docs_auth.py` corre las dos contra los
+    mismos casos: si libraauth cambia la regla, el CI de este repo se pone rojo.
+
+    La regla: `X-Forwarded-For` se recorre desde la DERECHA salteando los
+    proxies de confianza, y el primero que no lo es es el cliente. Lo de la
+    izquierda lo escribio el cliente (NPM no reemplaza el header, le agrega el
+    par TCP), asi que leer el primer elemento dejaria esquivar el bloqueo
+    cambiando el header en cada intento. Si toda la cadena es de confianza vale
+    el ultimo. Y el header **solo se lee si el par directo es un proxy de
+    confianza**: quien llega sin pasar por un proxy nuestro no elige su IP.
+    """
+    directo = request.client.host if request.client else ""
+    reenviada = request.headers.get("x-forwarded-for", "")
+    if not reenviada or not _es_proxy_de_confianza(directo):
+        return directo[:64]
+    saltos = [s.strip() for s in reenviada.split(",") if s.strip()]
+    if not saltos:
+        return directo[:64]
+    for salto in reversed(saltos):
+        if not _es_proxy_de_confianza(salto):
+            return salto[:64]
+    return saltos[-1][:64]
 
 
 @dataclass(frozen=True)
@@ -156,7 +244,7 @@ def build_docs_login_app(
         if not SLUG_RE.match(slug):
             return HTMLResponse(render_login("Subdominio inválido.", slug, username), status_code=400)
 
-        ip = request.client.host if request.client else ""
+        ip = ip_del_request(request)
         if rate_limit_excedido(ip):
             return HTMLResponse(
                 render_login("Demasiados intentos fallidos. Esperá unos minutos y volvé a intentar.", slug, username),
