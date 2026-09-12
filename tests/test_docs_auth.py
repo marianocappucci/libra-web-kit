@@ -192,6 +192,109 @@ def test_rate_limit_is_isolated_per_app_instance(monkeypatch):
     ).status_code == 401
 
 
+# ── La IP del cliente detrás de los proxies (ADR-007) ────────────────────
+
+#: El par directo que ve el backend en producción: el nginx de la landing, en
+#: la red de Docker.
+PAR_PROXY = ("172.18.0.9", 50000)
+
+
+def _rechazar_todo(monkeypatch):
+    _mock_upstream(monkeypatch, lambda request: httpx.Response(200, json={"valid": False}))
+
+
+def _detras_del_proxy(app):
+    return TestClient(app, base_url="https://testserver", client=PAR_PROXY)
+
+
+def _fallar(client, xff):
+    return client.post(
+        "/login-docs",
+        data={"slug": "demo", "username": "u", "password": "wrong"},
+        headers={"X-Forwarded-For": xff},
+    )
+
+
+def test_un_cliente_bloqueado_no_bloquea_a_los_demas(monkeypatch):
+    """🔴 El defecto: se contaba por `request.client.host`, que detrás de NPM y
+    del nginx de la landing es siempre el mismo contenedor. Cinco fallos de
+    cualquiera dejaban a TODOS afuera de `/docs/` durante 15 minutos."""
+    _rechazar_todo(monkeypatch)
+    client = _detras_del_proxy(_make_app())
+    for _ in range(5):
+        assert _fallar(client, "203.0.113.7").status_code == 401
+    assert _fallar(client, "203.0.113.7").status_code == 429
+    # Otro cliente, por el mismo proxy, sigue pudiendo intentar.
+    assert _fallar(client, "198.51.100.9").status_code == 401
+
+
+def test_rotar_la_izquierda_del_header_no_esquiva_el_bloqueo(monkeypatch):
+    """Lo de la izquierda lo escribe el cliente; NPM agrega su par a la
+    derecha. Leer desde la izquierda dejaría esquivar el bloqueo."""
+    _rechazar_todo(monkeypatch)
+    client = _detras_del_proxy(_make_app())
+    for i in range(5):
+        assert _fallar(client, f"192.0.2.{i}, 203.0.113.7").status_code == 401
+    assert _fallar(client, "192.0.2.99, 203.0.113.7").status_code == 429
+
+
+def test_el_salto_del_nginx_de_la_landing_se_saltea(monkeypatch):
+    """Con el nginx agregando su propio salto (`$proxy_add_x_forwarded_for`),
+    a la derecha queda una IP de Docker: se saltea y cuenta el cliente."""
+    _rechazar_todo(monkeypatch)
+    client = _detras_del_proxy(_make_app())
+    for _ in range(5):
+        assert _fallar(client, "203.0.113.7, 172.18.0.3").status_code == 401
+    assert _fallar(client, "203.0.113.7").status_code == 429
+
+
+def test_sin_pasar_por_un_proxy_el_header_no_se_cree(monkeypatch):
+    """Quien llega con un par que no es de confianza no elige su IP: cuenta
+    su par, cambie lo que cambie el header."""
+    _rechazar_todo(monkeypatch)
+    client = TestClient(_make_app(), base_url="https://testserver", client=("203.0.113.50", 1))
+    for i in range(5):
+        assert _fallar(client, f"198.51.100.{i}").status_code == 401
+    assert _fallar(client, "198.51.100.99").status_code == 429
+
+
+#: Casos para la guarda de divergencia: (par directo, X-Forwarded-For, redes
+#: extra del entorno). Cubren cada rama de la regla.
+CASOS_IP = [
+    (PAR_PROXY, None, ""),
+    (PAR_PROXY, "203.0.113.7", ""),
+    (PAR_PROXY, "192.0.2.1, 203.0.113.7", ""),
+    (PAR_PROXY, "203.0.113.7, 172.18.0.3", ""),
+    (PAR_PROXY, "10.0.0.5, 172.18.0.3", ""),
+    (PAR_PROXY, " , ", ""),
+    (("203.0.113.50", 1), "198.51.100.1", ""),
+    (("testclient", 1), "198.51.100.1", ""),
+    (("::ffff:172.18.0.9", 1), "203.0.113.7", ""),
+    (("198.51.100.200", 1), "203.0.113.7", "198.51.100.0/24"),
+    (PAR_PROXY, "198.51.100.200, 203.0.113.7", "203.0.113.0/24"),
+    (PAR_PROXY, "203.0.113.7", "no-es-una-red"),
+    (None, "203.0.113.7", ""),
+]
+
+
+@pytest.mark.parametrize("cliente,xff,extra", CASOS_IP)
+def test_la_copia_de_ip_del_request_da_lo_mismo_que_libraauth(monkeypatch, cliente, xff, extra):
+    """🔑 `docs_auth.ip_del_request` es una copia de la de libraauth (no se
+    importa para no arrastrarle SQLAlchemy a las landings). Esta guarda las
+    corre a las dos contra los mismos casos: si libraauth cambia la regla, esto
+    se pone rojo. El import va sin `importorskip` a propósito: si libraauth no
+    está instalado, la guarda tiene que fallar, no saltearse en verde."""
+    from starlette.requests import Request
+
+    from libraauth.auth_events import ip_del_request as de_libraauth
+    from libra_web_kit.docs_auth import ip_del_request as de_la_copia
+
+    monkeypatch.setenv("LIBRAAUTH_PROXIES_DE_CONFIANZA", extra)
+    headers = [] if xff is None else [(b"x-forwarded-for", xff.encode())]
+    request = Request({"type": "http", "headers": headers, "client": cliente})
+    assert de_la_copia(request) == de_libraauth(request)
+
+
 # ── Logout / check ───────────────────────────────────────────────────────
 
 def test_logout_clears_cookie(monkeypatch):

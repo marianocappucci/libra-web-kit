@@ -60,7 +60,10 @@ lectura, mismo patrón que los demás paquetes Python de la familia.
   entre productos, además del texto de branding).
 - Rate limiting por IP incluido (5 intentos fallidos / 15 min, mismo
   patrón que `AdminAuth` de `libracore.auth`) — agregado el mismo día en
-  P0 del mismo plan de consolidación.
+  P0 del mismo plan de consolidación. Cuenta por la IP del cliente, leída
+  de `X-Forwarded-For` desde la derecha y sólo si el par directo es un
+  proxy de confianza (ADR-007). Un salto más se declara en
+  `LIBRAAUTH_PROXIES_DE_CONFIANZA`, igual que en libraauth.
 
 ## Qué NO incluye
 
