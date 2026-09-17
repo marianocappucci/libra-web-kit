@@ -542,7 +542,7 @@ requires-dist = [
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.27" },
     { name = "itsdangerous", specifier = ">=2.2.0" },
     { name = "jinja2", specifier = ">=3.1.4" },
-    { name = "libraauth", marker = "extra == 'dev'", git = "https://github.com/marianocappucci/libraauth.git?rev=v0.40.0" },
+    { name = "libraauth", marker = "extra == 'dev'", git = "https://github.com/marianocappucci/libraauth.git?rev=v0.45.1" },
     { name = "lxml", marker = "extra == 'dev'", specifier = ">=5.0" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.0" },
@@ -552,8 +552,8 @@ provides-extras = ["dev"]
 
 [[package]]
 name = "libraauth"
-version = "0.40.0"
-source = { git = "https://github.com/marianocappucci/libraauth.git?rev=v0.40.0#0a48874abf3d330bb0fed066f9b9a58c3abb68dd" }
+version = "0.45.1"
+source = { git = "https://github.com/marianocappucci/libraauth.git?rev=v0.45.1#c03fc7815a0ffcc03fd5e3b42c90d877b3e0c7f8" }
 dependencies = [
     { name = "altcha" },
     { name = "argon2-cffi" },
