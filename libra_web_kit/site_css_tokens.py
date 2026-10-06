@@ -240,8 +240,9 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(35,20,4,.80) 0%, rgba(35,20,4,.64) 60%, rgba(35,20,4,.82) 100%),\n"
-            "    linear-gradient(135deg, #451a03 0%, #78350f 100%);\n"
+            "    linear-gradient(to bottom, rgba(28,14,3,.88) 0%, rgba(40,20,4,.70) 55%, rgba(28,14,3,.92) 100%),\n"
+            "    url('/img/almacen-hero.jpg') center 60% / cover no-repeat,\n"
+            "    #2a1505;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -257,9 +258,54 @@ SITES = {
         ),
         "hero_span_p": (
             ".hero h1 span { color: #fbbf24; }\n"
-            ".hero p { font-size: 1.15rem; color: #94a3b8; margin: 0 auto 2.5rem;\n"
+            ".hero p { font-size: 1.15rem; color: #d6d3d1; margin: 0 auto 2.5rem;\n"
         ),
-        "hero_extra": "",
+        "hero_extra": (
+            ".hero { min-height: min(80vh, 720px); display: flex; align-items: center;\n"
+            "        padding: 5rem 2rem; }\n"
+            ".hero-content { max-width: 820px; }\n"
+            ".hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.08;\n"
+            "           letter-spacing: -.03em; text-wrap: balance; }\n"
+            ".hero h1 span { display: block; margin-top: .5rem; font-size: .5em;\n"
+            "                font-weight: 600; letter-spacing: -.01em; color: #fcd34d; }\n"
+            ".hero p { text-wrap: pretty; line-height: 1.7; }\n"
+            ".hero .btn { margin: .3rem .35rem; }\n"
+            ".hero .btn-primary { box-shadow: 0 8px 24px rgba(217,119,6,.35); }\n"
+            ".hero .btn-white { background: rgba(255,255,255,.08); color: #fff;\n"
+            "                   border: 1px solid rgba(255,255,255,.35);\n"
+            "                   backdrop-filter: blur(6px); }\n"
+            ".hero .btn-white:hover { background: rgba(255,255,255,.16); color: #fff; }\n"
+            "\n"
+            "/* Pulido general (solo VentaLibra) */\n"
+            "html { scroll-behavior: smooth; }\n"
+            "section[id] { scroll-margin-top: 72px; }\n"
+            ".navbar { box-shadow: 0 1px 0 rgba(15,23,42,.04); }\n"
+            ".btn { letter-spacing: -.005em; }\n"
+            ".btn-primary:hover { transform: translateY(-1px); }\n"
+            ".section-label { display: inline-flex; align-items: center; gap: .6rem; }\n"
+            ".section-label::before { content: ''; width: 24px; height: 2px;\n"
+            "                         background: var(--brand); }\n"
+            ".section-title { font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.15; }\n"
+            ".feature-card { padding: 1.75rem; border-color: #e7e5e4; box-shadow: none; }\n"
+            ".feature-card:hover { border-color: var(--brand);\n"
+            "                      box-shadow: 0 12px 32px rgba(120,53,15,.10); }\n"
+            ".feature-icon { width: 48px; height: 48px; border-radius: 12px; }\n"
+            ".plan-card { border-radius: 18px; transition: box-shadow .2s, transform .2s; }\n"
+            ".plan-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }\n"
+            ".plan-card.featured { background: linear-gradient(180deg, var(--brand-light) 0%, #fff 55%); }\n"
+            ".cta-section { background:\n"
+            "    radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.14) 0%, transparent 55%),\n"
+            "    linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); }\n"
+            ":focus-visible { outline: 3px solid rgba(217,119,6,.5); outline-offset: 2px; }\n"
+            "@media (prefers-reduced-motion: reduce) {\n"
+            "  html { scroll-behavior: auto; }\n"
+            "  *, *::before, *::after { transition: none !important; }\n"
+            "}\n"
+            "@media (max-width: 768px) {\n"
+            "  .hero { min-height: auto; padding: 4rem 1.25rem 3.5rem; }\n"
+            "  section { padding: 3.5rem 1.25rem; }\n"
+            "}\n"
+        ),
         "badge_estandar": ".badge-estandar { background: #dbeafe; color: #1e40af; }\n",
         "badge_extra": "",
         "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(217,119,6,.15);\n",
