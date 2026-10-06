@@ -241,7 +241,7 @@ SITES = {
         ),
         "hero_bg": (
             "    linear-gradient(to bottom, rgba(28,14,3,.88) 0%, rgba(40,20,4,.70) 55%, rgba(28,14,3,.92) 100%),\n"
-            "    url('/img/almacen-hero.jpg') center 60% / cover no-repeat,\n"
+            "    url('/img/almacen-hero.jpg') center 88% / cover no-repeat,\n"
             "    #2a1505;\n"
         ),
         "hero_before": (
