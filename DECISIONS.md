@@ -145,3 +145,49 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
   generado ya está commiteado en la landing. Versión del kit: tag `v0.5.0` (minor, módulos
   nuevos; el tag lo corta quien mergea, la versión sale de `hatch-vcs`).
 
+## ADR-009 — La marca de la landing es el dibujo de libra-ui, copiado; reemplaza al favicon en Python de ADR-008
+
+- Estado: aceptada
+- Fecha: 2026-10-07
+- Contexto: ADR-008 puso en la marca del navbar y del pie un glifo de Bootstrap Icons
+  sobre un cuadrado con `background: var(--brand)` y generó el favicon dibujándolo en
+  Python (`favicon_gen`, con los trazos de `iconos_bootstrap`). El mismo día libra-ui
+  v0.124.0 (ADR-034) dio a cada producto una **marca dibujada propia** (dos piezas, un
+  filo que las separa, detalles calados) con una variante `favicon` reducida para 16-32 px,
+  y publicó los ocho dibujos como archivos (`marcas/<p>.svg`, `marcas/<p>-favicon.svg`,
+  lienzo de 120) justamente para que las landings no tengan que redibujarlos.
+- Decisión:
+  - **ADR-008 queda reemplazado en el dibujo del favicon y de la marca**: se retiran
+    `favicon_gen.py`, `iconos_bootstrap.py`, `identidad.nombre_icono` y
+    `identidad.marca_icono_html`. Sigue vigente de ADR-008 lo demás: `IDENTIDAD` (los
+    colores) y `tests/test_identidad.py`, que la compara con el documento del wiki y con
+    `site_css_tokens.SITES`. `icono_bootstrap` queda como dato de la tabla del wiki
+    (glifo de una línea), ya no es la marca.
+  - Los 16 SVG viven en `libra_web_kit/marcas/`, **copiados byte a byte** (nada se edita ni
+    se redibuja acá) con `scripts/sincronizar_marcas.py --tag <vX.Y.Z>`, que los lee con
+    `git show <tag>:marcas/<archivo>` de un checkout de libra-ui (`--libra-ui` o
+    `$LIBRA_UI_DIR`; `--desde-dir` para una rama sin tag; `--check` para verificar) y deja
+    `marcas/ORIGEN.txt` con el tag, el commit y el comando. Origen actual: **libra-ui v0.124.0**
+    (`e38c42e`). Al subir de versión: correr el script, cambiar `TAG_POR_DEFECTO`, correr los
+    tests y volver a correr `generate_favicon.py` en las landings.
+  - `tests/test_marcas.py` verifica que estén los 16, que cada uno empiece con `<svg`, sea de
+    lienzo 120 y lleve el `color` de `IDENTIDAD[p]` (en el cuadrado de fondo), y que el kit
+    coincida con el tag declarado si hay un checkout de libra-ui (si no, se saltea).
+  - `scripts/generate_favicon.py` copia `marcas/<p>-favicon.svg` a `public/img/favicon.svg` y
+    `marcas/<p>.svg` a `public/img/marca.svg` de cada landing, como bytes. Su `--check` exige
+    igualdad de bytes y que la home (a mano) tenga el `<link rel="icon">`, **dos**
+    `<img src="/img/marca.svg" ... width height>` (navbar y pie) y ningún `<div class="logo-icon">`
+    de la marca anterior.
+  - La marca de las páginas que genera el kit (docs y legales) y del pie de Restolibra es
+    `<img src="/img/marca.svg" alt="" class="logo-icon" width="32|28" height="32|28">`. El SVG ya
+    trae el cuadrado de color y el redondeo, así que `.logo-icon` pierde `background`,
+    `border-radius`, `color` y `font-size` en `style.css.template` y `.f-logo` (VentaLibra) queda
+    sólo con tamaño: con un `background` el color asomaría en las esquinas redondeadas. `alt=""`
+    porque el nombre del producto está escrito al lado.
+  - Sigue sin PNG (razón de ADR-008): quedan afuera el `apple-touch-icon` y el ícono de «agregar
+    a inicio» de iOS.
+- Consecuencias: cambian los dos `*_style.css.golden`, las páginas de `/docs/` y `/legal/` de
+  las ocho landings y sus `style.css`. Cada landing recibe además `public/img/marca.svg` y
+  edita a mano su `index.html`. Los 16 SVG viajan dentro del paquete (hatchling incluye todo
+  el árbol de `libra_web_kit/`); las landings que instalan el kit por `docs_auth` cargan
+  ~16 KB más. Sin tag nuevo todavía: lo corta quien mergea (minor).

@@ -25,11 +25,12 @@ motores.
 - **`css_gen.py`** (`render`, `render_all`) + **`site_css_tokens.py`**:
   generación del CSS compartido a partir de tokens, para que las landings no
   diverjan en estilos.
-- **`identidad.py`** (`IDENTIDAD`, `marca_icono_html`), **`favicon_gen.py`**
-  (`favicon_svg`) e **`iconos_bootstrap.py`**: el color y el ícono de cada
-  producto, el favicon plano que se genera de ahí y los trazos de los ocho íconos
-  de Bootstrap Icons (ADR-008). `scripts/generate_favicon.py` lo escribe en las
-  landings.
+- **`identidad.py`** (`IDENTIDAD`), **`marcas_gen.py`** (`svg_marca`, `svg_favicon`,
+  `render_all`) y **`marcas/`** (16 SVG + `ORIGEN.txt`): el color de cada producto y su
+  marca dibujada, copiada byte a byte de libra-ui (ADR-009; antes ADR-008 la dibujaba
+  en Python). `scripts/sincronizar_marcas.py` trae los SVG de un tag de libra-ui y
+  `scripts/generate_favicon.py` los escribe en las landings (`public/img/marca.svg` y
+  `public/img/favicon.svg`).
 - **`docs_gen.py`** (`list_pages`, `render`, `render_all`), **`docs_pages.py`**,
   **`docs_sidebars.py`**: generación del sitio de documentación.
 - **`legal_gen.py`** (`render`, `markdown_publicado`, `render_all`, `sitios`):

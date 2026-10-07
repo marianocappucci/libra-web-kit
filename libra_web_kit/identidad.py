@@ -1,5 +1,11 @@
 """Identidad de cada producto de la familia: un color y un ícono.
 
+La marca que se *dibuja* (el cuadrado del color con el dibujo propio encima) ya no sale
+de acá sino de `libra_web_kit/marcas/*.svg`, copiados de libra-ui (ADR-009, `marcas_gen`).
+De esta tabla queda el color: el `color` de cada producto es el que tiene que llevar
+su marca (`tests/test_marcas.py` lo exige) y `icono_bootstrap` es sólo el glifo de una
+línea de la tabla del wiki.
+
 Es la copia, para las landings, de la tabla «La identidad de cada producto» de
 `wiki/analyses/identidad-de-producto-diseno.md` (repo del wiki). La otra copia es
 `libra-ui/src/identidad.ts`, que lleva el mismo registro con el nombre del ícono
@@ -29,7 +35,7 @@ class Identidad:
     color_claro: str
     color_sobre_oscuro: str
     #: Clase de Bootstrap Icons, con el prefijo (`bi-truck`), como en la tabla del
-    #: documento. Para el nombre pelado, `nombre_icono(sitio)`.
+    #: documento. Ya no es la marca (ADR-009): sólo el glifo de una línea.
     icono_bootstrap: str
 
 
@@ -107,15 +113,3 @@ IDENTIDAD: dict[str, Identidad] = {
         icono_bootstrap="bi-trophy",
     ),
 }
-
-
-def nombre_icono(sitio: str) -> str:
-    """El nombre del ícono sin el prefijo `bi-` (`truck`), que es como se llama el
-    archivo en Bootstrap Icons y la clave de `iconos_bootstrap.TRAZOS`."""
-    return IDENTIDAD[sitio].icono_bootstrap.removeprefix("bi-")
-
-
-def marca_icono_html(sitio: str) -> str:
-    """El `<i>` que va dentro del cuadrado `.logo-icon` del navbar y del pie, en
-    lugar de la inicial del producto."""
-    return f'<i class="bi {IDENTIDAD[sitio].icono_bootstrap}"></i>'
