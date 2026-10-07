@@ -1,4 +1,4 @@
-"""Los tres scripts de generacion tienen que conocer TODOS los sitios.
+"""Los cuatro scripts de generacion tienen que conocer TODOS los sitios.
 
 🔴 Agregar un sitio son dos mitades: los datos (`site_css_tokens.SITES` y
 `docs_pages.PAGES`) y el destino donde escribirlos
@@ -21,6 +21,7 @@ import pytest
 
 from libra_web_kit.docs_pages import PAGES
 from libra_web_kit.docs_sidebars import SIDEBARS
+from libra_web_kit.identidad import IDENTIDAD
 from libra_web_kit.site_css_tokens import SITES
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
@@ -39,6 +40,7 @@ def _cargar(nombre: str):
         ("generate_css", SITES, "site_css_tokens.SITES"),
         ("generate_docs", PAGES, "docs_pages.PAGES"),
         ("generate_legal", SIDEBARS, "docs_sidebars.SIDEBARS"),
+        ("generate_favicon", IDENTIDAD, "identidad.IDENTIDAD"),
     ],
 )
 def test_todos_los_sitios_tienen_repo_destino(script, fuente, como_se_llama):
@@ -50,11 +52,11 @@ def test_todos_los_sitios_tienen_repo_destino(script, fuente, como_se_llama):
     )
 
 
-@pytest.mark.parametrize("script", ["generate_css", "generate_docs", "generate_legal"])
+@pytest.mark.parametrize("script", ["generate_css", "generate_docs", "generate_legal", "generate_favicon"])
 def test_no_hay_destinos_de_sitios_que_no_existen(script):
     """La contracara: un destino sin datos es un repo que nadie va a escribir
     nunca. No rompe, pero deja creyendo que ese sitio se genera desde el kit."""
     destinos = _cargar(script).REPO_DIR_BY_SITE
-    conocidos = set(SITES) | set(PAGES) | set(SIDEBARS)
+    conocidos = set(SITES) | set(PAGES) | set(SIDEBARS) | set(IDENTIDAD)
     sobran = sorted(set(destinos) - conocidos)
     assert not sobran, f"{script}.py apunta a sitios que no existen: {sobran}"
