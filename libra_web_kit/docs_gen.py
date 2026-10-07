@@ -18,7 +18,6 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from libra_web_kit.docs_pages import PAGES
 from libra_web_kit.docs_sidebars import SIDEBARS
-from libra_web_kit.identidad import marca_icono_html
 
 _TEMPLATES_DIR = resources.files("libra_web_kit").joinpath("templates")
 _CONTENT_DIR = resources.files("libra_web_kit").joinpath("docs_content")
@@ -57,7 +56,6 @@ def render(site: str, filename: str) -> str:
         is_index=meta["is_index"],
         active_href=meta["active_href"],
         brand=site_cfg["brand"],
-        marca_icono=marca_icono_html(site),
         sidebar=site_cfg["sidebar"],
         footer_html=site_cfg["footer_html"],
         content_html=content_html,

@@ -3,11 +3,9 @@
 (identico en las paginas de ese sitio salvo el link activo del
 sidebar, confirmado en la extraccion).
 
-El cuadrado de la marca ya no lleva la inicial del producto sino su icono
-(`identidad.IDENTIDAD`): el footer de Restolibra trae el marcador
-`@@marca_icono@@`, que el bucle del final de este archivo reemplaza."""
-
-from libra_web_kit.identidad import marca_icono_html
+La marca (cuadrado del navbar y del pie) es `<img src="/img/marca.svg">`, la marca
+dibujada de libra-ui (ADR-009), no la inicial ni un glifo; el footer de Restolibra,
+que la lleva inline, la escribe tal cual."""
 
 SIDEBARS = {
     # 🔴 Sidebar re-extraido de lo desplegado el 2026-08-21, junto con las 21
@@ -81,7 +79,7 @@ SIDEBARS = {
     },
     'restolibra': {
         "brand": 'Restolibra',
-        "footer_html": '<footer>\n<div class="footer-inner">\n<div>\n<div class="footer-brand">\n<div class="logo-icon" style="width:28px;height:28px;border-radius:6px;background:var(--brand);display:inline-flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:1rem">@@marca_icono@@</div>\n        Restolibra\n      </div>\n<div class="footer-tagline">Sistema de gestión para restaurantes, bares y delivery</div>\n</div>\n<div style="display:flex;gap:3rem;flex-wrap:wrap">\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Sistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/#funciones" style="color:#a8a29e;font-size:.9rem">Funciones</a>\n<a href="/#planes" style="color:#a8a29e;font-size:.9rem">Planes</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Recursos</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/docs/" style="color:#a8a29e;font-size:.9rem">Documentación</a>\n<a href="/docs/primeros-pasos.html" style="color:#a8a29e;font-size:.9rem">Primeros pasos</a>\n<a href="/docs/salon.html" style="color:#a8a29e;font-size:.9rem">Salón y Mesas</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Contacto</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://wa.me/5491127752983" style="color:#a8a29e;font-size:.9rem" target="_blank"><i class="bi bi-whatsapp me-1"></i>WhatsApp</a>\n<a href="mailto:hola@restolibra.com.ar" style="color:#a8a29e;font-size:.9rem"><i class="bi bi-envelope me-1"></i>Email</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Nuestro Ecosistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://contalibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Contalibra — ERP &amp; Facturación</a>\n<a href="https://compulibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Compulibra — Soporte IT &amp; Hosting</a>\n<a href="https://neuroflow.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">NeuroFlow — IA &amp; Automatización</a>\n</div>\n</div>\n</div>\n</div>\n<div class="footer-copy">\n    © 2026 Restolibra · parte del ecosistema <a href="https://compulibra.com.ar" rel="noopener" style="color:#78716c;text-decoration:none" target="_blank">Compulibra</a> · Todos los derechos reservados\n  </div>\n</footer>',
+        "footer_html": '<footer>\n<div class="footer-inner">\n<div>\n<div class="footer-brand">\n<img src="/img/marca.svg" alt="" class="logo-icon" width="28" height="28">\n        Restolibra\n      </div>\n<div class="footer-tagline">Sistema de gestión para restaurantes, bares y delivery</div>\n</div>\n<div style="display:flex;gap:3rem;flex-wrap:wrap">\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Sistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/#funciones" style="color:#a8a29e;font-size:.9rem">Funciones</a>\n<a href="/#planes" style="color:#a8a29e;font-size:.9rem">Planes</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Recursos</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/docs/" style="color:#a8a29e;font-size:.9rem">Documentación</a>\n<a href="/docs/primeros-pasos.html" style="color:#a8a29e;font-size:.9rem">Primeros pasos</a>\n<a href="/docs/salon.html" style="color:#a8a29e;font-size:.9rem">Salón y Mesas</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Contacto</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://wa.me/5491127752983" style="color:#a8a29e;font-size:.9rem" target="_blank"><i class="bi bi-whatsapp me-1"></i>WhatsApp</a>\n<a href="mailto:hola@restolibra.com.ar" style="color:#a8a29e;font-size:.9rem"><i class="bi bi-envelope me-1"></i>Email</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Nuestro Ecosistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://contalibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Contalibra — ERP &amp; Facturación</a>\n<a href="https://compulibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Compulibra — Soporte IT &amp; Hosting</a>\n<a href="https://neuroflow.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">NeuroFlow — IA &amp; Automatización</a>\n</div>\n</div>\n</div>\n</div>\n<div class="footer-copy">\n    © 2026 Restolibra · parte del ecosistema <a href="https://compulibra.com.ar" rel="noopener" style="color:#78716c;text-decoration:none" target="_blank">Compulibra</a> · Todos los derechos reservados\n  </div>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
             {"type": "link", "href": '/docs/', "text": 'Introducción'},
@@ -254,9 +252,3 @@ SIDEBARS = {
         ],
     },
 }
-
-
-# El marcador `@@marca_icono@@` de un footer se reemplaza por el `<i>` del icono del
-# sitio, asi el icono sale de `identidad.IDENTIDAD` y no se copia a mano aca.
-for _sitio, _cfg in SIDEBARS.items():
-    _cfg["footer_html"] = _cfg["footer_html"].replace("@@marca_icono@@", marca_icono_html(_sitio))

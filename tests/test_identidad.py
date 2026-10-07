@@ -13,8 +13,7 @@ import re
 import pytest
 
 from libra_web_kit.docs_sidebars import SIDEBARS
-from libra_web_kit.iconos_bootstrap import TRAZOS
-from libra_web_kit.identidad import IDENTIDAD, marca_icono_html, nombre_icono
+from libra_web_kit.identidad import IDENTIDAD
 from libra_web_kit.site_css_tokens import SITES
 
 # (clave, nombre, rubro, color, oscuro, claro, sobre oscuro, icono bootstrap)
@@ -67,19 +66,13 @@ def test_identidad_y_sites_tienen_las_mismas_claves():
     assert set(IDENTIDAD) == set(SITES) == set(SIDEBARS)
 
 
-def test_cada_icono_tiene_su_trazo_y_no_sobran():
-    usados = {nombre_icono(s) for s in IDENTIDAD}
-    assert usados == set(TRAZOS)
-    assert len(usados) == 8, "dos productos no pueden compartir icono"
+def test_los_ocho_iconos_son_distintos():
+    assert len({i.icono_bootstrap for i in IDENTIDAD.values()}) == 8, "dos productos no pueden compartir icono"
 
 
 def test_un_icono_con_prefijo_bi_y_sin_espacios():
     for sitio, ident in IDENTIDAD.items():
         assert re.fullmatch(r"bi-[a-z0-9-]+", ident.icono_bootstrap), sitio
-
-
-def test_marca_icono_html():
-    assert marca_icono_html("libracargo") == '<i class="bi bi-truck"></i>'
 
 
 def test_los_colores_son_hex_de_seis_digitos_en_minuscula():
