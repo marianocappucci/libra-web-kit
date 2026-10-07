@@ -369,7 +369,7 @@ SITES = {
             "           grid-template-columns: 1.6fr 1fr 1.1fr 1.3fr; gap: 2.5rem; }\n"
             ".f-logo { width: 28px; height: 28px; border-radius: 6px; background: var(--brand);\n"
             "          display: inline-flex; align-items: center; justify-content: center;\n"
-            "          color: #fff; font-weight: 900; font-size: .8rem; }\n"
+            "          color: #fff; font-weight: 900; font-size: 1rem; }\n"
             ".f-tagline { margin: 1rem 0 1.5rem; max-width: 300px; font-size: .9rem;\n"
             "             line-height: 1.65; color: #a8a29e; }\n"
             ".f-cta { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.1rem;\n"

@@ -105,3 +105,43 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
   verse con la misma IP; el salto se declara en `LIBRAAUTH_PROXIES_DE_CONFIANZA`
   y en el `set_real_ip_from` de la plantilla. Llega a las landings recién cuando
   suben el pin del paquete y el tag de la imagen `libra-nginx-web`.
+
+## ADR-008 — La identidad de cada producto (color + ícono) vive en el kit y la marca de la landing es el ícono
+
+- Estado: aceptada
+- Fecha: 2026-10-07
+- Contexto: la marca del navbar y del pie de las landings era un cuadrado con
+  `background: var(--brand)` y la **inicial** del producto; no había favicon. El
+  humano decidió que cada producto tiene un color y un ícono (tabla en
+  `wiki/analyses/identidad-de-producto-diseno.md`) y que el ícono blanco sobre el
+  cuadrado del color reemplaza a la inicial y es el favicon.
+- Decisión:
+  - `identidad.IDENTIDAD` es la copia, para las landings, de esa tabla (la otra copia es
+    `libra-ui/src/identidad.ts`, con el nombre del ícono de lucide). `tests/test_identidad.py`
+    la hardcodea y la compara con el `--brand`, `--brand-dark` y `--brand-light` de
+    `site_css_tokens.SITES`: si una copia diverge, el test falla.
+  - Las páginas que el kit genera (`/docs/` y `/legal/`) toman el ícono de `IDENTIDAD`
+    (`marca_icono_html`), ya no la inicial; el footer de Restolibra, que tiene el cuadrado
+    inline, lleva el marcador `@@marca_icono@@`. La home de cada landing sigue siendo **a mano**:
+    `scripts/generate_favicon.py --check` la mira (favicon enlazado y `.logo-icon` con el
+    ícono correcto) para que un cambio de ícono no la deje atrás sin aviso.
+  - `favicon_gen.favicon_svg(sitio)` produce el ícono plano (cuadrado de 64 con `rx=14`
+    ~22 %, ícono blanco al 60 % y centrado) y `scripts/generate_favicon.py` lo escribe en
+    `public/img/favicon.svg` de cada landing.
+  - Los trazos de los ocho íconos están en `iconos_bootstrap.py`, copiados de Bootstrap
+    Icons 1.11.3 (MIT, aviso en el docstring): el favicon es un SVG suelto y no puede usar la
+    fuente que cargan las landings desde el CDN. Para cambiar el ícono de un producto: bajar
+    la versión `npm pack bootstrap-icons@1.11.3`, copiar los `<path>` de
+    `icons/<nombre>.svg` a `TRAZOS` y cambiar `icono_bootstrap` en `IDENTIDAD` y en el
+    documento del wiki.
+  - **Sólo SVG, sin PNG.** Rasterizar exigiría Pillow o cairosvg, que el kit no tiene y que
+    las landings instalarían sin necesitarlos. Los navegadores de escritorio toman el SVG;
+    queda afuera el ícono de «agregar a inicio» de iOS (`apple-touch-icon`).
+- Consecuencias: el cuadrado de la marca pasa a `font-size: 1.1rem` en el navbar y `1rem` en
+  el pie, porque ahora lleva un glifo y no una letra; cambian los dos `*_style.css.golden`.
+  Llega a cada landing al regenerar y commitear el resultado (`generate_css.py`,
+  `generate_docs.py`, `generate_legal.py`, `generate_favicon.py`) más la edición a mano de su
+  `index.html`; el pin del paquete en `auth/requirements.txt` no cambia nada de eso, porque lo
+  generado ya está commiteado en la landing. Versión del kit: tag `v0.5.0` (minor, módulos
+  nuevos; el tag lo corta quien mergea, la versión sale de `hatch-vcs`).
+

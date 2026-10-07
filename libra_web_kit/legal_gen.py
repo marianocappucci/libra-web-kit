@@ -25,6 +25,7 @@ from importlib import resources
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from libra_web_kit.docs_sidebars import SIDEBARS
+from libra_web_kit.identidad import marca_icono_html
 
 try:
     from libraauth.terminos import (
@@ -91,7 +92,7 @@ def render(site: str) -> str:
     plantilla = _env.get_template("legal_page.html.jinja2")
     return plantilla.render(
         brand=cfg["brand"],
-        letter=cfg["letter"],
+        marca_icono=marca_icono_html(site),
         footer_html=cfg["footer_html"],
         version=VERSION_VIGENTE,
         vigente_desde=VIGENTE_DESDE,
