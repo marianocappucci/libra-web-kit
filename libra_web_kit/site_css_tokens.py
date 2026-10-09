@@ -26,7 +26,8 @@ SITES = {
         ),
         "hero_bg": (
             "    linear-gradient(to bottom, rgba(10,18,35,.78) 0%, rgba(10,18,35,.62) 60%, rgba(10,18,35,.80) 100%),\n"
-            "    url('/img/hero.jpg') center center / cover no-repeat;\n"
+            # Persona trabajando en su escritorio (foto aportada por el humano).
+            "    url('/img/escritorio-hero.jpg') center center / cover no-repeat;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -241,7 +242,9 @@ SITES = {
         ),
         "hero_bg": (
             "    linear-gradient(to bottom, rgba(28,14,3,.88) 0%, rgba(40,20,4,.70) 55%, rgba(28,14,3,.92) 100%),\n"
-            "    url('/img/almacen-hero.jpg') center 88% / cover no-repeat,\n"
+            # Comerciante en la puerta de su local (foto aportada por el humano,
+            # antes en ContaLibra). 22% horizontal: en celular queda la cara.
+            "    url('/img/comerciante-hero.jpg') 22% center / cover no-repeat,\n"
             "    #2a1505;\n"
         ),
         "hero_before": (
