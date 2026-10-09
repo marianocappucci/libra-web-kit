@@ -90,6 +90,7 @@ img { max-width: 100%; }
 @@hero_span_p@@
           max-width: 580px; }
 @@hero_extra@@
+@@pulido@@
 
 /* ── Sections ──────────────────────────────────────────────── */
 section { padding: 5rem 2rem; }
