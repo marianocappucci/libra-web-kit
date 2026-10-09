@@ -28,8 +28,9 @@ inputs:
     description: POSTGRES_DB.
     required: true
   usuario:
-    description: POSTGRES_USER.
-    required: true
+    description: POSTGRES_USER. Sin valor, el de la imagen oficial (`postgres`), como un `services:` que no lo declaraba.
+    required: false
+    default: "postgres"
   clave:
     description: POSTGRES_PASSWORD (de CI, no un secreto real).
     required: true
@@ -45,6 +46,18 @@ inputs:
     description: Segundos máximos de espera a que quede sano.
     required: false
     default: "120"
+  intervalo:
+    description: --health-interval (los repos que chequeaban más seguido, p. ej. libragenda con 3s, lo conservan).
+    required: false
+    default: "10s"
+  timeout:
+    description: --health-timeout.
+    required: false
+    default: "5s"
+  reintentos:
+    description: --health-retries.
+    required: false
+    default: "5"
 
 outputs:
   url:
@@ -66,6 +79,9 @@ runs:
         ZONA: ${{ inputs.tz }}
         PUERTO: ${{ inputs.puerto }}
         ESPERA: ${{ inputs.espera }}
+        INTERVALO: ${{ inputs.intervalo }}
+        TIMEOUT_SALUD: ${{ inputs.timeout }}
+        REINTENTOS: ${{ inputs.reintentos }}
       run: |
         set -euo pipefail
         case "$VARIANTE" in
@@ -75,9 +91,13 @@ runs:
         esac
         args=(-d --name postgres-ci -p "${PUERTO}:5432"
               -e "POSTGRES_DB=${BASE}" -e "POSTGRES_USER=${USUARIO}" -e "POSTGRES_PASSWORD=${CLAVE}"
-              # Mismo chequeo de salud que el `services:` de antes, más un período de arranque.
-              --health-cmd "pg_isready -U ${USUARIO} -d ${BASE}"
-              --health-interval 10s --health-timeout 5s --health-retries 5 --health-start-period 5s)
+              # 🔴 `pg_isready` por TCP (`-h 127.0.0.1`) y no por el socket: durante el `initdb` la imagen levanta un
+              # servidor temporal SÓLO en el socket y después lo reinicia, así que un chequeo por socket puede dar
+              # «listo» y la primera conexión de la suite, por TCP, encontrar el puerto cerrado. libra-panel ya lo
+              # hacía así; desde v1.1.0 vale para todos.
+              --health-cmd "pg_isready -h 127.0.0.1 -U ${USUARIO} -d ${BASE}"
+              --health-interval "${INTERVALO}" --health-timeout "${TIMEOUT_SALUD}" --health-retries "${REINTENTOS}"
+              --health-start-period 5s)
         if [ -n "$ZONA" ]; then args+=(-e "TZ=${ZONA}"); fi
         echo "Levantando ${IMAGEN} en localhost:${PUERTO}"
         docker run "${args[@]}" "$IMAGEN" >/dev/null
