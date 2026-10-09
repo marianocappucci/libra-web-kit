@@ -566,7 +566,9 @@ SITES = {
             "    linear-gradient(to bottom, rgba(2,25,17,.86) 0%, rgba(2,25,17,.68) 55%, rgba(2,25,17,.90) 100%),\n"
             # Mitad futsal y mitad padel, fundidas en diagonal: dos fotos CC0
             # de Wikimedia Commons (ver wiki/entities/libraclub-web.md).
-            "    url('/img/canchas-hero.jpg') center 45% / cover no-repeat,\n"
+            # 90% horizontal: en pantallas angostas deja ver al jugador de padel;
+            # en escritorio la foto ocupa todo el ancho y no cambia nada.
+            "    url('/img/canchas-hero.jpg') 90% 45% / cover no-repeat,\n"
             "    #04231a;\n"
         ),
         "hero_before": (
