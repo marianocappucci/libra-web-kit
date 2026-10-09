@@ -17,13 +17,21 @@ capa de mas para lo que en la practica es `str.replace()` repetido.
 """
 from importlib import resources
 
-from libra_web_kit.site_css_tokens import SITES
+from libra_web_kit.site_css_tokens import PULIDO_VARS, SITES
 
 _TEMPLATE_PATH = resources.files("libra_web_kit").joinpath("templates/style.css.template")
+_PULIDO_PATH = resources.files("libra_web_kit").joinpath("templates/pulido.css")
 
 
 def _load_template() -> str:
     return _TEMPLATE_PATH.read_text(encoding="utf-8")
+
+
+def _pulido(site: str) -> str:
+    """El pulido compartido (templates/pulido.css) precedido de las variables
+    `--p-*` del sitio. Es igual para todos: lo propio va en PULIDO_VARS."""
+    variables = "".join(f"  --p-{k}: {v};\n" for k, v in PULIDO_VARS[site].items())
+    return ":root {\n" + variables + "}\n" + _PULIDO_PATH.read_text(encoding="utf-8")
 
 
 def render(site: str) -> str:
@@ -34,7 +42,7 @@ def render(site: str) -> str:
     if site not in SITES:
         raise KeyError(f"sitio desconocido: {site!r} (conocidos: {sorted(SITES)})")
     template = _load_template()
-    slots = SITES[site]
+    slots = {**SITES[site], "pulido": _pulido(site)}
     out = template
     for name, content in slots.items():
         marker = f"@@{name}@@\n"

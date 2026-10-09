@@ -268,181 +268,8 @@ SITES = {
             ".hero h1 span { color: #fbbf24; }\n"
             ".hero p { font-size: 1.15rem; color: #d6d3d1; margin: 0 auto 2.5rem;\n"
         ),
-        "hero_extra": (
-            ".hero { min-height: min(80vh, 720px); display: flex; align-items: center;\n"
-            "        padding: 5rem 2rem; }\n"
-            ".hero-content { max-width: 820px; }\n"
-            ".hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); line-height: 1.08;\n"
-            "           letter-spacing: -.03em; text-wrap: balance; }\n"
-            ".hero h1 span { display: block; margin-top: .5rem; font-size: .5em;\n"
-            "                font-weight: 600; letter-spacing: -.01em; color: #fcd34d; }\n"
-            ".hero p { text-wrap: pretty; line-height: 1.7; }\n"
-            ".hero .btn { margin: .3rem .35rem; }\n"
-            ".hero .btn-primary { box-shadow: 0 8px 24px rgba(217,119,6,.35); }\n"
-            ".hero .btn-white { background: rgba(255,255,255,.08); color: #fff;\n"
-            "                   border: 1px solid rgba(255,255,255,.35);\n"
-            "                   backdrop-filter: blur(6px); }\n"
-            ".hero .btn-white:hover { background: rgba(255,255,255,.16); color: #fff; }\n"
-            "\n"
-            "/* Pulido general (solo VentaLibra) */\n"
-            "html { scroll-behavior: smooth; }\n"
-            "section[id] { scroll-margin-top: 72px; }\n"
-            ".navbar { box-shadow: 0 1px 0 rgba(15,23,42,.04); }\n"
-            ".btn { letter-spacing: -.005em; }\n"
-            ".btn-primary:hover { transform: translateY(-1px); }\n"
-            ".section-label { display: inline-flex; align-items: center; gap: .6rem; }\n"
-            ".section-label::before { content: ''; width: 24px; height: 2px;\n"
-            "                         background: var(--brand); }\n"
-            ".section-title { font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.15; }\n"
-            ".feature-card { padding: 1.75rem; border-color: #e7e5e4; box-shadow: none; }\n"
-            ".feature-card:hover { border-color: var(--brand);\n"
-            "                      box-shadow: 0 12px 32px rgba(120,53,15,.10); }\n"
-            ".feature-icon { width: 48px; height: 48px; border-radius: 12px; }\n"
-            ".plan-card { border-radius: 18px; transition: box-shadow .2s, transform .2s; }\n"
-            ".plan-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }\n"
-            ".plan-card.featured { background: linear-gradient(180deg, var(--brand-light) 0%, #fff 55%); }\n"
-            ".cta-section { background:\n"
-            "    radial-gradient(ellipse at 20% 0%, rgba(255,255,255,.14) 0%, transparent 55%),\n"
-            "    linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); }\n"
-            ":focus-visible { outline: 3px solid rgba(217,119,6,.5); outline-offset: 2px; }\n"
-            "@media (prefers-reduced-motion: reduce) {\n"
-            "  html { scroll-behavior: auto; }\n"
-            "  *, *::before, *::after { transition: none !important; }\n"
-            "}\n"
-            "\n"
-            "/* Franja de puntos fuertes, rubros, pasos y planes (solo VentaLibra) */\n"
-            ".highlights { position: relative; z-index: 2; max-width: 1100px;\n"
-            "              width: calc(100% - 4rem); margin: -2.75rem auto 0;\n"
-            "              display: grid; grid-template-columns: repeat(4, 1fr);\n"
-            "              background: #fff; border: 1px solid #e7e5e4; border-radius: 16px;\n"
-            "              box-shadow: 0 20px 48px rgba(28,14,3,.18); }\n"
-            ".highlight { display: flex; align-items: center; gap: .85rem; padding: 1.4rem 1.5rem; }\n"
-            ".highlight + .highlight { border-left: 1px solid #f1f5f9; }\n"
-            ".highlight > i { flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;\n"
-            "                 background: var(--brand-light); color: var(--brand-dark);\n"
-            "                 display: flex; align-items: center; justify-content: center;\n"
-            "                 font-size: 1.25rem; }\n"
-            ".highlight strong { display: block; font-size: .95rem; color: var(--dark); line-height: 1.3; }\n"
-            ".highlight span { display: block; font-size: .82rem; color: var(--muted); line-height: 1.4; }\n"
-            "#funciones { padding-top: 7rem; }\n"
-            ".rubros { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));\n"
-            "          gap: 1.25rem; margin-top: 3rem; }\n"
-            ".rubro { background: #fff; border: 1px solid #e7e5e4; border-radius: 16px;\n"
-            "         padding: 2rem 1.75rem; transition: box-shadow .2s, transform .2s; }\n"
-            ".rubro:hover { transform: translateY(-3px); box-shadow: var(--shadow); }\n"
-            ".rubro-icon { width: 56px; height: 56px; border-radius: 14px; background: var(--dark);\n"
-            "              color: #fbbf24; display: flex; align-items: center;\n"
-            "              justify-content: center; font-size: 1.6rem; margin-bottom: 1.25rem; }\n"
-            ".rubro h3 { font-size: 1.1rem; font-weight: 800; color: var(--dark); margin: 0 0 .5rem; }\n"
-            ".rubro p { font-size: .95rem; color: var(--muted); margin: 0; line-height: 1.6; }\n"
-            ".steps { position: relative; }\n"
-            ".steps::before { content: ''; position: absolute; top: 24px; left: 16.6%; right: 16.6%;\n"
-            "                 height: 2px; background: linear-gradient(90deg, var(--brand) 0%, #fde68a 100%); }\n"
-            ".step-num { position: relative; background: #fff; color: var(--brand-dark);\n"
-            "            border: 2px solid var(--brand); box-shadow: 0 0 0 8px #fff; }\n"
-            ".step p { max-width: 280px; margin: 0 auto; line-height: 1.6; }\n"
-            ".pricing-grid { align-items: stretch; }\n"
-            ".plan-card { display: flex; flex-direction: column; }\n"
-            ".plan-features { flex: 1; }\n"
-            ".plan-price { font-size: 1.6rem !important; }\n"
-            ".showcase { background: linear-gradient(180deg, #1c0e03 0%, #2a1505 100%); color: #fff;\n"
-            "            padding-bottom: 6rem; }\n"
-            ".showcase .section-label { color: #fbbf24; }\n"
-            ".showcase .section-label::before { background: #fbbf24; }\n"
-            ".showcase .section-title { color: #fff; }\n"
-            ".showcase .section-sub { color: #d6d3d1; }\n"
-            ".browser { margin: 0; border-radius: 12px; overflow: hidden; background: #fff;\n"
-            "           border: 1px solid rgba(255,255,255,.14);\n"
-            "           box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.2); }\n"
-            ".browser-bar { display: flex; align-items: center; gap: .4rem; padding: .55rem .85rem;\n"
-            "               background: #f1f5f9; border-bottom: 1px solid #e2e8f0; }\n"
-            ".browser-bar > span { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; }\n"
-            ".browser-url { flex: 1; max-width: 300px; margin: 0 auto; padding: .15rem .75rem;\n"
-            "               background: #fff; border: 1px solid #e2e8f0; border-radius: 999px;\n"
-            "               font-size: .7rem; color: var(--muted); text-align: center; }\n"
-            ".browser-bar::after { content: ''; width: 41px; }\n"
-            ".browser-body { overflow-x: auto; }\n"
-            ".browser-body img { display: block; width: 100%; height: auto; }\n"
-            ".showcase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;\n"
-            "                 margin: 3rem 0 0; }\n"
-            ".showcase-fig { margin: 0; }\n"
-            ".showcase-fig figcaption { margin-top: 1.1rem; text-align: center; font-size: .92rem;\n"
-            "                           color: #d6d3d1; }\n"
-            ".showcase-cta { text-align: center; margin-top: 2.5rem; }\n"
-            "\n"
-            "/* Pie de pagina (solo VentaLibra) */\n"
-            ".site-footer { padding: 4rem 2rem 2rem; background: #140b03;\n"
-            "               border-top: 3px solid var(--brand); }\n"
-            ".f-inner { max-width: 1100px; margin: 0 auto; display: grid;\n"
-            "           grid-template-columns: 1.6fr 1fr 1.1fr 1.3fr; gap: 2.5rem; }\n"
-            ".f-logo { width: 28px; height: 28px; display: block; flex-shrink: 0; }\n"
-            ".f-tagline { margin: 1rem 0 1.5rem; max-width: 300px; font-size: .9rem;\n"
-            "             line-height: 1.65; color: #a8a29e; }\n"
-            ".f-cta { display: inline-flex; align-items: center; gap: .5rem; padding: .6rem 1.1rem;\n"
-            "         border: 1px solid rgba(251,191,36,.45); border-radius: 10px; color: #fcd34d;\n"
-            "         font-size: .9rem; font-weight: 600; transition: background .15s; }\n"
-            ".f-cta:hover { background: rgba(251,191,36,.1); text-decoration: none; }\n"
-            ".f-col { display: flex; flex-direction: column; gap: .6rem; }\n"
-            ".f-title { margin-bottom: .4rem; font-size: .75rem; font-weight: 700;\n"
-            "           letter-spacing: .1em; text-transform: uppercase; color: #a8a29e; }\n"
-            ".f-col a { display: block; color: #d6d3d1; font-size: .92rem; transition: color .15s; }\n"
-            ".f-col a:hover { color: #fbbf24; text-decoration: none; }\n"
-            ".f-col a i { margin-right: .5rem; color: #a8a29e; }\n"
-            ".f-family a small { display: block; font-size: .78rem; color: #918a84; margin-top: .1rem; }\n"
-            ".f-bottom { max-width: 1100px; margin: 3rem auto 0; padding-top: 1.5rem;\n"
-            "            border-top: 1px solid #292017; display: flex; flex-wrap: wrap;\n"
-            "            justify-content: space-between; gap: .75rem; font-size: .82rem;\n"
-            "            color: #a8a29e; }\n"
-            ".f-bottom a { color: #a8a29e; }\n"
-            ".f-bottom a:hover { color: #fbbf24; text-decoration: none; }\n"
-            "@media (max-width: 960px) {\n"
-            "  .f-inner { grid-template-columns: 1fr 1fr; }\n"
-            "  .f-about { grid-column: 1 / -1; }\n"
-            "}\n"
-            "@media (max-width: 520px) {\n"
-            "  .site-footer { padding: 3rem 1.25rem 1.5rem; }\n"
-            "  .f-inner { grid-template-columns: 1fr; gap: 2rem; }\n"
-            "}\n"
-            "\n"
-            "/* Preguntas frecuentes (solo VentaLibra) */\n"
-            ".faq-container { max-width: 820px; }\n"
-            ".faq-list { margin-top: 2.5rem; border-top: 1px solid var(--border); }\n"
-            ".faq-item { border-bottom: 1px solid var(--border); }\n"
-            ".faq-item summary { list-style: none; cursor: pointer; display: flex;\n"
-            "                    align-items: center; justify-content: space-between; gap: 1rem;\n"
-            "                    padding: 1.25rem .25rem; font-size: 1.05rem; font-weight: 700;\n"
-            "                    color: var(--dark); transition: color .15s; }\n"
-            ".faq-item summary::-webkit-details-marker { display: none; }\n"
-            ".faq-item summary::after { content: '+'; flex-shrink: 0; width: 28px; height: 28px;\n"
-            "                           border-radius: 50%; border: 1px solid var(--border);\n"
-            "                           display: flex; align-items: center; justify-content: center;\n"
-            "                           font-size: 1.2rem; font-weight: 400; color: var(--brand);\n"
-            "                           transition: transform .2s, background .15s; }\n"
-            ".faq-item summary:hover { color: var(--brand-dark); }\n"
-            ".faq-item[open] summary::after { content: '\\2212'; background: var(--brand-light); }\n"
-            ".faq-item p { margin: 0; padding: 0 3rem 1.5rem .25rem; color: var(--muted);\n"
-            "              line-height: 1.7; font-size: .98rem; }\n"
-            ".faq-more { margin-top: 2rem; color: var(--muted); font-size: .95rem; }\n"
-            "@media (max-width: 960px) {\n"
-            "  .highlights { grid-template-columns: repeat(2, 1fr); }\n"
-            "  .highlight:nth-child(3) { border-left: none; }\n"
-            "  .highlight:nth-child(n+3) { border-top: 1px solid #f1f5f9; }\n"
-            "}\n"
-            "@media (max-width: 768px) {\n"
-            "  .steps::before { display: none; }\n"
-            "  .showcase-grid { grid-template-columns: 1fr; }\n"
-            "  .browser-bar::after { display: none; }\n"
-            "}\n"
-            "@media (max-width: 520px) {\n"
-            "  .highlights { grid-template-columns: 1fr; width: calc(100% - 2.5rem); margin-top: -2rem; }\n"
-            "  .highlight + .highlight { border-left: none; border-top: 1px solid #f1f5f9; }\n"
-            "  #funciones { padding-top: 5rem; }\n"
-            "}\n"
-            "@media (max-width: 768px) {\n"
-            "  .hero { min-height: auto; padding: 4rem 1.25rem 3.5rem; }\n"
-            "  section { padding: 3.5rem 1.25rem; }\n"
-            "}\n"
-        ),
+        # El pulido que nacio aca vive ahora en templates/pulido.css (ADR-010).
+        "hero_extra": "",
         "badge_estandar": ".badge-estandar { background: #dbeafe; color: #1e40af; }\n",
         "badge_extra": "",
         "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(217,119,6,.15);\n",
@@ -612,5 +439,147 @@ SITES = {
         "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
         "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
         "trailing": "",
+    },
+}
+
+
+#: Colores propios de cada sitio para templates/pulido.css (ADR-010). Los *-rgb
+#: van como "r,g,b" para usarse con rgba(var(--p-x-rgb), alfa).
+PULIDO_VARS = {
+    "contalibra": {
+        "hero-accent": "#93c5fd",
+        "on-dark-accent": "#60a5fa",
+        "brand-rgb": "37,99,235",
+        "deep-rgb": "10,18,35",
+        "hover-rgb": "30,64,175",
+        "card-border": "#e2e8f0",
+        "step-end": "#bfdbfe",
+        "dark-1": "#0a1223",
+        "dark-2": "#13203b",
+        "footer-bg": "#070d1a",
+        "footer-line": "#1e293b",
+        "on-dark-text": "#cbd5e1",
+        "on-dark-muted": "#94a3b8",
+        "on-dark-faint": "#7c8aa0",
+        "on-dark-accent-rgb": "96,165,250",
+    },
+    "restolibra": {
+        "hero-accent": "#fdba74",
+        "on-dark-accent": "#fb923c",
+        "brand-rgb": "234,88,12",
+        "deep-rgb": "28,20,16",
+        "hover-rgb": "154,52,18",
+        "card-border": "#e7e0d8",
+        "step-end": "#fed7aa",
+        "dark-1": "#1c1410",
+        "dark-2": "#292019",
+        "footer-bg": "#140e0b",
+        "footer-line": "#2c221c",
+        "on-dark-text": "#d6cfc7",
+        "on-dark-muted": "#a8a29e",
+        "on-dark-faint": "#918a84",
+        "on-dark-accent-rgb": "251,146,60",
+    },
+    "gestiolibra": {
+        "hero-accent": "#c4b5fd",
+        "on-dark-accent": "#a78bfa",
+        "brand-rgb": "124,58,237",
+        "deep-rgb": "15,10,35",
+        "hover-rgb": "91,33,182",
+        "card-border": "#e2e8f0",
+        "step-end": "#ddd6fe",
+        "dark-1": "#0f0a23",
+        "dark-2": "#1e1240",
+        "footer-bg": "#0a0618",
+        "footer-line": "#241a3d",
+        "on-dark-text": "#d4d0e6",
+        "on-dark-muted": "#a5a0bd",
+        "on-dark-faint": "#8a84a3",
+        "on-dark-accent-rgb": "167,139,250",
+    },
+    "medlibra": {
+        "hero-accent": "#5eead4",
+        "on-dark-accent": "#2dd4bf",
+        "brand-rgb": "13,148,136",
+        "deep-rgb": "4,20,20",
+        "hover-rgb": "17,94,89",
+        "card-border": "#e2e8f0",
+        "step-end": "#99f6e4",
+        "dark-1": "#041414",
+        "dark-2": "#082a28",
+        "footer-bg": "#030f0f",
+        "footer-line": "#12302d",
+        "on-dark-text": "#c7d6d4",
+        "on-dark-muted": "#94a8a6",
+        "on-dark-faint": "#7a8f8d",
+        "on-dark-accent-rgb": "45,212,191",
+    },
+    "ventalibra": {
+        "hero-accent": "#fcd34d",
+        "on-dark-accent": "#fbbf24",
+        "brand-rgb": "217,119,6",
+        "deep-rgb": "28,14,3",
+        "hover-rgb": "120,53,15",
+        "card-border": "#e7e5e4",
+        "step-end": "#fde68a",
+        "dark-1": "#1c0e03",
+        "dark-2": "#2a1505",
+        "footer-bg": "#140b03",
+        "footer-line": "#292017",
+        "on-dark-text": "#d6d3d1",
+        "on-dark-muted": "#a8a29e",
+        "on-dark-faint": "#918a84",
+        "on-dark-accent-rgb": "251,191,36",
+    },
+    "libradesk": {
+        "hero-accent": "#a5b4fc",
+        "on-dark-accent": "#818cf8",
+        "brand-rgb": "79,70,229",
+        "deep-rgb": "15,14,40",
+        "hover-rgb": "55,48,163",
+        "card-border": "#e2e8f0",
+        "step-end": "#c7d2fe",
+        "dark-1": "#0f0e28",
+        "dark-2": "#1e1b4b",
+        "footer-bg": "#0a0920",
+        "footer-line": "#22204a",
+        "on-dark-text": "#d1d0e6",
+        "on-dark-muted": "#a3a2bd",
+        "on-dark-faint": "#8584a3",
+        "on-dark-accent-rgb": "129,140,248",
+    },
+    "libracargo": {
+        "hero-accent": "#a8c3ff",
+        "on-dark-accent": "#7aa2ff",
+        "brand-rgb": "1,44,131",
+        "deep-rgb": "0,10,32",
+        "hover-rgb": "1,44,131",
+        "card-border": "#e2e8f0",
+        "step-end": "#bfd0f7",
+        "dark-1": "#000a20",
+        "dark-2": "#001233",
+        "footer-bg": "#000716",
+        "footer-line": "#10224a",
+        "on-dark-text": "#c9d3e6",
+        "on-dark-muted": "#94a3b8",
+        "on-dark-faint": "#7a879e",
+        "on-dark-accent-rgb": "122,162,255",
+    },
+    "libraclub": {
+        "hero-accent": "#6ee7b7",
+        "on-dark-accent": "#34d399",
+        "brand-rgb": "1,123,75",
+        "deep-rgb": "2,25,17",
+        "hover-rgb": "1,92,56",
+        "card-border": "#e2e8f0",
+        "step-end": "#a7f3d0",
+        "dark-1": "#021911",
+        "dark-2": "#04231a",
+        "footer-bg": "#01110b",
+        "footer-line": "#0c2e22",
+        "on-dark-text": "#c5d6cf",
+        "on-dark-muted": "#93aaa1",
+        "on-dark-faint": "#7a9088",
+        "on-dark-accent-rgb": "52,211,153",
     },
 }

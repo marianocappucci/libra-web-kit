@@ -191,3 +191,33 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
   edita a mano su `index.html`. Los 16 SVG viajan dentro del paquete (hatchling incluye todo
   el árbol de `libra_web_kit/`); las landings que instalan el kit por `docs_auth` cargan
   ~16 KB más. Sin tag nuevo todavía: lo corta quien mergea (minor).
+
+## ADR-010 — El pulido de VentaLibra pasa a ser la línea común de las ocho landings
+
+- Estado: aceptada
+- Fecha: 2026-10-09
+- Contexto: VentaLibra recibió en octubre un pulido propio: hero más alto, franja de
+  puntos fuertes, rubros como tarjetas, pasos unidos por una línea, planes de igual
+  altura, sección «Así se ve» con capturas de la demo, pie en cuatro columnas y
+  preguntas frecuentes (libra-web-kit#66 a #71). Todo vivía en el slot `hero_extra`
+  del bloque `ventalibra`, con los colores ámbar escritos a mano, así que ningún otro
+  sitio podía usarlo. El humano pidió llevar las otras siete a la misma línea, «cada
+  una con sus particularidades».
+- Decisión:
+  - El CSS pasa a `templates/pulido.css` y el template lo inserta en el slot nuevo
+    `@@pulido@@`, justo donde estaba el `hero_extra` de VentaLibra, para que la cascada
+    no cambie. Lo reciben los ocho sitios.
+  - `pulido.css` no lleva colores de marca fijos. Usa `var(--brand*)` y las variables
+    `--p-*`, que `css_gen` emite por sitio desde `site_css_tokens.PULIDO_VARS`: acento del
+    hero, acento sobre fondo oscuro, fondos oscuros de la sección de capturas y del pie,
+    grises del pie, borde de tarjetas y los `r,g,b` para las sombras.
+  - El `hero_extra` de VentaLibra queda vacío. Los otros `hero_extra` siguen siendo
+    lo propio de cada sitio, como el login de ContaLibra.
+- Consecuencias:
+  - VentaLibra se renderiza igual: la captura de página completa antes y después del
+    cambio coincide píxel a píxel en escritorio, y en celular sólo difiere el
+    antialiasing de un ícono.
+  - Los golden de `contalibra` y `restolibra` se regeneraron, porque ahora incluyen el pulido.
+  - Una página que no use las clases nuevas (`highlights`, `rubro`, `showcase`,
+    `site-footer`, `faq-*`) igual recibe el hero más alto, la tipografía nueva y las
+    tarjetas de igual altura.
