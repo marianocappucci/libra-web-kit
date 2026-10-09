@@ -50,6 +50,25 @@ jobs:
             alpine) test "$imagen" = "public.ecr.aws/docker/library/postgres:16-alpine" ;;
           esac
           docker exec postgres-ci cat /etc/os-release | head -1
+  usuario-por-defecto-y-salud-propia:
+    # Como LibraCargo/LibraClub (sin POSTGRES_USER) y libragenda (3s/3s/10).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: pg
+        uses: ./.github/actions/postgres-ci
+        with:
+          variante: debian
+          base: prueba_test
+          clave: postgres
+          intervalo: 3s
+          timeout: 3s
+          reintentos: "10"
+      - run: |
+          set -euo pipefail
+          test "${{ steps.pg.outputs.url }}" = "postgresql://postgres:postgres@localhost:5432/prueba_test"
+          docker inspect --format '{{json .Config.Healthcheck}}' postgres-ci | tee /dev/stderr | grep -q '"Interval":3000000000'
+          docker exec postgres-ci psql -U postgres -d prueba_test -tAc "select 1" | grep -qx 1
   variante-invalida:
     runs-on: ubuntu-latest
     steps:
