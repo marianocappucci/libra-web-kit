@@ -110,7 +110,8 @@ SITES = {
             "    radial-gradient(ellipse at 20% 20%, rgba(234,88,12,.30) 0%, transparent 55%),\n"
             "    radial-gradient(ellipse at 85% 75%, rgba(194,65,12,.25) 0%, transparent 55%),\n"
             "    linear-gradient(160deg, rgba(28,20,16,.88) 0%, rgba(28,20,16,.80) 55%, rgba(28,20,16,.92) 100%),\n"
-            "    url('/img/hero.jpg') center 35% / cover no-repeat;\n"
+            # Restaurante con gente en las mesas (foto aportada por el humano).
+            "    url('/img/restaurante-hero.jpg') 40% center / cover no-repeat;\n"
         ),
         "hero_before": "",
         "hero_badge": (
@@ -149,8 +150,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(15,10,35,.80) 0%, rgba(15,10,35,.64) 60%, rgba(15,10,35,.82) 100%),\n"
-            "    linear-gradient(135deg, #2e1065 0%, #1e1b4b 100%);\n"
+            "    linear-gradient(to bottom, rgba(15,10,35,.86) 0%, rgba(15,10,35,.70) 55%, rgba(15,10,35,.90) 100%),\n"
+            # Collage: agenda en una tablet, barberia y taller (foto aportada por el humano).
+            "    url('/img/servicios-hero.jpg') 30% center / cover no-repeat,\n"
+            "    #2e1065;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -195,8 +198,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(4,20,20,.80) 0%, rgba(4,20,20,.64) 60%, rgba(4,20,20,.82) 100%),\n"
-            "    linear-gradient(135deg, #042f2e 0%, #134e4a 100%);\n"
+            "    linear-gradient(to bottom, rgba(4,20,20,.86) 0%, rgba(4,20,20,.70) 55%, rgba(4,20,20,.90) 100%),\n"
+            # Recepcion de una clinica (foto aportada por el humano).
+            "    url('/img/clinica-hero.jpg') 40% center / cover no-repeat,\n"
+            "    #042f2e;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
