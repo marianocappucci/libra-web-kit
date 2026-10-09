@@ -461,8 +461,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(15,14,40,.80) 0%, rgba(15,14,40,.64) 60%, rgba(15,14,40,.82) 100%),\n"
-            "    linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);\n"
+            "    linear-gradient(to bottom, rgba(15,14,40,.86) 0%, rgba(15,14,40,.70) 55%, rgba(15,14,40,.90) 100%),\n"
+            # Tecnicos en un cuarto de racks (foto aportada por el humano).
+            "    url('/img/soporte-hero.jpg') 45% 50% / cover no-repeat,\n"
+            "    #1e1b4b;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -514,8 +516,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(0,10,32,.78) 0%, rgba(0,10,32,.60) 60%, rgba(0,10,32,.82) 100%),\n"
-            "    linear-gradient(135deg, #001233 0%, #012c83 100%);\n"
+            "    linear-gradient(to bottom, rgba(0,10,32,.84) 0%, rgba(0,10,32,.64) 55%, rgba(0,10,32,.88) 100%),\n"
+            # Camiones de granos en una ruta entre campos (foto aportada por el humano).
+            "    url('/img/camiones-hero.jpg') 72% 60% / cover no-repeat,\n"
+            "    #001233;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
