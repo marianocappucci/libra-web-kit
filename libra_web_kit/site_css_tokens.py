@@ -563,8 +563,11 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(2,25,17,.78) 0%, rgba(2,25,17,.60) 60%, rgba(2,25,17,.82) 100%),\n"
-            "    linear-gradient(135deg, #04231a 0%, #016340 100%);\n"
+            "    linear-gradient(to bottom, rgba(2,25,17,.86) 0%, rgba(2,25,17,.68) 55%, rgba(2,25,17,.90) 100%),\n"
+            # Mitad futsal y mitad padel, fundidas en diagonal: dos fotos CC0
+            # de Wikimedia Commons (ver wiki/entities/libraclub-web.md).
+            "    url('/img/canchas-hero.jpg') center 45% / cover no-repeat,\n"
+            "    #04231a;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
