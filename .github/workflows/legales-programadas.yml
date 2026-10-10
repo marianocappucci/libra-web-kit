@@ -1,0 +1,112 @@
+name: Páginas legales programadas
+
+# Regenera y publica las páginas legales de las ocho landings el día en que
+# cambia la versión vigente de los Términos.
+#
+# Desde libraauth v0.48 (ADR-021) la versión vigente se decide por fecha: el
+# 09-11-2026 la 1.1 empieza a regir sola en todas las instancias. Las páginas
+# públicas, en cambio, son HTML generado por `scripts/generate_legal.py` y
+# commiteado en cada landing. Sin este workflow, ese día el sistema pediría la
+# 1.1 mientras `/legal/terminos` sigue mostrando la 1.0.
+#
+# Cada repo con cambios recibe un PR que se mergea en el acto. El push a `main`
+# dispara su deploy, porque el token es de la App libra-bump, no GITHUB_TOKEN.
+# Si no hay nada distinto, no hace nada.
+
+on:
+  schedule:
+    # 09-11 a las 00:17 de Argentina (UTC-3) = 03:17 UTC. También corre los
+    # 9 de noviembre de los años siguientes, sin efecto si nada cambió.
+    - cron: "17 3 9 11 *"
+  workflow_dispatch:
+    inputs:
+      aplicar:
+        description: "Commitear y mergear en las landings (si no, sólo muestra qué cambiaría)."
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  regenerar:
+    runs-on: ubuntu-latest
+    env:
+      APLICAR: ${{ github.event_name == 'schedule' || inputs.aplicar }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      # Mismo esquema que ci.yml: libraauth es privado y pip lo clona por SSH
+      # con su deploy key.
+      - name: Configurar acceso SSH a libraauth
+        env:
+          LIBRAAUTH_DEPLOY_KEY: ${{ secrets.LIBRAAUTH_DEPLOY_KEY }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+          printf '%s\n' "$LIBRAAUTH_DEPLOY_KEY" > ~/.ssh/id_libraauth
+          chmod 600 ~/.ssh/id_libraauth
+          printf 'Host github-libraauth\n  HostName github.com\n  User git\n  IdentityFile ~/.ssh/id_libraauth\n  IdentitiesOnly yes\n' >> ~/.ssh/config
+          git config --global url."git@github-libraauth:marianocappucci/libraauth".insteadOf \
+            "https://github.com/marianocappucci/libraauth"
+
+      - name: Instalar el kit
+        run: pip install -q -e '.[dev]'
+
+      - name: Token de la App libra-bump
+        id: token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.LIBRA_BUMP_APP_ID }}
+          private-key: ${{ secrets.LIBRA_BUMP_APP_KEY }}
+          owner: marianocappucci
+          repositories: contalibra_web,restolibra_web,gestiolibra_web,medlibra_web,ventalibra_web,libradesk_web,libracargo_web,libraclub_web
+
+      - name: Regenerar y publicar
+        env:
+          GH_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          set -euo pipefail
+          DIR="$RUNNER_TEMP/landings"; mkdir -p "$DIR"
+          # repo en GitHub -> carpeta que espera REPO_DIR_BY_SITE de generate_legal.py
+          declare -A CARPETA=(
+            [contalibra_web]=contalibra.com.ar [restolibra_web]=restolibra.com.ar
+            [gestiolibra_web]=gestiolibra_web [medlibra_web]=medlibra_web
+            [ventalibra_web]=ventalibra_web [libradesk_web]=libradesk_web
+            [libracargo_web]=libracargo_web [libraclub_web]=libraclub_web
+          )
+          for repo in "${!CARPETA[@]}"; do
+            git clone -q --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/marianocappucci/$repo.git" "$DIR/${CARPETA[$repo]}"
+          done
+          python - <<'EOF'
+          import libraauth.terminos as t
+          print(f"Rige hoy: {t.version_vigente()} (desde {t.vigente_desde()})")
+          EOF
+          python scripts/generate_legal.py --proyectos-dir "$DIR"
+          git config --global user.name "libra-bump[bot]"
+          git config --global user.email "libra-bump[bot]@users.noreply.github.com"
+          RAMA="chore/legales-$(TZ=America/Argentina/Buenos_Aires date +%Y-%m-%d)"
+          for repo in "${!CARPETA[@]}"; do
+            cd "$DIR/${CARPETA[$repo]}"
+            if [ -z "$(git status --porcelain)" ]; then echo "[$repo] sin cambios"; cd - >/dev/null; continue; fi
+            echo "[$repo] cambios:"; git status --short
+            if [ "$APLICAR" != "true" ]; then cd - >/dev/null; continue; fi
+            git checkout -q -b "$RAMA"
+            git add -A public/legal
+            git commit -q -m "chore(legal): páginas legales con la versión que rige hoy"
+            git push -q origin "$RAMA"
+            URL=$(gh pr create -R "marianocappucci/$repo" --base main --head "$RAMA" \
+              --title "chore(legal): páginas legales con la versión que rige hoy" \
+              --body "Generado por \`legales-programadas.yml\` de libra-web-kit, el día en que cambia la versión vigente de los Términos (libraauth ADR-021).")
+            gh pr merge "$URL" --squash --delete-branch
+            echo "[$repo] publicado: $URL"
+            cd - >/dev/null
+          done
