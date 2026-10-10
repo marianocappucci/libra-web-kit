@@ -99,8 +99,21 @@ runs:
               --health-interval "${INTERVALO}" --health-timeout "${TIMEOUT_SALUD}" --health-retries "${REINTENTOS}"
               --health-start-period 5s)
         if [ -n "$ZONA" ]; then args+=(-e "TZ=${ZONA}"); fi
+        # 🔴 La descarga, con reintentos (v1.2.0). El espejo de ECR no tiene el cupo anónimo de Docker Hub, pero también
+        # corta las ráfagas (`toomanyrequests: Rate exceeded`, medido el 2026-10-10 con varios repos a la vez).
+        for intento in 1 2 3 4; do
+          if docker pull -q "$IMAGEN" >/dev/null 2>&1; then
+            echo "Imagen ${IMAGEN} lista (intento ${intento})"; break
+          fi
+          if [ "$intento" = 4 ]; then
+            echo "::error::no se pudo bajar ${IMAGEN} en 4 intentos"; docker pull "$IMAGEN" || true; exit 1
+          fi
+          pausa=$(( intento * intento * 5 ))
+          echo "::warning::no se pudo bajar ${IMAGEN} (intento ${intento}); reintento en ${pausa}s"
+          sleep "$pausa"
+        done
         echo "Levantando ${IMAGEN} en localhost:${PUERTO}"
-        docker run "${args[@]}" "$IMAGEN" >/dev/null
+        docker run --pull never "${args[@]}" "$IMAGEN" >/dev/null
         inicio=$(date +%s)
         while true; do
           estado=$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' postgres-ci)
