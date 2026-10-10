@@ -68,6 +68,23 @@ RUTA_HTML_PROXIMA = "legal/terminos-proxima.html"
 RUTA_MARKDOWN_PROXIMA = f"legal/terminos-v{VERSION_PROXIMA}.md" if VERSION_PROXIMA else None
 
 
+def _vigente() -> tuple[str, str]:
+    """(versión, vigente desde) que rige HOY. Desde libraauth v0.48 se decide por fecha (ADR-021): regenerar el 09-11-2026
+    publica la 1.1 como vigente sin tocar el kit. Con una libraauth anterior, las constantes."""
+    if hasattr(_terminos, "version_vigente"):
+        return _terminos.version_vigente(), _terminos.vigente_desde()
+    return VERSION_VIGENTE, VIGENTE_DESDE
+
+
+def _ruta_markdown() -> str:
+    return f"legal/terminos-v{_vigente()[0]}.md"
+
+
+def _hay_proxima() -> bool:
+    """Hay una versión publicada que todavía no rige (después de su fecha ya es la vigente y no se anuncia)."""
+    return bool(VERSION_PROXIMA) and _terminos.texto_proximo() is not None
+
+
 def sitios() -> list[str]:
     return sorted(SIDEBARS)
 
@@ -105,10 +122,10 @@ def render(site: str) -> str:
     return plantilla.render(
         brand=cfg["brand"],
         footer_html=cfg["footer_html"],
-        version=VERSION_VIGENTE,
-        vigente_desde=VIGENTE_DESDE,
+        version=_vigente()[0],
+        vigente_desde=_vigente()[1],
         hash_texto=hash_vigente(),
-        archivo_markdown="/" + RUTA_MARKDOWN,
+        archivo_markdown="/" + _ruta_markdown(),
         contenido_html=_a_html(),
         proxima=_aviso_de_proxima(),
         es_proxima=False,
@@ -117,7 +134,7 @@ def render(site: str) -> str:
 
 def _aviso_de_proxima() -> dict | None:
     """Lo que la página vigente dice de la próxima versión, o `None` si no hay una."""
-    if not VERSION_PROXIMA:
+    if not _hay_proxima():
         return None
     return {"version": VERSION_PROXIMA, "desde": PROXIMA_DESDE, "ruta": "/" + RUTA_HTML_PROXIMA}
 
@@ -125,7 +142,7 @@ def _aviso_de_proxima() -> dict | None:
 def render_proxima(site: str) -> str | None:
     """La página de la próxima versión para un sitio, o `None` si no hay una. Misma plantilla y mismo convertidor que la
     vigente; el encabezado dice que todavía no rige y enlaza a la que rige hoy."""
-    if not VERSION_PROXIMA:
+    if not _hay_proxima():
         return None
     if site not in SIDEBARS:
         raise KeyError(f"sitio desconocido: {site!r} (conocidos: {sorted(SIDEBARS)})")
@@ -140,14 +157,14 @@ def render_proxima(site: str) -> str | None:
         contenido_html=_con_clases(_terminos.texto_html_proximo()),
         proxima=None,
         es_proxima=True,
-        vigente={"version": VERSION_VIGENTE, "desde": VIGENTE_DESDE, "ruta": "/legal/terminos"},
+        vigente={"version": _vigente()[0], "desde": _vigente()[1], "ruta": "/legal/terminos"},
     )
 
 
 def archivos(site: str) -> list[tuple[str, str]]:
     """Todo lo que se publica en un sitio: la vigente (HTML y Markdown) y, si hay, la próxima (HTML y Markdown)."""
-    salida = [(RUTA_HTML, render(site)), (RUTA_MARKDOWN, markdown_publicado())]
-    if VERSION_PROXIMA:
+    salida = [(RUTA_HTML, render(site)), (_ruta_markdown(), markdown_publicado())]
+    if _hay_proxima():
         salida += [(RUTA_HTML_PROXIMA, render_proxima(site)), (RUTA_MARKDOWN_PROXIMA, _terminos.texto_proximo())]
     return salida
 
