@@ -56,7 +56,6 @@ def render(site: str, filename: str) -> str:
         is_index=meta["is_index"],
         active_href=meta["active_href"],
         brand=site_cfg["brand"],
-        letter=site_cfg["letter"],
         sidebar=site_cfg["sidebar"],
         footer_html=site_cfg["footer_html"],
         content_html=content_html,

@@ -1,0 +1,6 @@
+Marcas dibujadas de la familia Libra: copia byte a byte de libra-ui (ADR-034).
+No se editan a mano ni se redibujan: se vuelven a copiar con
+scripts/sincronizar_marcas.py y se cambia TAG_POR_DEFECTO ahi.
+
+origen:  libra-ui v0.124.0 (e38c42e4473c81603fbfaf6d372c593d30060b7c)
+comando: python scripts/sincronizar_marcas.py --tag v0.124.0

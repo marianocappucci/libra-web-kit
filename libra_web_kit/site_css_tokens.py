@@ -26,7 +26,8 @@ SITES = {
         ),
         "hero_bg": (
             "    linear-gradient(to bottom, rgba(10,18,35,.78) 0%, rgba(10,18,35,.62) 60%, rgba(10,18,35,.80) 100%),\n"
-            "    url('/img/hero.jpg') center center / cover no-repeat;\n"
+            # Persona trabajando en su escritorio (foto aportada por el humano).
+            "    url('/img/escritorio-hero.jpg') center center / cover no-repeat;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -109,7 +110,8 @@ SITES = {
             "    radial-gradient(ellipse at 20% 20%, rgba(234,88,12,.30) 0%, transparent 55%),\n"
             "    radial-gradient(ellipse at 85% 75%, rgba(194,65,12,.25) 0%, transparent 55%),\n"
             "    linear-gradient(160deg, rgba(28,20,16,.88) 0%, rgba(28,20,16,.80) 55%, rgba(28,20,16,.92) 100%),\n"
-            "    url('/img/hero.jpg') center 35% / cover no-repeat;\n"
+            # Restaurante con gente en las mesas (foto aportada por el humano).
+            "    url('/img/restaurante-hero.jpg') 40% center / cover no-repeat;\n"
         ),
         "hero_before": "",
         "hero_badge": (
@@ -148,8 +150,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(15,10,35,.80) 0%, rgba(15,10,35,.64) 60%, rgba(15,10,35,.82) 100%),\n"
-            "    linear-gradient(135deg, #2e1065 0%, #1e1b4b 100%);\n"
+            "    linear-gradient(to bottom, rgba(15,10,35,.86) 0%, rgba(15,10,35,.70) 55%, rgba(15,10,35,.90) 100%),\n"
+            # Collage: agenda en una tablet, barberia y taller (foto aportada por el humano).
+            "    url('/img/servicios-hero.jpg') 30% center / cover no-repeat,\n"
+            "    #2e1065;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -194,8 +198,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(4,20,20,.80) 0%, rgba(4,20,20,.64) 60%, rgba(4,20,20,.82) 100%),\n"
-            "    linear-gradient(135deg, #042f2e 0%, #134e4a 100%);\n"
+            "    linear-gradient(to bottom, rgba(4,20,20,.86) 0%, rgba(4,20,20,.70) 55%, rgba(4,20,20,.90) 100%),\n"
+            # Recepcion de una clinica (foto aportada por el humano).
+            "    url('/img/clinica-hero.jpg') 40% center / cover no-repeat,\n"
+            "    #042f2e;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -240,8 +246,11 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(35,20,4,.80) 0%, rgba(35,20,4,.64) 60%, rgba(35,20,4,.82) 100%),\n"
-            "    linear-gradient(135deg, #451a03 0%, #78350f 100%);\n"
+            "    linear-gradient(to bottom, rgba(28,14,3,.88) 0%, rgba(40,20,4,.70) 55%, rgba(28,14,3,.92) 100%),\n"
+            # Comerciante en la puerta de su local (foto aportada por el humano,
+            # antes en ContaLibra). 22% horizontal: en celular queda la cara.
+            "    url('/img/comerciante-hero.jpg') 22% center / cover no-repeat,\n"
+            "    #2a1505;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -257,8 +266,9 @@ SITES = {
         ),
         "hero_span_p": (
             ".hero h1 span { color: #fbbf24; }\n"
-            ".hero p { font-size: 1.15rem; color: #94a3b8; margin: 0 auto 2.5rem;\n"
+            ".hero p { font-size: 1.15rem; color: #d6d3d1; margin: 0 auto 2.5rem;\n"
         ),
+        # El pulido que nacio aca vive ahora en templates/pulido.css (ADR-010).
         "hero_extra": "",
         "badge_estandar": ".badge-estandar { background: #dbeafe; color: #1e40af; }\n",
         "badge_extra": "",
@@ -286,8 +296,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(15,14,40,.80) 0%, rgba(15,14,40,.64) 60%, rgba(15,14,40,.82) 100%),\n"
-            "    linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);\n"
+            "    linear-gradient(to bottom, rgba(15,14,40,.86) 0%, rgba(15,14,40,.70) 55%, rgba(15,14,40,.90) 100%),\n"
+            # Tecnicos en un cuarto de racks (foto aportada por el humano).
+            "    url('/img/soporte-hero.jpg') 45% 50% / cover no-repeat,\n"
+            "    #1e1b4b;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -339,8 +351,10 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(0,10,32,.78) 0%, rgba(0,10,32,.60) 60%, rgba(0,10,32,.82) 100%),\n"
-            "    linear-gradient(135deg, #001233 0%, #012c83 100%);\n"
+            "    linear-gradient(to bottom, rgba(0,10,32,.84) 0%, rgba(0,10,32,.64) 55%, rgba(0,10,32,.88) 100%),\n"
+            # Camiones de granos en una ruta entre campos (foto aportada por el humano).
+            "    url('/img/camiones-hero.jpg') 72% 60% / cover no-repeat,\n"
+            "    #001233;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -388,8 +402,13 @@ SITES = {
             "  --bg:          #f8fafc;\n"
         ),
         "hero_bg": (
-            "    linear-gradient(to bottom, rgba(2,25,17,.78) 0%, rgba(2,25,17,.60) 60%, rgba(2,25,17,.82) 100%),\n"
-            "    linear-gradient(135deg, #04231a 0%, #016340 100%);\n"
+            "    linear-gradient(to bottom, rgba(2,25,17,.86) 0%, rgba(2,25,17,.68) 55%, rgba(2,25,17,.90) 100%),\n"
+            # Mitad futsal y mitad padel, fundidas en diagonal: dos fotos CC0
+            # de Wikimedia Commons (ver wiki/entities/libraclub-web.md).
+            # 90% horizontal: en pantallas angostas deja ver al jugador de padel;
+            # en escritorio la foto ocupa todo el ancho y no cambia nada.
+            "    url('/img/canchas-hero.jpg') 90% 45% / cover no-repeat,\n"
+            "    #04231a;\n"
         ),
         "hero_before": (
             ".hero::before {\n"
@@ -420,5 +439,147 @@ SITES = {
         "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
         "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
         "trailing": "",
+    },
+}
+
+
+#: Colores propios de cada sitio para templates/pulido.css (ADR-010). Los *-rgb
+#: van como "r,g,b" para usarse con rgba(var(--p-x-rgb), alfa).
+PULIDO_VARS = {
+    "contalibra": {
+        "hero-accent": "#93c5fd",
+        "on-dark-accent": "#60a5fa",
+        "brand-rgb": "37,99,235",
+        "deep-rgb": "10,18,35",
+        "hover-rgb": "30,64,175",
+        "card-border": "#e2e8f0",
+        "step-end": "#bfdbfe",
+        "dark-1": "#0a1223",
+        "dark-2": "#13203b",
+        "footer-bg": "#070d1a",
+        "footer-line": "#1e293b",
+        "on-dark-text": "#cbd5e1",
+        "on-dark-muted": "#94a3b8",
+        "on-dark-faint": "#7c8aa0",
+        "on-dark-accent-rgb": "96,165,250",
+    },
+    "restolibra": {
+        "hero-accent": "#fdba74",
+        "on-dark-accent": "#fb923c",
+        "brand-rgb": "234,88,12",
+        "deep-rgb": "28,20,16",
+        "hover-rgb": "154,52,18",
+        "card-border": "#e7e0d8",
+        "step-end": "#fed7aa",
+        "dark-1": "#1c1410",
+        "dark-2": "#292019",
+        "footer-bg": "#140e0b",
+        "footer-line": "#2c221c",
+        "on-dark-text": "#d6cfc7",
+        "on-dark-muted": "#a8a29e",
+        "on-dark-faint": "#918a84",
+        "on-dark-accent-rgb": "251,146,60",
+    },
+    "gestiolibra": {
+        "hero-accent": "#c4b5fd",
+        "on-dark-accent": "#a78bfa",
+        "brand-rgb": "124,58,237",
+        "deep-rgb": "15,10,35",
+        "hover-rgb": "91,33,182",
+        "card-border": "#e2e8f0",
+        "step-end": "#ddd6fe",
+        "dark-1": "#0f0a23",
+        "dark-2": "#1e1240",
+        "footer-bg": "#0a0618",
+        "footer-line": "#241a3d",
+        "on-dark-text": "#d4d0e6",
+        "on-dark-muted": "#a5a0bd",
+        "on-dark-faint": "#8a84a3",
+        "on-dark-accent-rgb": "167,139,250",
+    },
+    "medlibra": {
+        "hero-accent": "#5eead4",
+        "on-dark-accent": "#2dd4bf",
+        "brand-rgb": "13,148,136",
+        "deep-rgb": "4,20,20",
+        "hover-rgb": "17,94,89",
+        "card-border": "#e2e8f0",
+        "step-end": "#99f6e4",
+        "dark-1": "#041414",
+        "dark-2": "#082a28",
+        "footer-bg": "#030f0f",
+        "footer-line": "#12302d",
+        "on-dark-text": "#c7d6d4",
+        "on-dark-muted": "#94a8a6",
+        "on-dark-faint": "#7a8f8d",
+        "on-dark-accent-rgb": "45,212,191",
+    },
+    "ventalibra": {
+        "hero-accent": "#fcd34d",
+        "on-dark-accent": "#fbbf24",
+        "brand-rgb": "217,119,6",
+        "deep-rgb": "28,14,3",
+        "hover-rgb": "120,53,15",
+        "card-border": "#e7e5e4",
+        "step-end": "#fde68a",
+        "dark-1": "#1c0e03",
+        "dark-2": "#2a1505",
+        "footer-bg": "#140b03",
+        "footer-line": "#292017",
+        "on-dark-text": "#d6d3d1",
+        "on-dark-muted": "#a8a29e",
+        "on-dark-faint": "#918a84",
+        "on-dark-accent-rgb": "251,191,36",
+    },
+    "libradesk": {
+        "hero-accent": "#a5b4fc",
+        "on-dark-accent": "#818cf8",
+        "brand-rgb": "79,70,229",
+        "deep-rgb": "15,14,40",
+        "hover-rgb": "55,48,163",
+        "card-border": "#e2e8f0",
+        "step-end": "#c7d2fe",
+        "dark-1": "#0f0e28",
+        "dark-2": "#1e1b4b",
+        "footer-bg": "#0a0920",
+        "footer-line": "#22204a",
+        "on-dark-text": "#d1d0e6",
+        "on-dark-muted": "#a3a2bd",
+        "on-dark-faint": "#8584a3",
+        "on-dark-accent-rgb": "129,140,248",
+    },
+    "libracargo": {
+        "hero-accent": "#a8c3ff",
+        "on-dark-accent": "#7aa2ff",
+        "brand-rgb": "1,44,131",
+        "deep-rgb": "0,10,32",
+        "hover-rgb": "1,44,131",
+        "card-border": "#e2e8f0",
+        "step-end": "#bfd0f7",
+        "dark-1": "#000a20",
+        "dark-2": "#001233",
+        "footer-bg": "#000716",
+        "footer-line": "#10224a",
+        "on-dark-text": "#c9d3e6",
+        "on-dark-muted": "#94a3b8",
+        "on-dark-faint": "#7a879e",
+        "on-dark-accent-rgb": "122,162,255",
+    },
+    "libraclub": {
+        "hero-accent": "#6ee7b7",
+        "on-dark-accent": "#34d399",
+        "brand-rgb": "1,123,75",
+        "deep-rgb": "2,25,17",
+        "hover-rgb": "1,92,56",
+        "card-border": "#e2e8f0",
+        "step-end": "#a7f3d0",
+        "dark-1": "#021911",
+        "dark-2": "#04231a",
+        "footer-bg": "#01110b",
+        "footer-line": "#0c2e22",
+        "on-dark-text": "#c5d6cf",
+        "on-dark-muted": "#93aaa1",
+        "on-dark-faint": "#7a9088",
+        "on-dark-accent-rgb": "52,211,153",
     },
 }

@@ -1,7 +1,11 @@
 """Sidebar, footer y branding por sitio para /docs/, extraido
 2026-07-27 -- ver docs_gen.py. Un solo sidebar/footer por sitio
 (identico en las paginas de ese sitio salvo el link activo del
-sidebar, confirmado en la extraccion)."""
+sidebar, confirmado en la extraccion).
+
+La marca (cuadrado del navbar y del pie) es `<img src="/img/marca.svg">`, la marca
+dibujada de libra-ui (ADR-009), no la inicial ni un glifo; el footer de Restolibra,
+que la lleva inline, la escribe tal cual."""
 
 SIDEBARS = {
     # 🔴 Sidebar re-extraido de lo desplegado el 2026-08-21, junto con las 21
@@ -12,7 +16,6 @@ SIDEBARS = {
     'libradesk': {
 
         "brand": 'LibraDesk',
-        "letter": 'L',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 LibraDesk · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -47,7 +50,6 @@ SIDEBARS = {
     },
     'contalibra': {
         "brand": 'Contalibra',
-        "letter": 'C',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 Contalibra · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -77,8 +79,7 @@ SIDEBARS = {
     },
     'restolibra': {
         "brand": 'Restolibra',
-        "letter": 'R',
-        "footer_html": '<footer>\n<div class="footer-inner">\n<div>\n<div class="footer-brand">\n<div class="logo-icon" style="width:28px;height:28px;border-radius:6px;background:var(--brand);display:inline-flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:.8rem">R</div>\n        Restolibra\n      </div>\n<div class="footer-tagline">Sistema de gestión para restaurantes, bares y delivery</div>\n</div>\n<div style="display:flex;gap:3rem;flex-wrap:wrap">\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Sistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/#funciones" style="color:#a8a29e;font-size:.9rem">Funciones</a>\n<a href="/#planes" style="color:#a8a29e;font-size:.9rem">Planes</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Recursos</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/docs/" style="color:#a8a29e;font-size:.9rem">Documentación</a>\n<a href="/docs/primeros-pasos.html" style="color:#a8a29e;font-size:.9rem">Primeros pasos</a>\n<a href="/docs/salon.html" style="color:#a8a29e;font-size:.9rem">Salón y Mesas</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Contacto</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://wa.me/5491127752983" style="color:#a8a29e;font-size:.9rem" target="_blank"><i class="bi bi-whatsapp me-1"></i>WhatsApp</a>\n<a href="mailto:hola@restolibra.com.ar" style="color:#a8a29e;font-size:.9rem"><i class="bi bi-envelope me-1"></i>Email</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Nuestro Ecosistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://contalibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Contalibra — ERP &amp; Facturación</a>\n<a href="https://compulibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Compulibra — Soporte IT &amp; Hosting</a>\n<a href="https://neuroflow.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">NeuroFlow — IA &amp; Automatización</a>\n</div>\n</div>\n</div>\n</div>\n<div class="footer-copy">\n    © 2026 Restolibra · parte del ecosistema <a href="https://compulibra.com.ar" rel="noopener" style="color:#78716c;text-decoration:none" target="_blank">Compulibra</a> · Todos los derechos reservados\n  </div>\n</footer>',
+        "footer_html": '<footer>\n<div class="footer-inner">\n<div>\n<div class="footer-brand">\n<img src="/img/marca.svg" alt="" class="logo-icon" width="28" height="28">\n        Restolibra\n      </div>\n<div class="footer-tagline">Sistema de gestión para restaurantes, bares y delivery</div>\n</div>\n<div style="display:flex;gap:3rem;flex-wrap:wrap">\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Sistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/#funciones" style="color:#a8a29e;font-size:.9rem">Funciones</a>\n<a href="/#planes" style="color:#a8a29e;font-size:.9rem">Planes</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Recursos</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="/docs/" style="color:#a8a29e;font-size:.9rem">Documentación</a>\n<a href="/docs/primeros-pasos.html" style="color:#a8a29e;font-size:.9rem">Primeros pasos</a>\n<a href="/docs/salon.html" style="color:#a8a29e;font-size:.9rem">Salón y Mesas</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Contacto</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://wa.me/5491127752983" style="color:#a8a29e;font-size:.9rem" target="_blank"><i class="bi bi-whatsapp me-1"></i>WhatsApp</a>\n<a href="mailto:hola@restolibra.com.ar" style="color:#a8a29e;font-size:.9rem"><i class="bi bi-envelope me-1"></i>Email</a>\n</div>\n</div>\n<div>\n<div style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#78716c;margin-bottom:.75rem">Nuestro Ecosistema</div>\n<div style="display:flex;flex-direction:column;gap:.4rem">\n<a href="https://contalibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Contalibra — ERP &amp; Facturación</a>\n<a href="https://compulibra.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">Compulibra — Soporte IT &amp; Hosting</a>\n<a href="https://neuroflow.com.ar" rel="noopener" style="color:#a8a29e;font-size:.9rem" target="_blank">NeuroFlow — IA &amp; Automatización</a>\n</div>\n</div>\n</div>\n</div>\n<div class="footer-copy">\n    © 2026 Restolibra · parte del ecosistema <a href="https://compulibra.com.ar" rel="noopener" style="color:#78716c;text-decoration:none" target="_blank">Compulibra</a> · Todos los derechos reservados\n  </div>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
             {"type": "link", "href": '/docs/', "text": 'Introducción'},
@@ -112,7 +113,6 @@ SIDEBARS = {
     },
     'gestiolibra': {
         "brand": 'Gestiolibra',
-        "letter": 'G',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 Gestiolibra · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -139,7 +139,6 @@ SIDEBARS = {
     },
     'medlibra': {
         "brand": 'MedLibra',
-        "letter": 'M',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 MedLibra · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -170,7 +169,6 @@ SIDEBARS = {
     },
     'ventalibra': {
         "brand": 'VentaLibra',
-        "letter": 'V',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 VentaLibra · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -189,10 +187,10 @@ SIDEBARS = {
             {"type": "section", "text": 'Caja y facturación'},
             {"type": "link", "href": '/docs/caja.html', "text": 'Caja'},
             {"type": "link", "href": '/docs/facturacion.html', "text": 'Facturación electrónica'},
-            {"type": "section", "text": 'Estándar'},
+            {"type": "section", "text": 'Reportes'},
             {"type": "link", "href": '/docs/reportes.html', "text": 'Reportes'},
             {"type": "section", "text": 'Cuenta'},
-            {"type": "link", "href": '/docs/usuarios-roles.html', "text": 'Usuarios y roles'},
+            {"type": "link", "href": '/docs/usuarios-roles.html', "text": 'Usuarios, roles y precio'},
             {"type": "link", "href": '/docs/logs.html', "text": 'Logs del sistema'},
             {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
         ],
@@ -203,7 +201,6 @@ SIDEBARS = {
     # y en un sitio nuevo no hay nada que preservar.
     'libracargo': {
         "brand": 'LibraCargo',
-        "letter": 'C',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 LibraCargo · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},
@@ -230,7 +227,6 @@ SIDEBARS = {
     },
     'libraclub': {
         "brand": 'LibraClub',
-        "letter": 'C',
         "footer_html": '<footer style="background:var(--dark);color:#94a3b8;text-align:center;padding:1.5rem;font-size:.85rem;">\n  © 2026 LibraClub · <a href="/" style="color:#94a3b8">Inicio</a>\n</footer>',
         "sidebar": [
             {"type": "section", "text": 'Inicio'},

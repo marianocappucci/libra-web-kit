@@ -91,7 +91,6 @@ def render(site: str) -> str:
     plantilla = _env.get_template("legal_page.html.jinja2")
     return plantilla.render(
         brand=cfg["brand"],
-        letter=cfg["letter"],
         footer_html=cfg["footer_html"],
         version=VERSION_VIGENTE,
         vigente_desde=VIGENTE_DESDE,
