@@ -25,6 +25,17 @@ import pytest
 from libraauth.terminos import VERSION_VIGENTE, hash_vigente, texto_vigente
 
 from libra_web_kit.docs_sidebars import SIDEBARS
+
+
+@pytest.fixture(autouse=True)
+def _antes_del_09_11(monkeypatch):
+    """Desde libraauth v0.48 la versión vigente se decide por fecha (ADR-021). Se fija el día ANTES de que rija la 1.1:
+    si no, desde el 09-11-2026 estos tests (que esperan la 1.0 vigente y la 1.1 como próxima) se romperían solos."""
+    import datetime
+
+    import libraauth.terminos as _t
+
+    monkeypatch.setattr(_t, "_hoy_argentina", lambda: datetime.date(2026, 10, 10), raising=False)
 from libra_web_kit.legal_gen import (
     RUTA_HTML,
     RUTA_MARKDOWN,
@@ -177,3 +188,19 @@ def test_sin_proxima_version_no_se_publica_nada_mas(monkeypatch):
     assert [r for r, _ in lg.archivos("ventalibra")] == [lg.RUTA_HTML, lg.RUTA_MARKDOWN]
     assert lg.render_proxima("ventalibra") is None
     assert "Nueva versión publicada" not in lg.render("ventalibra")
+
+
+def test_desde_el_09_11_la_1_1_es_la_vigente_y_no_se_anuncia_proxima(monkeypatch):
+    import datetime
+
+    import libraauth.terminos as t
+
+    from libra_web_kit import legal_gen as lg
+
+    monkeypatch.setattr(t, "_hoy_argentina", lambda: datetime.date(2026, 11, 9))
+    rutas = dict(lg.archivos("ventalibra"))
+    assert set(rutas) == {lg.RUTA_HTML, "legal/terminos-v1.1.md"}
+    html = rutas[lg.RUTA_HTML]
+    assert "Versión 1.1</strong> · vigente desde el 09-11-2026" in html
+    assert "Nueva versión publicada" not in html and "precio final con el IVA incluido" in html
+    assert hashlib.sha256(rutas["legal/terminos-v1.1.md"].encode("utf-8")).hexdigest() == t.hash_vigente()
