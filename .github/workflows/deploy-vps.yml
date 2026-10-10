@@ -101,6 +101,13 @@ jobs:
             # no desplego es peor que uno que falla.
             set -euo pipefail
             cd ${{ inputs.remote_path }}
+            # 🔴 Desde docker-buildx 0.38 / compose 5.6 (actualizados en el VPS el 2026-10-10, 18:14), `compose build`
+            # va por bake y bake exige un permiso explícito para leer archivos fuera del contexto: la clave SSH con la
+            # que el contenedor `auth` clona libra-web-kit (`ssh: default=~/.ssh/id_ed25519_libra_web_kit` en cada
+            # docker-compose.yml) cortaba el build con «additional privileges requested: pass --allow=fs.read=…».
+            # `compose` no deja pasar `--allow`; esta variable de buildx desactiva ese control para este build. El
+            # contenido que se construye es el del repo del sitio, que es nuestro.
+            export BUILDX_BAKE_ENTITLEMENTS_FS=0
             docker compose build --no-cache
             docker compose up -d
             echo "Deploy OK: $(date)"
