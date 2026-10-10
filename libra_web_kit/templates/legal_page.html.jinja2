@@ -26,9 +26,22 @@
 <div class="docs-wrapper" style="justify-content:center">
   <main class="docs-content">
 
+    {% if es_proxima %}
+    <div class="callout">
+      <strong>Próxima versión {{ version }}</strong> · entra en vigencia el {{ vigente_desde }}.<br>
+      Hasta esa fecha rige la <a href="{{ vigente.ruta }}">versión {{ vigente.version }}</a>, vigente desde el
+      {{ vigente.desde }}. Desde el {{ vigente_desde }}, el sistema pide aceptar este texto al ingresar. Su huella
+    {% else %}
+    {% if proxima %}
+    <div class="callout">
+      <strong>Nueva versión publicada.</strong> El {{ proxima.desde }} entra en vigencia la
+      <a href="{{ proxima.ruta }}">versión {{ proxima.version }}</a> de estos Términos. Hasta entonces rige la de abajo.
+    </div>
+    {% endif %}
     <div class="callout">
       <strong>Versión {{ version }}</strong> · vigente desde el {{ vigente_desde }}.<br>
       Este es el texto que se acepta al ingresar al sistema. Su huella
+    {% endif %}
       <strong>SHA-256</strong> es
       <code style="word-break:break-all">{{ hash_texto }}</code>.
       Se puede verificar sobre el

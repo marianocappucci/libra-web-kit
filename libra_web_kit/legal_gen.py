@@ -24,6 +24,8 @@ from importlib import resources
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+import libraauth.terminos as _terminos
+
 from libra_web_kit.docs_sidebars import SIDEBARS
 
 try:
@@ -58,6 +60,13 @@ RUTA_HTML = "legal/terminos.html"
 #: publicadas sin pisarse (clausula 30.4).
 RUTA_MARKDOWN = f"legal/terminos-v{VERSION_VIGENTE}.md"
 
+#: **La próxima versión** (libraauth ADR-020): publicada pero todavía no vigente, con la anticipación de la cláusula 29.2.
+#: Se lee con `getattr` porque una libraauth anterior a la 0.47 no la tiene; sin próxima versión no se publica nada más.
+VERSION_PROXIMA: str | None = getattr(_terminos, "VERSION_PROXIMA", None)
+PROXIMA_DESDE: str | None = getattr(_terminos, "PROXIMA_DESDE", None)
+RUTA_HTML_PROXIMA = "legal/terminos-proxima.html"
+RUTA_MARKDOWN_PROXIMA = f"legal/terminos-v{VERSION_PROXIMA}.md" if VERSION_PROXIMA else None
+
 
 def sitios() -> list[str]:
     return sorted(SIDEBARS)
@@ -79,7 +88,11 @@ def _a_html() -> str:
     `.docs-table`; sin este reemplazo las dos tablas del contrato —severidades de
     soporte y Anexo II— salen sin bordes ni encabezado.
     """
-    return texto_html().replace("<table>", '<table class="docs-table">')
+    return _con_clases(texto_html())
+
+
+def _con_clases(html: str) -> str:
+    return html.replace("<table>", '<table class="docs-table">')
 
 
 def render(site: str) -> str:
@@ -97,7 +110,46 @@ def render(site: str) -> str:
         hash_texto=hash_vigente(),
         archivo_markdown="/" + RUTA_MARKDOWN,
         contenido_html=_a_html(),
+        proxima=_aviso_de_proxima(),
+        es_proxima=False,
     )
+
+
+def _aviso_de_proxima() -> dict | None:
+    """Lo que la página vigente dice de la próxima versión, o `None` si no hay una."""
+    if not VERSION_PROXIMA:
+        return None
+    return {"version": VERSION_PROXIMA, "desde": PROXIMA_DESDE, "ruta": "/" + RUTA_HTML_PROXIMA}
+
+
+def render_proxima(site: str) -> str | None:
+    """La página de la próxima versión para un sitio, o `None` si no hay una. Misma plantilla y mismo convertidor que la
+    vigente; el encabezado dice que todavía no rige y enlaza a la que rige hoy."""
+    if not VERSION_PROXIMA:
+        return None
+    if site not in SIDEBARS:
+        raise KeyError(f"sitio desconocido: {site!r} (conocidos: {sorted(SIDEBARS)})")
+    cfg = SIDEBARS[site]
+    return _env.get_template("legal_page.html.jinja2").render(
+        brand=cfg["brand"],
+        footer_html=cfg["footer_html"],
+        version=VERSION_PROXIMA,
+        vigente_desde=PROXIMA_DESDE,
+        hash_texto=_terminos.hash_proximo(),
+        archivo_markdown="/" + RUTA_MARKDOWN_PROXIMA,
+        contenido_html=_con_clases(_terminos.texto_html_proximo()),
+        proxima=None,
+        es_proxima=True,
+        vigente={"version": VERSION_VIGENTE, "desde": VIGENTE_DESDE, "ruta": "/legal/terminos"},
+    )
+
+
+def archivos(site: str) -> list[tuple[str, str]]:
+    """Todo lo que se publica en un sitio: la vigente (HTML y Markdown) y, si hay, la próxima (HTML y Markdown)."""
+    salida = [(RUTA_HTML, render(site)), (RUTA_MARKDOWN, markdown_publicado())]
+    if VERSION_PROXIMA:
+        salida += [(RUTA_HTML_PROXIMA, render_proxima(site)), (RUTA_MARKDOWN_PROXIMA, _terminos.texto_proximo())]
+    return salida
 
 
 def markdown_publicado() -> str:
