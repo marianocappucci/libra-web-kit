@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Sync archivos al VPS
-        uses: burnett01/rsync-deployments@9.0.0
+        uses: burnett01/rsync-deployments@9.0.1
         with:
           # 🔴 El `--include` de `public/legal/*.md` va ANTES del `--exclude`
           # de `*.md`: rsync aplica la primera regla que matchea, asi que al

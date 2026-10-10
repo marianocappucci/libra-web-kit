@@ -1,0 +1,85 @@
+name: Accion postgres-ci
+
+# Prueba de la Action compuesta `.github/actions/postgres-ci`, en las dos variantes, antes de que la usen los
+# 14 repos de la familia. Sólo corre cuando cambia la Action o este archivo.
+on:
+  pull_request:
+    branches: [develop, main]
+    paths:
+      - ".github/actions/postgres-ci/**"
+      - ".github/workflows/accion-postgres-ci.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        variante: [debian, alpine]
+    steps:
+      - uses: actions/checkout@v7
+      - id: pg
+        uses: ./.github/actions/postgres-ci
+        with:
+          variante: ${{ matrix.variante }}
+          base: prueba
+          usuario: prueba
+          clave: prueba-ci
+          tz: America/Argentina/Buenos_Aires
+      - name: La base contesta en localhost, con la URL de la salida
+        env:
+          URL: ${{ steps.pg.outputs.url }}
+        run: |
+          set -euo pipefail
+          test "$URL" = "postgresql://prueba:prueba-ci@localhost:5432/prueba"
+          docker exec postgres-ci psql -U prueba -d prueba -tAc "select version()"
+          # Desde el runner, por el puerto publicado (lo que hace la suite de cada repo).
+          sudo apt-get -qq install -y postgresql-client >/dev/null 2>&1 || true
+          psql "$URL" -tAc "select 1" | grep -qx 1
+      - name: La imagen es la de la variante pedida
+        run: |
+          set -euo pipefail
+          imagen=$(docker inspect --format '{{.Config.Image}}' postgres-ci)
+          echo "imagen: $imagen"
+          case "${{ matrix.variante }}" in
+            debian) test "$imagen" = "public.ecr.aws/docker/library/postgres:16" ;;
+            alpine) test "$imagen" = "public.ecr.aws/docker/library/postgres:16-alpine" ;;
+          esac
+          docker exec postgres-ci cat /etc/os-release | head -1
+  usuario-por-defecto-y-salud-propia:
+    # Como LibraCargo/LibraClub (sin POSTGRES_USER) y libragenda (3s/3s/10).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: pg
+        uses: ./.github/actions/postgres-ci
+        with:
+          variante: debian
+          base: prueba_test
+          clave: postgres
+          intervalo: 3s
+          timeout: 3s
+          reintentos: "10"
+      - run: |
+          set -euo pipefail
+          test "${{ steps.pg.outputs.url }}" = "postgresql://postgres:postgres@localhost:5432/prueba_test"
+          docker inspect --format '{{json .Config.Healthcheck}}' postgres-ci | tee /dev/stderr | grep -q '"Interval":3000000000'
+          docker exec postgres-ci psql -U postgres -d prueba_test -tAc "select 1" | grep -qx 1
+  variante-invalida:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - id: mala
+        continue-on-error: true
+        uses: ./.github/actions/postgres-ci
+        with:
+          variante: ubuntu
+          base: prueba
+          usuario: prueba
+          clave: prueba-ci
+      - name: Tuvo que fallar
+        run: test "${{ steps.mala.outcome }}" = "failure"
