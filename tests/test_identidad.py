@@ -88,3 +88,11 @@ def test_ningun_pie_de_docs_dice_ecosistema_compulibra():
         assert "ecosistema" not in pie and "compulibra" not in pie and "neuroflow" not in pie, sitio
         if "parte de" in pie:
             assert 'href="https://librasuite.com.ar"' in pie, sitio
+
+
+def test_ningun_pie_de_docs_lista_los_otros_productos():
+    """El pie sólo dice que el sitio es parte de LibraSuite; no nombra a los otros productos (decisión del humano)."""
+    for sitio, sidebar in SIDEBARS.items():
+        pie = sidebar.get("footer_html", "").lower()
+        otros = [d for d in IDENTIDAD if d != sitio and f"https://{d}" in pie]
+        assert not otros, (sitio, otros)
