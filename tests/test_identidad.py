@@ -79,3 +79,12 @@ def test_los_colores_son_hex_de_seis_digitos_en_minuscula():
     for sitio, ident in IDENTIDAD.items():
         for campo in ("color", "color_oscuro", "color_claro", "color_sobre_oscuro"):
             assert re.fullmatch(r"#[0-9a-f]{6}", getattr(ident, campo)), (sitio, campo)
+
+
+def test_ningun_pie_de_docs_dice_ecosistema_compulibra():
+    """Los sitios son parte de LibraSuite: el pie viejo de RestoLibra decía «ecosistema Compulibra»."""
+    for sitio, sidebar in SIDEBARS.items():
+        pie = sidebar.get("footer_html", "").lower()
+        assert "ecosistema" not in pie and "compulibra" not in pie and "neuroflow" not in pie, sitio
+        if "parte de" in pie:
+            assert 'href="https://librasuite.com.ar"' in pie, sitio
