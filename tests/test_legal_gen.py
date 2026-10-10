@@ -139,3 +139,41 @@ def test_las_paginas_de_docs_linkean_a_los_terminos():
 
     html = render_docs("contalibra", list_pages("contalibra")[0])
     assert 'href="/legal/terminos"' in html
+
+
+# ── La próxima versión (libraauth ADR-020): publicada con la anticipación de la cláusula 29.2 ──
+
+def test_cada_sitio_publica_la_proxima_version_con_su_hash():
+    import libraauth.terminos as t
+
+    from libra_web_kit import legal_gen as lg
+
+    assert lg.VERSION_PROXIMA == "1.1"
+    for site in lg.sitios():
+        rutas = dict(lg.archivos(site))
+        assert set(rutas) == {lg.RUTA_HTML, lg.RUTA_MARKDOWN, "legal/terminos-proxima.html", "legal/terminos-v1.1.md"}
+        md = rutas["legal/terminos-v1.1.md"]
+        assert hashlib.sha256(md.encode("utf-8")).hexdigest() == t.hash_proximo()
+        html = rutas["legal/terminos-proxima.html"]
+        assert t.hash_proximo() in html and "/legal/terminos-v1.1.md" in html
+        assert "Próxima versión 1.1" in html and "entra en vigencia el 09-11-2026" in html
+        assert 'href="/legal/terminos">versión 1.0' in html
+        assert "precio final con el IVA incluido" in html
+
+
+def test_la_pagina_vigente_avisa_la_proxima_y_sigue_publicando_la_vigente():
+    from libra_web_kit import legal_gen as lg
+
+    html = lg.render("ventalibra")
+    assert "El 09-11-2026 entra en vigencia la" in html and 'href="/legal/terminos-proxima.html"' in html
+    assert hash_vigente() in html and f"Versión {VERSION_VIGENTE}</strong>" in html
+    assert "más IVA" in html  # la vigente sigue siendo la 1.0, sin cambios
+
+
+def test_sin_proxima_version_no_se_publica_nada_mas(monkeypatch):
+    from libra_web_kit import legal_gen as lg
+
+    monkeypatch.setattr(lg, "VERSION_PROXIMA", None)
+    assert [r for r, _ in lg.archivos("ventalibra")] == [lg.RUTA_HTML, lg.RUTA_MARKDOWN]
+    assert lg.render_proxima("ventalibra") is None
+    assert "Nueva versión publicada" not in lg.render("ventalibra")

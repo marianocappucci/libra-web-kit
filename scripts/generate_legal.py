@@ -16,13 +16,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from libra_web_kit.legal_gen import (
-    RUTA_HTML,
-    RUTA_MARKDOWN,
-    markdown_publicado,
-    render,
-    sitios,
-)
+from libra_web_kit.legal_gen import archivos, sitios
 
 #: 🔴 Mismo riesgo que en `generate_docs.py` y `generate_css.py`: un sitio de
 #: `SIDEBARS` que falte aca revienta con `KeyError` en el medio del recorrido y
@@ -49,7 +43,6 @@ def main() -> int:
     args = parser.parse_args()
 
     proyectos_dir = Path(args.proyectos_dir)
-    md = markdown_publicado()
     distintos: list[str] = []
     escritos = 0
 
@@ -59,7 +52,7 @@ def main() -> int:
             print(f"[SKIP] {site}: no existe {raiz} (¿repo no clonado?)")
             continue
 
-        for ruta, contenido in ((RUTA_HTML, render(site)), (RUTA_MARKDOWN, md)):
+        for ruta, contenido in archivos(site):
             destino = raiz / ruta
             actual = destino.read_text(encoding="utf-8") if destino.exists() else None
             if actual == contenido:
