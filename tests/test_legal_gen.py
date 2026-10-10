@@ -199,7 +199,10 @@ def test_desde_el_09_11_la_1_1_es_la_vigente_y_no_se_anuncia_proxima(monkeypatch
 
     monkeypatch.setattr(t, "_hoy_argentina", lambda: datetime.date(2026, 11, 9))
     rutas = dict(lg.archivos("ventalibra"))
-    assert set(rutas) == {lg.RUTA_HTML, "legal/terminos-v1.1.md"}
+    assert set(rutas) == {lg.RUTA_HTML, "legal/terminos-v1.1.md", lg.RUTA_HTML_PROXIMA}
+    # El enlace del aviso a los clientes sigue andando: lleva a la vigente.
+    assert 'url=/legal/terminos"' in rutas[lg.RUTA_HTML_PROXIMA]
+    assert "Versión 1.1" not in rutas[lg.RUTA_HTML_PROXIMA]
     html = rutas[lg.RUTA_HTML]
     assert "Versión 1.1</strong> · vigente desde el 09-11-2026" in html
     assert "Nueva versión publicada" not in html and "precio final con el IVA incluido" in html

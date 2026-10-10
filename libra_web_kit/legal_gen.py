@@ -166,7 +166,20 @@ def archivos(site: str) -> list[tuple[str, str]]:
     salida = [(RUTA_HTML, render(site)), (_ruta_markdown(), markdown_publicado())]
     if _hay_proxima():
         salida += [(RUTA_HTML_PROXIMA, render_proxima(site)), (RUTA_MARKDOWN_PROXIMA, _terminos.texto_proximo())]
+    elif VERSION_PROXIMA:
+        # La próxima ya rige: el enlace del aviso a los clientes (`/legal/terminos-proxima.html`) no queda roto ni
+        # mostrando como «próxima» a la que ya es la vigente; lleva a la vigente.
+        salida.append((RUTA_HTML_PROXIMA, _REDIRECCION_A_LA_VIGENTE))
     return salida
+
+
+_REDIRECCION_A_LA_VIGENTE = (
+    '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
+    '<meta http-equiv="refresh" content="0; url=/legal/terminos">\n'
+    '<link rel="canonical" href="/legal/terminos">\n<title>Términos y Condiciones</title>\n</head>\n'
+    '<body><p>Esta versión ya está vigente: <a href="/legal/terminos">ver los Términos y Condiciones</a>.</p></body>\n'
+    '</html>\n'
+)
 
 
 def markdown_publicado() -> str:
