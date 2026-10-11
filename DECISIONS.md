@@ -221,3 +221,22 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
   - Una página que no use las clases nuevas (`highlights`, `rubro`, `showcase`,
     `site-footer`, `faq-*`) igual recibe el hero más alto, la tipografía nueva y las
     tarjetas de igual altura.
+
+## ADR-011 — Las páginas legales se regeneran solas el día que cambia la versión vigente
+
+**Fecha:** 2026-10-10. **Estado:** aceptado.
+
+**Contexto.** Desde libraauth v0.48 (ADR-021 del motor) la versión vigente de los Términos se decide por fecha: la 1.1
+rige sola desde el 09-11-2026 en todas las instancias. Las páginas públicas de las ocho landings, en cambio, son HTML
+generado por `scripts/generate_legal.py` y commiteado en cada repo. Si nadie las regenera ese día, el sistema pide
+aceptar la 1.1 mientras `/legal/terminos` sigue mostrando la 1.0.
+
+**Decisión.**
+- `.github/workflows/legales-programadas.yml` corre el 9 de noviembre a las 00:17 de Argentina. Clona las ocho landings
+  con el token de la App libra-bump, corre el generador y, en cada repo con cambios, abre un PR y lo mergea. El push a
+  `main` dispara el deploy de la landing. A mano se corre con `workflow_dispatch`, que por defecto sólo muestra los cambios.
+- Cuando la próxima versión ya rige, `archivos()` publica en `legal/terminos-proxima.html` una redirección a
+  `/legal/terminos`. Así el enlace del aviso que recibieron los clientes no queda roto ni anuncia como «próxima» a la vigente.
+
+**Consecuencias.** No depende de que haya una sesión abierta ni de que alguien se acuerde. Los años siguientes corre
+igual y no hace nada si no hay diferencias. Para una versión futura con otra fecha, se cambia el cron.
