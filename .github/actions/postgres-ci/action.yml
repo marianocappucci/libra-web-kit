@@ -10,7 +10,7 @@ description: >-
 # Los jobs de la familia corren en `ubuntu-latest` sin `container:`, así que `-p <puerto>:5432` deja la base en
 # `localhost:<puerto>` exactamente como el `services:` de antes.
 #
-# 🔴 La imagen sale de `public.ecr.aws/docker/library/postgres` y nunca de Docker Hub anónimo: el 2026-10-09 su
+# 🔴 La imagen sale de `public.ecr.aws/docker/library/postgres` y no de Docker Hub anónimo (salvo como último espejo, v1.3.0): el 2026-10-09 su
 # límite de descargas (`toomanyrequests`) trabó el CI de toda la familia (`reglas/ci.md` del wiki).
 #
 # Se usa con el tag mayor móvil `postgres-ci-v1` (se mueve en cada versión compatible; un cambio incompatible es
@@ -99,19 +99,32 @@ runs:
               --health-interval "${INTERVALO}" --health-timeout "${TIMEOUT_SALUD}" --health-retries "${REINTENTOS}"
               --health-start-period 5s)
         if [ -n "$ZONA" ]; then args+=(-e "TZ=${ZONA}"); fi
-        # 🔴 La descarga, con reintentos (v1.2.0). El espejo de ECR no tiene el cupo anónimo de Docker Hub, pero también
-        # corta las ráfagas (`toomanyrequests: Rate exceeded`, medido el 2026-10-10 con varios repos a la vez).
-        for intento in 1 2 3 4; do
-          if docker pull -q "$IMAGEN" >/dev/null 2>&1; then
-            echo "Imagen ${IMAGEN} lista (intento ${intento})"; break
-          fi
-          if [ "$intento" = 4 ]; then
-            echo "::error::no se pudo bajar ${IMAGEN} en 4 intentos"; docker pull "$IMAGEN" || true; exit 1
-          fi
-          pausa=$(( intento * intento * 5 ))
-          echo "::warning::no se pudo bajar ${IMAGEN} (intento ${intento}); reintento en ${pausa}s"
-          sleep "$pausa"
-        done
+        # 🔴 La descarga, con reintentos (v1.2.0) y espejos (v1.3.0). El espejo de ECR no tiene el cupo anónimo de Docker
+        # Hub, pero corta las ráfagas (`toomanyrequests: Rate exceeded`, medido el 2026-10-10 con varios repos a la vez)
+        # y además tiene un tope de datos anónimos (`toomanyrequests: Data limit exceeded`, tiró restolibra#448 y
+        # ventalibra#581 el 2026-10-12). Ese tope no se arregla esperando: si aparece, se deja de insistir con ECR y se
+        # baja la MISMA imagen oficial (`library/postgres`) de `mirror.gcr.io` y, si no, de Docker Hub, y se re-etiqueta
+        # con el nombre de ECR para que el `docker run` de abajo no cambie. Mismo criterio que libracargo#355.
+        bajar() {  # bajar <imagen> <intentos>: 0 = lista; 1 = no cedió; 2 = tope de datos (no vale la pena reintentar)
+          local intento salida pausa
+          for intento in $(seq 1 "$2"); do
+            if salida=$(docker pull -q "$1" 2>&1); then echo "Imagen $1 lista (intento ${intento})"; return 0; fi
+            if echo "$salida" | grep -qi "data limit exceeded"; then
+              echo "::warning::$1: tope de datos del registro (${salida##*: }); paso a un espejo"; return 2
+            fi
+            [ "$intento" = "$2" ] && { echo "::warning::$1 no cedió en $2 intentos: ${salida}"; return 1; }
+            pausa=$(( intento * intento * 5 ))
+            echo "::warning::no se pudo bajar $1 (intento ${intento}); reintento en ${pausa}s"
+            sleep "$pausa"
+          done
+        }
+        if ! bajar "$IMAGEN" 4; then
+          lista=no
+          for espejo in "mirror.gcr.io/library/${IMAGEN##*/}" "docker.io/library/${IMAGEN##*/}"; do
+            if bajar "$espejo" 2; then docker tag "$espejo" "$IMAGEN"; echo "Imagen ${IMAGEN} lista, desde ${espejo}"; lista=si; break; fi
+          done
+          if [ "$lista" != si ]; then echo "::error::no se pudo bajar ${IMAGEN} ni de ECR ni de los espejos"; exit 1; fi
+        fi
         echo "Levantando ${IMAGEN} en localhost:${PUERTO}"
         docker run --pull never "${args[@]}" "$IMAGEN" >/dev/null
         inicio=$(date +%s)
