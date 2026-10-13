@@ -37,6 +37,11 @@ jobs:
           for paso in accion["runs"]["steps"]:
               if "run" in paso:
                   assert paso.get("shell") == "bash", paso.get("name")
+          # GitHub evalúa `${{` en TODO el action.yml, descripciones incluidas: una mención en texto rompe la carga de
+          # la Action en el producto ("Unexpected symbol: '...'"), cosa que un yaml.safe_load no ve (2026-10-13, e2e-ci-v1.0.0).
+          for grupo in ("inputs", "outputs"):
+              for nombre, campo in (accion.get(grupo) or {}).items():
+                  assert "${{" not in str(campo.get("description", "")), f"{grupo}.{nombre}: `${{{{` en la descripción"
           print("pasos:", len(accion["runs"]["steps"]))
           PY
       - name: resumen.mjs cuenta el flake, el fallo y el salteado
