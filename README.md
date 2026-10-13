@@ -70,3 +70,10 @@ lectura, mismo patrón que los demás paquetes Python de la familia.
 `nginx.conf`, `docker-compose.yml` y el CI workflow de cada landing
 siguen siendo archivos propios de cada repo (son infraestructura, no
 código runtime instalable) — quedan fuera del alcance de este paquete.
+
+## Actions de CI
+
+Las compartidas viven en `.github/actions/` y se usan con un tag mayor móvil:
+
+- [`postgres-ci`](.github/actions/postgres-ci/action.yml) (`@postgres-ci-v1`): el PostgreSQL de la suite desde el espejo de ECR.
+- [`e2e-ci`](.github/actions/e2e-ci/README.md) (`@e2e-ci-v1`): levanta un producto entero y corre sus tests de navegador (Playwright). Usa a `postgres-ci`.

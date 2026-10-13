@@ -1,0 +1,59 @@
+name: Accion e2e-ci
+
+# Prueba de lo que se puede probar de la Action compuesta `.github/actions/e2e-ci` SIN un producto: que el YAML es válido y de
+# la forma esperada, y que `resumen.mjs` cuenta bien un reporte JSON de Playwright (un flake, un fallo, un salteado). El
+# armado completo (PostgreSQL, backend, SPA, Playwright) se prueba en el repo de cada producto: ventalibra es el piloto
+# (`.github/workflows/e2e.yml`), porque necesita sus motores privados y su frontend.
+on:
+  pull_request:
+    branches: [develop, main]
+    paths:
+      - ".github/actions/e2e-ci/**"
+      - ".github/workflows/accion-e2e-ci.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  probar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: La Action es un YAML compuesto y cada `run` declara su shell
+        run: |
+          python3 - <<'PY'
+          import yaml
+          accion = yaml.safe_load(open(".github/actions/e2e-ci/action.yml"))
+          assert accion["runs"]["using"] == "composite"
+          for entrada in ("variante", "base", "usuario", "clave"):
+              assert accion["inputs"][entrada]["required"] is True, entrada
+          for paso in accion["runs"]["steps"]:
+              if "run" in paso:
+                  assert paso.get("shell") == "bash", paso.get("name")
+          print("pasos:", len(accion["runs"]["steps"]))
+          PY
+      - name: resumen.mjs cuenta el flake, el fallo y el salteado
+        run: |
+          set -euo pipefail
+          export GITHUB_OUTPUT="$RUNNER_TEMP/salida.txt" GITHUB_STEP_SUMMARY="$RUNNER_TEMP/resumen.md"
+          : > "$GITHUB_OUTPUT"
+          node .github/actions/e2e-ci/resumen.mjs .github/actions/e2e-ci/prueba/resultado.json | tee "$RUNNER_TEMP/log.txt"
+          grep -qx 'flaky=1' "$GITHUB_OUTPUT"
+          grep -qx 'fallos=1' "$GITHUB_OUTPUT"
+          grep -q '^::warning title=Flake en e2e::' "$RUNNER_TEMP/log.txt"
+          grep -q '^| 1 | 1 | 1 | 1 |' "$RUNNER_TEMP/resumen.md"
+      - name: Sin reporte no falla y deja los contadores en cero
+        run: |
+          set -euo pipefail
+          export GITHUB_OUTPUT="$RUNNER_TEMP/salida2.txt"
+          : > "$GITHUB_OUTPUT"
+          node .github/actions/e2e-ci/resumen.mjs no-existe.json
+          grep -qx 'flaky=0' "$GITHUB_OUTPUT"
+          grep -qx 'fallos=0' "$GITHUB_OUTPUT"

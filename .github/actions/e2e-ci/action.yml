@@ -1,0 +1,278 @@
+name: Tests de navegador (e2e)
+description: >-
+  Levanta un producto de la familia Libra entero en el runner (PostgreSQL desde el espejo de ECR, backend desde el lock, SPA
+  construida, migraciones de `scripts/panel_admin.py`, uvicorn), lo siembra, crea un usuario por rol y corre Playwright
+  (Chromium) contra él. Sube trace, screenshots y el log de uvicorn si algo falla.
+
+# Por qué una Action compuesta (mismo criterio que `postgres-ci`; diseño en el wiki: reglas/ci.md y estandares-desarrollo.md):
+# el smoke de navegador y los tests de dominio de los ocho productos hacían lo mismo en 120 líneas de workflow cada uno. Una
+# Action compuesta es lo que se puede versionar y mover con un tag (`e2e-ci-v1`); un workflow reutilizable obligaría a mover
+# el job entero, y el SSH a los motores privados y los secrets son de cada repo.
+#
+# 🔴 SIN docker compose: la base sale de `postgres-ci` (espejo de ECR, con reintentos y espejos de respaldo, v1.3.0) porque el
+# límite de descargas anónimas de Docker Hub ya trabó el CI de toda la familia (reglas/ci.md del wiki, 2026-10-09).
+#
+# Lo que NO hace, y tiene que estar hecho ANTES por el workflow del producto (en este orden):
+#   1. `actions/checkout`;
+#   2. el acceso SSH a los repos privados (`libracore`, `libracommerce`, `libraauth`, `libra-ui`...) con sus deploy keys: son
+#      secrets del repo y la lista de motores es de cada producto (`uv sync` y `npm ci` los bajan).
+# Corre desde la raíz del checkout. El producto trae: `scripts/panel_admin.py` (las migraciones), `frontend/` con Playwright como
+# devDependency y `libra-ui/e2e`, y `/health` que contesta `{"ok": true, ...}`.
+#
+# Se usa con el tag mayor móvil `e2e-ci-v1` (se mueve en cada versión compatible; un cambio incompatible es `e2e-ci-v2`).
+
+inputs:
+  variante:
+    description: "PostgreSQL `debian` o `alpine` (obligatoria; igual que `postgres-ci`). Los ocho productos usan debian."
+    required: true
+  base:
+    description: POSTGRES_DB.
+    required: true
+  usuario:
+    description: POSTGRES_USER.
+    required: true
+  clave:
+    description: POSTGRES_PASSWORD (de CI, no un secreto real).
+    required: true
+  tz:
+    description: TZ del contenedor de PostgreSQL y de todo el job.
+    required: false
+    default: America/Argentina/Buenos_Aires
+  modulo-app:
+    description: Módulo ASGI que levanta uvicorn.
+    required: false
+    default: app.asgi:app
+  puerto:
+    description: Puerto de la app en el runner. Los tests le pegan a `http://localhost:<puerto>` (localhost y no 127.0.0.1, por la cookie Secure).
+    required: false
+    default: "8000"
+  env:
+    description: >-
+      Variables de entorno de la app y de los tests, una `CLAVE=valor` por línea (sin comillas; se ignoran las vacías y las que
+      empiezan con #). Se exportan para todos los pasos siguientes del job (migraciones, uvicorn, semilla, usuarios, Playwright).
+      Los valores `${{ ... }}` los resuelve el workflow que llama.
+    required: false
+    default: ""
+  semilla:
+    description: Comando de shell (puede ser de varias líneas) que siembra la instancia, desde la raíz del repo y con el venv en el PATH. Opcional.
+    required: false
+    default: ""
+  usuarios-por-rol:
+    description: Comando de shell (puede ser de varias líneas) que crea un usuario por rol (los que lee el proyecto `setup` de Playwright). Opcional.
+    required: false
+    default: ""
+  proyecto:
+    description: Proyecto de Playwright (`--project`). `smoke`, `e2e`, o los dos separados por coma (`setup` entra solo por dependencia de `e2e`).
+    required: false
+    default: e2e
+  spec:
+    description: Archivo o patrón de `playwright test` para acotar la corrida. Opcional.
+    required: false
+    default: ""
+  repetir:
+    description: "`--repeat-each` (para medir flakes de un spec nuevo). Opcional."
+    required: false
+    default: ""
+  nocturno:
+    description: "`true` en la corrida de noche: exporta NOCTURNO=1 (`libra-ui/e2e` reintenta una vez y la Action avisa cada flake)."
+    required: false
+    default: "false"
+  directorio-frontend:
+    description: Carpeta del frontend.
+    required: false
+    default: frontend
+  python-version:
+    required: false
+    default: "3.12"
+    description: Versión de Python.
+  uv-version:
+    required: false
+    default: "0.12.10"
+    description: Versión de uv.
+  uv-sync:
+    required: false
+    default: "--locked"
+    description: Argumentos de `uv sync` (los productos que corren pytest en el mismo job usan `--locked --extra dev`).
+  node-version:
+    required: false
+    default: "22"
+    description: Versión de Node.
+  espera-app:
+    description: Segundos máximos de espera a que `/health` conteste.
+    required: false
+    default: "60"
+  artefactos:
+    description: Nombre del artifact que se sube si algo falla.
+    required: false
+    default: e2e-playwright
+
+outputs:
+  flaky:
+    description: Cantidad de tests que pasaron recién al reintento (sólo hay reintento con `nocturno`).
+    value: ${{ steps.resumen.outputs.flaky }}
+  fallos:
+    description: Cantidad de tests que fallaron.
+    value: ${{ steps.resumen.outputs.fallos }}
+
+runs:
+  using: composite
+  steps:
+    # ── La instancia ────────────────────────────────────────────────────────
+    - name: PostgreSQL
+      uses: marianocappucci/libra-web-kit/.github/actions/postgres-ci@postgres-ci-v1
+      with:
+        variante: ${{ inputs.variante }}
+        base: ${{ inputs.base }}
+        usuario: ${{ inputs.usuario }}
+        clave: ${{ inputs.clave }}
+        tz: ${{ inputs.tz }}
+
+    # Las variables de la app van a GITHUB_ENV: las ven todos los pasos que siguen, los de esta Action y los del workflow.
+    # Entran por `env` y no interpoladas en el script: un valor raro no se ejecuta como shell.
+    - name: Variables de entorno
+      shell: bash
+      env:
+        VARIABLES: ${{ inputs.env }}
+        ZONA: ${{ inputs.tz }}
+        NOCTURNO_ENTRADA: ${{ inputs.nocturno }}
+        PUERTO: ${{ inputs.puerto }}
+      run: |
+        set -euo pipefail
+        {
+          echo "TZ=${ZONA}"
+          echo "E2E_BASE_URL=http://localhost:${PUERTO}"
+          if [ "$NOCTURNO_ENTRADA" = "true" ]; then echo "NOCTURNO=1"; fi
+          printf '%s\n' "$VARIABLES" | grep -E '^[A-Za-z_][A-Za-z0-9_]*=' || true
+        } >> "$GITHUB_ENV"
+        mkdir -p "$RUNNER_TEMP/e2e-ci"
+
+    - uses: actions/setup-python@v7
+      with:
+        python-version: ${{ inputs.python-version }}
+    - uses: astral-sh/setup-uv@v7
+      with:
+        version: ${{ inputs.uv-version }}
+    - name: Backend desde el lock
+      shell: bash
+      env:
+        ARGS: ${{ inputs.uv-sync }}
+      run: |
+        set -euo pipefail
+        # shellcheck disable=SC2086
+        uv sync $ARGS
+        echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+    # El bundle real, el que sirve uvicorn desde `frontend/dist`.
+    - uses: actions/setup-node@v7
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: npm
+        cache-dependency-path: ${{ inputs.directorio-frontend }}/package-lock.json
+    - name: Construir la SPA
+      shell: bash
+      working-directory: ${{ inputs.directorio-frontend }}
+      run: |
+        set -euo pipefail
+        npm ci
+        npm run build
+        test -f dist/index.html
+
+    # ── Migraciones y arranque ──────────────────────────────────────────────
+    - name: Migraciones y arranque de uvicorn
+      shell: bash
+      env:
+        MODULO: ${{ inputs.modulo-app }}
+        PUERTO: ${{ inputs.puerto }}
+        ESPERA: ${{ inputs.espera-app }}
+      run: |
+        set -euo pipefail
+        # La carpeta de datos de la app (config.json, logos, respaldos) la tiene que haber: la app no la crea sola.
+        if [ -n "${DATA_DIR:-}" ]; then mkdir -p "$DATA_DIR"; fi
+        # 🔴 Las migraciones son LAS QUE DECLARA scripts/panel_admin.py, en su orden, y no una copia: es el camino real del deploy
+        # (el mismo snippet de scripts/reset_demo.sh). Una lista a mano se queda atrás y la app arranca por el `create_all`.
+        python -c 'import sys; sys.path.insert(0, "."); import scripts.panel_admin; from libracore.provisioning import get_config; print("\n".join(" ".join(c) for c in get_config().migraciones))' > "$RUNNER_TEMP/e2e-ci/migraciones.txt"
+        test -s "$RUNNER_TEMP/e2e-ci/migraciones.txt" || { echo "::error::scripts/panel_admin.py no declara migraciones"; exit 1; }
+        while IFS= read -r cmd; do echo "== $cmd"; $cmd; done < "$RUNNER_TEMP/e2e-ci/migraciones.txt"
+        nohup uvicorn "$MODULO" --host 127.0.0.1 --port "$PUERTO" > "$RUNNER_TEMP/e2e-ci/uvicorn.log" 2>&1 &
+        for i in $(seq 1 "$ESPERA"); do
+          if curl -sf "http://localhost:${PUERTO}/health" | grep -q 'ok"'; then echo "app arriba tras $i intentos"; exit 0; fi
+          sleep 1
+        done
+        echo "::error::la app no levantó en ${ESPERA}s"; tail -50 "$RUNNER_TEMP/e2e-ci/uvicorn.log"; exit 1
+
+    - name: Semilla
+      if: inputs.semilla != ''
+      shell: bash
+      env:
+        COMANDO: ${{ inputs.semilla }}
+      run: bash -euo pipefail -c "$COMANDO"
+
+    - name: Usuarios por rol
+      if: inputs.usuarios-por-rol != ''
+      shell: bash
+      env:
+        COMANDO: ${{ inputs.usuarios-por-rol }}
+      run: bash -euo pipefail -c "$COMANDO"
+
+    # ── El navegador ────────────────────────────────────────────────────────
+    # Chromium se cachea por la versión de Playwright (cambia cuando sube `@playwright/test`); las librerías del sistema que
+    # necesita (apt) no se cachean y se instalan siempre.
+    - name: Versión de Playwright
+      id: playwright
+      shell: bash
+      working-directory: ${{ inputs.directorio-frontend }}
+      run: echo "version=$(node -p "require('./node_modules/@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+    - name: Cache de Chromium
+      id: chromium
+      uses: actions/cache@v6
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}-chromium
+    - name: Chromium de Playwright
+      shell: bash
+      working-directory: ${{ inputs.directorio-frontend }}
+      env:
+        HIT: ${{ steps.chromium.outputs.cache-hit }}
+      run: |
+        set -euo pipefail
+        if [ "$HIT" = "true" ]; then npx playwright install-deps chromium; else npx playwright install --with-deps chromium; fi
+
+    - name: Playwright
+      shell: bash
+      working-directory: ${{ inputs.directorio-frontend }}
+      env:
+        PROYECTO: ${{ inputs.proyecto }}
+        SPEC: ${{ inputs.spec }}
+        REPETIR: ${{ inputs.repetir }}
+      run: |
+        set -euo pipefail
+        args=(test)
+        IFS=',' read -ra proyectos <<< "$PROYECTO"
+        for p in "${proyectos[@]}"; do args+=(--project="$p"); done
+        if [ -n "$REPETIR" ]; then args+=(--repeat-each="$REPETIR"); fi
+        if [ -n "$SPEC" ]; then args+=("$SPEC"); fi
+        npx playwright "${args[@]}"
+
+    # El reporte JSON (`libra-ui/e2e` lo escribe siempre) dice qué pasó al reintento: un flake pasa en verde y nadie lo ve, y la
+    # decisión de volver los tests requeridos es «dos semanas sin flakes». Va al resumen del job y como warning.
+    - name: Resumen y flakes
+      id: resumen
+      if: always()
+      shell: bash
+      working-directory: ${{ inputs.directorio-frontend }}
+      run: node "${{ github.action_path }}/resumen.mjs" test-results/resultado.json
+
+    - name: Log de uvicorn si algo falló
+      if: failure()
+      shell: bash
+      run: tail -80 "$RUNNER_TEMP/e2e-ci/uvicorn.log" || true
+
+    - uses: actions/upload-artifact@v7
+      if: failure() || steps.resumen.outputs.flaky != '0'
+      with:
+        name: ${{ inputs.artefactos }}
+        path: |
+          ${{ inputs.directorio-frontend }}/test-results/
+          ${{ inputs.directorio-frontend }}/playwright-report/
+          ${{ runner.temp }}/e2e-ci/uvicorn.log
+        if-no-files-found: ignore

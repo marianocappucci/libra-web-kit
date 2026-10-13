@@ -1,0 +1,85 @@
+{
+ "stats": {
+  "duration": 2291.7690000000002
+ },
+ "suites": [
+  {
+   "title": "ejemplo.spec.ts",
+   "file": "ejemplo.spec.ts",
+   "suites": [
+    {
+     "title": "grupo",
+     "file": "ejemplo.spec.ts",
+     "specs": [
+      {
+       "title": "pasa",
+       "file": "ejemplo.spec.ts",
+       "tests": [
+        {
+         "projectName": "e2e",
+         "status": "expected",
+         "results": [
+          {
+           "status": "passed"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "title": "flaky: falla el primer intento",
+       "file": "ejemplo.spec.ts",
+       "tests": [
+        {
+         "projectName": "e2e",
+         "status": "flaky",
+         "results": [
+          {
+           "status": "failed"
+          },
+          {
+           "status": "passed"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "title": "falla siempre",
+       "file": "ejemplo.spec.ts",
+       "tests": [
+        {
+         "projectName": "e2e",
+         "status": "unexpected",
+         "results": [
+          {
+           "status": "failed"
+          },
+          {
+           "status": "failed"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "title": "salteado",
+       "file": "ejemplo.spec.ts",
+       "tests": [
+        {
+         "projectName": "e2e",
+         "status": "skipped",
+         "results": [
+          {
+           "status": "skipped"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
