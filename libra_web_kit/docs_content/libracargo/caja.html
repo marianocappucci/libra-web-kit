@@ -2,24 +2,42 @@
 <p class="docs-lead">Los cobros, los pagos y los gastos, con su contrapartida en la cuenta corriente que corresponda.</p>
 <h2>Cargar un movimiento</h2>
 <ol class="step-list">
-<li>Andá a <strong>Caja</strong> → <strong>Nuevo movimiento</strong>.</li>
-<li>Elegí si es un <strong>ingreso</strong> o un <strong>egreso</strong>.</li>
-<li>Elegí el <strong>medio de pago</strong>.</li>
-<li>Si el movimiento es de alguien —un cobro a un cliente, un pago a un fletero— elegí el <strong>tercero y su rol</strong>.</li>
-<li>Cargá el importe y la descripción, y guardá.</li>
+<li>Andá a <strong>Caja</strong> y tocá <strong>Nuevo movimiento</strong>.</li>
+<li>Completá la <strong>Fecha</strong> (viene la de hoy) y elegí el <strong>Tipo</strong>: <kbd>Ingreso (cobro)</kbd> o <kbd>Egreso (pago)</kbd>.</li>
+<li>Escribí el <strong>Concepto</strong> y el <strong>Importe</strong>.</li>
+<li>Si el movimiento es de alguien —un cobro a un cliente, un pago a un fletero—, elegí el <strong>Tercero</strong> y, en <strong>Cuenta del tercero</strong>, a cuál de sus cuentas va: <kbd>Cliente</kbd>, <kbd>Fletero</kbd> o <kbd>Proveedor</kbd>.</li>
+<li>Elegí el <strong>Medio de pago</strong> (<kbd>Efectivo</kbd>, <kbd>Transferencia</kbd>, <kbd>Cheque</kbd> u <kbd>Otro</kbd>) y, si corresponde, el número de <strong>Recibo</strong>.</li>
+<li>Tocá <strong>Guardar</strong>.</li>
 </ol>
-<h2>La contrapartida es automática</h2>
 <div class="callout">
+<p><strong>Con tercero, hace falta la cuenta.</strong> Un mismo tercero puede ser cliente y fletero, y sin saber a cuál va el sistema tendría que adivinar. El campo <strong>Cuenta del tercero</strong> se habilita al elegir un tercero.</p>
+</div>
+<h2>La contrapartida es automática</h2>
 <p>Un movimiento de caja con tercero <strong>escribe también en su cuenta corriente</strong>, y las dos escrituras van juntas: o entran las dos, o no entra ninguna. Nunca vas a tener una caja que dice una cosa y una cuenta corriente que dice otra.</p>
-</div>
+<table class="docs-table">
+<thead><tr><th>Cuenta</th><th>Ingreso</th><th>Egreso</th></tr></thead>
+<tbody>
+<tr><td><kbd>Cliente</kbd></td><td>Un cobro: baja lo que debe</td><td>Una devolución: sube lo que debe</td></tr>
+<tr><td><kbd>Fletero</kbd> o <kbd>Proveedor</kbd></td><td>Una devolución: sube lo que se le debe</td><td>Un pago: baja lo que se le debe</td></tr>
+</tbody>
+</table>
 <h2>Un gasto general no mueve ninguna cuenta</h2>
-<p>Si el movimiento no lleva tercero, es un gasto o un ingreso <strong>de la agencia</strong>: entra a la caja y ahí queda. La nafta de la agencia no es deuda de nadie.</p>
-<h2>Consultar la caja</h2>
-<p>El <a href="/docs/reportes.html">reporte de <strong>Caja</strong></a> resume los ingresos y egresos de un período, <strong>abiertos por tipo y por medio de pago</strong>, y se puede acotar a un tercero.</p>
+<p>Si dejás el tercero en <em>Ninguno (gasto general)</em>, es un gasto o un ingreso <strong>de la agencia</strong>: entra a la caja y ahí queda. La nafta de la agencia no es deuda de nadie.</p>
+<h2>Buscar y consultar</h2>
+<p>Filtrá por <strong>Desde</strong>, <strong>Hasta</strong> y <strong>Tipo</strong> (<em>Todos</em>, <em>Ingresos</em> o <em>Egresos</em>). Un clic en una fila con tercero abre su cuenta corriente. Para un resumen del período, abierto por tipo y por medio de pago, está el reporte <a href="/docs/reportes.html">Caja</a>.</p>
+<h2>Corregir y anular</h2>
+<table class="docs-table">
+<thead><tr><th>Acción</th><th>Qué pasa</th></tr></thead>
+<tbody>
+<tr><td><strong>Editar</strong> (el lápiz)</td><td>Corrige el movimiento y su contrapartida, en el lugar y en la misma operación. Cambiar el tercero o la cuenta <strong>mueve</strong> el asiento; sacarle el tercero lo borra</td></tr>
+<tr><td><strong>Anular</strong></td><td>No borra: el movimiento queda en la lista, marcado <kbd>anulado</kbd>, y su asiento se revierte con una contrapartida. <strong>No suma en los totales</strong></td></tr>
+</tbody>
+</table>
 <div class="callout warn">
-<p><strong>Los movimientos de caja todavía no se editan ni se anulan desde la pantalla.</strong> Un cobro cargado con el importe equivocado se corrige hoy con un movimiento en sentido contrario, que además deja el rastro de la corrección. La edición está en la lista de trabajo.</p>
+<p><strong>Al editar un movimiento con tercero, volvé a elegir la «Cuenta del tercero».</strong> La cuenta vive en la contrapartida y no viene prellenada: es la única parte del formulario que no se completa sola.</p>
 </div>
+<p>Los movimientos anulados siguen a la vista a propósito: un recibo que falta en la numeración necesita explicación. Un movimiento anulado ya no se edita ni se vuelve a anular. El listado en papel sale de <a href="/docs/reportes.html">Reportes</a> (<strong>Listado de movimientos de caja</strong>).</p>
 <div class="docs-nav-footer">
 <a href="/docs/cuenta-corriente.html">← Cuenta corriente</a>
-<a href="/docs/comprobantes.html">Comprobantes →</a>
+<a href="/docs/tablero.html">Dashboard →</a>
 </div>

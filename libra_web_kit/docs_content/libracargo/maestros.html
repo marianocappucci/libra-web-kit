@@ -1,31 +1,71 @@
 <h1>Maestros</h1>
-<p class="docs-lead">Los seis catálogos con los que se arma una orden: terceros, choferes, vehículos, localidades, tipos de carga y razones sociales.</p>
-<p>Todos viven en <strong>⚙ Configuración</strong>, en pestañas. La pestaña abierta queda en la dirección del navegador, así que podés mandarle a alguien el link directo de <em>"cargá los vehículos acá"</em>.</p>
-<h2>Terceros</h2>
-<p>Un tercero es una persona o empresa con la que operás, y lleva <strong>uno o más roles</strong>:</p>
+<p class="docs-lead">Clientes, proveedores, localidades y tipos de carga: los catálogos con los que se arma una orden.</p>
+<p>Los fleteros, los choferes y los vehículos están en <a href="/docs/transporte.html">Transporte</a>. Los maestros se cargan una vez y se tocan poco: por eso las localidades y los tipos de carga viven en <strong>Configuración</strong>, y los clientes y proveedores, que se usan todos los días, tienen su entrada en el menú.</p>
+<h2>Una persona o empresa es una sola, con roles</h2>
+<p>Clientes, fleteros y proveedores son <strong>la misma ficha vista por rol</strong>. Una empresa que es a la vez cliente y proveedor es <strong>una sola fila</strong> que aparece en las dos pantallas, con la otra condición marcada como pastilla en la columna <strong>Roles</strong>. No se carga dos veces: se le suma el rol.</p>
 <table class="docs-table">
-<thead><tr><th>Rol</th><th>Qué significa</th></tr></thead>
+<thead><tr><th>Rol</th><th>Qué significa</th><th>Dónde está</th></tr></thead>
 <tbody>
-<tr><td><kbd>cliente</kbd></td><td>Te da la carga y te paga</td></tr>
-<tr><td><kbd>fletero</kbd></td><td>Hace el viaje y le pagás</td></tr>
-<tr><td><kbd>proveedor</kbd></td><td>Te vende algo (combustible, servicios, repuestos)</td></tr>
+<tr><td><kbd>cliente</kbd></td><td>Te da la carga y se le factura</td><td><strong>Clientes</strong></td></tr>
+<tr><td><kbd>fletero</kbd></td><td>Hace el viaje y se le liquida</td><td><strong>Transporte → Fleteros</strong></td></tr>
+<tr><td><kbd>proveedor</kbd></td><td>Te vende algo o recibe un pago</td><td><strong>Proveedores</strong></td></tr>
 </tbody>
 </table>
+<p>Cada rol tiene su propia <a href="/docs/cuenta-corriente.html">cuenta corriente</a>: un tercero que es cliente y fletero tiene dos cuentas separadas.</p>
+<h2>Clientes y proveedores</h2>
+<h3>Cargar uno nuevo</h3>
+<ol class="step-list">
+<li>Andá a <strong>Clientes</strong> (o a <strong>Proveedores</strong>) y tocá <strong>Nuevo</strong>.</li>
+<li>Completá la <strong>Razón social</strong> (obligatoria), el <strong>CUIT</strong> y la <strong>Condición de IVA</strong>.</li>
+<li>Verificá los <strong>Roles</strong>: ya viene tildado el de la pantalla donde estás, y se pueden tildar los otros. Tiene que haber al menos uno.</li>
+<li>Completá, si querés, <strong>Dirección</strong>, <strong>Provincia</strong>, <strong>Localidad</strong>, <strong>Código postal</strong>, <strong>Teléfono</strong>, <strong>Celular</strong>, <strong>Email</strong>, <strong>Contacto</strong> y <strong>Observaciones</strong>.</li>
+<li>Tocá <strong>Guardar</strong>.</li>
+</ol>
+<p>Para encontrar uno, escribí en el buscador de arriba de la tabla: busca por razón social, CUIT, localidad y contacto. Hacer clic en la fila abre la ficha para editarla.</p>
 <div class="callout">
-<p><strong>Un mismo tercero puede ser cliente y fletero a la vez</strong>, y son dos cuentas corrientes distintas. Por eso todo movimiento de cuenta corriente pide <strong>tercero y rol</strong>: sin el rol el sistema tendría que adivinar cuál de sus dos cuentas mover, y prefiere rechazarlo.</p>
+<p><strong>Cargá bien la condición de IVA y el CUIT del cliente.</strong> La condición decide qué letra de factura le corresponde (A a un inscripto o monotributista, B a los demás), y una factura de crédito electrónica exige un CUIT de 11 dígitos.</p>
 </div>
-<p>Un tercero tiene que tener <strong>al menos un rol</strong>. Si no, no se guarda.</p>
+<h3>Un CUIT, una entidad</h3>
+<p>Si cargás un CUIT de 11 dígitos que ya pertenece a otra entidad, el sistema <strong>no la duplica</strong>: te dice de quién es y ofrece dos botones.</p>
+<ul>
+<li><strong>Sumarle el rol de cliente</strong> (o de proveedor): agrega el rol a la ficha que ya existe, y la reactiva si estaba de baja.</li>
+<li><strong>Ver …</strong>: abre la ficha existente.</li>
+</ul>
+<p>Al editar, un CUIT que choca con otra ficha es un error a corregir, no una oferta de sumar rol. Los CUIT que no tienen 11 dígitos no se comparan.</p>
+<h3>Dar de baja, no borrar</h3>
+<p>Tocá el ícono <strong>Dar de baja</strong> de la fila. Deja de aparecer en los desplegables de una orden nueva, pero las órdenes viejas que lo usan lo siguen mostrando. Se reactiva con el ícono <strong>Reactivar</strong> o tildando <strong>Activo</strong> en la ficha. Borrar un cliente con doscientas órdenes dejaría doscientas órdenes sin poder decir de quién eran.</p>
+<h3>La ficha del cliente y las cartas de porte</h3>
+<p>Al abrir un cliente, una línea dice su situación como <em>titular</em> de cartas de porte: <em>delegó a nosotros</em>, <em>emite él</em> o <em>pendiente</em>, con el enlace a su titular. Ver <a href="/docs/titulares.html">Titulares de carta de porte</a>.</p>
 <h2>Localidades</h2>
-<p>El catálogo de <strong>provincias y localidades de Argentina viene precargado</strong>. En la orden se eligen de una lista con buscador, no se tipean: es lo que evita que la misma ciudad entre escrita de cuatro maneras distintas y después ningún listado por destino cierre.</p>
-<h2>Choferes y vehículos</h2>
-<p>Choferes con sus datos, y vehículos con su patente. La patente es <strong>única</strong>: no se puede cargar el mismo vehículo dos veces.</p>
+<p>Andá a <strong>Configuración → Localidades</strong>. Es el catálogo de orígenes y destinos de las órdenes. <strong>No se tipean</strong>: se traen de un catálogo oficial (Argentina y el resto del Mercosur) para que la misma ciudad no entre escrita de cuatro maneras y después ningún listado por destino cierre.</p>
+<p>Cada fila tiene un <strong>Origen</strong> que dice de dónde viene:</p>
+<table class="docs-table">
+<thead><tr><th>Origen</th><th>Qué es</th></tr></thead>
+<tbody>
+<tr><td><kbd>Catálogo</kbd></td><td>Una localidad oficial, vinculada por su código</td></tr>
+<tr><td><kbd>Paraje</kbd></td><td>Un lugar real que no está en ningún catálogo, cargado a mano con su provincia</td></tr>
+<tr><td><kbd>Sin vincular</kbd></td><td>Cargada a mano antes y todavía sin emparejar: pide una decisión</td></tr>
+</tbody>
+</table>
+<h3>Agregar una localidad del catálogo</h3>
+<ol class="step-list">
+<li>Tocá <strong>Agregar del catálogo</strong>.</li>
+<li>Si hace falta, elegí el país; escribí el nombre en <strong>Buscar localidad</strong>.</li>
+<li>Elegí la que corresponde: se trae con su provincia. Las que ya tenés figuran como <em>Ya cargada</em>.</li>
+</ol>
+<h3>Cargar un paraje</h3>
+<p>Para un lugar que no figura en el catálogo (una planta, un puerto chico): tocá <strong>Cargar paraje</strong> y completá el <strong>Nombre del paraje</strong> y la <strong>Provincia</strong>, que es obligatoria. También podés cargarlo al vuelo desde el selector de origen o destino de una orden.</p>
+<h3>Vincular, marcar como paraje y unificar</h3>
+<p>Estas acciones aparecen como íconos en cada fila:</p>
+<ul>
+<li><strong>Vincular al catálogo</strong>: elegís la localidad oficial que es. Las órdenes que la usan no cambian.</li>
+<li><strong>Marcar como paraje</strong>: la deja como paraje (pide la provincia si no la tiene).</li>
+<li><strong>Unificar con…</strong> (sólo administradores): para dos filas que son el mismo lugar, como <em>Pto. San Martín</em> y <em>Pto San Martín</em>. Elegís la que queda; <strong>las órdenes de la primera pasan a la elegida y la primera se da de baja</strong>. Queda en el log de actividad.</li>
+</ul>
+<p>El botón <strong>Sin vincular (n)</strong> filtra lo que falta resolver.</p>
 <h2>Tipos de carga</h2>
-<p>Con qué se mide lo que llevás (bultos, pallets, toneladas, metros cúbicos: lo que uses).</p>
-<h2>Razones sociales</h2>
-<p>Las razones sociales <strong>propias</strong> con las que facturás la misma actividad. Cada orden se factura con una, y los <a href="/docs/comprobantes.html">comprobantes</a> se agrupan por razón social — una factura no puede mezclar órdenes de dos.</p>
-<h2>Dar de baja, no borrar</h2>
-<p>Los maestros se dan de <strong>baja</strong>: dejan de aparecer en los desplegables de una orden nueva, pero las órdenes viejas que los usan siguen mostrándolos. Se pueden reactivar. Borrar un fletero que hizo doscientos viajes dejaría doscientas órdenes sin poder decir quién las hizo.</p>
+<p>Andá a <strong>Configuración → Tipos de carga</strong> y tocá <strong>Nuevo</strong>. Cada tipo tiene un <strong>Nombre</strong> y una <strong>Unidad por defecto</strong> (bultos, pallets, toneladas, metros cúbicos: lo que uses). Se editan y se dan de baja como el resto.</p>
 <div class="docs-nav-footer">
-<a href="/docs/empresa.html">← Datos de la empresa</a>
-<a href="/docs/arca.html">Facturación (ARCA) →</a>
+<a href="/docs/correo.html">← Correo saliente</a>
+<a href="/docs/tarifario.html">Tarifario de referencia →</a>
 </div>

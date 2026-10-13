@@ -1,0 +1,54 @@
+<h1>Factura de crédito electrónica MiPyME</h1>
+<p class="docs-lead">Los requisitos, la configuración y las reglas propias de la FCE, que no se comporta como una factura común.</p>
+<h2>Qué es y cuándo corresponde</h2>
+<p>La <strong>factura de crédito electrónica MiPyME (FCE)</strong> es la que ARCA exige cuando le facturás a una empresa grande obligada a recibirla y el monto llega a un mínimo que fija ARCA. Es un documento que el comprador acepta o rechaza, y que el emisor puede ceder o descontar. LibraCargo <strong>te avisa cuándo corresponde</strong> en <a href="/docs/facturacion.html">Facturar pendientes</a> antes de emitir, porque una factura común emitida no se cambia.</p>
+<h2>Lo que hace falta</h2>
+<table class="docs-table">
+<thead><tr><th>Requisito</th><th>Dónde se resuelve</th></tr></thead>
+<tbody>
+<tr><td>Al menos una <strong>cuenta para cobrar</strong> (CBU de 22 dígitos) y una <strong>modalidad de transmisión</strong></td><td><strong>Configuración → Integraciones → ARCA / AFIP → General</strong></td></tr>
+<tr><td>El cliente con <strong>CUIT de 11 dígitos</strong></td><td>Ficha del cliente, en <a href="/docs/maestros.html">Clientes</a></td></tr>
+<tr><td>Un <strong>vencimiento de pago</strong></td><td>En la pantalla de facturar</td></tr>
+<tr><td>La <strong>cuenta de cobro</strong> elegida</td><td>En la pantalla de facturar (<strong>Cobrar en</strong>)</td></tr>
+</tbody>
+</table>
+<p>Sin cuentas y sin modalidad cargadas, <strong>el sistema no ofrece la FCE</strong>: ni como clase en <strong>Nueva factura</strong>, ni como salida del aviso.</p>
+<h2>Cargar las cuentas y la modalidad</h2>
+<ol class="step-list">
+<li>Andá a <strong>Configuración → Integraciones → ARCA / AFIP</strong> y quedate en la pestaña <strong>General</strong>.</li>
+<li>En el cuadro <strong>Factura de crédito electrónica MiPyME</strong>, tocá <strong>Editar cuentas</strong>.</li>
+<li>Tocá <strong>Agregar CBU</strong> y completá el <strong>CBU</strong> (22 dígitos), el <strong>Alias</strong> bancario si lo tiene (de 6 a 20 caracteres, sin espacios) y el <strong>Nombre de la cuenta</strong> para reconocerla.</li>
+<li>Marcá <strong>Predeterminado</strong> en la que se usa salvo que elijas otra al facturar. Repetí para cada cuenta.</li>
+<li>Elegí la <strong>Modalidad de transmisión</strong>: <kbd>SCA</kbd> si vas a operar, ceder o descontar el documento directamente a través de bancos; <kbd>ADC</kbd> si vas a operarlo mediante el Mercado de Valores (Bolsa).</li>
+<li>Tocá <strong>Guardar ARCA</strong>.</li>
+</ol>
+<p>Cada CBU tiene que estar informado en ARCA. No se admiten dos cuentas con el mismo CBU o el mismo alias. Para sacar una, <strong>Quitar</strong>. El resumen del cuadro dice cuántas cuentas hay, cuál es la predeterminada y la modalidad.</p>
+<h2>Emitir una FCE</h2>
+<ol class="step-list">
+<li>En <strong>Facturar pendientes</strong> o en <strong>Nueva factura</strong>, elegí el cliente y el tipo <kbd>Factura de crédito electrónica A</kbd>, <kbd>B</kbd> o <kbd>C</kbd>. También podés llegar con el botón <strong>Pasar a factura de crédito electrónica</strong> del aviso.</li>
+<li>Aparecen dos campos nuevos: <strong>Vencimiento de pago</strong>, propuesto a 30 días, y <strong>Cobrar en</strong>, con la cuenta predeterminada marcada. Las cuentas se reconocen por alias y CBU.</li>
+<li>Emití como cualquier factura: <strong>Facturar</strong> y <strong>Confirmar y emitir</strong>.</li>
+</ol>
+<p>El <strong>vencimiento de pago</strong> tiene que ser igual o posterior a la fecha del comprobante <strong>y a la de hoy</strong>: ARCA rechaza uno anterior, y el sistema lo frena antes de pedirle el número. ARCA lo exige en toda FCE, aun de productos.</p>
+<p>La cuenta y la modalidad <strong>se guardan en el comprobante</strong>: si después cambiás la configuración, la factura sigue diciendo con qué cuenta salió.</p>
+<h2>Reglas que la distinguen</h2>
+<ul>
+<li><strong>Una FCE sin CAE no existe.</strong> No hay forma de registrarla a mano: sin ARCA habilitado, no se emite.</li>
+<li><strong>El receptor tiene que tener CUIT de 11 dígitos.</strong> Con consumidor final ARCA contesta con un rechazo; el sistema lo avisa antes y dice que lo cargues en la ficha del cliente.</li>
+<li><strong>No se anula desde acá.</strong> Como cualquier comprobante con CAE, se corrige con <a href="/docs/notas.html">notas</a>, pero con una restricción más: ver abajo.</li>
+</ul>
+<h3>Notas de una FCE</h3>
+<table class="docs-table">
+<thead><tr><th>Nota</th><th>Qué se puede</th></tr></thead>
+<tbody>
+<tr><td><strong>Nota de crédito</strong></td><td>Sólo <strong>por un importe</strong>, y <strong>menor</strong> que el saldo. Acreditarla entera exige que el comprador la rechace en ARCA, un paso que LibraCargo todavía no integra</td></tr>
+<tr><td><strong>Nota de débito</strong></td><td>Por un importe, sin tope. La pantalla avisa que la de una FCE todavía no se probó contra ARCA</td></tr>
+</tbody>
+</table>
+<div class="callout warn">
+<p><strong>El comprador puede aceptar la FCE.</strong> Una vez aceptada, es un documento que circula. Por eso el sistema nunca ofrece anularla, y por eso conviene ensayar antes en el ambiente de homologación.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/facturacion.html">← Facturar pendientes y Nueva factura</a>
+<a href="/docs/comprobantes.html">Comprobantes →</a>
+</div>

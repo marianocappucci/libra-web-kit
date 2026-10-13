@@ -1,34 +1,43 @@
 <h1>Documentación de LibraCargo</h1>
-<p class="docs-lead">El sistema de tu agencia de cargas: órdenes, fleteros, las tres cuentas corrientes, caja y comprobantes.</p>
+<p class="docs-lead">El sistema de tu agencia de cargas: órdenes, transporte, cartas de porte electrónicas, facturación por ARCA, cuentas corrientes y caja.</p>
 <h2>Qué resuelve LibraCargo</h2>
-<p>Una agencia de cargas <strong>no transporta: intermedia</strong>. Toma una orden de un cliente, se la asigna a un fletero con su chofer y su equipo, le cobra al cliente, le paga al fletero y vive de la comisión. De ahí las <strong>tres cuentas corrientes</strong> que se mueven sobre la misma operación —cliente, fletero y proveedor— y las <strong>razones sociales propias</strong> con las que se factura.</p>
+<p>Una agencia de cargas <strong>no transporta: intermedia</strong>. Toma una orden de un cliente, se la asigna a un fletero con su chofer y su vehículo, le factura al cliente, le liquida al fletero y vive de la diferencia. De ahí las <strong>tres cuentas corrientes</strong> que se mueven sobre la misma operación —cliente, fletero y proveedor— y los papeles que acompañan al viaje: la orden de carga, la carta de porte electrónica y la factura.</p>
+<p>Se factura con <strong>un único emisor</strong>: los datos de tu empresa. La factura se emite directo por ARCA, que le pone el número y el CAE en el momento.</p>
 <h2>Por dónde empezar</h2>
 <ol class="step-list">
 <li><strong>Ingresá al sistema</strong> con el usuario y la contraseña que te dio el administrador.</li>
-<li><strong>Cargá los datos de tu empresa</strong> y el logo: es lo que sale en el encabezado de cada papel.</li>
-<li><strong>Cargá los maestros</strong>: terceros, localidades, choferes, vehículos, tipos de carga y razones sociales.</li>
-<li><strong>Cargá tu primera orden</strong> y seguila hasta el comprobante.</li>
+<li><strong>Cargá los datos de tu empresa</strong>, con su CUIT y su condición frente al IVA: de ahí sale el emisor de todo comprobante.</li>
+<li><strong>Configurá ARCA</strong>: certificado, clave y punto de venta.</li>
+<li><strong>Cargá los maestros</strong>: localidades, tipos de carga, clientes, fleteros, choferes, vehículos y proveedores.</li>
+<li><strong>Cargá tu primera orden</strong> y seguila hasta la factura.</li>
 </ol>
+<p>El detalle de cada paso, en el orden en que conviene hacerlo, está en <a href="/docs/primeros-pasos.html">Primeros pasos</a>.</p>
 <h2>Las pantallas</h2>
+<p>El menú lateral tiene estas entradas, de arriba hacia abajo. Las dos últimas las ven sólo los administradores.</p>
 <table class="docs-table">
 <thead><tr><th>Pantalla</th><th>Qué permite hacer</th><th>Plan</th></tr></thead>
 <tbody>
-<tr><td><strong><a href="/docs/tablero.html">Inicio</a></strong></td><td>Órdenes y facturado del mes, cobrado, pagado, pendientes y los tres saldos</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/ordenes.html">Órdenes de carga</a></strong></td><td>Alta, edición, anulación y búsqueda con doce filtros que se combinan</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/tablero.html">Dashboard</a></strong></td><td>Cómo viene el mes: órdenes, facturado, cobrado, pendientes y los tres saldos</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/ordenes.html">Órdenes de carga</a></strong></td><td>Alta, edición, etapas del viaje, adjuntos, anulación e impresión</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/cartas-de-porte.html">Cartas de porte</a></strong></td><td>Traer de ARCA por CTG, emitir desde una orden, anular y compartir con el chofer</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/titulares.html">Cartas de porte → Titulares</a></strong></td><td>A nombre de quién se emite, delegación en ARCA y datos habituales</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/maestros.html">Clientes</a></strong></td><td>Las personas y empresas a las que se les transporta y se les factura</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/maestros.html">Proveedores</a></strong></td><td>A quienes la agencia les compra o les paga</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/transporte.html">Transporte</a></strong></td><td>Fleteros, choferes y vehículos, en pestañas</td><td>Básico</td></tr>
 <tr><td><strong><a href="/docs/cuenta-corriente.html">Cuenta corriente</a></strong></td><td>Las cuentas de clientes, fleteros y proveedores, con su saldo verificado por dos caminos</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/caja.html">Caja</a></strong></td><td>Cobros, pagos y gastos, con la contrapartida en la cuenta corriente</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/comprobantes.html">Comprobantes</a></strong></td><td>Facturar órdenes pendientes por razón social, y anular sin borrar</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/reportes.html">Reportes</a></strong></td><td>Ocho reportes con sus parámetros, incluidos los saldos de las tres cuentas de una vez</td><td>Estándar+</td></tr>
-<tr><td><strong><a href="/docs/empresa.html">Configuración → Empresa</a></strong></td><td>Razón social, CUIT, domicilio, IVA, logo y pie de los papeles</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/maestros.html">Configuración → Maestros</a></strong></td><td>Terceros, choferes, vehículos, localidades, tipos de carga y razones sociales</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/arca.html">Configuración → ARCA</a></strong></td><td>Certificado y clave de cada razón social, con validación al subirlos</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/usuarios.html">Usuarios</a></strong></td><td>Altas, roles y contraseñas</td><td>Básico</td></tr>
-<tr><td><strong><a href="/docs/logs.html">Log de actividad</a></strong></td><td>Quién hizo qué y cuándo</td><td>Premium</td></tr>
+<tr><td><strong><a href="/docs/caja.html">Caja</a></strong></td><td>Cobros, pagos y gastos, con su contrapartida en la cuenta corriente</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/comprobantes.html">Comprobantes</a></strong></td><td>Facturar pendientes, nueva factura, notas de crédito y de débito, y los comprobantes de proveedores</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/reportes.html">Reportes</a></strong></td><td>Los reportes, los listados para imprimir y la pre liquidación de transportistas</td><td>Estándar o superior</td></tr>
+<tr><td><strong><a href="/docs/empresa.html">Configuración</a></strong></td><td>Empresa, integraciones (ARCA y correo), localidades, tipos de carga, tarifario de referencia y backup</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/usuarios.html">Administración → Usuarios</a></strong></td><td>Altas, roles y contraseñas</td><td>Básico</td></tr>
+<tr><td><strong><a href="/docs/logs.html">Administración → Log de actividad</a></strong></td><td>Quién hizo qué y cuándo, y los accesos al sistema</td><td>Premium</td></tr>
 </tbody>
 </table>
 <div class="callout">
-<p><strong>Importante:</strong> las órdenes de carga, los maestros, las cuentas corrientes, la caja y los comprobantes <strong>nunca se limitan por plan</strong> — son el núcleo del producto. Una agencia de cargas sin órdenes no es un plan más barato.</p>
+<p><strong>El núcleo no se limita por plan:</strong> las órdenes de carga, los maestros, las cuentas corrientes, la caja, la facturación y las cartas de porte son lo que define al producto. El plan sólo agrega los reportes (Estándar) y el log de actividad (Premium).</p>
 </div>
+<h2>Adicionales</h2>
+<p>La <strong>copia externa</strong> del backup —una copia nocturna en tu propia cuenta de Google Drive o Dropbox— no pertenece a ningún plan: viene apagada y se activa por instancia. Está explicada en <a href="/docs/backup.html">Backup y restauración</a>.</p>
 <div class="docs-nav-footer">
 <span></span>
 <a href="/docs/primeros-pasos.html">Primeros pasos →</a>

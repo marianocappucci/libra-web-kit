@@ -1,38 +1,93 @@
 <h1>Órdenes de carga</h1>
-<p class="docs-lead">El núcleo del sistema: el viaje que tomaste, a quién se lo asignaste y cuánto deja.</p>
+<p class="docs-lead">El núcleo del sistema: el viaje que tomaste, a quién se lo asignaste, en qué etapa está y cuánto vale.</p>
 <h2>Cargar una orden</h2>
 <ol class="step-list">
-<li>Andá a <strong>Órdenes de carga</strong> → <strong>Nueva orden</strong>.</li>
-<li>Elegí el <strong>cliente</strong> y la <strong>razón social</strong> con la que se va a facturar.</li>
-<li>Cargá el <strong>remito</strong>, el <strong>origen</strong> y el <strong>destino</strong>.</li>
-<li>Elegí el <strong>tipo de carga</strong> y la <strong>cantidad</strong>.</li>
-<li>Asigná <strong>fletero</strong>, <strong>chofer</strong> y <strong>vehículo</strong>.</li>
-<li>Cargá la <strong>tarifa</strong> y la <strong>comisión</strong>, y guardá.</li>
+<li>Andá a <strong>Órdenes de carga</strong> y tocá <strong>Nueva</strong>.</li>
+<li>Completá la <strong>Fecha</strong> (viene la de hoy), el <strong>Remito</strong> y elegí el <strong>Cliente</strong>.</li>
+<li>Elegí el <strong>Origen</strong> y el <strong>Destino</strong>. Tienen que ser distintos. El selector busca en tus localidades y en el catálogo de Argentina y del Mercosur, y deja cargar un paraje que no figure.</li>
+<li>Asigná el <strong>Fletero</strong>, el <strong>Chofer</strong>, el <strong>Vehículo</strong> y el <strong>Tipo de carga</strong>. Los cuatro son opcionales: una orden puede nacer sin fletero y asignarse después.</li>
+<li>Cargá la <strong>Cantidad</strong> y la <strong>Unidad</strong>.</li>
+<li>Cargá la <strong>Tarifa</strong> (lo que se le cobra al cliente, sin IVA), la <strong>Alícuota de IVA (%)</strong> (viene en 21) y la <strong>Comisión</strong>.</li>
+<li>Elegí la <strong>Etapa</strong> si no es la inicial, completá los <strong>Kilos</strong> y el <strong>Flete</strong> si los sabés, y tocá <strong>Guardar</strong>.</li>
 </ol>
+<p>La orden nace <kbd>pendiente</kbd> de facturar. Sólo la fecha, el cliente, el origen y el destino son obligatorios.</p>
 <div class="callout">
-<p><strong>El IVA y el total no se tipean: los calcula el sistema</strong> a partir de la tarifa y la alícuota. No son campos editables, y un total mandado a mano se ignora. Un importe que puede escribir cualquiera es un importe que después nadie puede auditar.</p>
+<p><strong>El IVA y el total no se tipean: los calcula el sistema</strong> a partir de la tarifa y la alícuota (total = tarifa + IVA, redondeado al centavo). Un campo editable mentiría sobre quién decide el importe.</p>
 </div>
-<p>El origen y el destino <strong>tienen que ser distintos</strong>. La regla está en el formulario, en la API y en la base de datos: las tres tienen que estar de acuerdo para que la orden se guarde.</p>
+<h3>La comisión y la cuenta del fletero</h3>
+<p>Si la orden tiene fletero y una comisión mayor que cero, <strong>en el mismo guardado</strong> se asienta esa comisión en la <a href="/docs/cuenta-corriente.html">cuenta corriente del fletero</a>: es lo que se le debe por el flete. Si después cambiás la comisión o el fletero, el asiento se corrige en el lugar; si anulás la orden, se revierte con un contraasiento. El cliente, en cambio, <strong>no</strong> debe nada por la orden hasta que se la <a href="/docs/facturacion.html">facture</a>.</p>
+<h2>El estado y la etapa son dos cosas</h2>
+<table class="docs-table">
+<thead><tr><th>Dato</th><th>Valores</th><th>Qué dice</th></tr></thead>
+<tbody>
+<tr><td><strong>Estado</strong></td><td><kbd>pendiente</kbd>, <kbd>facturada</kbd>, <kbd>anulada</kbd></td><td>La situación de facturación. Lo cambia facturar o anular, nunca se elige</td></tr>
+<tr><td><strong>Etapa</strong></td><td><kbd>Asignada</kbd>, <kbd>Cargada</kbd>, <kbd>En viaje</kbd>, <kbd>Descargada</kbd>, <kbd>Cerrada</kbd></td><td>Dónde está el viaje. La elegís vos</td></tr>
+</tbody>
+</table>
+<p>En el listado, una orden facturada se lee <strong>Liquidada</strong> en la columna de etapa. La etapa <strong>sólo informa</strong>: no frena ni exige nada para facturar.</p>
+<h3>Cambiar la etapa</h3>
+<ol class="step-list">
+<li>Abrí la orden (clic en la fila).</li>
+<li>En <strong>Etapa del viaje</strong>, elegí la etapa, o tocá <strong>Siguiente etapa</strong> para avanzar a la que sigue.</li>
+</ol>
+<p>Se puede mover para adelante o para atrás, y <strong>también con la orden facturada</strong>: el ticket de descarga suele llegar después de facturar. Una orden anulada no cambia de etapa.</p>
+<h2>Kilos</h2>
+<p>La sección <strong>Kilos</strong> tiene dos filas, <strong>Carga</strong> y <strong>Descarga</strong>, cada una con <strong>Bruto</strong>, <strong>Tara</strong> y <strong>Neto</strong>, en kilos enteros. Son opcionales: vacío significa «no se sabe», no cero.</p>
+<ul>
+<li>Con <strong>bruto y tara</strong> cargados, el <strong>neto es la resta</strong> y se calcula solo.</li>
+<li>La tara no puede ser mayor que el bruto.</li>
+<li>Con sólo el neto —lo que dice el ticket— se carga a mano.</li>
+</ul>
+<p>Los kilos informan: <strong>no liquidan nada</strong> todavía; lo que se factura es la tarifa de la orden.</p>
+<h2>Flete: km y tarifa por tonelada</h2>
+<p>La sección <strong>Flete</strong> ayuda a cargar lo pactado cuando cotizás con una tabla de referencia por kilómetro (ver <a href="/docs/tarifario.html">Tarifario de referencia</a>).</p>
+<ol class="step-list">
+<li>Escribí los <strong>Km</strong> del viaje (de 1 a 99999). El sistema muestra la referencia de la fecha de la orden, o avisa que falta.</li>
+<li>Cargá el <strong>% sobre referencia</strong> pactado, o la <strong>Tarifa por tonelada</strong> directamente: cada una calcula la otra.</li>
+</ol>
+<p>Al elegir el cliente, el sistema propone el porcentaje de <strong>su último viaje</strong> como punto de partida. Es sólo una sugerencia: el porcentaje varía por viaje, y la tarifa por tonelada <strong>no cambia el importe</strong> de la orden. Si la orden lleva carta de porte, estos datos viajan a ella.</p>
+<h2>Adjuntar el ticket</h2>
+<ol class="step-list">
+<li>Abrí la orden y buscá <strong>Adjuntos</strong>.</li>
+<li>Tocá <strong>Adjuntar archivo</strong>: desde el celular ofrece sacar la foto en el momento.</li>
+<li>Para sacar uno, tocá el tacho de su fila y confirmá.</li>
+</ol>
+<p>Se aceptan <strong>JPG, PNG, WEBP, HEIC o PDF de hasta 10 MB</strong>, reconocidos por su contenido y no por el nombre. Se puede adjuntar también a una orden facturada, pero no a una anulada. Los adjuntos entran en el <a href="/docs/backup.html">backup</a>.</p>
 <h2>Buscar órdenes</h2>
-<p>El listado tiene <strong>doce filtros que se combinan entre sí</strong>: por cliente, por fletero, por rango de fechas, por origen, por destino, por remito, por razón social, por estado de facturación y más. Combinándolos salen todas las búsquedas que en un sistema viejo eran una pantalla distinta cada una.</p>
+<p>El listado se filtra con estos campos, que se <strong>combinan entre sí</strong>:</p>
+<table class="docs-table">
+<thead><tr><th>Filtro</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr><td><strong>Desde</strong>, <strong>Hasta</strong></td><td>Rango de fechas, extremos incluidos</td></tr>
+<tr><td><strong>Cliente</strong>, <strong>Fletero</strong>, <strong>Chofer</strong>, <strong>Vehículo</strong>, <strong>Tipo de carga</strong></td><td>Se buscan escribiendo</td></tr>
+<tr><td><strong>Origen</strong>, <strong>Destino</strong></td><td>Por localidad</td></tr>
+<tr><td><strong>Estado</strong></td><td>Pendiente, Facturada (liquidada) o Anulada</td></tr>
+<tr><td><strong>Etapa</strong></td><td>Las cinco etapas del viaje</td></tr>
+<tr><td><strong>Facturación</strong></td><td>Todas, <em>Sin facturar</em> o <em>Facturadas</em></td></tr>
+<tr><td><strong>Remito u observaciones</strong></td><td>Busca el texto en esos dos campos</td></tr>
+</tbody>
+</table>
+<p><strong>Limpiar</strong> borra todos los filtros. El listado viene de la más nueva a la más vieja y muestra hasta 200 órdenes: si buscás algo más antiguo, acotá con fechas. Las columnas <strong>Kg carga</strong>, <strong>Kg descarga</strong> y <strong>Km</strong> aparecen sólo en pantallas anchas; en la ficha de la orden está todo.</p>
 <div class="callout">
-<p><strong>El filtro más usado es "pendientes de facturar"</strong>: son las órdenes que todavía no salieron en ningún comprobante. Desde ahí se pasa directo a <a href="/docs/comprobantes.html">facturar</a>.</p>
+<p><strong>El filtro más usado es «Sin facturar»</strong>: las órdenes que todavía no salieron en ningún comprobante. Para facturarlas, andá a <a href="/docs/facturacion.html">Facturar pendientes</a>.</p>
 </div>
+<h2>Ver el detalle</h2>
+<p>Un clic en cualquier fila abre la orden con todos sus datos: importes, kilos, etapa, adjuntos y el comprobante que la facturó, si lo hay. Desde ahí también podés <strong>Emitir carta de porte</strong> (no disponible en una orden anulada) e <strong>Imprimir orden</strong>. Ver <a href="/docs/cartas-de-porte.html">Cartas de porte</a>.</p>
 <h2>Editar y anular</h2>
 <table class="docs-table">
 <thead><tr><th>Situación</th><th>Qué se puede hacer</th></tr></thead>
 <tbody>
-<tr><td>Orden pendiente</td><td>Editar cualquier campo, o anularla</td></tr>
-<tr><td>Orden ya facturada</td><td><strong>Ni editar ni anular.</strong> Primero hay que anular el comprobante</td></tr>
-<tr><td>Orden anulada</td><td>Queda en el listado, marcada. No se borra</td></tr>
+<tr><td>Orden pendiente</td><td>Editar cualquier campo (ícono del lápiz), o anularla (ícono <strong>Anular</strong>)</td></tr>
+<tr><td>Orden facturada</td><td><strong>Ni editar ni anular.</strong> Para revertir hay que acreditar el comprobante con una <a href="/docs/notas.html">nota de crédito</a>; cuando queda acreditado por completo, las órdenes vuelven a pendientes</td></tr>
+<tr><td>Orden anulada</td><td>Queda en el listado, marcada. No se borra ni se edita</td></tr>
 </tbody>
 </table>
 <div class="callout warn">
-<p><strong>Las órdenes se anulan, no se borran</strong> — ni siquiera las cargadas por error. La orden es el origen de los movimientos de cuenta corriente del cliente y del fletero: borrarla los dejaría sin explicación. Y el número saltaría: el listado iría del 3.411 al 3.413 sin que nadie pudiera decir después qué había en el medio.</p>
+<p><strong>Las órdenes se anulan, no se borran, y anular no pide confirmación:</strong> el ícono actúa en el momento. La orden es el origen de los movimientos de cuenta corriente del cliente y del fletero: borrarla los dejaría sin explicación, y la numeración tendría un hueco que nadie podría explicar.</p>
 </div>
 <h2>La orden en papel</h2>
-<p>Cada orden se imprime como el documento que viaja con el camión: membrete con tu logo y tus datos, número, fecha, cliente, remito, origen y destino, tipo y cantidad, fletero, chofer y vehículo, los importes con el IVA discriminado, las observaciones, <strong>las dos firmas</strong> —transportista y recibí conforme— y tu pie configurable.</p>
+<p>El ícono de la impresora de la fila, o <strong>Imprimir orden</strong> en el detalle, imprime la <strong>ORDEN DE CARGA</strong> como el documento que viaja con el camión: membrete con tu logo y tus datos, número, fecha, cliente, remito, origen y destino, tipo y cantidad, fletero, chofer y vehículo, los importes con el IVA discriminado, las observaciones, <strong>las dos firmas</strong> —transportista y recibí conforme— y tu pie. El listado de órdenes se imprime desde <a href="/docs/reportes.html">Reportes</a>, que exige un rango de fechas.</p>
 <div class="docs-nav-footer">
-<a href="/docs/arca.html">← Facturación (ARCA)</a>
-<a href="/docs/cuenta-corriente.html">Cuenta corriente →</a>
+<a href="/docs/tarifario.html">← Tarifario de referencia</a>
+<a href="/docs/transporte.html">Transporte →</a>
 </div>

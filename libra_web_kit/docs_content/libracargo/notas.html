@@ -1,0 +1,62 @@
+<h1>Notas de crédito y de débito</h1>
+<p class="docs-lead">Cómo corregir una factura emitida: acreditarla, total o parcialmente, o sumarle un importe.</p>
+<h2>Cuándo se usan</h2>
+<p>Una factura emitida por ARCA no se borra ni se anula desde LibraCargo. Se corrige con una nota, que ARCA también autoriza y numera:</p>
+<table class="docs-table">
+<thead><tr><th>Nota</th><th>Para qué</th><th>Efecto en la cuenta del cliente</th></tr></thead>
+<tbody>
+<tr><td><strong>Nota de crédito</strong></td><td>Una factura salió mal, o hay que devolver un importe</td><td>Resta: su deuda baja</td></tr>
+<tr><td><strong>Nota de débito</strong></td><td>Hay que cobrarle un importe más: intereses, un gasto, una diferencia</td><td>Suma: su deuda sube</td></tr>
+</tbody>
+</table>
+<p>Las dos se piden sobre una <strong>factura con CAE que sigue vigente</strong>; <strong>una nota no admite otra nota</strong>. La clase (A, B o C) la hereda de la factura, la fecha es la de hoy, y las emite cualquier usuario del sistema.</p>
+<h2>Nota de crédito</h2>
+<h3>Emitirla</h3>
+<ol class="step-list">
+<li>En <strong>Comprobantes</strong>, tocá el ícono <strong>Nota de crédito</strong> de la fila de la factura. O abrí el comprobante y tocá <strong>Emitir nota de crédito</strong>.</li>
+<li>Escribí el <strong>Motivo de la nota de crédito</strong>. Es obligatorio (al menos tres caracteres) y queda en la nota y en el log de actividad.</li>
+<li>Elegí cuánto: <strong>Por el total</strong> o <strong>Por un importe</strong>.</li>
+<li>Si es por un importe, escribí el <strong>Importe a acreditar (con IVA)</strong>, de hasta dos decimales.</li>
+<li>Tocá <strong>Confirmar nota de crédito</strong>. <strong>No</strong> cierra el formulario sin emitir.</li>
+</ol>
+<h3>Total o por un importe</h3>
+<table class="docs-table">
+<thead><tr><th>Alcance</th><th>Cuándo se puede</th></tr></thead>
+<tbody>
+<tr><td><strong>Por el total</strong></td><td>La factura no tiene notas previas y no es de crédito electrónica. Copia la factura entera</td></tr>
+<tr><td><strong>Por un importe</strong></td><td>Siempre, hasta lo que <strong>queda por acreditar</strong>. En una factura de crédito electrónica, por <strong>menos</strong> que el saldo</td></tr>
+</tbody>
+</table>
+<p>El detalle del comprobante muestra cuánto está <strong>Acreditado</strong> y cuánto <strong>queda por acreditar</strong>; el sistema no deja pasar de ese tope. Se pueden emitir varias notas parciales hasta agotar el saldo. Con el saldo en cero, <strong>Emitir nota de crédito</strong> queda apagado.</p>
+<h3>Qué pasa al emitirla</h3>
+<ul>
+<li>ARCA la autoriza y le pone número y CAE. Tiene su propio PDF, listado en el detalle de la factura.</li>
+<li>La <a href="/docs/cuenta-corriente.html">cuenta del cliente</a> recibe el abono, con la fecha de la nota.</li>
+<li><strong>Si con esta nota la factura queda acreditada por completo</strong>, pasa a <kbd>anulado</kbd> y sus órdenes <strong>vuelven a pendientes</strong>, listas para facturarse de nuevo. Unas parciales que suman el total liberan las órdenes igual.</li>
+<li><strong>Si queda saldo</strong>, las órdenes no se tocan: la nota acredita plata, no viajes.</li>
+<li>Las notas <strong>restan</strong> de lo facturado en los totales y en los reportes, con la fecha de la nota.</li>
+</ul>
+<div class="callout">
+<p><strong>Si ARCA la rechaza, no queda nada:</strong> ni nota, ni factura anulada, ni abono, ni número tomado. Podés corregir y reintentar.</p>
+</div>
+<h2>Nota de débito</h2>
+<ol class="step-list">
+<li>En <strong>Comprobantes</strong>, tocá el ícono <strong>Nota de débito</strong> de la fila de la factura, o abrí el comprobante y tocá <strong>Emitir nota de débito</strong>.</li>
+<li>Escribí el <strong>Motivo de la nota de débito</strong> (obligatorio).</li>
+<li>Escribí el <strong>Importe a debitar (con IVA)</strong>.</li>
+<li>Tocá <strong>Confirmar nota de débito</strong>.</li>
+</ol>
+<ul>
+<li><strong>Siempre va por un importe y no tiene tope.</strong> No hay «por el total».</li>
+<li>No toca la factura ni sus órdenes: es un cargo aparte, que suma a la cuenta del cliente.</li>
+<li>Sale por un único importe con la leyenda del motivo; no se arma por conceptos.</li>
+<li>Aparece en el detalle de la factura, bajo <strong>Notas de débito</strong>, con su PDF.</li>
+</ul>
+<p>Si la factura es de crédito electrónica, la pantalla avisa que la nota de débito de una FCE todavía no se probó contra ARCA.</p>
+<h2>Ensayo y doble clic</h2>
+<p>Con el ambiente en <strong>Homologación</strong>, las dos notas hacen todo el camino contra ARCA y se revierten: el mensaje dice <em>Ensayo contra homologación: ARCA autorizó una nota … de prueba (CAE …) y no se guardó nada</em>, y el comprobante queda como estaba.</p>
+<p>Un doble clic no emite dos notas: el segundo pedido recibe que ya hay una en curso.</p>
+<div class="docs-nav-footer">
+<a href="/docs/comprobantes.html">← Comprobantes</a>
+<a href="/docs/comprobantes-proveedores.html">Comprobantes de proveedores →</a>
+</div>

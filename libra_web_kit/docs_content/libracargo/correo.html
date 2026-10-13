@@ -1,0 +1,33 @@
+<h1>Correo saliente</h1>
+<p class="docs-lead">El servidor de correo con el que LibraCargo manda los comprobantes y los enlaces para recuperar la contraseña.</p>
+<h2>Para qué hace falta</h2>
+<p>Sin correo configurado, dos cosas fallan:</p>
+<ul>
+<li><strong>Enviar por correo</strong> un comprobante, desde el <a href="/docs/comprobantes.html">detalle del comprobante</a>.</li>
+<li><strong>¿Olvidaste tu contraseña?</strong> en la pantalla de ingreso: el enlace para elegir una nueva se manda por correo.</li>
+</ul>
+<h2>Configurarlo</h2>
+<ol class="step-list">
+<li>Andá a <strong>Configuración → Integraciones → Email / SMTP</strong> (sólo administradores).</li>
+<li>Completá <strong>Servidor</strong>, <strong>Puerto</strong>, <strong>Usuario</strong> y <strong>Contraseña</strong>.</li>
+<li>Escribí el <strong>Remitente</strong> (si lo dejás vacío se usa el usuario; la mayoría de los proveedores exige que coincidan) y, si querés, el <strong>Nombre del remitente</strong>.</li>
+<li>Tocá <strong>Guardar</strong>.</li>
+<li>Tocá <strong>Probar conexión</strong>: dice a qué servidor se conectó y con qué usuario, o por qué no pudo.</li>
+</ol>
+<p>El cuadro de arriba del formulario muestra el <strong>Estado</strong>: si está configurado, o si todavía se están usando las variables del servidor. La contraseña se guarda cifrada y no vuelve a mostrarse; para cambiarla, escribí una nueva. <strong>Borrar y usar la del servidor</strong> descarta lo guardado acá.</p>
+<h2>Con Gmail</h2>
+<div class="callout warn">
+<p><strong>Gmail no acepta tu contraseña normal</strong> para enviar desde una aplicación externa: necesitás una <strong>contraseña de aplicación</strong>.</p>
+</div>
+<ol class="step-list">
+<li>En tu cuenta de Google, andá a <strong>Seguridad</strong> y verificá que esté activada la <strong>Verificación en dos pasos</strong>.</li>
+<li>Entrá a las <em>contraseñas de aplicación</em> (<code>myaccount.google.com/apppasswords</code>).</li>
+<li>Escribí <em>LibraCargo</em> como nombre de la app y tocá <strong>Crear</strong>.</li>
+<li>Copiá la contraseña de 16 caracteres: no se vuelve a mostrar.</li>
+<li>Pegala en el campo <strong>Contraseña</strong> del formulario. Los valores para Gmail son servidor <code>smtp.gmail.com</code>, puerto <code>587</code> y como usuario tu dirección completa.</li>
+</ol>
+<p>La pantalla incluye este mismo tutorial arriba del formulario.</p>
+<div class="docs-nav-footer">
+<a href="/docs/arca.html">← ARCA y certificados</a>
+<a href="/docs/maestros.html">Maestros →</a>
+</div>

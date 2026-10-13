@@ -1,0 +1,84 @@
+<h1>Cartas de porte</h1>
+<p class="docs-lead">Las cartas de porte electrónicas (CPE) de cada viaje: traerlas de ARCA por su CTG, emitirlas desde una orden y compartirlas con el chofer.</p>
+<h2>Dos caminos</h2>
+<table class="docs-table">
+<thead><tr><th>Camino</th><th>Cuándo</th></tr></thead>
+<tbody>
+<tr><td><strong>Traer de ARCA</strong></td><td>La carta ya la emitió otro (el titular, o un software externo) y querés tenerla acá: kilos de carga y de descarga, chofer, pagador del flete</td></tr>
+<tr><td><strong>Emitir carta de porte</strong></td><td>La emitís vos, desde la orden, a nombre de un titular que te delegó el servicio</td></tr>
+</tbody>
+</table>
+<p>La pantalla <strong>Cartas de porte</strong> tiene dos pestañas: <strong>Cartas</strong> (este instructivo) y <strong>Titulares</strong> (ver <a href="/docs/titulares.html">Titulares de carta de porte</a>).</p>
+<h2>Qué hace falta</h2>
+<ul>
+<li>El certificado del servicio <strong>CTG y Carta de Porte</strong> (<code>wscpe</code>) cargado en <a href="/docs/arca.html">Configuración → Integraciones → ARCA / AFIP</a>.</li>
+<li>Que cada titular por el que consultás o emitís <strong>te haya delegado</strong> el servicio en ARCA.</li>
+<li>Para emitir en producción, que un administrador haya prendido el interruptor <strong>Emitir Cartas de Porte reales</strong>.</li>
+</ul>
+<h2>El listado</h2>
+<p>Cada fila es una carta, con su <strong>CTG</strong>, el <strong>N.º CPE</strong>, la <strong>Emisión</strong>, el <strong>Estado</strong> que informa ARCA, el <strong>Pagador del flete</strong>, el <strong>Chofer</strong>, los <strong>Dominios</strong>, los <strong>Kg carga</strong>, los <strong>Kg descarga</strong> y la <strong>Orden</strong> vinculada. Un clic abre la ficha completa.</p>
+<p>Los kilos de descarga los informa ARCA recién cuando el camión descarga. Hasta entonces la carta está <strong>abierta</strong> —sin kilos de descarga y en un estado que todavía puede cambiar— y en la columna dice <em>pendiente</em>. Tildando <strong>Sólo abiertas</strong> ves únicamente esas.</p>
+<h3>Actualizar</h3>
+<ul>
+<li>El ícono <strong>Actualizar</strong> de la fila vuelve a consultar esa carta en ARCA.</li>
+<li><strong>Actualizar abiertas</strong>, arriba, hace lo mismo con todas las abiertas y resume cuántas se actualizaron y cuáles dieron error. Las cartas en estado final (anulada, rechazada y similares) no se vuelven a consultar.</li>
+</ul>
+<p>No hay actualización automática: las cartas cambian cuando vos las actualizás.</p>
+<h2>Traer una carta de ARCA</h2>
+<ol class="step-list">
+<li>Tocá <strong>Traer de ARCA</strong>.</li>
+<li>En <strong>Consultar como</strong>, elegí el CUIT por el que se pregunta. <strong>No tiene valor por defecto</strong>, ni siquiera con uno solo: ARCA contesta según por quién se consulta, y una carta consultada con el CUIT equivocado no da error, simplemente no aparece o queda a nombre de otro.</li>
+<li>Pegá uno o varios <strong>CTG</strong> (11 dígitos, separados por espacio, coma o renglón; hasta 50 por vez).</li>
+<li>Si es un solo CTG, podés tocar <strong>Ver antes de guardar</strong>: muestra la carta sin guardarla.</li>
+<li>Tocá <strong>Guardar</strong>. El resultado dice, CTG por CTG, qué quedó y qué no.</li>
+</ol>
+<p>Si el certificado no tiene ninguna delegación, o ARCA no contesta, la ventana lo dice y ofrece <strong>Reintentar</strong>. En homologación avisa que no hay cartas reales para consultar. Traer una carta que ya tenías la actualiza.</p>
+<h2>Vincular una carta con su orden</h2>
+<p>Una carta puede llegar antes que su orden, o una orden puede no tener carta: por eso el vínculo es opcional y se hace a mano.</p>
+<ol class="step-list">
+<li>En la fila de la carta, tocá el ícono <strong>Vincular orden</strong>.</li>
+<li>Escribí el <strong>N.º de orden</strong> y tocá <strong>Vincular</strong>. Para soltarla, <strong>Desvincular</strong>.</li>
+</ol>
+<p>Las cartas que emitís desde una orden quedan vinculadas solas.</p>
+<h2>Emitir una carta de porte desde una orden</h2>
+<ol class="step-list">
+<li>Abrí la orden en <strong>Órdenes de carga</strong> (clic en la fila) y tocá <strong>Emitir carta de porte</strong>. No está disponible en una orden anulada.</li>
+<li><strong>Titular.</strong> Elegí <strong>A nombre de</strong>. No tiene valor por defecto: la carta queda a nombre de quien elijas y no se cambia después. Tocá <strong>Siguiente</strong>.</li>
+<li><strong>Datos.</strong> El sistema propone todo lo que sabe: del viaje (chofer, dominios, transportista, pagador del flete, kilos, km y tarifa por tonelada) y, de lo último emitido para ese titular, el origen, el grano, la cosecha y el destino. Completá lo que falta —avisa arriba qué es— y tocá <strong>Revisar</strong>.</li>
+<li><strong>Confirmar.</strong> Revisá el resumen. En producción, marcá <strong>Confirmo</strong>; sin eso no se puede enviar.</li>
+<li>Tocá <strong>Emitir ahora</strong>.</li>
+<li><strong>Resultado.</strong> Muestra el <strong>CTG</strong> y el <strong>N.º de carta de porte</strong>, con <strong>Ver PDF</strong> y las opciones para compartirla con el chofer.</li>
+</ol>
+<h3>Los datos del paso 2</h3>
+<table class="docs-table">
+<thead><tr><th>Sección</th><th>Qué se carga</th></tr></thead>
+<tbody>
+<tr><td><strong>Origen</strong></td><td>Tipo de origen (Campo o Planta), provincia y localidad, y el RENSPA (campo) o el N.º de planta</td></tr>
+<tr><td><strong>Carga</strong></td><td>Grano, cosecha (<em>2526</em> es 2025/2026), peso bruto y tara; el neto es la resta</td></tr>
+<tr><td><strong>Destino</strong></td><td>CUIT del destino, N.º de planta (ARCA ofrece las inscriptas), provincia, localidad, si es un campo y CUIT del destinatario</td></tr>
+<tr><td><strong>Transporte</strong></td><td>CUIT del transportista y del chofer, de 1 a 3 dominios, fecha y hora de partida, kilómetros, CUIT del pagador del flete, tarifa por tonelada y si la mercadería está fumigada</td></tr>
+<tr><td><strong>Intervinientes</strong></td><td>Opcionales: remitentes comerciales, mercado a término, corredores, representantes, remitente productor e intermediario del flete</td></tr>
+</tbody>
+</table>
+<p>Los códigos de provincia, localidad y grano son los de ARCA, y se buscan por nombre. Si falta el CUIT de un chofer o algún dato de la orden, el aviso dice dónde cargarlo (por ejemplo, <strong>Transporte → Choferes</strong>).</p>
+<div class="callout warn">
+<p><strong>Es un documento fiscal y de circulación: una vez emitido, sólo se puede anular.</strong> Por eso el asistente es lento a propósito, y hay un solo envío: mientras se envía, salir de la página pide confirmación.</p>
+</div>
+<h3>Si no se sabe si se emitió</h3>
+<p>Si ARCA no contesta, o la conexión se corta, el asistente pasa a un estado en rojo que dice <strong>No se sabe si la carta de porte se emitió</strong> y <strong>no ofrece reintentar</strong>: emitir de nuevo puede duplicar una carta real. Verificá primero con <strong>Traer de ARCA</strong> y el CTG si quedó emitida.</p>
+<h2>Compartir la carta con el chofer</h2>
+<p>El chofer no tiene usuario. En el resultado de la emisión, o en la ficha de la carta, usá <strong>Compartir por WhatsApp</strong> o <strong>Copiar enlace</strong>: es un enlace firmado al PDF, <strong>sin usuario ni contraseña, que vence a los 7 días</strong>.</p>
+<h2>Anular una carta emitida</h2>
+<ol class="step-list">
+<li>Abrí la carta (clic en la fila).</li>
+<li>Tocá <strong>Anular</strong>. Sólo lo ve un administrador, y sólo en las cartas emitidas desde LibraCargo que no estén en un estado final.</li>
+<li>Escribí las <strong>Observaciones</strong> si querés (hasta 100 caracteres) y tocá <strong>Anular en ARCA</strong>.</li>
+</ol>
+<p>Se anula en ARCA, a nombre del titular, y <strong>no se deshace</strong>. La ficha muestra desde cuándo la carta está anulada: el PDF que guarda ARCA es el de la emisión y sigue siendo ése.</p>
+<div class="callout">
+<p><strong>Todavía no están en LibraCargo</strong> el desvío, la contingencia ni la confirmación de arribo.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/transporte.html">← Transporte</a>
+<a href="/docs/titulares.html">Titulares de carta de porte →</a>
+</div>

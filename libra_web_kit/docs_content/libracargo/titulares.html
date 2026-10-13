@@ -1,0 +1,47 @@
+<h1>Titulares de carta de porte</h1>
+<p class="docs-lead">A nombre de quién se emiten las cartas de porte, quién las emite y si ARCA ya te delegó el servicio.</p>
+<h2>Qué es un titular</h2>
+<p>La carta de porte la emite <strong>el titular de la carga</strong>, o un tercero al que él le delegó el servicio en ARCA. Los clientes de una agencia se reparten en dos grupos: los que <strong>te delegan</strong> para que emitas por ellos, y los que <strong>emiten ellos mismos</strong> y sólo necesitás consultar sus cartas por CTG. La pestaña <strong>Titulares</strong> es la libreta donde se anotan unos y otros.</p>
+<p>Andá a <strong>Cartas de porte → Titulares</strong>. Cualquier usuario puede ver la lista; <strong>cargar, editar, sacar y manejar los datos habituales es de administradores</strong>.</p>
+<h2>La delegación se lee de ARCA, no se tilda</h2>
+<p>Que un titular te haya delegado el servicio no lo decís vos: lo informa ARCA, comparando con las relaciones del certificado de <code>wscpe</code>.</p>
+<table class="docs-table">
+<thead><tr><th>Delegación en ARCA</th><th>Qué significa</th></tr></thead>
+<tbody>
+<tr><td><kbd>Delegado ✓</kbd></td><td>Está entre las relaciones del certificado: podés emitir y consultar a su nombre</td></tr>
+<tr><td><kbd>Pendiente</kbd></td><td>Está cargado pero ARCA todavía no informa su delegación. La suma con el próximo ticket, que puede tardar <strong>hasta 12 horas</strong> desde que el titular la hace</td></tr>
+<tr><td><kbd>Sin verificar</kbd></td><td>No hay certificado, o ARCA no contestó. El motivo se muestra arriba; la pantalla no se rompe</td></tr>
+<tr><td><kbd>Delegado sin cargar</kbd></td><td>ARCA trae un CUIT que te delegó y que no está en tu lista. Aparece aparte, con el botón <strong>Agregar</strong></td></tr>
+</tbody>
+</table>
+<p>Para los titulares cuya columna <strong>Quién emite</strong> dice <em>El titular</em>, la etiqueta dice <em>Emite él · consulta habilitada ✓</em>, <em>Emite él · falta delegar (para consultar)</em> o <em>Emite él · sin verificar</em>: consultar una carta por CTG también exige que haya delegado el servicio.</p>
+<h2>Cargar un titular</h2>
+<ol class="step-list">
+<li>Tocá <strong>Nuevo titular</strong>. Si ARCA ya trae el CUIT, tocá <strong>Agregar</strong> en <em>Delegados sin cargar</em>: viene con el CUIT puesto.</li>
+<li>Escribí el <strong>CUIT</strong> (11 dígitos) y la <strong>Razón social</strong>. Si el CUIT es de un cliente cargado, la razón social se toma de él.</li>
+<li>Elegí <strong>Quién emite la carta de porte</strong>: <strong>Nosotros</strong> (el titular te delegó y emitís desde la orden) o <strong>El titular</strong> (emite él; vos sólo consultás).</li>
+<li>Si hace falta, elegí el <strong>Cliente</strong> al que corresponde; por omisión se vincula solo por el CUIT.</li>
+<li>Dejá tildado <strong>Activo</strong>, escribí <strong>Notas</strong> si querés y tocá <strong>Agregar titular</strong>.</li>
+</ol>
+<p>El CUIT no se cambia después: si estaba mal, dalo de baja y cargá el otro. <strong>Sacar de la lista</strong> lo quita de acá sin borrar ninguna carta ni tocar la delegación en ARCA; sus datos habituales se conservan. Dar de baja (destildar <strong>Activo</strong>) es la salida reversible.</p>
+<p>En la ficha del cliente, en <a href="/docs/maestros.html">Clientes</a>, una línea resume esta situación: <em>delegó a nosotros ✓</em>, <em>emite él · consulta habilitada ✓</em> o <em>pendiente</em>.</p>
+<h2>Pedirle la delegación a un cliente</h2>
+<p>Al pie de la pestaña, <strong>Cómo delegarnos la emisión</strong> arma el texto para mandarle al cliente, con el <strong>CUIT del representante</strong> y el <strong>Alias del computador fiscal</strong> de tu certificado. El cliente lo hace con su clave fiscal, en ARCA, agregando una relación para el servicio <code>wscpe</code>. Tocá <strong>Copiar</strong> o <strong>Compartir por WhatsApp</strong>.</p>
+<p>Para un titular pendiente que emite él, el texto es <strong>Cómo delegarnos la consulta</strong>: la misma delegación sirve para las dos cosas. Sin certificado de <code>wscpe</code> cargado no hay texto: la pantalla dice dónde cargarlo.</p>
+<h2>Los datos habituales para emitir</h2>
+<p>Son lo que se repite en las cartas de un mismo titular: de dónde sale la carga, qué grano y adónde va. «Emitir carta de porte» arranca con ellos, y <strong>se guardan solos</strong> con cada carta que emitís a su nombre.</p>
+<ol class="step-list">
+<li>Abrí el titular (clic en la fila). En <strong>Datos habituales para emitir</strong>, tocá <strong>Cargar</strong> (o <strong>Ver y editar</strong>; un operador ve <strong>Ver</strong>).</li>
+<li>En la página <strong>Datos habituales para emitir</strong>, completá lo que corresponda: origen (campo con RENSPA, o planta), grano, cosecha, destino, planta, destinatario, kilómetros habituales, si va fumigada, intervinientes y observaciones.</li>
+<li>Tocá <strong>Guardar plantilla</strong>. <strong>Borrar plantilla</strong> la elimina.</li>
+</ol>
+<p>Nada es obligatorio: una plantilla puede quedar parcial. <strong>El viaje no va nunca en la plantilla</strong> —chofer, dominios, kilos, partida—: eso sale de cada orden. Un titular que emite él no lleva datos habituales.</p>
+<h2>A quién se le puede emitir</h2>
+<p>En el paso <strong>A nombre de</strong> de «Emitir carta de porte» sólo aparecen los titulares que son <strong>Nosotros</strong>, están <strong>activos</strong> y figuran como <strong>delegados en ARCA</strong>. También aparece, marcado <em>sin cargar en Titulares</em>, un CUIT que te delegó y todavía no anotaste. Nunca se ofrece uno que emite él, uno dado de baja, uno pendiente, ni nadie si ARCA no se pudo consultar. El servidor vuelve a verificarlo al emitir.</p>
+<div class="callout">
+<p><strong>La delegación habilita, «quién emite» decide.</strong> Un titular que emite él y que te delegó la consulta se puede consultar por CTG, pero nunca se le emite desde acá.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/cartas-de-porte.html">← Cartas de porte</a>
+<a href="/docs/facturacion.html">Facturar pendientes y Nueva factura →</a>
+</div>

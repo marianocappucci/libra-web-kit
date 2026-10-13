@@ -1,41 +1,89 @@
-<h1>Facturación (ARCA)</h1>
-<p class="docs-lead">Cargar el certificado y la clave privada con los que tu razón social se identifica ante ARCA.</p>
-<h2>Una configuración por razón social</h2>
-<p>El certificado de ARCA pertenece a <strong>un CUIT</strong>, y el CUIT lo tiene la <a href="/docs/maestros.html">razón social</a>. Si facturás con dos razones sociales propias, cada una lleva su certificado, su clave y su punto de venta.</p>
-<h2>Cargar el certificado</h2>
-<ol class="step-list">
-<li>Andá a <strong>⚙ Configuración → Facturación (ARCA)</strong> (sólo administradores).</li>
-<li>Elegí la razón social.</li>
-<li>Subí el <strong>certificado</strong> (el <code>.crt</code> que te devolvió ARCA) y tu <strong>clave privada</strong>.</li>
-<li>Guardá.</li>
-</ol>
-<h2>Los archivos se validan al subirlos</h2>
-<div class="callout">
-<p><strong>Y no el día que se factura</strong>, que es cuando duele. Hay tres errores de armado que no se ven mirando el nombre del archivo:</p>
-</div>
+<h1>ARCA y certificados</h1>
+<p class="docs-lead">Qué necesita LibraCargo para emitir facturas y cartas de porte por ARCA, y cómo cargarlo.</p>
+<h2>Dónde está</h2>
+<p>Andá a <strong>Configuración → Integraciones → ARCA / AFIP</strong>. Esta pantalla es <strong>sólo de administradores</strong>. La tarjeta tiene cuatro pestañas:</p>
 <table class="docs-table">
-<thead><tr><th>Error</th><th>Qué pasa si no se detecta</th></tr></thead>
+<thead><tr><th>Pestaña</th><th>Para qué sirve</th></tr></thead>
 <tbody>
-<tr><td>Subir el <code>.csr</code> en vez del <code>.crt</code></td><td>El <code>.csr</code> es el <em>pedido</em> de certificado, no el certificado</td></tr>
-<tr><td>Cambiar de campo el certificado y la clave</td><td>Los dos archivos son válidos, pero están al revés</td></tr>
-<tr><td><strong>Que no sean pareja</strong></td><td>Son dos archivos válidos, se ven perfectos, y ARCA rechaza con un error genérico que no dice cuál de los dos está mal</td></tr>
+<tr><td><strong>General</strong></td><td>CUIT, punto de venta, ambiente para facturar, alias y las cuentas de la factura de crédito electrónica</td></tr>
+<tr><td><strong>Homologación</strong></td><td>El certificado y la clave para <em>probar</em>: no tiene efecto fiscal</td></tr>
+<tr><td><strong>Producción</strong></td><td>El certificado y la clave con los que se factura de verdad</td></tr>
+<tr><td><strong>CTG y Carta de Porte</strong></td><td>El certificado del servicio de cartas de porte (<code>wscpe</code>) y el interruptor de la emisión real</td></tr>
 </tbody>
 </table>
-<p>El tercero es el que más cuesta encontrar solo. El sistema compara la clave pública del certificado contra la de tu clave privada y te avisa en el momento.</p>
-<h2>El vencimiento</h2>
-<div class="callout warn">
-<p><strong>Los certificados de ARCA duran dos años</strong>, y el día que vencen la facturación deja de andar sin que nadie haya tocado nada. La pantalla te muestra siempre cuándo vence el tuyo.</p>
-</div>
-<h2>Dónde se guardan</h2>
-<p>En tu base de datos, no en el disco del servidor — igual que el logo. Es lo que hace que el <a href="/docs/backup.html">backup</a> sea completo: con las credenciales afuera, restaurar una copia dejaría una instancia que no puede facturar <strong>y que no lo dice</strong>.</p>
-<div class="callout warn">
-<p><strong>La contracara, y conviene saberla:</strong> el ZIP de backup que te descargás <strong>lleva adentro tu clave privada</strong>. Es tu clave y tu backup, pero no lo mandes por mail.</p>
-</div>
-<h2>Todavía no se emite desde acá</h2>
+<p>Arriba a la derecha, una pastilla dice <strong>Facturando en Producción</strong> (o <strong>en Homologación</strong>) cuando el ambiente elegido tiene su par completo.</p>
+<h2>La regla que lo gobierna</h2>
 <div class="callout">
-<p>Esta pantalla es la <strong>configuración</strong>. Los <a href="/docs/comprobantes.html">comprobantes</a> hoy se registran con el número tipeado; pedirle el CAE a ARCA es la etapa siguiente, y esto es lo que hay que tener listo para cuando llegue.</p>
+<p><strong>LibraCargo emite sólo si el CUIT de esta configuración es el de los <a href="/docs/empresa.html">datos de la empresa</a> y el ambiente elegido tiene el certificado y la clave completos.</strong> Si no, no se toca nada y el mensaje dice cuál de las tres cosas falta.</p>
 </div>
+<p>El CUIT que se escribe acá es el que <strong>factura</strong>, aunque el certificado esté a nombre de otra persona que representa a la empresa. Lo que se compara es ese CUIT con el de la empresa, nunca con el titular del archivo <code>.crt</code>.</p>
+<h2>Configurar la facturación</h2>
+<ol class="step-list">
+<li>En la pestaña <strong>General</strong>, escribí el <strong>CUIT</strong> (el de la empresa) y el <strong>Punto de venta</strong>. El punto de venta tiene que estar dado de alta en ARCA para facturar por web services.</li>
+<li>Elegí el <strong>Ambiente para facturar</strong>: <kbd>Homologación (pruebas)</kbd> o <kbd>Producción</kbd>.</li>
+<li>Completá el <strong>Alias</strong> si querés dejarlo anotado.</li>
+<li>Tocá <strong>Guardar ARCA</strong>.</li>
+<li>Cuando el par del ambiente esté cargado, tocá <strong>Probar conexión</strong>: se autentica de verdad contra ARCA y dice si anduvo.</li>
+</ol>
+<p>Si el ambiente elegido no tiene el par completo, un aviso rojo lo dice junto al selector: es el paso donde se rompe el cambio a producción, y por eso se avisa antes de emitir.</p>
+<h2>Cargar el certificado y la clave</h2>
+<p>Cada ambiente (<strong>Homologación</strong> y <strong>Producción</strong>) tiene su propio par, y los dos pueden estar cargados a la vez: cargar el de producción no pisa el de pruebas. Un certificado de homologación <strong>no vale</strong> en producción.</p>
+<h3>Si ya tenés el archivo</h3>
+<ol class="step-list">
+<li>En la pestaña del ambiente, subí el <strong>Certificado (.crt)</strong>.</li>
+<li>Subí la <strong>Clave privada (.key)</strong>.</li>
+<li>El sistema valida los archivos antes de guardarlos, verifica que sean pareja y lee la fecha de vencimiento.</li>
+</ol>
+<h3>Si no lo tenés: Generar pedido de certificado</h3>
+<ol class="step-list">
+<li>En la pestaña del ambiente, tocá <strong>Generar pedido de certificado</strong>.</li>
+<li>Revisá el <strong>CUIT</strong> (sin guiones, el del titular del certificado), la <strong>Razón social</strong> (sin tildes: ARCA no las admite) y el <strong>Alias</strong> (sólo letras y números, sin guiones).</li>
+<li>Tocá <strong>Generar pedido</strong>. La clave privada se crea <strong>dentro del servidor</strong> y no se puede descargar: sólo sale el archivo <code>.csr</code>.</li>
+<li>Descargá el <strong>.csr</strong> y seguí los <strong>pasos para ARCA</strong> que muestra la pantalla, armados con tu CUIT y tu alias (son distintos en homologación y en producción).</li>
+<li>Cuando ARCA te devuelva el certificado, subí el <strong>Certificado (.crt)</strong> en la misma pestaña. <strong>No hace falta cargar la clave</strong>: ya está en el servidor y el sistema comprueba que empareja.</li>
+</ol>
+<p>Mientras el pedido espera el certificado, la pestaña lo dice (<em>Esperando el certificado de ARCA</em>) y ofrece <strong>Descargar el .csr</strong>, <strong>Ver los pasos</strong> y <strong>Descartar pedido</strong>.</p>
+<div class="callout warn">
+<p><strong>Descartar un pedido borra su clave privada.</strong> Si el <code>.csr</code> ya se presentó ante ARCA, el certificado que devuelva deja de servir y hay que generar un pedido nuevo. El certificado que ya estuviera cargado no se toca. El sistema lo pide confirmar aparte por eso.</p>
+</div>
+<p>Si ya tenés una clave hecha afuera, desplegá <strong>Ya tengo una clave privada hecha afuera (avanzado)</strong> y subila. Para sacar un par, tocá <strong>Quitar el par de …</strong> en su pestaña.</p>
+<h2>El estado de cada ambiente</h2>
+<table class="docs-table">
+<thead><tr><th>Estado</th><th>Qué significa</th></tr></thead>
+<tbody>
+<tr><td><kbd>Sin cargar</kbd></td><td>No hay ni certificado ni clave</td></tr>
+<tr><td><kbd>Incompleto</kbd></td><td>Falta una de las dos mitades (la pestaña dice cuál)</td></tr>
+<tr><td><kbd>Cargado</kbd> / <kbd>En uso</kbd></td><td>Par completo; <em>En uso</em> es el ambiente con que se factura hoy</td></tr>
+<tr><td><kbd>Vence pronto</kbd></td><td>Quedan 30 días o menos: es el momento de renovarlo</td></tr>
+<tr><td><kbd>Vencido</kbd></td><td>La facturación no va a funcionar hasta cargar uno nuevo</td></tr>
+<tr><td><kbd>Con error</kbd></td><td>El archivo cargado no se puede leer; el mensaje dice por qué</td></tr>
+</tbody>
+</table>
+<p>Los certificados de ARCA duran dos años. El día que vencen la facturación deja de andar sin que nadie haya tocado nada: por eso el vencimiento está a la vista en cada pestaña. Para renovar, <strong>Generar pedido de certificado</strong> vuelve a ofrecerse cuando el par está vencido o por vencer.</p>
+<h2>La factura de crédito electrónica MiPyME</h2>
+<p>En la pestaña <strong>General</strong>, el cuadro <strong>Factura de crédito electrónica MiPyME</strong> tiene el resumen de lo cargado y el botón <strong>Editar cuentas</strong>. Ahí se cargan las cuentas donde cobrás y la modalidad. Está explicado paso a paso en <a href="/docs/fce.html">Factura de crédito electrónica MiPyME</a>.</p>
+<h2>Cartas de porte: el certificado de <code>wscpe</code></h2>
+<p>La pestaña <strong>CTG y Carta de Porte</strong> es el mismo mecanismo, con su propio par por ambiente, su propio <strong>Probar conexión</strong> y su propio <strong>Generar pedido de certificado</strong>. Este certificado puede estar a nombre de la persona que representa a la empresa. Además de subirlo, cada cliente que quiera que consultes o emitas sus cartas de porte tiene que <strong>delegarte el servicio en ARCA</strong>: ver <a href="/docs/titulares.html">Titulares de carta de porte</a>.</p>
+<h3>Emitir cartas de porte reales: el interruptor</h3>
+<p>Al pie de esa pestaña, sólo para administradores, está el interruptor <strong>Emitir Cartas de Porte reales</strong>. Viene <strong>apagado</strong>: con el certificado de producción cargado, nadie puede emitir una carta real hasta que un administrador lo prenda.</p>
+<ul>
+<li>Prenderlo pide una confirmación; apagarlo no, porque apagar es siempre el lado seguro.</li>
+<li>Queda registrado en el <a href="/docs/logs.html">log de actividad</a>.</li>
+<li>En <strong>homologación</strong> no hace falta: es de prueba y se puede emitir siempre.</li>
+</ul>
+<p>Aun con el interruptor prendido, cada emisión real pide marcar <strong>Confirmo</strong>. Ver <a href="/docs/cartas-de-porte.html">Cartas de porte</a>.</p>
+<h2>Si ARCA no deja emitir</h2>
+<p>Antes de pedirle nada a ARCA, el sistema revisa y, si algo falta, <strong>no toca nada</strong> y lo dice con estas palabras:</p>
+<table class="docs-table">
+<thead><tr><th>El mensaje dice</th><th>Qué hacer</th></tr></thead>
+<tbody>
+<tr><td>La empresa no tiene CUIT cargado</td><td>Cargá el CUIT en <strong>Configuración → Empresa</strong></td></tr>
+<tr><td>ARCA no está configurado</td><td>Cargá el certificado y la clave acá, con el CUIT de la empresa</td></tr>
+<tr><td>El CUIT de la configuración de ARCA es distinto del de la empresa</td><td>Corregí uno de los dos: tienen que ser el mismo</td></tr>
+<tr><td>Falta el certificado o la clave del ambiente elegido</td><td>Cargá el par completo de ese ambiente, o elegí el otro en <strong>General</strong></td></tr>
+</tbody>
+</table>
 <div class="docs-nav-footer">
-<a href="/docs/maestros.html">← Maestros</a>
-<a href="/docs/ordenes.html">Órdenes de carga →</a>
+<a href="/docs/empresa.html">← Datos de la empresa</a>
+<a href="/docs/correo.html">Correo saliente →</a>
 </div>

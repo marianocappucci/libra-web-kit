@@ -1,27 +1,44 @@
 <h1>Reportes</h1>
-<p class="docs-lead">Ocho reportes, cada uno con su pantalla y sus propios parámetros. Disponibles desde el plan Estándar.</p>
-<h2>El catálogo</h2>
+<p class="docs-lead">Siete reportes que resumen la operación, cinco listados para imprimir y la pre liquidación de transportistas. Disponible desde el plan Estándar.</p>
+<h2>Cómo se usan</h2>
+<ol class="step-list">
+<li>Andá a <strong>Reportes</strong>. Cada reporte es una tarjeta con lo que contesta y por qué se filtra.</li>
+<li>Abrí el que necesitás y completá los filtros que ofrece.</li>
+<li>La tabla se calcula sola. Con <strong>Imprimir</strong> sale en papel, con el membrete de la empresa y los filtros escritos.</li>
+</ol>
+<p>Los números del reporte son los mismos que muestran las pantallas: el <a href="/docs/tablero.html">Dashboard</a> sale de ellos. En varios, un clic en la fila lleva a la cuenta corriente del tercero.</p>
+<h2>Los reportes</h2>
 <table class="docs-table">
-<thead><tr><th>Reporte</th><th>Qué contesta</th></tr></thead>
+<thead><tr><th>Reporte</th><th>Qué contesta</th><th>Se filtra por</th></tr></thead>
 <tbody>
-<tr><td><strong>Resumen del período</strong></td><td>Cuántas órdenes se hicieron, cuánto se facturó, cuánto se cobró y cuánto se pagó. Se puede acotar a un cliente o a un fletero</td></tr>
-<tr><td><strong>Clientes</strong></td><td>Ranking por lo facturado en el período, con las órdenes de cada uno y su saldo de hoy</td></tr>
-<tr><td><strong>Fleteros</strong></td><td>Qué fletero movió más, la comisión de sus órdenes y su saldo de hoy</td></tr>
-<tr><td><strong>Pendientes de facturar</strong></td><td>Las órdenes que no salieron en ningún comprobante, agrupadas por cliente: a quién hay que facturarle y por cuánto</td></tr>
-<tr><td><strong>Saldos de cuenta corriente</strong></td><td>Las tres cuentas de una vez, con el último movimiento de cada una</td></tr>
-<tr><td><strong>Caja</strong></td><td>Ingresos y egresos del período, abiertos por tipo y medio de pago</td></tr>
-<tr><td><strong>Facturado por razón social</strong></td><td>Cuánto facturó cada razón social propia en el período</td></tr>
-<tr><td><strong>Rutas más transitadas</strong></td><td>Origen y destino <strong>como par</strong> —la ida y la vuelta son dos rutas distintas—, con las órdenes, la cantidad y lo que dejaron</td></tr>
+<tr><td><strong>Resumen del período</strong></td><td>Cuántas órdenes, cuánto se facturó, cuánto se cobró y cuánto se pagó</td><td>Fechas, cliente, fletero</td></tr>
+<tr><td><strong>Clientes</strong></td><td>Ranking por lo facturado, con sus órdenes y <strong>su saldo de hoy</strong></td><td>Fechas, cliente, cuántas filas</td></tr>
+<tr><td><strong>Fleteros</strong></td><td>Qué fletero movió más, la comisión de sus órdenes y su saldo de hoy</td><td>Fechas, fletero, cuántas filas</td></tr>
+<tr><td><strong>Pendientes de facturar</strong></td><td>Las órdenes sin comprobante, agrupadas por cliente: a quién facturarle y por cuánto</td><td>Fechas, cliente</td></tr>
+<tr><td><strong>Saldos de cuenta corriente</strong></td><td>Las tres cuentas a la vez, con el último movimiento de cada una</td><td>Tipo de cuenta, tercero, cuentas en cero</td></tr>
+<tr><td><strong>Caja</strong></td><td>Ingresos y egresos, abiertos por tipo y por medio de pago</td><td>Fechas, tercero, medio de pago, ingreso o egreso</td></tr>
+<tr><td><strong>Rutas más transitadas</strong></td><td>Origen y destino como par (la ida y la vuelta son rutas distintas), con las órdenes, la cantidad y lo que dejaron</td><td>Fechas, origen, destino, cliente, fletero, cuántas filas</td></tr>
 </tbody>
 </table>
 <div class="callout">
-<p><strong>El saldo de los rankings no se acota al rango.</strong> Lo facturado en el período y lo que el cliente debe hoy son dos preguntas distintas: un saldo recortado a los últimos tres meses no es el saldo de nadie. Por eso van en columnas separadas.</p>
+<p><strong>El saldo de los rankings es el de hoy, no el del período.</strong> Lo facturado en un mes y lo que un tercero debe son dos preguntas distintas, y el saldo no tiene rango.</p>
 </div>
-<h2>Los parámetros</h2>
-<p>Cada reporte ofrece <strong>sólo los filtros que sabe usar</strong>: rango de fechas, cliente, fletero, tercero, razón social, origen, destino, medio de pago, tipo de movimiento, rol, incluir cuentas en cero y límite de filas. La barra de filtros la arma el propio sistema a partir del reporte elegido, así que nunca te va a ofrecer un filtro que ese reporte ignora.</p>
-<h2>Imprimir un reporte</h2>
-<p>Todos se imprimen con el membrete de tu empresa y los filtros aplicados en el encabezado. Ver <a href="/docs/impresion.html">Impresión de listados</a>.</p>
+<h2>Listados para imprimir</h2>
+<p>Son el detalle de cada pantalla, línea por línea, en papel. <strong>Piden un «desde» y un «hasta»</strong>: sin fechas es la tabla entera, y son noventa hojas. Hasta que no los elegís, el reporte no se calcula ni ofrece imprimir.</p>
+<table class="docs-table">
+<thead><tr><th>Listado</th><th>Qué trae</th><th>Se filtra por</th></tr></thead>
+<tbody>
+<tr><td><strong>Listado de órdenes</strong></td><td>Las órdenes del período, con el tramo, el fletero y los importes</td><td>Fechas, cliente, fletero, origen, destino</td></tr>
+<tr><td><strong>Listado de comprobantes</strong></td><td>Los comprobantes, con neto, IVA y total; los anulados salen marcados</td><td>Fechas, cliente</td></tr>
+<tr><td><strong>Listado de comprobantes de proveedores</strong></td><td>Lo que entregaron los proveedores y a qué fletero se descontó</td><td>Fechas, proveedor, fletero</td></tr>
+<tr><td><strong>Listado de movimientos de caja</strong></td><td>Los cobros y pagos, con el medio de pago y el recibo</td><td>Fechas, tercero, medio de pago, ingreso o egreso</td></tr>
+<tr><td><strong>Listado del log de actividad</strong></td><td>Quién hizo qué en el período. Sólo lo ve un administrador</td><td>Fechas, entidad, usuario, acción</td></tr>
+</tbody>
+</table>
+<p>La pantalla dibuja las primeras 200 filas y <strong>lo dice</strong> debajo de la tabla; la hoja trae todas. Si el listado supera el tope de impresión, la hoja lo escribe en el encabezado: ver <a href="/docs/impresion.html">Impresión de listados</a>.</p>
+<h2>Pre liquidación de transportistas</h2>
+<p>El papel que se le manda a cada fletero antes de que facture. Tiene su propia pantalla porque viene en bloques por transportista: ver <a href="/docs/pre-liquidacion.html">Pre liquidación de transportistas</a>.</p>
 <div class="docs-nav-footer">
-<a href="/docs/tablero.html">← Tablero</a>
-<a href="/docs/impresion.html">Impresión de listados →</a>
+<a href="/docs/tablero.html">← Dashboard</a>
+<a href="/docs/pre-liquidacion.html">Pre liquidación de transportistas →</a>
 </div>
