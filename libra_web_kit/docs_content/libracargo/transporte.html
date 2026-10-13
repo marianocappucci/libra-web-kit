@@ -1,0 +1,46 @@
+<h1>Transporte</h1>
+<p class="docs-lead">Quién transporta, con quién y en qué: fleteros, choferes y vehículos.</p>
+<h2>Las tres pestañas</h2>
+<p>La entrada <strong>Transporte</strong> del menú reúne lo que se mira junto cuando se asigna un viaje:</p>
+<table class="docs-table">
+<thead><tr><th>Pestaña</th><th>Qué es</th></tr></thead>
+<tbody>
+<tr><td><strong>Fleteros</strong></td><td>El transportista, propietario o contratado, al que se le liquida el flete. Es un <em>rol</em> de la misma ficha de <a href="/docs/maestros.html">clientes y proveedores</a></td></tr>
+<tr><td><strong>Choferes</strong></td><td>La persona que conduce. Es otro catálogo, con su propio CUIT</td></tr>
+<tr><td><strong>Vehículos</strong></td><td>Las patentes: chasis y, si lleva, acoplado</td></tr>
+</tbody>
+</table>
+<p>Al entrar desde el menú, <strong>se abre la última pestaña que usaste</strong> en ese navegador (la primera vez, Fleteros). Un enlace con la pestaña en la dirección manda sobre la recordada.</p>
+<h2>Fleteros</h2>
+<p>Funciona igual que <strong>Clientes</strong> y <strong>Proveedores</strong>: el alta marca el rol de fletero, la <strong>Condición de IVA</strong> y el <strong>CUIT</strong> se cargan en la ficha, y un CUIT que ya existe ofrece <strong>sumarle el rol</strong> en vez de duplicar. Ver <a href="/docs/maestros.html">Maestros</a>.</p>
+<ol class="step-list">
+<li>Andá a <strong>Transporte → Fleteros</strong> y tocá <strong>Nuevo</strong>.</li>
+<li>Completá la <strong>Razón social</strong>, el <strong>CUIT</strong> y la <strong>Condición de IVA</strong>.</li>
+<li>Guardá.</li>
+</ol>
+<div class="callout">
+<p><strong>La condición de IVA del fletero cuenta:</strong> es lo que decide si en la <a href="/docs/pre-liquidacion.html">pre liquidación de transportistas</a> se le suma IVA a su comisión (sólo a un responsable inscripto).</p>
+</div>
+<p>Al abrir la ficha de un fletero ves, de sólo lectura, sus <strong>choferes</strong> y sus <strong>vehículos</strong>, con enlace a cada uno.</p>
+<h2>Choferes</h2>
+<ol class="step-list">
+<li>Andá a <strong>Transporte → Choferes</strong> y tocá <strong>Nuevo</strong>.</li>
+<li>Cargá el <strong>Nombre</strong> (obligatorio), el <strong>DNI</strong>, el <strong>CUIT</strong> y el <strong>Teléfono</strong>.</li>
+<li>Elegí el <strong>Fletero</strong> para el que maneja, si corresponde.</li>
+<li>Guardá.</li>
+</ol>
+<p>El <strong>CUIT del chofer</strong> es el que trae la carta de porte: con él se cruza el chofer de la carta con el de la orden, y es el que se manda a ARCA al emitir. Se acepta con o sin guiones y se valida con su dígito verificador: un CUIT mal tipeado no cruza nunca y nada avisaría. La búsqueda de la tabla incluye nombre, DNI, CUIT, teléfono y fletero.</p>
+<h2>Vehículos</h2>
+<ol class="step-list">
+<li>Andá a <strong>Transporte → Vehículos</strong> y tocá <strong>Nuevo</strong>.</li>
+<li>Cargá la <strong>Patente del chasis</strong> (obligatoria) y, si lleva, la <strong>Patente del acoplado</strong>.</li>
+<li>Elegí el <strong>Fletero</strong> si querés asociarlo; es opcional.</li>
+<li>Guardá.</li>
+</ol>
+<p>Las patentes se guardan en mayúsculas. <strong>El equipo —chasis más acoplado— es único</strong>: no se puede cargar dos veces el mismo. El vehículo no queda atado a un fletero: a veces es del chofer que maneja.</p>
+<h2>Dar de baja y editar</h2>
+<p>Como en el resto de los maestros: clic en la fila para editar, ícono <strong>Dar de baja</strong> para sacarlo de los desplegables de una orden nueva sin perder el historial, y <strong>Reactivar</strong> para volver a ofrecerlo. Un fletero, un chofer o un vehículo con viajes hechos <strong>no se borra</strong>.</p>
+<div class="docs-nav-footer">
+<a href="/docs/ordenes.html">← Órdenes de carga</a>
+<a href="/docs/cartas-de-porte.html">Cartas de porte →</a>
+</div>

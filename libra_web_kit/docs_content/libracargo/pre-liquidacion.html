@@ -1,0 +1,43 @@
+<h1>Pre liquidación de transportistas</h1>
+<p class="docs-lead">El papel que se le manda a cada fletero antes de que facture: los fletes del período, lo que se le va a liquidar y el IVA si corresponde.</p>
+<h2>Cómo se arma</h2>
+<ol class="step-list">
+<li>Andá a <strong>Reportes → Pre liquidación de transportistas</strong>.</li>
+<li>Elegí <strong>Desde</strong> y <strong>Hasta</strong>. Son obligatorios.</li>
+<li>Si querés el de un solo transportista, elegilo en <strong>Fletero</strong>; vacío trae a todos.</li>
+<li>Usá <strong>Imprimir</strong>, <strong>Ver PDF</strong> o <strong>Descargar PDF</strong>.</li>
+</ol>
+<p>El resultado viene en <strong>un bloque por transportista</strong>, con sus fletes, un subtotal, y al final el <strong>Total general</strong>: cantidad de fletes, <strong>Comisión (neto)</strong>, <strong>IVA</strong> y <strong>Total a liquidar</strong>. Cada hoja del papel lleva la leyenda <em>Pre liquidación — no es un comprobante</em>.</p>
+<h2>Qué órdenes entran</h2>
+<p>Las mismas con las que se le asienta el flete en su cuenta corriente:</p>
+<ul>
+<li>Con <strong>fletero</strong> asignado. Una orden sin fletero no entra: no hay a quién liquidarle.</li>
+<li>Con <strong>comisión mayor que cero</strong>.</li>
+<li><strong>No anuladas</strong>.</li>
+<li>Con la <strong>fecha de la orden</strong> dentro del rango, extremos incluidos.</li>
+</ul>
+<p>Entran las <strong>pendientes y las facturadas</strong>: liquidarle al transportista no depende de que al cliente ya se le haya facturado.</p>
+<div class="callout">
+<p><strong>El valor de un flete es la comisión de la orden, no la tarifa.</strong> La tarifa es lo que se le cobra al cliente; la comisión es lo que cobra el transportista, y es el mismo importe que se le asienta en su <a href="/docs/cuenta-corriente.html">cuenta corriente</a>.</p>
+</div>
+<h2>El IVA lo decide la condición del transportista</h2>
+<p>Sólo quien discrimina IVA en su factura lo suma. Sale de la <strong>Condición de IVA</strong> de la ficha del fletero (<strong>Transporte → Fleteros</strong>), no de la orden:</p>
+<table class="docs-table">
+<thead><tr><th>Condición del fletero</th><th>IVA</th></tr></thead>
+<tbody>
+<tr><td><kbd>Responsable inscripto</kbd></td><td>Se suma: comisión por la alícuota de cada orden. Factura A, que discrimina</td></tr>
+<tr><td><kbd>Monotributo</kbd></td><td>Cero: factura C, que no discrimina</td></tr>
+<tr><td><kbd>Exento</kbd></td><td>Cero</td></tr>
+<tr><td><kbd>Consumidor final</kbd> o <kbd>No categorizado</kbd></td><td>Cero, <strong>con un aviso</strong> en el bloque del transportista</td></tr>
+</tbody>
+</table>
+<p>La alícuota es la <strong>de cada orden</strong> (una orden al 10,5 % suma 10,5 %), y el IVA se redondea <strong>flete por flete</strong>, porque la factura del transportista discrimina renglón por renglón y redondear sobre el total daría centavos distintos.</p>
+<div class="callout warn">
+<p><strong>Si un transportista sale con aviso, corregí su condición de IVA</strong> en la ficha. Un fletero cargado sin condición queda como consumidor final: sale sin IVA y con aviso, porque sumarlo por las dudas le liquidaría de más a quien no lo cobra.</p>
+</div>
+<h2>Qué no es</h2>
+<p>Es un informe <strong>de lectura</strong>: no asienta nada y no toca la cuenta corriente. No es un comprobante ni reemplaza la factura del transportista. Lo que se liquida de verdad sigue siendo lo asentado en su cuenta; para pagarle, <a href="/docs/caja.html">Caja</a>.</p>
+<div class="docs-nav-footer">
+<a href="/docs/reportes.html">← Reportes</a>
+<a href="/docs/impresion.html">Impresión de listados →</a>
+</div>

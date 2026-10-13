@@ -1,25 +1,30 @@
-<h1>Tablero</h1>
-<p class="docs-lead">La pantalla de Inicio: cómo viene el mes y cuánto hay para cobrar, de un vistazo.</p>
+<h1>Dashboard</h1>
+<p class="docs-lead">La pantalla de inicio: cómo viene el mes y cuánto hay para cobrar y para pagar, sin abrir nada.</p>
 <h2>Qué muestra</h2>
+<p>Es el primer ítem del menú. Arriba, una grilla de ocho indicadores; abajo, las últimas órdenes y las cuentas más grandes. <strong>Cada número dice de qué período es</strong>: los del mes dicen el mes, y los saldos son de hoy y no tienen período.</p>
 <table class="docs-table">
-<thead><tr><th>Bloque</th><th>Qué dice</th></tr></thead>
+<thead><tr><th>Indicador</th><th>Qué cuenta</th><th>Lleva a</th></tr></thead>
 <tbody>
-<tr><td>Órdenes del mes</td><td>Cuántas se cargaron</td></tr>
-<tr><td>Facturado del mes</td><td>Lo que salió en comprobantes</td></tr>
-<tr><td>Cobrado y pagado</td><td>Lo que entró y lo que salió por caja</td></tr>
-<tr><td>Pendientes</td><td>Órdenes que todavía no salieron en ningún comprobante</td></tr>
-<tr><td>Los tres saldos</td><td>Clientes, fleteros y proveedores</td></tr>
-<tr><td>Últimas órdenes</td><td>Las más recientes, con acceso directo</td></tr>
-<tr><td>Cuentas más grandes</td><td>A quién le debés más y quién te debe más</td></tr>
+<tr><td><strong>Órdenes del mes</strong></td><td>Las órdenes del mes en curso, y cuántas hay en total</td><td>Órdenes de carga</td></tr>
+<tr><td><strong>Facturado en el mes</strong></td><td>El importe facturado y cuántos comprobantes son</td><td>Comprobantes</td></tr>
+<tr><td><strong>Cobrado en el mes</strong></td><td>Lo cobrado, y debajo lo pagado</td><td>Caja</td></tr>
+<tr><td><strong>Pendientes de facturar</strong></td><td>Órdenes sin comprobante, de todo el histórico</td><td>Reporte de pendientes</td></tr>
+<tr><td><strong>Saldo de clientes</strong></td><td>Lo que deben, y cuántas cuentas tienen saldo</td><td>Reporte de saldos</td></tr>
+<tr><td><strong>Saldo de fleteros</strong></td><td>Lo que se les debe</td><td>Reporte de saldos</td></tr>
+<tr><td><strong>Saldo de proveedores</strong></td><td>Lo que se les debe</td><td>Reporte de saldos</td></tr>
+<tr><td><strong>Comisión del mes</strong></td><td>La comisión de las órdenes del mes</td><td>Reporte de fleteros</td></tr>
 </tbody>
 </table>
-<h2>Cada número dice de qué período es</h2>
+<p>Cada tarjeta es un enlace: un clic te lleva a la pantalla o al reporte de donde sale el número.</p>
+<h2>Últimas órdenes y cuentas más grandes</h2>
+<ul>
+<li><strong>Últimas órdenes</strong>: las ocho más recientes, con su fecha, cliente, ruta, estado y total. <strong>Ver todas</strong> abre el listado; un clic en la fila abre la orden.</li>
+<li><strong>Las cuentas más grandes</strong>: las ocho con más saldo, de cualquiera de las tres cuentas, con su último movimiento. Un clic abre esa cuenta corriente.</li>
+</ul>
 <div class="callout">
-<p>El tablero <strong>no calcula nada por su cuenta</strong>: todo sale de los <a href="/docs/reportes.html">reportes</a> que ya existen. Por eso no puede decirte un número distinto del que te va a dar el reporte si lo abrís. Y por eso cada cifra lleva escrito su período: <em>"Facturado $4.017.962.714"</em> sin aclarar que son tres años de historia invita a leerlo como si fuera del mes.</p>
+<p><strong>El Dashboard no calcula nada por su cuenta.</strong> Todo sale de los mismos <a href="/docs/reportes.html">reportes</a> que podés abrir: no puede decir un número distinto del de su reporte.</p>
 </div>
-<h2>Los importes</h2>
-<p>Todos los importes se muestran como <strong>$ 23.000,34</strong> — signo adelante, miles con punto, decimales con coma — en pantalla y en el papel. Un valor ausente <strong>no dice $ 0,00</strong>: no dice nada, porque "no hay dato" y "es cero" son dos cosas distintas.</p>
 <div class="docs-nav-footer">
-<a href="/docs/comprobantes.html">← Comprobantes</a>
+<a href="/docs/caja.html">← Caja</a>
 <a href="/docs/reportes.html">Reportes →</a>
 </div>

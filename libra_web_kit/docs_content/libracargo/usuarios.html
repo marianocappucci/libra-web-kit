@@ -4,29 +4,51 @@
 <table class="docs-table">
 <thead><tr><th>Rol</th><th>Qué puede hacer</th></tr></thead>
 <tbody>
-<tr><td><kbd>admin</kbd></td><td>Todo: además, administrar usuarios, editar los datos de la empresa y ver el <a href="/docs/logs.html">log de actividad</a></td></tr>
-<tr><td><kbd>staff</kbd></td><td>La operación completa: órdenes, cuentas corrientes, caja, comprobantes, reportes e impresión</td></tr>
+<tr><td><kbd>admin</kbd></td><td>Todo lo del operador, y además lo que cambia la configuración o es irreversible (ver abajo)</td></tr>
+<tr><td><kbd>staff</kbd></td><td>La operación completa: órdenes, cartas de porte, clientes, transporte, cuentas corrientes, caja, facturación, reportes e impresión</td></tr>
 </tbody>
 </table>
+<h3>Lo que sólo hace un administrador</h3>
+<ul>
+<li><strong>Usuarios</strong> y <strong>Log de actividad</strong>: el menú los muestra sólo a ellos, en <strong>Administración</strong>.</li>
+<li><strong>Configuración</strong>: cambiar los datos de la empresa y el logo, cargar certificados y claves de ARCA, el correo saliente, el backup y su restauración, y cargar ediciones del tarifario.</li>
+<li><strong>Cartas de porte</strong>: prender el interruptor de la emisión real, cargar y editar titulares y sus datos habituales, y anular una carta emitida.</li>
+<li><strong>Localidades</strong>: unificar dos que son el mismo lugar.</li>
+</ul>
 <div class="callout">
-<p><strong>El menú esconde lo que tu rol no puede usar</strong>, pero quien decide es el servidor. Un operador que llegara igual a una pantalla de administración recibiría un rechazo del sistema, no una pantalla a medias.</p>
+<p><strong>El menú esconde lo que tu rol no puede usar</strong>, pero quien decide es el servidor. Un operador que llegara igual a una pantalla de administración recibiría un rechazo, no una pantalla a medias.</p>
 </div>
 <h2>Dar de alta un usuario</h2>
 <ol class="step-list">
-<li>Andá a <strong>Administración → Usuarios</strong> (sólo administradores).</li>
-<li><strong>Nuevo usuario</strong>: nombre, usuario, correo y rol.</li>
-<li>Asignale una contraseña inicial.</li>
+<li>Andá a <strong>Administración → Usuarios</strong> y tocá <strong>+ Nuevo usuario</strong>.</li>
+<li>Completá el <strong>Usuario</strong> (con el que va a ingresar), el <strong>Nombre</strong> y, si querés, el <strong>Correo</strong>: sin correo no puede recuperar su contraseña por mail.</li>
+<li>Elegí el <strong>Rol</strong> y asignale una <strong>Contraseña</strong> inicial (mínimo 6 caracteres).</li>
 <li>Guardá. Ya puede entrar.</li>
 </ol>
-<h2>Dar de baja</h2>
-<p>Lo recomendable es <strong>desactivar</strong> en vez de eliminar: un usuario desactivado no puede entrar más, y lo que hizo sigue teniendo nombre en el <a href="/docs/logs.html">log de actividad</a>.</p>
+<h2>Qué se puede hacer con un usuario</h2>
+<p>Cada fila tiene cuatro íconos:</p>
+<table class="docs-table">
+<thead><tr><th>Ícono</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr><td><strong>Editar</strong></td><td>Cambia nombre, correo y rol</td></tr>
+<tr><td><strong>Cambiar contraseña</strong></td><td>Asigna una contraseña nueva, por ejemplo cuando alguien la olvidó</td></tr>
+<tr><td><strong>Desactivar</strong> / <strong>Activar</strong></td><td>Un usuario inactivo no puede entrar, y todo lo que hizo conserva su nombre</td></tr>
+<tr><td><strong>Eliminar</strong></td><td>Lo borra, con una confirmación. No se ofrece en tu propia fila</td></tr>
+</tbody>
+</table>
+<p>El buscador de arriba filtra por usuario, nombre o rol.</p>
 <div class="callout">
-<p><strong>Nadie puede desactivarse ni borrarse a sí mismo.</strong> Es la protección contra quedarse sin ningún administrador con la sesión abierta.</p>
+<p><strong>Lo recomendable es desactivar en vez de eliminar:</strong> el <a href="/docs/logs.html">log de actividad</a> sigue diciendo quién hizo cada cosa. Y el sistema no te deja quedarte sin ningún administrador: tampoco se elimina al único admin.</p>
 </div>
-<h2>Cambiar la contraseña</h2>
-<p>Cada usuario puede cambiar la suya desde su propio menú. Un administrador puede reasignar la de cualquiera — por ejemplo cuando alguien la olvida.</p>
+<h2>Cambiar tu propia contraseña</h2>
+<ol class="step-list">
+<li>Abrí el menú de tu usuario, en la barra lateral.</li>
+<li>Elegí <strong>Cambiar contraseña</strong>.</li>
+<li>Escribí la <strong>Contraseña actual</strong>, la <strong>Contraseña nueva</strong> y repetila.</li>
+</ol>
+<p>Si la olvidaste, en la pantalla de ingreso tocá <strong>¿Olvidaste tu contraseña?</strong>: te llega un enlace por correo (ver <a href="/docs/correo.html">Correo saliente</a>).</p>
 <div class="callout warn">
-<p><strong>Usuarios ilimitados.</strong> No se cobra por usuario: dar de alta a todo el que trabaja en la agencia no encarece nada, y es mejor que cinco personas compartan cinco usuarios y no uno.</p>
+<p><strong>No hay un tope de usuarios.</strong> No se cobra por usuario: es mejor que cada persona de la agencia tenga el suyo y no que cinco compartan uno, porque el log pierde sentido.</p>
 </div>
 <div class="docs-nav-footer">
 <a href="/docs/impresion.html">← Impresión de listados</a>

@@ -1,0 +1,86 @@
+<h1>Facturar pendientes y Nueva factura</h1>
+<p class="docs-lead">Las dos formas de emitir una factura: con las órdenes de un cliente, o con conceptos libres. Las dos salen directo por ARCA.</p>
+<h2>Cómo se factura</h2>
+<p>LibraCargo emite la factura <strong>por ARCA en el momento</strong>: el número y el CAE los pone ARCA, el punto de venta es el de tu <a href="/docs/arca.html">configuración de ARCA</a> y el emisor es siempre la <a href="/docs/empresa.html">empresa</a>. No hay un paso intermedio ni una forma de cargar a mano un número de comprobante.</p>
+<table class="docs-table">
+<thead><tr><th>Pantalla</th><th>Cuándo</th><th>De dónde salen los importes</th></tr></thead>
+<tbody>
+<tr><td><strong>Facturar pendientes</strong></td><td>Facturás viajes: las órdenes pendientes de un cliente</td><td>De las órdenes elegidas</td></tr>
+<tr><td><strong>Nueva factura</strong></td><td>Cobrás algo que no es un viaje: un servicio, un gasto que se refactura, una diferencia</td><td>De los conceptos que cargás</td></tr>
+</tbody>
+</table>
+<p>Se llega a las dos desde <strong>Comprobantes</strong>, con los botones de arriba a la derecha.</p>
+<div class="callout warn">
+<p><strong>Una factura emitida no se deshace.</strong> ARCA ya la tiene registrada. Se corrige con una <a href="/docs/notas.html">nota de crédito</a>. Por eso las dos pantallas piden una confirmación antes de emitir, y por eso conviene ensayar primero (ver <a href="#ensayo">Ensayar en homologación</a>).</p>
+</div>
+<h2>Antes de la primera factura</h2>
+<ul>
+<li><strong>Configuración → Empresa</strong>: CUIT y <strong>Condición frente al IVA</strong> cargados.</li>
+<li><strong>Configuración → Integraciones → ARCA / AFIP</strong>: el mismo CUIT, el punto de venta y el par de certificado y clave del ambiente elegido.</li>
+<li>El <strong>cliente</strong> con su <strong>CUIT</strong> y su <strong>Condición de IVA</strong>.</li>
+</ul>
+<p>Sin eso el sistema no toca nada y dice qué falta: ver <a href="/docs/arca.html">Si ARCA no deja emitir</a>.</p>
+<h2>Facturar pendientes</h2>
+<ol class="step-list">
+<li>Andá a <strong>Comprobantes</strong> y tocá <strong>Facturar pendientes</strong>.</li>
+<li>Elegí el <strong>Cliente</strong>. Un comprobante es de un solo cliente: sin cliente no se muestra ninguna orden.</li>
+<li>Revisá la <strong>Fecha</strong> (viene la de hoy) y elegí el <strong>Tipo</strong>: <kbd>Factura A</kbd>, <kbd>Factura B</kbd>, <kbd>Factura C</kbd> o la <a href="/docs/fce.html">factura de crédito electrónica</a> correspondiente.</li>
+<li>En <strong>Órdenes pendientes</strong>, tildá las que entran. Un clic en la fila las marca y desmarca, y la casilla del encabezado marca o desmarca todas.</li>
+<li>Controlá el total abajo (<strong>Total</strong>) y tocá <strong>Facturar</strong>.</li>
+<li>Tocá <strong>Confirmar y emitir</strong>. Si dudás, <strong>No</strong> vuelve atrás sin emitir.</li>
+</ol>
+<p>Al terminar te lleva al comprobante recién emitido, donde están el PDF y las notas. Si el botón <strong>Facturar</strong> está apagado, una línea abajo dice por qué: falta elegir el cliente, no marcaste ninguna orden, o falta el vencimiento de pago de una factura de crédito.</p>
+<div class="callout">
+<p><strong>Los importes salen de las órdenes, no se tipean.</strong> El neto es la suma de las tarifas y el IVA es la suma del IVA de cada orden, ya redondeado orden por orden. El total que ves abajo es una vista previa; el que queda guardado lo calcula el servidor sobre las mismas órdenes.</p>
+</div>
+<h3>Qué tipo elegir</h3>
+<p>La clase la fija la condición de tu empresa y la del cliente:</p>
+<table class="docs-table">
+<thead><tr><th>Tu empresa es…</th><th>Y el cliente es…</th><th>Corresponde</th></tr></thead>
+<tbody>
+<tr><td>Responsable inscripto</td><td>Inscripto o monotributista</td><td><kbd>A</kbd></td></tr>
+<tr><td>Responsable inscripto</td><td>Otra condición</td><td><kbd>B</kbd></td></tr>
+<tr><td>Monotributista</td><td>Cualquiera</td><td><kbd>C</kbd></td></tr>
+<tr><td>Exento</td><td>Cualquiera</td><td><kbd>B</kbd></td></tr>
+</tbody>
+</table>
+<p>En <strong>Facturar pendientes</strong> el selector ofrece las seis clases y <strong>no filtra</strong> por lo que corresponde: elegí la que va, porque ARCA rechaza una letra que no corresponde al receptor. <strong>Nueva factura</strong>, en cambio, sólo ofrece las que ARCA acepta para esa empresa y ese cliente.</p>
+<h3>El aviso de factura de crédito electrónica</h3>
+<p>Si el cliente es una empresa obligada a recibir facturas de crédito electrónicas y el total supera el monto desde el cual lo está, aparece un recuadro: <strong>A este comprobante le corresponde ser una factura de crédito electrónica</strong>. ARCA no frena una factura común, pero <strong>una vez emitida no se cambia</strong>: por eso el aviso llega antes. El recuadro ofrece <strong>Pasar a factura de crédito electrónica</strong> o, si todavía no podés emitirla, dice que cargues las cuentas y la modalidad en Configuración → ARCA. Ver <a href="/docs/fce.html">Factura de crédito electrónica MiPyME</a>.</p>
+<h3>Qué pasa al confirmar</h3>
+<p>En una sola operación: se le pide el número y el CAE a ARCA, se crea el comprobante, las órdenes pasan de <kbd>pendiente</kbd> a <kbd>facturada</kbd> y se asienta la deuda en la <a href="/docs/cuenta-corriente.html">cuenta corriente</a> del cliente. <strong>Las tres cosas juntas, o ninguna</strong>: si ARCA rechaza, no queda nada y las órdenes siguen pendientes.</p>
+<p>No se puede facturar dos veces la misma orden: si dos personas la facturan al mismo tiempo, la segunda recibe que la orden ya está facturada.</p>
+<h2>Nueva factura</h2>
+<ol class="step-list">
+<li>Andá a <strong>Comprobantes</strong> y tocá <strong>Nueva factura</strong>.</li>
+<li>Elegí el <strong>Cliente</strong>, la <strong>Fecha</strong> y el <strong>Tipo</strong>. Las clases que ofrece son las que corresponden a tu empresa y a ese cliente.</li>
+<li>En <strong>Conceptos</strong>, cargá la <strong>Descripción</strong>, la <strong>Cantidad</strong> (hasta tres decimales), el <strong>Precio unitario</strong> y el <strong>IVA</strong> (0, 10,5, 21 o 27 %). <strong>Agregar concepto</strong> suma otro renglón; el tacho lo quita.</li>
+<li>Escribí las <strong>Observaciones</strong> si querés que salgan en el comprobante (hasta 500 caracteres).</li>
+<li>Controlá <strong>Neto</strong>, <strong>IVA</strong> y <strong>Total</strong> abajo, y tocá <strong>Emitir factura</strong>.</li>
+<li>Tocá <strong>Confirmar y emitir</strong>.</li>
+</ol>
+<ul>
+<li><strong>El precio es neto, sin IVA</strong>, salvo en una clase C: ahí el campo se llama <strong>Importe</strong>, es el total y no se discrimina IVA.</li>
+<li><strong>Todos los conceptos llevan la misma alícuota.</strong> ARCA recibe un solo bloque de IVA por comprobante: si mezclás alícuotas, la pantalla no deja emitir y pide una factura por alícuota. El IVA se calcula una vez sobre el neto.</li>
+<li>Los conceptos tienen que sumar más que cero.</li>
+<li>Una factura directa <strong>no agrupa órdenes ni remitos</strong>, y suma a la cuenta corriente del cliente como cualquier factura.</li>
+</ul>
+<h2 id="ensayo">Ensayar en homologación</h2>
+<p>Con el <strong>Ambiente para facturar</strong> en <kbd>Homologación (pruebas)</kbd>, las dos pantallas corren <strong>todo el camino contra ARCA</strong> —número correlativo, armado del pedido, CAE— y después <strong>revierten</strong>. El resultado dice:</p>
+<p><em>Ensayo contra homologación: ARCA autorizó una factura de prueba (CAE …) y no se guardó nada.</em></p>
+<p>Las órdenes siguen pendientes, la cuenta del cliente no se mueve y no queda comprobante ni registro en el log. Es la forma de probar el certificado, el punto de venta y la clase de comprobante antes de la primera factura real.</p>
+<h2>Si algo falla</h2>
+<table class="docs-table">
+<thead><tr><th>Qué ves</th><th>Qué significa</th></tr></thead>
+<tbody>
+<tr><td>La empresa no tiene CUIT, ARCA no está configurado, el CUIT no coincide o falta el certificado</td><td>No se emitió nada. Ver <a href="/docs/arca.html">ARCA y certificados</a></td></tr>
+<tr><td>La empresa no puede emitir esa clase a ese cliente</td><td>El mensaje dice cuál corresponde. Elegila y reintentá</td></tr>
+<tr><td>ARCA rechazó el comprobante</td><td>No queda nada: ni comprobante, ni número tomado, ni cambios en las órdenes. El mensaje trae lo que dijo ARCA</td></tr>
+<tr><td>Ya hay una factura en curso para ese cliente</td><td>Un doble clic o dos personas a la vez. Esperá a que termine y mirá en <strong>Comprobantes</strong> si salió</td></tr>
+<tr><td>La orden ya está facturada</td><td>Alguien la facturó antes. Refrescá la lista</td></tr>
+</tbody>
+</table>
+<div class="docs-nav-footer">
+<a href="/docs/titulares.html">← Titulares de carta de porte</a>
+<a href="/docs/fce.html">Factura de crédito electrónica →</a>
+</div>

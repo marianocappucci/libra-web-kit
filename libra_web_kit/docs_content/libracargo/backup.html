@@ -1,24 +1,35 @@
 <h1>Backup y restauración</h1>
-<p class="docs-lead">Bajarte una copia completa de tu base de datos, y poder reponerla.</p>
-<h2>Bajar un backup</h2>
+<p class="docs-lead">Bajarte una copia completa de tus datos, y poder reponerla.</p>
+<h2>Dónde está</h2>
+<p>Andá a <strong>Configuración → Datos / Backup</strong> (sólo administradores). En cualquier pantalla de Configuración, arriba a la derecha, el botón <strong>Backup rápido</strong> baja una copia sin entrar a esta pestaña: el que apretás antes de hacer algo que te pone nervioso.</p>
+<h2>Bajar una copia</h2>
 <ol class="step-list">
-<li>Andá a <strong>⚙ Configuración → Datos / Backup</strong> (sólo administradores).</li>
-<li>Tocá <strong>Generar backup</strong>.</li>
-<li>Se descarga un <strong>ZIP</strong> con la base entera.</li>
+<li>En <strong>Copia de tus datos</strong>, tocá <strong>Descargar copia ahora</strong>. Se descarga un archivo <strong>ZIP</strong>.</li>
+<li>O tocá <strong>Guardar copia en el servidor</strong>, que la deja en la lista de abajo.</li>
 </ol>
 <div class="callout">
-<p><strong>El backup es toda tu instancia:</strong> órdenes, terceros, cuentas corrientes, movimientos de caja, comprobantes, usuarios, el log de actividad y los datos de tu empresa, incluido el logo. No hay nada tuyo que viva fuera de la base.</p>
+<p><strong>El backup es toda tu instancia:</strong> órdenes, maestros, cuentas corrientes, caja, comprobantes, usuarios, log de actividad y datos de tu empresa, y los archivos del sistema: el logo, los adjuntos de las órdenes, y los certificados y claves de ARCA.</p>
 </div>
+<div class="callout warn">
+<p><strong>El ZIP incluye tu clave privada de ARCA</strong>, que permite facturar en tu nombre. Guardalo como tu clave fiscal: no lo mandes por mail ni lo compartas.</p>
+</div>
+<h2>Las copias guardadas en el servidor</h2>
+<p>La lista <strong>Copias guardadas en el servidor</strong> conserva las 10 más recientes. Se generan todas las noches, y también justo antes de cada restauración. La que te bajás desde acá es <strong>tuya</strong> y sirve para lo que la del servidor no: llevarte tus datos, dárselos a tu contador, o quedarte tranquilo antes de una carga masiva.</p>
 <h2>Restaurar</h2>
 <ol class="step-list">
-<li>En la misma pantalla, elegí el archivo de backup.</li>
+<li>En <strong>Restaurar base de datos</strong>, elegí el <strong>Archivo de backup (.zip)</strong>.</li>
 <li>Confirmá.</li>
 </ol>
 <div class="callout warn">
-<p><strong>Restaurar reemplaza todo lo que hay hoy</strong> por el contenido del archivo. Lo cargado desde que se tomó ese backup se pierde. Antes de reponer una copia vieja, bajate una del estado actual.</p>
+<p><strong>Restaurar reemplaza todos los datos actuales</strong> por los del archivo: lo cargado desde que se tomó esa copia se pierde. Antes de hacerlo, el sistema guarda solo una copia del estado actual y te dice cómo quedó nombrada. Aun así, bajate una propia antes de reponer una copia vieja.</p>
 </div>
-<h2>Con qué frecuencia</h2>
-<p>La instancia se respalda también del lado del servidor, sin que tengas que hacer nada. La copia que te bajás desde acá es <strong>tuya</strong> y sirve para lo que la del servidor no: llevarte tus datos, dárselos a tu contador, o quedarte tranquilo antes de una carga masiva.</p>
+<h2>Copia externa (adicional)</h2>
+<p>Las copias viven en el servidor. Con el adicional <strong>copia externa</strong> activado en tu instancia, cada noche se guarda también una copia en <strong>tu propia cuenta de Google Drive o Dropbox</strong>, así siguen estando aunque el servidor no esté.</p>
+<ol class="step-list">
+<li>En la tarjeta <strong>Copia externa</strong>, tocá <strong>Conectar Google Drive</strong> o <strong>Conectar Dropbox</strong>.</li>
+<li>Autorizá el acceso. El sistema sólo ve la carpeta que crea para las copias, no el resto de tu cuenta.</li>
+</ol>
+<p>Una vez conectada, la tarjeta dice <strong>Copia externa al día</strong> y muestra la última; si algo falla dice <strong>con problemas</strong> y por qué. <strong>Desconectar</strong> deja de subir copias sin borrar las que ya están. La copia en tu nube viaja y se guarda <strong>cifrada</strong>: ni Google ni Dropbox pueden leerla, y para restaurar desde ahí hay que pedírselo a soporte. Si la tarjeta dice que tus copias viven sólo en el servidor, el adicional no está activo: consultalo por WhatsApp.</p>
 <div class="docs-nav-footer">
 <a href="/docs/logs.html">← Log de actividad</a>
 <span></span>

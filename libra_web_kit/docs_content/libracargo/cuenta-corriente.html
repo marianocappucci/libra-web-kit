@@ -1,29 +1,38 @@
 <h1>Cuenta corriente</h1>
 <p class="docs-lead">Las tres cuentas de una agencia de cargas: lo que te debe el cliente, lo que le debés al fletero y lo que le debés al proveedor.</p>
 <h2>Una cuenta es un tercero y un rol</h2>
-<p>La cuenta no es del tercero: es del par <strong>(tercero, rol)</strong>. Un mismo tercero que es cliente y fletero tiene <strong>dos cuentas separadas</strong>, y se mueven en direcciones opuestas sobre la misma operación.</p>
+<p>La cuenta no es del tercero: es del par <strong>(tercero, rol)</strong>. Un mismo tercero que es cliente y fletero tiene <strong>dos cuentas separadas</strong>, y se mueven en direcciones opuestas sobre la misma operación. En las tres, <strong>el saldo es debe menos haber</strong> y un saldo positivo es lo que corresponde cobrar o pagar:</p>
 <table class="docs-table">
-<thead><tr><th>Cuenta</th><th>Qué la sube</th><th>Qué la baja</th></tr></thead>
+<thead><tr><th>Cuenta</th><th>Saldo positivo</th><th>Lo sube (debe)</th><th>Lo baja (haber)</th></tr></thead>
 <tbody>
-<tr><td><kbd>cliente</kbd></td><td>El alta de una orden y la factura</td><td>El cobro</td></tr>
-<tr><td><kbd>fletero</kbd></td><td>La comisión asentada al dar de alta la orden</td><td>El pago al fletero</td></tr>
-<tr><td><kbd>proveedor</kbd></td><td>Un movimiento de <a href="/docs/caja.html">caja</a> a su nombre</td><td>El pago</td></tr>
+<tr><td><kbd>cliente</kbd></td><td>Lo que te debe</td><td>Una factura o una nota de débito</td><td>Un cobro, o una nota de crédito</td></tr>
+<tr><td><kbd>fletero</kbd></td><td>Lo que le debés</td><td>La comisión de cada orden</td><td>Un pago, o un gasto que se le descuenta</td></tr>
+<tr><td><kbd>proveedor</kbd></td><td>Lo que le debés</td><td>Un comprobante de proveedor</td><td>Un pago</td></tr>
 </tbody>
 </table>
-<p>Las cuentas de <strong>clientes y fleteros</strong> se abren desde esta pantalla eligiendo el tercero y el rol. Las de <strong>proveedores</strong> se consultan hoy desde el <a href="/docs/reportes.html">reporte de saldos</a>, que las trae junto con las otras dos.</p>
 <div class="callout">
-<p><strong>Un movimiento con tercero pero sin rol se rechaza</strong> en vez de adivinar. Es la misma razón por la que existen dos cuentas: elegir mal la cuenta no da un error, da un saldo equivocado que nadie mira hasta que hay que cobrar.</p>
+<p><strong>El cliente no debe nada por una orden hasta que se la factura.</strong> Por eso su cuenta lleva <strong>una línea por factura</strong> y no una por orden: el asiento lo hace el comprobante. La del fletero, en cambio, se mueve en el momento de guardar la orden.</p>
 </div>
+<h2>Ver una cuenta</h2>
+<ol class="step-list">
+<li>Andá a <strong>Cuenta corriente</strong> y elegí la pestaña: <strong>Clientes</strong>, <strong>Fleteros</strong> o <strong>Proveedores</strong>.</li>
+<li>En el campo de arriba, escribí el nombre o el CUIT y elegí el tercero. Con la <strong>x</strong> lo limpiás.</li>
+<li>Si querés el saldo a una fecha, completá <strong>Saldo al</strong>.</li>
+</ol>
+<p>La lista trae cada movimiento con su <strong>Fecha</strong>, <strong>Concepto</strong>, <strong>Detalle</strong>, <strong>Debe</strong>, <strong>Haber</strong> y el <strong>Saldo</strong> acumulado fila por fila, ordenados por fecha y número (el desempate evita que la misma cuenta, impresa dos veces, salga en distinto orden).</p>
+<h3>Ir al documento de origen</h3>
+<p>Cada línea sale de una factura, una orden, un movimiento de caja o un comprobante de proveedor, y <strong>un clic en la línea abre ese documento</strong>. Si una línea es de una factura y de una orden a la vez, lleva a la factura, que es la que explica el importe. Los asientos sueltos de lo que vino del sistema anterior no tienen origen y no son clickeables.</p>
+<p>También llegás a una cuenta desde <strong>Caja</strong>, desde el <a href="/docs/tablero.html">Dashboard</a> y desde los <a href="/docs/reportes.html">reportes</a> de saldos y de clientes.</p>
 <h2>El saldo, calculado por dos caminos</h2>
-<p>La pantalla muestra <strong>dos saldos del mismo período</strong> y avisa en rojo cuando no coinciden. No es redundancia: uno lo suma la base de datos de una vez, el otro se acumula movimiento por movimiento. Si los dos dan lo mismo, el saldo no depende de dónde se hizo la cuenta.</p>
+<p>La pantalla muestra <strong>dos saldos</strong> y avisa en rojo cuando no coinciden: <strong>Saldo</strong>, que lo suma la base de datos de una vez, y <strong>Recorriendo los movimientos</strong>, que se acumula movimiento por movimiento. Si los dos dan lo mismo, el saldo no depende de dónde se hizo la cuenta.</p>
 <div class="callout warn">
-<p><strong>Si aparece el aviso rojo, el saldo no se usa hasta entender por qué.</strong> Mostrar un solo número haría que un saldo divergente se viera igual de confiable que uno sano — que es justamente la situación en la que no hay que confiar en él.</p>
+<p><strong>Si aparece el aviso rojo, el saldo no se usa hasta entender por qué.</strong> Mostrar un solo número haría que un saldo divergente se viera igual de confiable que uno sano, justamente cuando no hay que confiar en él.</p>
 </div>
-<h2>El acumulado</h2>
-<p>Los movimientos se listan por <strong>fecha y número</strong>, con el saldo acumulado fila por fila. El desempate por número importa: sin él, la misma cuenta impresa dos veces podría salir en distinto orden y dar dos papeles distintos.</p>
+<h2>Imprimir</h2>
+<p>Con una cuenta abierta aparece el botón <strong>Imprimir</strong>, arriba a la derecha. Sale con el membrete de la empresa, el tercero y la cuenta, la fecha de corte si la pusiste, los movimientos y, al final, los dos saldos y si coinciden. Ver <a href="/docs/impresion.html">Impresión de listados</a>.</p>
 <h2>Ver todos los saldos de una vez</h2>
-<p>El <a href="/docs/reportes.html">reporte de <strong>Saldos de cuenta corriente</strong></a> trae las tres cuentas juntas, con el último movimiento de cada una y la opción de esconder las que están en cero.</p>
+<p>El reporte <a href="/docs/reportes.html">Saldos de cuenta corriente</a> trae las tres cuentas juntas, con el último movimiento de cada una y la opción de mostrar las que están en cero.</p>
 <div class="docs-nav-footer">
-<a href="/docs/ordenes.html">← Órdenes de carga</a>
+<a href="/docs/comprobantes-proveedores.html">← Comprobantes de proveedores</a>
 <a href="/docs/caja.html">Caja →</a>
 </div>

@@ -1,0 +1,32 @@
+<h1>Tarifario de referencia</h1>
+<p class="docs-lead">La tabla sectorial de tarifas por tonelada y por kilómetro, que ayuda a cargar el flete de cada orden.</p>
+<h2>Para qué sirve</h2>
+<p>Muchos fletes de granos se cotizan con una <strong>tarifa de referencia</strong> que publica el sector: un valor en pesos por tonelada para cada kilómetro. Lo pactado en cada viaje es un <strong>porcentaje de esa referencia</strong>, y varía de viaje en viaje. El tarifario guarda esas tablas para que, al cargar una orden, el sistema te muestre la referencia de los kilómetros del viaje y calcule la tarifa por tonelada. Ver <a href="/docs/ordenes.html">Órdenes de carga</a>.</p>
+<div class="callout">
+<p><strong>Es una ayuda, no una regla.</strong> La referencia no cambia el importe de la orden —la <strong>Tarifa</strong> sigue siendo otro campo— y la tarifa por tonelada se puede escribir a mano aunque no haya tarifario cargado.</p>
+</div>
+<h2>Dónde está</h2>
+<p>Andá a <strong>Configuración → Tarifario de referencia</strong>. Cualquier usuario puede consultarlo; <strong>sólo un administrador</strong> carga ediciones.</p>
+<h2>Consultar una edición</h2>
+<ol class="step-list">
+<li>En la lista de ediciones, cada una muestra su <strong>Vigencia</strong>, <strong>Nombre</strong>, rango de <strong>Km</strong>, cantidad de <strong>Filas</strong> y <strong>Valor de estadía</strong>.</li>
+<li>Tocá el ícono <strong>Ver la tabla del …</strong> de la que quieras mirar.</li>
+<li>Para encontrar un kilómetro puntual, escribilo en <strong>Buscar por km</strong>.</li>
+</ol>
+<p>La referencia de una orden es la de la edición que <strong>regía en la fecha de la orden</strong>: la vigencia más reciente que no sea posterior. Las ediciones viejas se quedan. Un kilómetro que no está en la tabla <strong>no se extrapola</strong>: la orden avisa que falta.</p>
+<h2>Cargar una edición nueva</h2>
+<ol class="step-list">
+<li>En <strong>Cargar una edición</strong>, elegí el archivo: el <strong>PDF</strong> tal como lo descargás de la página del sector, o un <strong>CSV</strong> <code>km;tarifa</code>.</li>
+<li>El sistema lo lee y muestra <strong>Esto es lo que se leyó del archivo</strong>: la vigencia, el nombre, el valor de estadía y el rango de kilómetros, con una muestra de filas para comparar a ojo.</li>
+<li>Verificá la <strong>Vigencia</strong> (si el archivo no la dice, indicala), completá el <strong>Valor de estadía</strong> si querés y ajustá el <strong>Nombre</strong>.</li>
+<li>Tocá <strong>Cargar tarifario</strong>.</li>
+</ol>
+<div class="callout warn">
+<p><strong>Si ya hay una edición con esa vigencia, se reemplaza entera</strong> y queda registrado en el <a href="/docs/logs.html">log de actividad</a>. La pantalla lo avisa antes de cargar.</p>
+</div>
+<h3>Si el PDF no se puede leer</h3>
+<p>Antes de guardar, el sistema verifica que la tabla tenga sentido: al menos 100 filas, kilómetros consecutivos desde el 1 y tarifas que no bajen al subir los kilómetros. <strong>Si algo no cierra, no se carga nada</strong> y el error lo dice: un tarifario mal leído es peor que ninguno. En ese caso, cargalo como CSV.</p>
+<div class="docs-nav-footer">
+<a href="/docs/maestros.html">← Maestros</a>
+<a href="/docs/ordenes.html">Órdenes de carga →</a>
+</div>

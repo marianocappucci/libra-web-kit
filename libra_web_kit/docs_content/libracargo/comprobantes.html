@@ -1,21 +1,46 @@
 <h1>Comprobantes</h1>
-<p class="docs-lead">Agrupar las órdenes pendientes de un cliente en una factura, por razón social.</p>
-<h2>Facturar órdenes pendientes</h2>
-<ol class="step-list">
-<li>Andá a <strong>Comprobantes</strong> → <strong>Facturar pendientes</strong>.</li>
-<li>Elegí el <strong>cliente</strong> y la <strong>razón social</strong> con la que vas a facturar.</li>
-<li>El sistema te ofrece las órdenes pendientes <strong>de esa razón social</strong>. Tildá las que entran.</li>
-<li>Cargá el <strong>tipo y el número</strong> del comprobante.</li>
-<li>Confirmá.</li>
-</ol>
+<p class="docs-lead">Lo facturado: la lista de comprobantes, su detalle, el PDF, el envío por correo y el control de totales.</p>
+<h2>Dónde está</h2>
+<p><strong>Comprobantes</strong> es una entrada del menú con dos pestañas: <strong>Clientes</strong>, que es esta pantalla, y <strong>Proveedores</strong>, que es otra cosa (ver <a href="/docs/comprobantes-proveedores.html">Comprobantes de proveedores</a>). Arriba a la derecha están los dos botones para emitir: <strong>Nueva factura</strong> y <strong>Facturar pendientes</strong>. Cómo se usan está en <a href="/docs/facturacion.html">Facturar pendientes y Nueva factura</a>.</p>
+<p>La pantalla lista lo <strong>emitido por ARCA</strong> y lo anterior: lo registrado a mano y lo que vino del sistema anterior. Ya no existen las pre facturas; un enlace viejo a una cae en esta lista.</p>
+<h2>La lista</h2>
+<p>Se filtra con <strong>Desde</strong> y <strong>Hasta</strong>. Cada fila muestra la <strong>Fecha</strong>, el <strong>Comprobante</strong> (clase y número), el <strong>Cliente</strong>, el <strong>Neto</strong>, el <strong>IVA</strong>, el <strong>Total</strong> y el <strong>Estado</strong>: <kbd>vigente</kbd> o <kbd>anulado</kbd>. Un clic en la fila abre el detalle.</p>
+<p>En las facturas con CAE que siguen vigentes, la fila tiene dos íconos: <strong>Nota de crédito</strong> y <strong>Nota de débito</strong>. Ver <a href="/docs/notas.html">Notas de crédito y de débito</a>.</p>
+<h2>El total facturado, por dos caminos</h2>
+<p>Arriba de la lista, el cuadro <strong>Total facturado</strong> cuenta lo mismo <strong>por dos lados</strong>: lo que suman los comprobantes y lo que suman las órdenes que agrupan.</p>
+<table class="docs-table">
+<thead><tr><th>Columna</th><th>Qué cuenta</th></tr></thead>
+<tbody>
+<tr><td><strong>Comprobantes</strong> / <strong>Total por comprobantes</strong></td><td>Cuántos son y cuánto suman por sus encabezados</td></tr>
+<tr><td><strong>Órdenes</strong> / <strong>Total por órdenes</strong></td><td>Cuántas órdenes agrupan y cuánto suman ellas</td></tr>
+</tbody>
+</table>
+<p>Si los dos lados no coinciden, la fila se pone en rojo y avisa que <strong>no uses esos totales</strong>: hay importes que dicen una cosa por el comprobante y otra por sus órdenes. Es el mismo criterio de la <a href="/docs/cuenta-corriente.html">cuenta corriente</a>: un número que sale de dos lugares distintos y da igual, es un número en el que se puede confiar.</p>
+<p>Las facturas directas y las notas de débito no agrupan órdenes, así que no tienen contra qué coincidir: se muestran aparte, en una línea (<em>Además, n comprobantes sin órdenes</em>). Las notas de crédito restan de lo facturado, con la fecha de la nota.</p>
+<h2>El detalle</h2>
+<p>Al abrir un comprobante ves:</p>
+<ul>
+<li>El <strong>Total del comprobante</strong> y, si agrupa órdenes, la <strong>suma de sus órdenes</strong>, con la lista de ellas.</li>
+<li>Si es una nota, a qué comprobante acredita o suma. Si es una factura directa, que no agrupa órdenes ni remitos.</li>
+<li>Las <strong>notas de crédito</strong> y <strong>de débito</strong> que cuelgan de él, cada una con su PDF, y cuánto está <strong>acreditado</strong> y cuánto <strong>queda por acreditar</strong>.</li>
+</ul>
+<h3>El PDF</h3>
+<p>Un comprobante con CAE tiene tres botones:</p>
+<ul>
+<li><strong>Ver PDF</strong>: lo abre en otra pestaña.</li>
+<li><strong>Descargar PDF</strong>.</li>
+<li><strong>Enviar por correo</strong>: se abre el campo <strong>Correo del cliente</strong> con el que tiene cargado en su ficha; corregilo si hace falta y tocá <strong>Enviar</strong>.</li>
+</ul>
+<p>El envío usa el <a href="/docs/correo.html">correo saliente</a> de la instancia: si no está configurado, el mensaje de error dice dónde. El PDF lleva el membrete de la empresa, con su logo y su domicilio, y el CAE.</p>
 <div class="callout">
-<p><strong>Los importes salen de las órdenes, no se tipean.</strong> Un total escrito a mano podría decir un número distinto del de las órdenes que agrupa, y esa diferencia después no se puede explicar.</p>
+<p><strong>Sin CAE no hay PDF.</strong> Lo registrado a mano y lo migrado del sistema anterior no lo tienen: ARCA no los conoce, y un papel con formato de factura sin CAE se podría mandar a un cliente como si lo fuera.</p>
 </div>
-<h2>El IVA se suma por orden</h2>
-<p>El IVA del comprobante es la <strong>suma de los IVA de cada orden</strong>, no el IVA del neto total. Con dos órdenes de $10,03 la primera cuenta da $4,22 y la segunda $4,21. Además, así una misma factura admite órdenes con alícuotas distintas.</p>
-<h2>Qué pasa al confirmar</h2>
-<p>En un solo acto: se crea el comprobante, las órdenes pasan de <kbd>pendiente</kbd> a <kbd>facturada</kbd>, y se asienta el movimiento en la cuenta corriente del cliente. Las tres cosas juntas, o ninguna.</p>
+<p>El PDF se genera al emitir y se guarda: <strong>es lo que salió</strong>, con el logo y los datos de ese momento.</p>
 <h2>Anular un comprobante</h2>
+<div class="callout warn">
+<p><strong>Un comprobante con CAE no se anula desde acá, sea cual sea su clase.</strong> Anular no llega a ARCA: la factura seguiría vigente allá, y sus órdenes volverían a pendientes para facturarse de nuevo. Lo que sí hay es la <a href="/docs/notas.html">nota de crédito</a>. En el detalle, en lugar del botón de anular, dice <em>Lo emitió ARCA (CAE …): no se anula desde acá</em>.</p>
+</div>
+<p><strong>Anular comprobante</strong> sólo se ofrece para lo que <strong>no tiene CAE</strong>: lo registrado a mano y lo que vino del sistema anterior. Son dos pasos a propósito: <strong>Anular comprobante</strong> y después <strong>Confirmar anulación</strong>.</p>
 <table class="docs-table">
 <thead><tr><th>Qué pasa</th><th>Detalle</th></tr></thead>
 <tbody>
@@ -28,12 +53,9 @@
 <div class="callout">
 <p><strong>Por qué la reversión lleva la fecha del comprobante:</strong> con la fecha de hoy, la cuenta corriente mostraría entre la factura y su anulación una deuda que los totales del período ya no reconocen. Con la fecha original, un comprobante anulado queda fuera de los totales en cualquier rango que se consulte.</p>
 </div>
-<h2>Los totales por razón social</h2>
-<p>La pantalla muestra, por razón social, <strong>lo que suman los comprobantes y lo que suman las órdenes que agrupan</strong>, y avisa en rojo cuando no coinciden. Es el mismo criterio de la <a href="/docs/cuenta-corriente.html">cuenta corriente</a>: un número que sale de dos lugares distintos y da igual, es un número en el que se puede confiar.</p>
-<div class="callout warn">
-<p><strong>El comprobante se registra, no se emite.</strong> El número lo tipea una persona: LibraCargo todavía no pide el CAE a ARCA. La emisión electrónica está planificada como una etapa propia.</p>
-</div>
+<h2>Imprimir el listado</h2>
+<p>El listado de comprobantes en papel sale de <a href="/docs/reportes.html">Reportes</a> (<strong>Listado de comprobantes</strong>), que exige elegir un rango de fechas.</p>
 <div class="docs-nav-footer">
-<a href="/docs/caja.html">← Caja</a>
-<a href="/docs/tablero.html">Tablero →</a>
+<a href="/docs/fce.html">← Factura de crédito electrónica</a>
+<a href="/docs/notas.html">Notas de crédito y de débito →</a>
 </div>

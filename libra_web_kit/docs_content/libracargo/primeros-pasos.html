@@ -1,38 +1,55 @@
 <h1>Primeros pasos</h1>
-<p class="docs-lead">Guía de inicio rápido: de una instancia vacía a la primera orden facturada.</p>
+<p class="docs-lead">De una instancia vacía a la primera orden facturada, en el orden en que conviene hacerlo.</p>
 <h2>Acceder al sistema</h2>
 <div class="callout">
 <p><strong>https://tu-agencia.libracargo.com.ar</strong></p>
-<p>El subdominio es el identificador único de tu agencia. Si no lo recordás, contactá a soporte.</p>
+<p>El subdominio es el identificador único de tu agencia. Si no lo recordás, consultalo por WhatsApp.</p>
 </div>
-<p>Cada agencia tiene <strong>su propia instancia y su propia base de datos</strong>. No compartís datos con nadie.</p>
+<p>Cada agencia tiene <strong>su propia instancia y su propia base de datos</strong>: no compartís datos con nadie. Ingresá con tu <strong>Usuario</strong> y tu <strong>Contraseña</strong>. Si la olvidaste, tocá <strong>¿Olvidaste tu contraseña?</strong>, escribí tu usuario o tu correo y seguí el enlace que te llega. Para que ese correo salga, el administrador tiene que haber configurado el <a href="/docs/correo.html">correo saliente</a>.</p>
 <h2>1. Los datos de tu empresa</h2>
-<p>Andá a <strong>⚙ Configuración → Empresa</strong> y cargá razón social, CUIT, domicilio, condición de IVA, ingresos brutos y el pie de los papeles. Subí también el logo (PNG, JPG o WebP, hasta 2 MB). Es lo que va a salir en el encabezado de cada orden de carga impresa y de cada listado. Ver <a href="/docs/empresa.html">Datos de la empresa</a>.</p>
-<h2>2. Los maestros, en este orden</h2>
 <ol class="step-list">
-<li><strong>Localidades</strong>: los orígenes y destinos con los que trabajás. Se eligen de un catálogo de provincias y localidades ya precargado, para que no entren mal tipeadas.</li>
-<li><strong>Terceros</strong>: clientes, fleteros y proveedores. Un mismo tercero puede tener más de un rol.</li>
-<li><strong>Choferes</strong> y <strong>vehículos</strong>.</li>
-<li><strong>Tipos de carga</strong>.</li>
-<li><strong>Razones sociales</strong>: con cuáles facturás.</li>
+<li>Andá a <strong>Configuración → Empresa</strong>.</li>
+<li>Cargá la <strong>Razón social</strong>, el <strong>CUIT</strong> y la <strong>Condición frente al IVA</strong>, y completá domicilio, teléfono y correo.</li>
+<li>Subí el <strong>logo</strong> (PNG, JPG o WebP, hasta 2 MB) y escribí el <strong>pie</strong> de los papeles.</li>
+<li>Tocá <strong>Guardar</strong>.</li>
 </ol>
-<p>Todo esto vive en <strong>⚙ Configuración</strong>, en pestañas. Ver <a href="/docs/maestros.html">Maestros</a>.</p>
-<h2>3. Tu primera orden de carga</h2>
+<p>Hacelo primero: el CUIT y la condición de IVA de esta pantalla son los de <strong>toda</strong> factura que emitas. Ver <a href="/docs/empresa.html">Datos de la empresa</a>.</p>
+<h2>2. ARCA</h2>
 <ol class="step-list">
-<li>Andá a <strong>Órdenes de carga</strong> y tocá <strong>Nueva orden</strong>.</li>
-<li>Elegí el cliente, el origen y el destino (tienen que ser distintos), el tipo y la cantidad de carga.</li>
-<li>Asigná el fletero, el chofer y el vehículo.</li>
-<li>Cargá la tarifa y la comisión. <strong>El IVA y el total los calcula el sistema</strong>: no son campos editables.</li>
-<li>Guardá. La orden queda <kbd>pendiente</kbd> de facturar.</li>
+<li>Andá a <strong>Configuración → Integraciones → ARCA / AFIP</strong> (sólo administradores).</li>
+<li>En la pestaña <strong>General</strong> cargá el <strong>CUIT</strong> (el mismo de la empresa) y el <strong>Punto de venta</strong>.</li>
+<li>Cargá el certificado y la clave del ambiente <strong>Homologación</strong> para probar, y después los de <strong>Producción</strong>. Si no tenés certificado, usá <strong>Generar pedido de certificado</strong>.</li>
+<li>Elegí el <strong>Ambiente para facturar</strong>, tocá <strong>Guardar ARCA</strong> y después <strong>Probar conexión</strong>.</li>
 </ol>
-<h2>4. Cobrar, pagar y facturar</h2>
+<p>Hasta que esto esté listo no podés emitir facturas: el sistema no registra comprobantes a mano. Ver <a href="/docs/arca.html">ARCA y certificados</a>.</p>
+<h2>3. Los maestros, en este orden</h2>
 <ol class="step-list">
-<li>Desde <strong>Caja</strong> registrás el cobro al cliente y el pago al fletero; cada movimiento deja su contrapartida en la cuenta corriente correspondiente.</li>
-<li>Desde <strong>Comprobantes</strong> agrupás las órdenes pendientes de un cliente en una factura por razón social.</li>
+<li><strong>Localidades</strong> (<strong>Configuración → Localidades</strong>): los orígenes y destinos, que se traen de un catálogo para que no entren mal escritos.</li>
+<li><strong>Tipos de carga</strong> (<strong>Configuración → Tipos de carga</strong>).</li>
+<li><strong>Clientes</strong> y <strong>Proveedores</strong>: cada uno tiene su entrada en el menú.</li>
+<li><strong>Transporte</strong>: <strong>Fleteros</strong>, <strong>Choferes</strong> y <strong>Vehículos</strong>, en pestañas.</li>
+</ol>
+<p>Ver <a href="/docs/maestros.html">Maestros</a> y <a href="/docs/transporte.html">Transporte</a>. Si cotizás con una tabla de referencia por kilómetro, cargala en el <a href="/docs/tarifario.html">tarifario de referencia</a>.</p>
+<h2>4. Tu primera orden de carga</h2>
+<ol class="step-list">
+<li>Andá a <strong>Órdenes de carga</strong> y tocá <strong>Nueva</strong>.</li>
+<li>Elegí el <strong>Cliente</strong>, el <strong>Origen</strong> y el <strong>Destino</strong> (tienen que ser distintos).</li>
+<li>Asigná el <strong>Fletero</strong>, el <strong>Chofer</strong> y el <strong>Vehículo</strong>, y el <strong>Tipo de carga</strong>.</li>
+<li>Cargá la <strong>Tarifa</strong>, la <strong>Alícuota de IVA (%)</strong> y la <strong>Comisión</strong>. <strong>El IVA y el total los calcula el sistema.</strong></li>
+<li>Tocá <strong>Guardar</strong>. La orden queda <kbd>pendiente</kbd> de facturar.</li>
+</ol>
+<p>Ver <a href="/docs/ordenes.html">Órdenes de carga</a>.</p>
+<h2>5. Tu primera factura</h2>
+<ol class="step-list">
+<li>Andá a <strong>Comprobantes</strong> y tocá <strong>Facturar pendientes</strong>.</li>
+<li>Elegí el <strong>Cliente</strong>, la <strong>Fecha</strong> y el <strong>Tipo</strong>, y tildá las órdenes que entran.</li>
+<li>Tocá <strong>Facturar</strong> y después <strong>Confirmar y emitir</strong>.</li>
 </ol>
 <div class="callout warn">
-<p><strong>Atención:</strong> una orden ya facturada <strong>no se edita ni se anula</strong>. Si hay que corregirla, primero se anula el comprobante — que devuelve las órdenes a pendientes y revierte la cuenta corriente con un asiento nuevo.</p>
+<p><strong>La factura se emite por ARCA en ese momento y no se deshace.</strong> Se corrige con una nota de crédito. Antes de la primera real, ensayá con el ambiente <strong>Homologación</strong>: corre todo el camino contra ARCA y no guarda nada. Ver <a href="/docs/facturacion.html">Facturar pendientes y Nueva factura</a>.</p>
 </div>
+<h2>6. Cobrar y pagar</h2>
+<p>Desde <strong>Caja → Nuevo movimiento</strong> registrás el cobro al cliente y el pago al fletero; cada movimiento con tercero deja su contrapartida en la <a href="/docs/cuenta-corriente.html">cuenta corriente</a> que corresponda. Ver <a href="/docs/caja.html">Caja</a>.</p>
 <div class="docs-nav-footer">
 <a href="/docs/">← Introducción</a>
 <a href="/docs/empresa.html">Datos de la empresa →</a>
