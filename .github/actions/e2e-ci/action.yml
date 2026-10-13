@@ -50,7 +50,7 @@ inputs:
     description: >-
       Variables de entorno de la app y de los tests, una `CLAVE=valor` por línea (sin comillas; se ignoran las vacías y las que
       empiezan con #). Se exportan para todos los pasos siguientes del job (migraciones, uvicorn, semilla, usuarios, Playwright).
-      Los valores `${{ ... }}` los resuelve el workflow que llama.
+      Las expresiones de GitHub (con llaves dobles) las resuelve el workflow que llama.
     required: false
     default: ""
   semilla:
