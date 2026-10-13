@@ -1,0 +1,58 @@
+<h1>Balanza de mostrador</h1>
+<p class="docs-lead">Vender por peso con las etiquetas que imprime la balanza: configurarla una vez, cargarle el código a cada producto y escanear.</p>
+<h2>Cómo funciona</h2>
+<p>La balanza de fiambrería o verdulería imprime una etiqueta con un código de barras de 13 dígitos que no identifica un producto único: lleva adentro <strong>qué producto es</strong> y <strong>cuánto se pesó</strong> (o ya el importe calculado). Al escanearla, el POS agrega la línea con ese producto y esa cantidad.</p>
+<p>El formato lo define la marca y cómo esté configurado el equipo, así que se carga una vez en el sistema y se prueba con una etiqueta real.</p>
+<h2>Configurar el formato</h2>
+<ol class="step-list">
+<li>Andá a <strong>Administración → Configuración → Balanza</strong>.</li>
+<li>Tildá <strong>El local usa balanza con etiquetas</strong>.</li>
+<li>Completá los campos de la tabla de abajo. Si no sabés cuál usa tu equipo, dejá los que vienen y probá una etiqueta real.</li>
+<li>Tocá <strong>Guardar</strong>.</li>
+</ol>
+<table class="docs-table">
+<thead><tr><th>Campo</th><th>Qué es</th></tr></thead>
+<tbody>
+<tr><td><strong>Prefijo</strong></td><td>Con qué dígitos empiezan las etiquetas de la balanza. Casi siempre <kbd>20</kbd>.</td></tr>
+<tr><td><strong>Qué trae la etiqueta</strong></td><td><strong>El peso</strong> (el importe lo calcula el sistema con el precio por kilo vigente) o <strong>El importe ya calculado</strong> (se cobra lo que dice la etiqueta, aunque el precio del sistema haya cambiado).</td></tr>
+<tr><td><strong>Dígitos del código de producto</strong></td><td>Cuántos dígitos usa la balanza para identificar el producto.</td></tr>
+<tr><td><strong>Dígitos del peso</strong> (o del <strong>importe</strong>)</td><td>Cuántos dígitos ocupa el valor.</td></tr>
+<tr><td><strong>Largo total del código</strong></td><td><kbd>13</kbd> en un EAN-13, <kbd>8</kbd> en un EAN-8.</td></tr>
+<tr><td><strong>Unidad mínima</strong></td><td>Cómo leer los dígitos: <strong>Milésimos (gramos)</strong>, <strong>Centésimos (centavos)</strong>, <strong>Décimos</strong> o <strong>Enteros</strong>. Con milésimos, <kbd>00750</kbd> se lee como 0,750 kg.</td></tr>
+</tbody>
+</table>
+<p>Debajo de los campos, el sistema cuenta los dígitos (<kbd>prefijo + código + valor = N dígitos usados, M para el verificador</kbd>). Si no entran en el largo total, avisa <kbd>No entra</kbd>.</p>
+<h2>Probar una etiqueta</h2>
+<p>Con la balanza activada aparece <strong>Probar una etiqueta</strong>. Pesá algo, escaneá la etiqueta en el campo y tocá <strong>Probar</strong>: no registra ninguna venta.</p>
+<ul>
+<li>Si está bien, muestra el nombre del producto y el <strong>Peso leído</strong> (por peso) o el <strong>Importe impreso en la etiqueta</strong> (por importe).</li>
+<li>Si dice que se leyó como código de barras común, el prefijo o el largo no coinciden con el de la balanza.</li>
+<li>Si el producto no aparece, falta cargarle el código (ver abajo).</li>
+</ul>
+<div class="callout">
+<p><strong>Probá con una etiqueta de verdad antes de abrir.</strong> Es la única forma de saber que la configuración quedó bien sin arriesgar un cobro equivocado.</p>
+</div>
+<h2>Cargar el código de balanza en cada producto</h2>
+<ol class="step-list">
+<li>Andá a <strong>Catálogo y precios → Productos</strong>, buscá el producto y tocá <strong>Gestionar códigos y variantes</strong>.</li>
+<li>En <strong>Códigos</strong>, elegí el <strong>Tipo</strong> <kbd>Balanza</kbd> y escribí en <strong>Código</strong> el número con que ese producto está cargado en la balanza, sin los ceros de la izquierda (<kbd>12</kbd> para <kbd>00012</kbd>).</li>
+<li>Tocá <strong>Agregar</strong>.</li>
+</ol>
+<p>Para vender por peso, la <strong>Unidad</strong> del producto tiene que admitir fracciones (por ejemplo, kilogramo). El <strong>Precio de venta</strong> es el precio por esa unidad. Si el producto se cuenta por unidad, el sistema no deja venderlo por peso y avisa que no admite fracciones.</p>
+<h2>Vender con la balanza</h2>
+<ol class="step-list">
+<li>Escaneá la etiqueta en el POS. La línea entra con el peso (por ejemplo, <kbd>0,750</kbd>) y su importe.</li>
+<li>Seguí escaneando o tocá <strong>Cobrar</strong>.</li>
+</ol>
+<ul>
+<li><strong>La cantidad de una línea de balanza no se cambia.</strong> La fija la etiqueta y, al cobrar, el servidor la valida contra ella. Para llevar más, escaneá otra etiqueta; para corregir, quitá la línea y escaneá de nuevo.</li>
+<li>Los kilos de una línea de balanza <strong>cuentan para el quiebre por cantidad</strong> del producto, pero el precio de una etiqueta por importe no se modifica.</li>
+<li>Una etiqueta que no corresponde al producto o con cantidad cambiada se rechaza al cobrar.</li>
+</ul>
+<div class="callout warn">
+<p><strong>Una etiqueta por importe vale lo que dice.</strong> Si el precio cambió en el sistema después de imprimirla, se cobra el importe impreso: es el que ve el cliente en el paquete.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/punto-de-venta.html">← Punto de venta</a>
+<a href="/docs/mercadopago.html">Cobro con QR de MercadoPago →</a>
+</div>

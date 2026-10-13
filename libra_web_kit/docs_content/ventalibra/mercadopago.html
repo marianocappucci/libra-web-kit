@@ -1,0 +1,45 @@
+<h1>Cobro con QR de MercadoPago</h1>
+<p class="docs-lead">El cliente escanea el QR impreso de la caja, paga desde su celular y la venta se cierra sola cuando MercadoPago confirma el pago.</p>
+<h2>Cómo funciona</h2>
+<ol class="step-list">
+<li>En el cobro, el cajero elige <strong>Mercado Pago</strong> como único medio, por el total, y toca <strong>Cobrar con QR</strong>.</li>
+<li>El sistema registra la venta como <strong>pendiente</strong> y pone el monto en el QR impreso de esa caja.</li>
+<li>El cliente escanea el QR y paga.</li>
+<li>El POS consulta a MercadoPago cada pocos segundos. Cuando el pago se acredita suena una campanita y la venta queda cobrada, con la factura emitida si está activada la facturación automática.</li>
+</ol>
+<p>No hace falta que el cajero toque nada más: <strong>la venta se cierra sola</strong>.</p>
+<h2>Lo que hay que configurar</h2>
+<p>Hacen falta <strong>tres datos</strong>: el <em>Access Token</em> de la cuenta, el <em>User ID</em> de la cuenta y el <em>POS ID</em> de cada caja. Sin los tres, el botón <strong>Cobrar con QR</strong> no aparece.</p>
+<ol class="step-list">
+<li>Andá a <strong>Administración → Configuración → Integraciones → MercadoPago</strong>.</li>
+<li>Cargá el <strong>Access Token</strong> de producción de la cuenta que va a recibir el dinero. Después de guardado se muestra enmascarado: dejalo vacío para no cambiarlo.</li>
+<li>Cargá el <strong>User ID (QR)</strong> de esa cuenta.</li>
+<li>Opcional: escribí la <strong>Descripción del cobro</strong>, elegí la <strong>Alícuota IVA</strong> y, si querés que al acreditarse el pago se emita la factura, activá <strong>Facturar automáticamente las ventas cobradas por QR</strong>.</li>
+<li>Tocá <strong>Guardar MercadoPago</strong> y después <strong>Probar conexión</strong>: si anda, muestra la cuenta conectada.</li>
+<li>Andá a <strong>Caja y tesorería → Cajas</strong>, abrí cada caja con QR y cargale su <strong>POS ID de MercadoPago (QR)</strong>: sólo letras y números, sin guiones ni espacios.</li>
+</ol>
+<div class="callout warn">
+<p><strong>Cada caja necesita su propio POS ID.</strong> Dejarlo vacío desactiva el QR en esa caja. Es lo que permite que varias cajas de una misma cuenta cobren al mismo tiempo sin pisarse.</p>
+</div>
+<h3>De prueba o de verdad</h3>
+<p>MercadoPago no tiene un ambiente de pruebas separado: lo que define el ambiente es el token. La pantalla lo dice con una pastilla:</p>
+<ul>
+<li><strong>Ambiente de prueba:</strong> los cobros no son reales, no entra plata a ninguna cuenta.</li>
+<li><strong>Ambiente de producción:</strong> los cobros son reales y entran a la cuenta del titular.</li>
+<li><strong>Ambiente sin verificar:</strong> hay un token cargado pero todavía no se sabe de cuál es. Tocá <strong>Probar conexión</strong> para averiguarlo.</li>
+</ul>
+<h3>El cartel de la caja</h3>
+<p>En la misma pantalla, <strong>Ver QR de la caja</strong> muestra el código de esa caja con tres formatos: <strong>QR solo</strong>, <strong>Cartel de MercadoPago</strong> (PNG) y <strong>Cartel para imprimir</strong> (PDF). Si el QR es de una cuenta de prueba, el sistema avisa que no lo imprimas para el mostrador.</p>
+<h2>Si el cliente no paga</h2>
+<ul>
+<li><strong>Cancelar el cobro por QR</strong> pregunta de nuevo y <strong>anula la venta</strong>: se repone el stock y el cartel de la caja deja de cobrar ese monto. Si el pago se acreditó justo en ese momento, la venta queda cobrada y el sistema lo avisa.</li>
+<li>El pago <strong>rechazado o cancelado</strong> en MercadoPago anula la venta pendiente.</li>
+<li>Pasados <strong>cinco minutos</strong> sin pago, la espera se corta y la venta se anula. Antes de volver a cobrar, fijate en MercadoPago si el cliente pagó igual.</li>
+<li>Mientras el QR espera no se puede cerrar el cobro a mano, para que el monto no le cobre al próximo que escanee.</li>
+</ul>
+<h2>Cobrar con QR una venta ya registrada</h2>
+<p>Si una venta quedó registrada con un medio electrónico sin cobrar, en su detalle (<strong>Mostrador → Ventas</strong>) aparece <strong>Cobrar con QR</strong>, con la misma espera y el mismo cierre automático. Una venta cobrada por QR muestra <kbd>Cobrado por QR de MercadoPago</kbd>.</p>
+<div class="docs-nav-footer">
+<a href="/docs/balanza.html">← Balanza</a>
+<a href="/docs/ventas.html">Ventas y devoluciones →</a>
+</div>

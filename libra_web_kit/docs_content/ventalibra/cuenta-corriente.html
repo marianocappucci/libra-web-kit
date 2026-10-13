@@ -1,34 +1,45 @@
 <h1>Cuentas corrientes</h1>
-<p class="docs-lead">Quién te debe, cuánto, y el recibo de cada cobranza.</p>
+<p class="docs-lead">Quién te debe, cuánto, y el recibo de cada cobranza. Es el fiado del mostrador.</p>
+<h2>Cómo se genera una deuda</h2>
+<p>En el cobro del <a href="/docs/punto-de-venta.html">POS</a>, elegí <strong>Cuenta corriente (fiado)</strong> como medio de pago y asigná un <strong>cliente</strong>: sin saber a quién, no se puede fiar. La venta queda cobrada como deuda de ese cliente y <strong>no entra a la caja</strong>: el movimiento aparece cuando venga a pagar.</p>
+<p>Se puede fiar el total o sólo una parte, combinándolo con otros medios (por ejemplo, una parte en efectivo y el resto a cuenta).</p>
 <h2>Quiénes deben</h2>
-<p>La pantalla <strong>Cuentas corrientes</strong> abre con la lista de clientes con saldo pendiente y el monto de cada uno. Un cliente aparece acá cuando una venta se cobró total o parcialmente <em>a cuenta</em>.</p>
+<p>En <strong>Mostrador → Clientes → Cuentas corrientes</strong> se ve el <strong>Total deuda pendiente</strong> y la lista de clientes con movimientos, con el saldo de cada uno. <strong>Ver cuenta corriente</strong> abre la cuenta de un cliente.</p>
 <h2>La cuenta de un cliente</h2>
-<p>Al entrar a un cliente se ven sus <strong>movimientos</strong> —lo que se le vendió a cuenta y lo que fue pagando— y el <strong>saldo</strong> resultante.</p>
+<ul>
+<li><strong>Total cargado</strong>: lo que se le fió.</li>
+<li><strong>Total abonado</strong>: lo que fue pagando.</li>
+<li><strong>Saldo actual</strong>: la diferencia, lo que debe hoy.</li>
+<li><strong>Historial de movimientos</strong>: cada cargo y abono con fecha, concepto, usuario y, en los pagos, el medio y la referencia.</li>
+</ul>
 <h2>Registrar una cobranza</h2>
 <ol class="step-list">
-<li>Entrá a la cuenta del cliente.</li>
-<li>Cargá el <strong>monto</strong> que está pagando y el <strong>medio de pago</strong>.</li>
-<li>Confirmá. El saldo se actualiza en el momento.</li>
+<li><strong>Tené un turno de caja abierto.</strong> La cobranza entra en la caja de tu turno y en su arqueo; sin turno el sistema no la acepta.</li>
+<li>Entrá a la cuenta del cliente y tocá <strong>Registrar pago</strong>.</li>
+<li>Escribí el <strong>Monto</strong> que está pagando, revisá la <strong>Fecha</strong> y elegí el <strong>Medio de pago</strong> (no puede ser «cuenta corriente»).</li>
+<li>Opcional: el <strong>Concepto</strong> y la <strong>Referencia</strong> (número de transferencia, cheque…).</li>
+<li>Dejá la caja de tu turno en <strong>Registrar en caja</strong>: la cobranza se anota ahí.</li>
+<li>Tocá <strong>Registrar pago</strong>. El saldo se actualiza en el momento.</li>
 </ol>
 <div class="callout">
-<p><strong>Es un pago de deuda vieja, no una venta nueva.</strong> No genera productos ni descuenta stock: sólo cancela lo que ya se había vendido a cuenta.</p>
+<p><strong>Es un pago de deuda vieja, no una venta nueva.</strong> No genera productos ni descuenta stock: sólo cancela lo que ya se había fiado. En el arqueo del turno, una cobranza en efectivo cuenta como efectivo.</p>
 </div>
 <h2>El recibo</h2>
-<p>Cada cobranza puede emitir su <strong>recibo</strong>: un comprobante numerado, con los datos de tu comercio y del cliente, el monto y el medio de pago. Se descarga en PDF y se puede imprimir o mandar.</p>
-<div class="callout">
-<p><strong>El recibo se emite una sola vez.</strong> Si volvés a pedirlo para el mismo pago, el sistema devuelve el que ya existía en vez de generar uno nuevo con otro número — un pago no puede tener dos recibos distintos dando vueltas.</p>
-</div>
-<p>Para que el recibo salga con tus datos y tu logo, completá la sección <strong>Empresa</strong> de <a href="/docs/configuracion.html">Configuración</a>. Si quedan vacíos, el comprobante sale sin datos del emisor.</p>
+<p>Cada cobranza emite su <strong>recibo</strong>: un comprobante numerado, con los datos de tu comercio y del cliente, el monto y el medio de pago. Está en el movimiento, con <strong>Ver recibo</strong>, y se descarga en PDF para imprimir o mandar.</p>
+<p><strong>El recibo se emite una sola vez.</strong> Si lo pedís de nuevo para el mismo pago, el sistema devuelve el que ya existía. Para que salga con tus datos y tu logo completá la sección <strong>Empresa</strong> de <a href="/docs/configuracion.html">Configuración</a>.</p>
+<h2>Corregir un pago</h2>
+<p>El administrador y el encargado pueden dar de baja un pago con <strong>Eliminar pago</strong>: no lo borra, <strong>anula</strong> su movimiento de caja, y la deuda vuelve a figurar. Es plata que ya había entrado, por eso los demás roles no pueden. Un pago cuyo movimiento de caja no se puede identificar se rechaza antes de dejar un ingreso huérfano en el arqueo.</p>
 <h2>Dónde encaja</h2>
 <table class="docs-table">
 <thead><tr><th>Si querés…</th><th>Andá a</th></tr></thead>
 <tbody>
-<tr><td>Vender a cuenta</td><td><a href="/docs/punto-de-venta.html">Punto de venta</a>, eligiendo cuenta corriente como medio</td></tr>
-<tr><td>Ver el movimiento de dinero del día</td><td><a href="/docs/caja.html">Caja</a></td></tr>
-<tr><td>Cargar los datos fiscales de un cliente</td><td><a href="/docs/clientes-proveedores.html">Clientes y proveedores</a></td></tr>
+<tr><td>Vender a cuenta</td><td><a href="/docs/punto-de-venta.html">Punto de venta</a>, con el medio <strong>Cuenta corriente (fiado)</strong></td></tr>
+<tr><td>Ver el movimiento de dinero del día</td><td><a href="/docs/caja.html">Caja y turnos</a> y <strong>Reportes → Caja por medio</strong></td></tr>
+<tr><td>Cargar los datos de un cliente</td><td><a href="/docs/clientes-proveedores.html">Clientes y proveedores</a></td></tr>
 </tbody>
 </table>
+<p>La ven y cobran el administrador, el encargado y el vendedor. El cajero no.</p>
 <div class="docs-nav-footer">
 <a href="/docs/clientes-proveedores.html">← Clientes y proveedores</a>
-<a href="/docs/caja.html">Caja →</a>
+<a href="/docs/facturacion.html">Facturación electrónica →</a>
 </div>

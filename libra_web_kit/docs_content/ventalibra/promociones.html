@@ -1,0 +1,39 @@
+<h1>Promociones</h1>
+<p class="docs-lead">«Llevá N pagá M» (2x1, 3x2) y combos de varios productos a un precio. Las carga el encargado; el cajero las ve aplicadas en el POS.</p>
+<h2>Dónde están</h2>
+<p><strong>Catálogo y precios → Listas de precio → Promociones</strong>. Las cargan el administrador y el encargado. Sin ninguna promoción cargada, el POS vende exactamente como siempre.</p>
+<div class="callout">
+<p><strong>No confundir con las «promociones con vigencia» de una lista de precios.</strong> Esas son un precio promocional de un producto con fecha, hora y sucursal (ver <a href="/docs/listas-de-precio.html">Listas de precio</a>). Acá se cargan las <em>reglas</em> «llevá N pagá M» y los combos.</p>
+</div>
+<h2>Crear una promoción</h2>
+<ol class="step-list">
+<li>Tocá <strong>Nueva promoción</strong> (o <strong>Crear la primera</strong>).</li>
+<li>Escribí el <strong>Nombre</strong> (por ejemplo, «2x1 en alfajores»): es el que aparece en el ticket.</li>
+<li>Elegí el <strong>Tipo</strong>:
+<ul>
+<li><strong>Llevá N pagá M (2x1, 3x2…)</strong>: elegí el <strong>Producto</strong> y completá <strong>Llevás</strong> y <strong>Pagás</strong>. Un 2x1 es llevás 2, pagás 1.</li>
+<li><strong>Combo: varios productos a un precio</strong>: en <strong>Productos del combo</strong> agregá cada producto con <strong>Agregar producto</strong>, con su cantidad, y escribí el <strong>Precio del combo</strong>.</li>
+</ul>
+</li>
+<li>Opcional, en <strong>Vigencia</strong>: <strong>Desde</strong> y <strong>Hasta</strong>. Sin fechas, rige siempre.</li>
+<li>Dejá tildado <strong>Activa</strong> y guardá.</li>
+</ol>
+<p>En la lista, cada promoción se puede <strong>Editar promoción</strong>, desactivar o activar, y <strong>Eliminar promoción</strong>. Lo ya vendido conserva el nombre y el ahorro de ese momento aunque después la edites o la borres.</p>
+<h2>Cómo se aplican</h2>
+<ul>
+<li><strong>El servidor las calcula</strong> con las líneas de la venta. El POS muestra una vista previa idéntica: el <strong>Subtotal</strong>, cada promoción con su ahorro y el <strong>Total</strong> a cobrar.</li>
+<li><strong>No tocan el precio de las líneas.</strong> Cada producto sigue a su precio y el ahorro se resta como descuento de la venta. Por eso el stock, el costo y las devoluciones siguen siendo exactos por producto. En el detalle de la venta, el ticket y el comprobante aparece <kbd>Promoción …</kbd> con su ahorro.</li>
+<li><strong>Las unidades se agrupan por producto:</strong> dos talles distintos de una remera cuentan juntos para un 2x1 de esa remera.</li>
+<li><strong>Si compiten dos promociones</strong> por las mismas unidades, gana la de mayor ahorro; con las unidades que sobran se calculan las demás.</li>
+<li><strong>Un combo tiene un precio cerrado propio</strong>, igual en todas las sucursales.</li>
+<li>Una devolución reintegra en proporción a lo efectivamente pagado: devolver una unidad de un 2x1 devuelve la mitad del importe de esa unidad.</li>
+</ul>
+<h2>Lo que no hacen</h2>
+<ul>
+<li>No se limitan por sucursal ni por categoría: valen en todas las sucursales y para el producto indicado.</li>
+<li>No hay descuento manual en el POS: el único descuento es el de las promociones.</li>
+</ul>
+<div class="docs-nav-footer">
+<a href="/docs/listas-de-precio.html">← Listas de precio</a>
+<a href="/docs/stock-inventario.html">Stock e inventario →</a>
+</div>
