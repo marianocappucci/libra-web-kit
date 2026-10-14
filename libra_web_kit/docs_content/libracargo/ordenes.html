@@ -77,14 +77,21 @@
 <table class="docs-table">
 <thead><tr><th>Situación</th><th>Qué se puede hacer</th></tr></thead>
 <tbody>
-<tr><td>Orden pendiente</td><td>Editar cualquier campo (ícono del lápiz), o anularla (ícono <strong>Anular</strong>)</td></tr>
+<tr><td>Orden pendiente</td><td>Editar cualquier campo (ícono del lápiz), o anularla (ícono <strong>Anular</strong>, que pide confirmación)</td></tr>
 <tr><td>Orden facturada</td><td><strong>Ni editar ni anular.</strong> Para revertir hay que acreditar el comprobante con una <a href="/docs/notas.html">nota de crédito</a>; cuando queda acreditado por completo, las órdenes vuelven a pendientes</td></tr>
-<tr><td>Orden anulada</td><td>Queda en el listado, marcada. No se borra ni se edita</td></tr>
+<tr><td>Orden anulada</td><td>Queda en el listado, marcada. No se borra, no se edita y no se puede anular de nuevo (el ícono queda deshabilitado)</td></tr>
 </tbody>
 </table>
+<h3>Anular una orden</h3>
+<ol class="step-list">
+<li>En la fila de la orden, tocá el ícono <strong>Anular</strong>.</li>
+<li>Se abre <strong>¿Anular la orden Nº …?</strong>, con el número y el cliente, y lo que va a pasar. Leelo: no se deshace.</li>
+<li>Tocá <strong>Sí, anular la orden</strong>. <strong>No</strong> (o la tecla <kbd>Esc</kbd>) vuelve sin anular.</li>
+</ol>
 <div class="callout warn">
-<p><strong>Las órdenes se anulan, no se borran, y anular no pide confirmación:</strong> el ícono actúa en el momento. La orden es el origen de los movimientos de cuenta corriente del cliente y del fletero: borrarla los dejaría sin explicación, y la numeración tendría un hueco que nadie podría explicar.</p>
+<p><strong>Las órdenes se anulan, no se borran.</strong> La orden queda marcada como <kbd>anulada</kbd> y no se vuelve a activar. Si tenía comisión del fletero, el sistema asienta un <strong>contraasiento</strong> en la cuenta del fletero (no borra el original) y deja la baja en el <a href="/docs/logs.html">log de actividad</a>. La orden es el origen de los movimientos de cuenta corriente del cliente y del fletero: borrarla los dejaría sin explicación, y la numeración tendría un hueco que nadie podría explicar.</p>
 </div>
+<p>Una orden <strong>facturada</strong> no se puede anular desde acá: el sistema avisa que primero hay que anular el comprobante, y un comprobante con CAE se revierte con una <a href="/docs/notas.html">nota de crédito</a>.</p>
 <h2>La orden en papel</h2>
 <p>El ícono de la impresora de la fila, o <strong>Imprimir orden</strong> en el detalle, imprime la <strong>ORDEN DE CARGA</strong> como el documento que viaja con el camión: membrete con tu logo y tus datos, número, fecha, cliente, remito, origen y destino, tipo y cantidad, fletero, chofer y vehículo, los importes con el IVA discriminado, las observaciones, <strong>las dos firmas</strong> —transportista y recibí conforme— y tu pie. El listado de órdenes se imprime desde <a href="/docs/reportes.html">Reportes</a>, que exige un rango de fechas.</p>
 <div class="docs-nav-footer">
