@@ -26,6 +26,12 @@ _MARCAS_DIR = resources.files("libra_web_kit").joinpath("marcas")
 RUTA_MARCA = "img/marca.svg"
 RUTA_FAVICON = "img/favicon.svg"
 
+#: Los complementos de la suite: tienen marca dibujada en libra-ui pero no son un sitio
+#: de `IDENTIDAD` (libra-ui ADR-078). LibraEdge se muestra en la sección `#libraedge` de
+#: cada landing, con su propio archivo.
+COMPLEMENTOS = ("libraedge",)
+RUTA_LIBRAEDGE = "img/libraedge.svg"
+
 
 def _leer(nombre: str, sitio: str) -> bytes:
     if sitio not in IDENTIDAD:
@@ -41,6 +47,11 @@ def svg_marca(sitio: str) -> bytes:
 def svg_favicon(sitio: str) -> bytes:
     """El favicon (variante reducida) de un sitio."""
     return _leer(f"{sitio}-favicon.svg", sitio)
+
+
+def svg_libraedge() -> bytes:
+    """La marca completa de LibraEdge, el complemento de la suite (libra-ui ADR-078)."""
+    return _MARCAS_DIR.joinpath("libraedge.svg").read_bytes()
 
 
 def render_all() -> dict[str, tuple[bytes, bytes]]:
