@@ -27,9 +27,10 @@ import sys
 from pathlib import Path
 
 from libra_web_kit.identidad import IDENTIDAD
+from libra_web_kit.marcas_gen import COMPLEMENTOS
 
 #: La versión de libra-ui de la que salen las marcas del kit.
-TAG_POR_DEFECTO = "v0.124.0"
+TAG_POR_DEFECTO = "v0.164.0"
 
 DESTINO = Path(__file__).resolve().parents[1] / "libra_web_kit" / "marcas"
 #: `LIBRA_UI_DIR` lo cambia (p. ej. desde un worktree del kit, donde el hermano no está).
@@ -37,8 +38,8 @@ LIBRA_UI_POR_DEFECTO = Path(os.environ.get("LIBRA_UI_DIR") or Path(__file__).res
 
 
 def nombres_de_archivo() -> list[str]:
-    """Los 16 archivos que tiene que haber: la marca y el favicon de cada producto."""
-    return [f"{sitio}{variante}.svg" for sitio in sorted(IDENTIDAD) for variante in ("", "-favicon")]
+    """Los 18 archivos que tiene que haber: la marca y el favicon de cada producto y de LibraEdge."""
+    return [f"{sitio}{variante}.svg" for sitio in [*sorted(IDENTIDAD), *COMPLEMENTOS] for variante in ("", "-favicon")]
 
 
 def leer_de_tag(repo: Path, tag: str) -> tuple[dict[str, bytes], str]:

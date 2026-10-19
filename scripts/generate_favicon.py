@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Copia la marca dibujada de cada producto a los repos hermanos de landings:
-`public/img/favicon.svg` (la variante reducida, para 16-32 px) y `public/img/marca.svg`
-(la marca completa, la del navbar y del pie). Los SVG son los de libra-ui (ADR-034),
+`public/img/favicon.svg` (la variante reducida, para 16-32 px), `public/img/marca.svg`
+(la marca completa, la del navbar y del pie) y `public/img/libraedge.svg` (la del
+complemento, para la seccion `#libraedge`, libra-ui ADR-078). Los SVG son los de libra-ui (ADR-034),
 copiados al kit por `scripts/sincronizar_marcas.py` y servidos por
 `libra_web_kit.marcas_gen`; esto los pasa **byte a byte**, sin redibujar nada (kit ADR-009,
 que reemplaza el dibujo en Python de ADR-008).
@@ -23,7 +24,7 @@ import re
 import sys
 from pathlib import Path
 
-from libra_web_kit.marcas_gen import RUTA_FAVICON, RUTA_MARCA, render_all
+from libra_web_kit.marcas_gen import RUTA_FAVICON, RUTA_LIBRAEDGE, RUTA_MARCA, render_all, svg_libraedge
 
 #: 🔴 Mismo riesgo que en los otros tres scripts: un sitio de `IDENTIDAD` que falte
 #: aca no se escribe en ningun lado. `tests/test_scripts_destinos.py` exige que
@@ -45,6 +46,10 @@ _MARCA_IMG = re.compile(rf'<img\b[^>]*\bsrc="/{re.escape(RUTA_MARCA)}"[^>]*>')
 #: Un cuadrado de la marca anterior (inicial o glifo de Bootstrap Icons).
 _CUADRADO_VIEJO = re.compile(r'<div\b[^>]*\bclass="[^"]*\blogo-icon\b')
 MARCAS_ESPERADAS = 2  # navbar y pie
+#: La sección de LibraEdge (`<section id="libraedge">`) lleva su marca: la del complemento,
+#: no la del producto (libra-ui ADR-078).
+_SECCION_LIBRAEDGE = re.compile(r'<section\b[^>]*\bid="libraedge"[^>]*>(.*?)</section>', re.S)
+_MARCA_LIBRAEDGE_IMG = re.compile(rf'<img\b[^>]*\bsrc="/{re.escape(RUTA_LIBRAEDGE)}"[^>]*>')
 
 
 def problemas_de_la_home(html: str) -> list[str]:
@@ -60,6 +65,14 @@ def problemas_de_la_home(html: str) -> list[str]:
     for marca in marcas:
         if not re.search(r'\bwidth="\d+"', marca) or not re.search(r'\bheight="\d+"', marca):
             problemas.append(f"la marca {marca} no declara width y height")
+    seccion = _SECCION_LIBRAEDGE.search(html)
+    if seccion:
+        imgs = _MARCA_LIBRAEDGE_IMG.findall(seccion.group(1))
+        if len(imgs) != 1:
+            problemas.append(f'la seccion #libraedge tiene {len(imgs)} <img src="/{RUTA_LIBRAEDGE}"> y se espera 1')
+        for img in imgs:
+            if not re.search(r'\bwidth="\d+"', img) or not re.search(r'\bheight="\d+"', img):
+                problemas.append(f"la marca de LibraEdge {img} no declara width y height")
     viejos = len(_CUADRADO_VIEJO.findall(html))
     if viejos:
         problemas.append(f"quedan {viejos} cuadrado(s) <div class=\"logo-icon\"> de la marca anterior (inicial o glifo)")
@@ -82,7 +95,7 @@ def main() -> int:
             print(f"[SKIP] {site}: no existe {raiz} (¿repo no clonado?)")
             continue
 
-        for ruta, contenido in ((RUTA_FAVICON, favicon), (RUTA_MARCA, marca)):
+        for ruta, contenido in ((RUTA_FAVICON, favicon), (RUTA_MARCA, marca), (RUTA_LIBRAEDGE, svg_libraedge())):
             destino = raiz / ruta
             actual = destino.read_bytes() if destino.exists() else None
             if actual == contenido:

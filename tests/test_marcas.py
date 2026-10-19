@@ -1,7 +1,7 @@
 """La marca dibujada de libra-ui (ADR-034) que el kit copia y publica en las landings.
 
 El kit no dibuja nada: `libra_web_kit/marcas/*.svg` son copias byte a byte de libra-ui y
-estos tests verifican que estén las 16, que cada una sea un SVG del color de su producto
+estos tests verifican que estén las 18 (las ocho apps y LibraEdge, libra-ui ADR-078), que cada una sea un SVG del color de su producto
 (`IDENTIDAD`, la tabla que guarda `test_identidad.py`) y que los templates, el script que
 las publica y el que las sincroniza hagan lo que dicen.
 """
@@ -17,7 +17,16 @@ from libra_web_kit.docs_gen import list_pages, render as render_doc
 from libra_web_kit.docs_sidebars import SIDEBARS
 from libra_web_kit.identidad import IDENTIDAD
 from libra_web_kit.legal_gen import render as render_legal
-from libra_web_kit.marcas_gen import RUTA_FAVICON, RUTA_MARCA, render_all, svg_favicon, svg_marca
+from libra_web_kit.marcas_gen import (
+    COMPLEMENTOS,
+    RUTA_FAVICON,
+    RUTA_LIBRAEDGE,
+    RUTA_MARCA,
+    render_all,
+    svg_favicon,
+    svg_libraedge,
+    svg_marca,
+)
 
 RAIZ = Path(__file__).resolve().parents[1]
 MARCAS = RAIZ / "libra_web_kit" / "marcas"
@@ -32,12 +41,12 @@ def _script(nombre: str):
     return modulo
 
 
-# ── los 16 archivos ──────────────────────────────────────────────────────────
+# ── los 18 archivos ──────────────────────────────────────────────────────────
 
 
-def test_estan_los_16_svg_y_no_sobra_ninguno():
-    esperados = {f"{s}{v}.svg" for s in IDENTIDAD for v in ("", "-favicon")}
-    assert len(esperados) == 16
+def test_estan_los_18_svg_y_no_sobra_ninguno():
+    esperados = {f"{s}{v}.svg" for s in [*IDENTIDAD, *COMPLEMENTOS] for v in ("", "-favicon")}
+    assert len(esperados) == 18
     assert {p.name for p in MARCAS.glob("*.svg")} == esperados
     assert (MARCAS / "ORIGEN.txt").is_file()
 
@@ -57,8 +66,20 @@ def test_cada_svg_empieza_con_svg_y_lleva_el_color_de_la_identidad(site, variant
     assert cuadrado.get("rx")
 
 
-def test_las_16_son_distintas_entre_si():
-    assert len({p.read_bytes() for p in MARCAS.glob("*.svg")}) == 16
+def test_las_18_son_distintas_entre_si():
+    assert len({p.read_bytes() for p in MARCAS.glob("*.svg")}) == 18
+
+
+@pytest.mark.parametrize("variante", ["", "-favicon"])
+def test_libraedge_es_su_marca_cian_y_no_un_sitio(variante):
+    contenido = (MARCAS / f"libraedge{variante}.svg").read_text(encoding="utf-8")
+    raiz = ET.fromstring(contenido)
+    assert raiz.get("viewBox") == "0 0 120 120"
+    assert raiz.find(f"{SVG_NS}title").text == "LibraEdge"
+    assert raiz.find(f"{SVG_NS}rect").get("fill") == "#0e7490"
+    # No es un sitio: no tiene landing propia ni entra en la tabla que compara el wiki.
+    assert "libraedge" not in IDENTIDAD
+    assert svg_libraedge() == (MARCAS / "libraedge.svg").read_bytes()
 
 
 def test_marcas_gen_sirve_los_bytes_del_archivo():
@@ -119,6 +140,7 @@ def test_ningun_footer_queda_con_cuadrado_de_fondo(site):
 HOME_OK = (
     '<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">\n'
     '<img src="/img/marca.svg" alt="" class="logo-icon" width="32" height="32">\n'
+    '<section id="libraedge"><img src="/img/libraedge.svg" alt="" width="40" height="40"></section>\n'
     '<img src="/img/marca.svg" alt="" class="logo-icon" width="28" height="28">\n'
 )
 
@@ -139,6 +161,15 @@ def test_home_con_cuadrado_viejo_sin_favicon_o_sin_pie_da_problemas():
     assert any("width y height" in p for p in problemas(HOME_OK.replace(' width="28" height="28"', "")))
 
 
+def test_la_seccion_de_libraedge_lleva_su_marca():
+    problemas = _script("generate_favicon").problemas_de_la_home
+    sin_marca = HOME_OK.replace('<img src="/img/libraedge.svg" alt="" width="40" height="40">', "")
+    assert any("#libraedge" in p for p in problemas(sin_marca))
+    assert any("LibraEdge" in p for p in problemas(HOME_OK.replace(' width="40" height="40"', "")))
+    # Una home sin la seccion no la pide.
+    assert problemas(sin_marca.replace('<section id="libraedge"></section>', "")) == []
+
+
 def test_el_script_copia_byte_a_byte_y_el_check_lo_detecta(tmp_path, monkeypatch):
     script = _script("generate_favicon")
     for dir_repo in script.REPO_DIR_BY_SITE.values():
@@ -149,6 +180,8 @@ def test_el_script_copia_byte_a_byte_y_el_check_lo_detecta(tmp_path, monkeypatch
         img = tmp_path / script.REPO_DIR_BY_SITE[site] / "public" / "img"
         assert (img / "marca.svg").read_bytes() == marca == (MARCAS / f"{site}.svg").read_bytes()
         assert (img / "favicon.svg").read_bytes() == favicon == (MARCAS / f"{site}-favicon.svg").read_bytes()
+        assert (img / "libraedge.svg").read_bytes() == svg_libraedge()
+        assert RUTA_LIBRAEDGE == "img/libraedge.svg"
 
     # Los SVG ya estan, pero faltan las homes: --check falla...
     monkeypatch.setattr("sys.argv", ["generate_favicon.py", "--check", "--proyectos-dir", str(tmp_path)])
@@ -181,7 +214,7 @@ def _libra_ui_falso(tmp_path: Path) -> Path:
     return repo
 
 
-def test_sincronizar_desde_un_tag_copia_los_16_byte_a_byte_y_deja_el_origen(tmp_path, monkeypatch):
+def test_sincronizar_desde_un_tag_copia_los_18_byte_a_byte_y_deja_el_origen(tmp_path, monkeypatch):
     script = _script("sincronizar_marcas")
     repo = _libra_ui_falso(tmp_path)
     destino = tmp_path / "marcas-kit"
