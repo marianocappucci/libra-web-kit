@@ -29,7 +29,7 @@ from pathlib import Path
 from libra_web_kit.identidad import IDENTIDAD
 
 #: La versión de libra-ui de la que salen las marcas del kit.
-TAG_POR_DEFECTO = "v0.124.0"
+TAG_POR_DEFECTO = "v0.176.0"
 
 DESTINO = Path(__file__).resolve().parents[1] / "libra_web_kit" / "marcas"
 #: `LIBRA_UI_DIR` lo cambia (p. ej. desde un worktree del kit, donde el hermano no está).
