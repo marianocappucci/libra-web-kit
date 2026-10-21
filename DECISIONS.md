@@ -167,8 +167,8 @@ wiki (entidades `libra-web-kit` y `libra-bump`).
     se redibuja acá) con `scripts/sincronizar_marcas.py --tag <vX.Y.Z>`, que los lee con
     `git show <tag>:marcas/<archivo>` de un checkout de libra-ui (`--libra-ui` o
     `$LIBRA_UI_DIR`; `--desde-dir` para una rama sin tag; `--check` para verificar) y deja
-    `marcas/ORIGEN.txt` con el tag, el commit y el comando. Origen actual: **libra-ui v0.124.0**
-    (`e38c42e`). Al subir de versión: correr el script, cambiar `TAG_POR_DEFECTO`, correr los
+    `marcas/ORIGEN.txt` con el tag, el commit y el comando. Origen actual: **libra-ui v0.176.0**
+    (`3d4be6c`, las marcas en 3D de ADR-090 del kit). Al subir de versión: correr el script, cambiar `TAG_POR_DEFECTO`, correr los
     tests y volver a correr `generate_favicon.py` en las landings.
   - `tests/test_marcas.py` verifica que estén los 16, que cada uno empiece con `<svg`, sea de
     lienzo 120 y lleve el `color` de `IDENTIDAD[p]` (en el cuadrado de fondo), y que el kit
