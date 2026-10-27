@@ -37,6 +37,7 @@ REPO_DIR_BY_SITE = {
     "libradesk": "libradesk_web",
     "libracargo": "libracargo_web",
     "libraclub": "libraclub_web",
+    "librainmo": "librainmo_web",
 }
 
 LINK_FAVICON = f'<link rel="icon" type="image/svg+xml" href="/{RUTA_FAVICON}">'

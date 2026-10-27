@@ -1,0 +1,58 @@
+<h1>Cobros</h1>
+<p class="docs-lead">Cobrar una cuota con su punitorio, repartir lo cobrado entre los propietarios y entregar el recibo.</p>
+<h2>Cobrar una cuota</h2>
+<ol class="step-list">
+<li>Abrí la cuota (desde <strong>Cuotas</strong>) y tocá <strong>Cobrar</strong>.</li>
+<li>En <strong>Cuánto se cobra</strong>, elegí la <strong>fecha del cobro</strong> (viene en hoy). El sistema calcula en el momento el punitorio de esa fecha y te muestra la cuota, el punitorio con sus días de atraso, el vencimiento efectivo y el total a cobrar. Si cambiás la fecha, lo recalcula.</li>
+<li>En <strong>Con qué paga</strong>, elegí el medio de pago: efectivo, transferencia, tarjeta de débito, tarjeta de crédito, Mercado Pago, Cuenta DNI, otras billeteras o cheque. Podés anotar una referencia (número de operación, de cheque).</li>
+<li>Si paga con más de un medio, tocá <strong>Agregar otro medio</strong>. <strong>La suma de los medios tiene que dar el total al centavo</strong>: la pantalla dice cuánto falta o cuánto se pasa, y el botón no se habilita hasta que cierra.</li>
+<li>Tocá <strong>Registrar el cobro</strong>. El sistema confirma el cobro, te da el número de recibo y el botón <strong>Abrir el recibo (PDF)</strong>.</li>
+</ol>
+<div class="callout warn">
+<p><strong>Se cobra la cuota entera.</strong> El pago parcial no existe todavía. Repartir un pago a cuenta entre el alquiler, los conceptos y los distintos titulares pide reglas de imputación —qué se cancela primero— que la inmobiliaria tiene que definir antes de que el sistema las aplique. Si un inquilino paga una parte, registrá el cobro cuando pague la cuota completa.</p>
+</div>
+<p>Tampoco se cobra una cuota <strong>antes de su fecha de emisión</strong>: la fecha del cobro no puede ser anterior, y la pantalla lo marca.</p>
+<h2>El punitorio</h2>
+<p>Si el contrato pacta una tasa de punitorio, el sistema la calcula sobre el <strong>total de la cuota</strong> (alquiler más conceptos), como <strong>interés simple</strong>: importe × tasa × días de atraso. No capitaliza.</p>
+<ul>
+<li><strong>El vencimiento se corre al día hábil.</strong> Si vence un sábado, un domingo o un feriado nacional, el vencimiento efectivo es el siguiente día hábil. La pantalla lo muestra en <strong>Vencimiento efectivo</strong>.</li>
+<li><strong>Los días de gracia</strong> son corridos y se cuentan desde el vencimiento efectivo. Pagando hasta el último día de gracia, inclusive, no hay punitorio.</li>
+<li><strong>Si se pasó de la gracia, el interés corre desde el vencimiento</strong>, con los días de gracia incluidos: la gracia es una tolerancia para no cobrar nada, no un descuento sobre los días de atraso.</li>
+<li>Con tasa <strong>mensual</strong>, cada día vale la tasa dividida 30, también en febrero.</li>
+</ul>
+<p>Por ejemplo: una cuota de $ 318.500,00 que vence el lunes 10-08-2026, con un punitorio del 0,5 % diario y 3 días de gracia. Si se paga el 12-08, está dentro de la gracia y no hay punitorio. Si se paga el 14-08, son 4 días de atraso: 4 × 0,5 % × $ 318.500,00 = <strong>$ 6.370,00</strong>, y el total a cobrar es $ 324.870,00.</p>
+<h3>Condonar el punitorio</h3>
+<p>Si hay punitorio, aparece la casilla <strong>Condonar el punitorio</strong>. Tildada, el punitorio sale del total y no se cobra, pero <strong>queda registrado cuánto era</strong>: la ficha del cobro lo muestra en <em>Punitorio condonado</em>. Condonar es una decisión comercial, no un descuento que desaparece sin dejar rastro.</p>
+<h2>A quién le toca lo cobrado</h2>
+<p>La inmobiliaria cobra <strong>como mandataria</strong>: la plata es de los propietarios. Por eso el cobro se anota así:</p>
+<ul>
+<li>el inquilino cancela el total de su cuota;</li>
+<li>a la cuenta de <strong>cada titular</strong> va su parte del alquiler y de los conceptos, según su porcentaje;</li>
+<li>el <strong>punitorio</strong> va al propietario sólo si el contrato dice <em>El punitorio es para: El propietario</em>. Si dice <em>La inmobiliaria</em>, es tuyo y no pasa por la cuenta de nadie.</li>
+</ul>
+<p>El reparto cierra al centavo: cada parte se redondea y el último titular absorbe la diferencia. Siguiendo el ejemplo de <a href="/docs/propiedades.html">Propiedades</a> (60 % y 40 %), con $ 300.000,00 de alquiler y $ 18.500,00 de expensas:</p>
+<table class="docs-table">
+<thead><tr><th>Propietario</th><th>Alquiler</th><th>Conceptos</th><th>Total</th></tr></thead>
+<tbody>
+<tr><td>Ana Ejemplo (60 %)</td><td>$ 180.000,00</td><td>$ 11.100,00</td><td>$ 191.100,00</td></tr>
+<tr><td>Beto Muestra (40 %)</td><td>$ 120.000,00</td><td>$ 7.400,00</td><td>$ 127.400,00</td></tr>
+</tbody>
+</table>
+<p>Esas partes son las que entran después en cada <a href="/docs/liquidaciones.html">liquidación</a>.</p>
+<h2>El recibo</h2>
+<p>El recibo lo emite el sistema en el mismo momento del cobro, con su número, y se abre como PDF en otra pestaña. Dice <strong>«por cuenta y orden de»</strong> los titulares, porque eso es lo que hacés: cobrar por ellos. Se vuelve a abrir cuando quieras desde la ficha del cobro.</p>
+<h2>Ver y anular un cobro</h2>
+<p>La pantalla <strong>Cobros</strong> lista los cobros con su fecha, contrato, inquilino, cuota, total (con el punitorio que incluye), número de recibo y estado. Se filtra por contrato y por fechas, y con <strong>Incluir los anulados</strong> aparecen también los anulados, atenuados. La ficha de un cobro muestra con qué pagó y, agrupado por propietario, <strong>a quién le tocó</strong> cada parte.</p>
+<p>Para anular, tocá <strong>Anular</strong> en la ficha y escribí el motivo. En una sola operación el sistema:</p>
+<ul>
+<li>revierte todo con asientos inversos —la cuenta del inquilino y la de cada propietario—;</li>
+<li>anula el recibo;</li>
+<li>deja la cuota otra vez <kbd>Pendiente</kbd>, lista para cobrarse de nuevo.</li>
+</ul>
+<div class="callout">
+<p><strong>Un cobro que ya entró en una liquidación no se anula.</strong> Esa plata ya se le rindió al propietario: primero anulá la liquidación —si no está pagada— y recién después el cobro. Es el orden que evita que quede una liquidación apoyada en un cobro que ya no existe.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/cuotas.html">← Cuotas</a>
+<a href="/docs/gastos.html">Gastos →</a>
+</div>

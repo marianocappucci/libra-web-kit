@@ -1,0 +1,55 @@
+<h1>Propiedades y titulares</h1>
+<p class="docs-lead">Lo que administrás, de quién es y en qué porcentaje.</p>
+<h2>Dar de alta una propiedad</h2>
+<ol class="step-list">
+<li>Andá a <strong>Propiedades → Nueva propiedad</strong>.</li>
+<li>Elegí el <strong>tipo</strong>: departamento, casa, PH, local, oficina, cochera, terreno, galpón u otro.</li>
+<li>Escribí la <strong>dirección</strong> (obligatoria). Si es una unidad dentro de un edificio, anotá el piso o el departamento en <strong>Unidad</strong>.</li>
+<li>Completá, si querés, la localidad, las partidas de ABL y ARBA, y las observaciones.</li>
+<li>Guardá. El sistema le asigna un código correlativo (<kbd>P-000001</kbd>, <kbd>P-000002</kbd>…) y te lleva a su ficha.</li>
+</ol>
+<p>El código es lo que usás para buscarla. Desde la ficha, <strong>Editar</strong> cambia los datos de la propiedad; los titulares se cambian aparte, en su propio editor.</p>
+<h2>Los titulares</h2>
+<p>Un titular es un dueño de la propiedad y la parte que le toca. Una propiedad puede tener uno o varios (un condominio, una sucesión): cada cobro y cada gasto se reparte entre ellos según su porcentaje.</p>
+<ol class="step-list">
+<li>En la ficha, en la tarjeta <strong>Titulares</strong>, buscá al titular en <strong>Titular 1</strong>. Si todavía no está cargado, lo das de alta con el botón de persona que está al lado (ver <a href="/docs/inquilinos-y-propietarios.html">Inquilinos y propietarios</a>).</li>
+<li>Escribí su <strong>porcentaje</strong>, con hasta dos decimales (por ejemplo <kbd>60,00</kbd>).</li>
+<li>Para sumar otro dueño, tocá <strong>Agregar titular</strong> y repetí. El ícono de papelera quita una fila.</li>
+<li>Mirá el <strong>Total</strong>: tiene que dar 100 %. Tocá <strong>Guardar titulares</strong>.</li>
+</ol>
+<table class="docs-table">
+<thead><tr><th>Titular</th><th>Porcentaje</th><th>De un cobro de $ 300.000,00 de alquiler le toca…</th></tr></thead>
+<tbody>
+<tr><td>Ana Ejemplo</td><td>60,00 %</td><td>$ 180.000,00</td></tr>
+<tr><td>Beto Muestra</td><td>40,00 %</td><td>$ 120.000,00</td></tr>
+</tbody>
+</table>
+<div class="callout warn">
+<p><strong>Los titulares suman 100 %, y se guardan todos juntos.</strong> Cargarlos de a uno dejaría estados intermedios —un 60 % de dueño sin el otro 40 %— que la liquidación no sabría repartir. Por eso el botón no se habilita hasta que cada fila tiene su titular y su porcentaje, ninguno se repite y el total es exactamente 100. Los porcentajes se suman en centésimas: <kbd>33,33</kbd> + <kbd>33,33</kbd> + <kbd>33,34</kbd> da 100, sin diferencias de redondeo.</p>
+</div>
+<h2>Qué pasa si faltan los titulares</h2>
+<p>Una propiedad sin titulares, o con titulares que no suman 100 %, se ve en el listado como <em>Sin titulares</em> o <em>(incompletos)</em>, y la ficha avisa que no suman 100 %. Mientras tanto:</p>
+<ul>
+<li>no se puede <strong>activar</strong> un contrato de esa propiedad;</li>
+<li>no se puede <strong>cobrar</strong> una cuota ni <strong>cargar un gasto</strong>: no hay a quién imputarle la plata.</li>
+</ul>
+<h2>Cambiar los titulares más adelante</h2>
+<p>Si la propiedad cambia de dueño o se reparte distinto, volvé a la ficha y guardá la lista nueva. El reparto se fija <strong>cuando se cobra o cuando se carga el gasto</strong>: lo que ya se cobró queda imputado a quien le correspondía en ese momento, y lo que se cobre desde el cambio se reparte con los porcentajes nuevos.</p>
+<h2>Los estados de una propiedad</h2>
+<table class="docs-table">
+<thead><tr><th>Estado</th><th>Cuándo se usa</th></tr></thead>
+<tbody>
+<tr><td><kbd>Disponible</kbd></td><td>Libre para alquilar. Es el estado con el que nace</td></tr>
+<tr><td><kbd>Alquilada</kbd></td><td>Tiene un contrato vigente. <strong>No se elige a mano</strong></td></tr>
+<tr><td><kbd>En venta</kbd>, <kbd>Reservada</kbd></td><td>Marcas que ponés vos</td></tr>
+<tr><td><kbd>Vendida</kbd>, <kbd>De baja</kbd></td><td>Ya no se alquila: no admite contratos nuevos</td></tr>
+</tbody>
+</table>
+<p><strong>«Alquilada» la pone y la saca el contrato:</strong> pasa a alquilada cuando lo activás, y vuelve a disponible cuando lo rescindís o finaliza. Si se pudiera tildar a mano, tarde o temprano habría una propiedad «alquilada» sin contrato, o con contrato y «disponible», y el listado dejaría de decir la verdad. Por eso, mientras haya un contrato vigente, el estado aparece deshabilitado en el formulario.</p>
+<p>Las propiedades no se borran. Para dejar de administrar una, marcala <kbd>De baja</kbd>.</p>
+<h2>Buscar y filtrar</h2>
+<p>El buscador de la pantalla <strong>Propiedades</strong> encuentra por dirección, código o localidad, y el filtro <strong>Estado</strong> acota el listado. Cada fila muestra los titulares, el contrato vigente (con link) y el estado. Si hay más de 200 resultados, el sistema avisa que muestra los primeros 200: afiná la búsqueda para ver el resto.</p>
+<div class="docs-nav-footer">
+<a href="/docs/inquilinos-y-propietarios.html">← Inquilinos y propietarios</a>
+<a href="/docs/contratos.html">Contratos →</a>
+</div>

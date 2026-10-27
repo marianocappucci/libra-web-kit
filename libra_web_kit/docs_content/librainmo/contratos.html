@@ -1,0 +1,92 @@
+<h1>Contratos</h1>
+<p class="docs-lead">El acuerdo de alquiler: quién alquila qué, por cuánto, cómo se ajusta y qué más se cobra.</p>
+<h2>El ciclo de un contrato</h2>
+<table class="docs-table">
+<thead><tr><th>Estado</th><th>Qué es</th><th>Qué se puede hacer</th></tr></thead>
+<tbody>
+<tr><td><kbd>Borrador</kbd></td><td>Recién cargado, sin efecto</td><td>Editarlo entero (incluido el alquiler inicial), activarlo o borrarlo. No devenga cuotas</td></tr>
+<tr><td><kbd>Vigente</kbd></td><td>El que se cobra</td><td>Actualizar el precio, ajustarlo, agregar garantías y conceptos, rescindirlo o finalizarlo. Sólo se editan las observaciones</td></tr>
+<tr><td><kbd>Rescindido</kbd></td><td>Terminó antes de tiempo</td><td>Sólo mirarlo</td></tr>
+<tr><td><kbd>Finalizado</kbd></td><td>Cumplió su plazo</td><td>Sólo mirarlo</td></tr>
+</tbody>
+</table>
+<p>El borrador existe para que equivocarse salga gratis: hasta activar, todo se corrige. Después, las condiciones pactadas quedan fijas.</p>
+<h2>Cargar un contrato</h2>
+<ol class="step-list">
+<li>Andá a <strong>Contratos → Nuevo contrato</strong>. Si venís de la ficha de una propiedad, ya llega con esa propiedad elegida.</li>
+<li><strong>Propiedad e inquilino.</strong> Las propiedades vendidas o de baja se ven pero no se pueden elegir. El inquilino se busca, o se da de alta ahí mismo (<a href="/docs/inquilinos-y-propietarios.html">Inquilinos y propietarios</a>).</li>
+<li><strong>Plazo y alquiler.</strong> Fecha de inicio, fecha de fin, alquiler inicial, moneda (pesos o dólares), día de vencimiento, días de gracia y, si hay, el depósito.</li>
+<li><strong>Ajuste del alquiler.</strong> Sin ajuste, por porcentaje pactado o por índice oficial. Ver <a href="/docs/ajustes.html">Ajuste del alquiler</a>.</li>
+<li><strong>Mora y comisión.</strong> La tasa del punitorio y tu comisión de administración.</li>
+<li>Tocá <strong>Crear contrato</strong>. El sistema le asigna un número correlativo (<kbd>C-000001</kbd>) y lo deja en borrador.</li>
+</ol>
+<table class="docs-table">
+<thead><tr><th>Campo</th><th>Qué significa</th></tr></thead>
+<tbody>
+<tr><td><strong>Día de vencimiento</strong></td><td>El día del mes en que vence cada cuota, del 1 al 31. Viene en 10. En un mes que no tiene ese día, vence el último (un 31 en febrero vence el 28)</td></tr>
+<tr><td><strong>Días de gracia</strong></td><td>Días corridos después del vencimiento en los que se puede pagar sin punitorio. Viene en 0</td></tr>
+<tr><td><strong>Punitorio (tasa en %)</strong></td><td>Escrito como porcentaje: <kbd>0,5</kbd> es medio por ciento. Vacío significa que el contrato no pacta punitorio</td></tr>
+<tr><td><strong>La tasa es</strong></td><td><em>Por día de atraso</em> o <em>Por mes de atraso</em>. La mensual se toma como la tasa dividida 30 por cada día</td></tr>
+<tr><td><strong>El punitorio es para</strong></td><td><em>La inmobiliaria</em> o <em>El propietario</em>: decide si el punitorio se acredita en la cuenta de los titulares. Ver <a href="/docs/cobros.html">Cobros</a></td></tr>
+<tr><td><strong>Comisión (%)</strong></td><td>Tu comisión de administración, sobre el alquiler que se cobre. Es obligatoria: cargá 0 si no cobrás. Ver <a href="/docs/liquidaciones.html">Liquidaciones</a></td></tr>
+<tr><td><strong>Depósito</strong></td><td>Opcional. Queda registrado en el contrato; el sistema no lo mueve en ninguna cuenta</td></tr>
+</tbody>
+</table>
+<p>Moneda: <em>Pesos (ARS)</em> o <em>Dólares (USD)</em>. El sistema no convierte entre monedas.</p>
+<h2>Activar el contrato</h2>
+<p>En la ficha, <strong>Activar</strong> pide confirmación y exige tres cosas:</p>
+<ul>
+<li>que la propiedad tenga <strong>titulares que sumen 100 %</strong>: sin ellos no hay a quién liquidarle;</li>
+<li>que la propiedad <strong>no tenga otro contrato vigente</strong>: no se alquila dos veces lo mismo a la vez. Para renovar, finalizá el anterior antes de activar el nuevo;</li>
+<li>que la propiedad no esté <strong>vendida ni de baja</strong>.</li>
+</ul>
+<p>Si todo está bien, el contrato pasa a <kbd>Vigente</kbd> y la propiedad a <kbd>Alquilada</kbd>. Si algo falla, el motivo aparece arriba de la ficha, tal cual lo dice el sistema.</p>
+<h2>El precio del alquiler, con vigencia</h2>
+<p>La tarjeta <strong>Precio del alquiler</strong> es el historial: desde cuándo rige cada importe, hasta cuándo, por qué se cargó y quién lo cargó. El alquiler <strong>no se edita encima</strong>: se agrega un precio nuevo con su fecha, y el anterior queda cerrado el día antes.</p>
+<ol class="step-list">
+<li>En un contrato vigente, tocá <strong>Actualizar precio</strong>.</li>
+<li>Escribí el <strong>nuevo alquiler</strong> y desde qué fecha rige.</li>
+<li>Confirmá.</li>
+</ol>
+<p>La fecha tiene que ser posterior al comienzo del precio vigente y anterior al fin del contrato. Cada fila del historial dice su motivo: <em>Precio inicial</em>, <em>Actualización manual</em>, <em>Ajuste por porcentaje</em> o <em>Ajuste por índice</em> (con el nombre del índice).</p>
+<div class="callout">
+<p><strong>Por qué el historial no se pisa.</strong> Cada cuota guarda el precio con el que se generó. Si el alquiler se pisara, rehacer una cuota vieja daría el importe de hoy en vez del que regía entonces. Y como la cuota toma el precio vigente al primer día de su mes, un precio que arranca el día 15 se refleja desde la cuota del mes siguiente.</p>
+</div>
+<p>En un borrador no hay historial todavía: el alquiler inicial se cambia editando el contrato, y el historial con vigencias empieza al activarlo.</p>
+<h2>Garantías</h2>
+<p>La tarjeta <strong>Garantías</strong> registra con qué se respalda el contrato. Tocá <strong>Agregar garantía</strong> y elegí el tipo: <em>Garantía propietaria</em>, <em>Seguro de caución</em>, <em>Recibo de sueldo</em> u <em>Otra</em>.</p>
+<ul>
+<li>El <strong>garante</strong> es una persona del padrón; si no está, la das de alta en el mismo campo. <strong>El seguro de caución no lleva garante</strong>, porque no hay una persona detrás: es una póliza.</li>
+<li>La <strong>descripción</strong> sirve para anotar el inmueble, la póliza o el empleador.</li>
+<li><strong>Vence</strong> es opcional.</li>
+</ul>
+<p>Las garantías se agregan y se quitan mientras el contrato no esté cerrado. Son un registro: no generan cuotas ni movimientos de plata.</p>
+<h2>Conceptos que se cobran aparte</h2>
+<p>La tarjeta <strong>Conceptos trasladables</strong> lista lo que se cobra además del alquiler: expensas, ABL, seguro, servicios u otro. Cada concepto dice <strong>quién lo paga</strong> y si tiene importe.</p>
+<table class="docs-table">
+<thead><tr><th>Quién paga</th><th>Importe</th><th>Qué pasa</th></tr></thead>
+<tbody>
+<tr><td>El inquilino</td><td>Con importe (fijo)</td><td>Entra solo en cada cuota, todos los meses</td></tr>
+<tr><td>El inquilino</td><td>Vacío (<em>Variable</em>)</td><td>Cambia cada mes, como las expensas. Escribís el importe del mes al <a href="/docs/cuotas.html">generar la cuota</a>, o después con <strong>Cargar un cargo</strong></td></tr>
+<tr><td>El propietario</td><td>—</td><td>Queda registrado en el contrato, pero no se suma a la cuota ni se descuenta solo en la liquidación. Si lo adelantaste vos, cargalo como <a href="/docs/gastos.html">gasto</a></td></tr>
+</tbody>
+</table>
+<p>Los conceptos <strong>no se prorratean</strong>: en el primer o último mes de un contrato, el alquiler se cobra por los días que corren, pero un concepto fijo entra entero. El tipo de un concepto no se cambia después de cargarlo; sí su descripción, quién lo paga y su importe.</p>
+<p>Dar de baja un concepto no lo borra: queda marcado <kbd>De baja</kbd> y se puede <strong>reactivar</strong>. Las cuotas anteriores lo incluyeron y ese historial no se toca.</p>
+<h2>Rescindir y finalizar</h2>
+<table class="docs-table">
+<thead><tr><th>Acción</th><th>Cuándo</th><th>Qué hace</th></tr></thead>
+<tbody>
+<tr><td><strong>Finalizar</strong></td><td>Cuando se cumplió el plazo. Antes de la fecha de fin, el sistema no deja y manda a rescindir</td><td>Cierra el contrato y la propiedad vuelve a <kbd>Disponible</kbd></td></tr>
+<tr><td><strong>Rescindir</strong></td><td>Cualquier día entre el inicio y el fin del contrato</td><td>Cierra el contrato en la fecha que cargues, con un motivo opcional. La propiedad vuelve a <kbd>Disponible</kbd></td></tr>
+</tbody>
+</table>
+<p>Ninguna de las dos se puede deshacer: un contrato rescindido o finalizado no se reabre. La fecha de rescisión es el último día que se cobra: la cuota de ese mes se prorratea hasta ahí.</p>
+<h2>Borrar un borrador</h2>
+<p>Un borrador se borra con su precio, sus garantías y sus conceptos. Un contrato que estuvo vigente <strong>no se borra</strong>: queda en el historial, porque tiene cuotas y cobros colgados.</p>
+<h2>Buscar contratos</h2>
+<p>El buscador encuentra por número, por código de propiedad o por dirección, y el filtro <strong>Estado</strong> acota el listado. Cada fila muestra la propiedad, el inquilino, el plazo, el alquiler vigente y el estado.</p>
+<div class="docs-nav-footer">
+<a href="/docs/propiedades.html">← Propiedades</a>
+<a href="/docs/ajustes.html">Ajuste del alquiler →</a>
+</div>

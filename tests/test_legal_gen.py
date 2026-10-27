@@ -1,4 +1,4 @@
-"""La página pública de Términos: que exista en los ocho, que sea verificable
+"""La página pública de Términos: que exista en los nueve, que sea verificable
 y que no quede detrás del login.
 
 Lo que fijan estos tests, en orden de lo que se rompe sin que se note:
@@ -48,9 +48,9 @@ from libra_web_kit.legal_gen import (
 RAIZ = Path(__file__).resolve().parents[1]
 
 
-def test_rinde_los_ocho_sitios():
+def test_rinde_los_nueve_sitios():
     paginas = render_all()
-    assert len(paginas) == 8
+    assert len(paginas) == 9
     assert set(paginas) == set(SIDEBARS)
 
 

@@ -1,7 +1,7 @@
 """La marca dibujada de libra-ui (ADR-034) que el kit copia y publica en las landings.
 
 El kit no dibuja nada: `libra_web_kit/marcas/*.svg` son copias byte a byte de libra-ui y
-estos tests verifican que estén las 16, que cada una sea un SVG del color de su producto
+estos tests verifican que estén las 18, que cada una sea un SVG del color de su producto
 (`IDENTIDAD`, la tabla que guarda `test_identidad.py`) y que los templates, el script que
 las publica y el que las sincroniza hagan lo que dicen.
 """
@@ -32,12 +32,12 @@ def _script(nombre: str):
     return modulo
 
 
-# ── los 16 archivos ──────────────────────────────────────────────────────────
+# ── los 18 archivos ──────────────────────────────────────────────────────────
 
 
-def test_estan_los_16_svg_y_no_sobra_ninguno():
+def test_estan_los_18_svg_y_no_sobra_ninguno():
     esperados = {f"{s}{v}.svg" for s in IDENTIDAD for v in ("", "-favicon")}
-    assert len(esperados) == 16
+    assert len(esperados) == 18
     assert {p.name for p in MARCAS.glob("*.svg")} == esperados
     assert (MARCAS / "ORIGEN.txt").is_file()
 
@@ -57,8 +57,8 @@ def test_cada_svg_empieza_con_svg_y_lleva_el_color_de_la_identidad(site, variant
     assert cuadrado.get("rx")
 
 
-def test_las_16_son_distintas_entre_si():
-    assert len({p.read_bytes() for p in MARCAS.glob("*.svg")}) == 16
+def test_las_18_son_distintas_entre_si():
+    assert len({p.read_bytes() for p in MARCAS.glob("*.svg")}) == 18
 
 
 def test_marcas_gen_sirve_los_bytes_del_archivo():

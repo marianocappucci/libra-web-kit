@@ -1,0 +1,60 @@
+<h1>Liquidaciones</h1>
+<p class="docs-lead">Rendirle al propietario lo que se cobró a su favor, menos los gastos que adelantaste y tu comisión.</p>
+<h2>Qué es una liquidación</h2>
+<p>Es la cuenta que cierra el círculo del alquiler. Para <strong>un propietario</strong> y hasta una fecha, junta:</p>
+<ul>
+<li><strong>Cobrado a su favor</strong>: su parte de los alquileres y de los conceptos que cobraste, y del punitorio si el contrato le corresponde.</li>
+<li><strong>Gastos</strong>: lo que pagaste por su cuenta y le cargaste en <a href="/docs/gastos.html">Gastos</a>.</li>
+<li><strong>Comisión</strong>: tu comisión de administración.</li>
+<li><strong>Neto a pagar</strong>: cobrado − gastos − comisión. Es lo que le transferís.</li>
+</ul>
+<p>En un condominio se liquida <strong>a cada titular por separado</strong>, cada uno con su parte.</p>
+<h2>Emitir una liquidación</h2>
+<ol class="step-list">
+<li>Andá a <strong>Liquidaciones → Nueva liquidación</strong>. Si venís de <a href="/docs/fondos-de-terceros.html">Fondos de terceros</a>, el botón <strong>Liquidar</strong> ya trae al propietario elegido.</li>
+<li>Elegí al <strong>propietario</strong>, la <strong>fecha de la liquidación</strong> y hasta qué fecha liquidás (<strong>Liquidar hasta</strong>). Ambas vienen en hoy.</li>
+<li>Tocá <strong>Previsualizar</strong>. No se escribe nada: ves los cuatro totales y cada movimiento, con su importe, la base sobre la que se calcula la comisión y la comisión.</li>
+<li>Si querés, escribí una observación. Tocá <strong>Emitir la liquidación</strong> y confirmá.</li>
+</ol>
+<p>Un ejemplo, con el reparto de las páginas anteriores (alquiler de $ 300.000,00, expensas de $ 18.500,00, un gasto de $ 85.000,00, 5 % de comisión). La liquidación de Ana Ejemplo, que tiene el 60 %:</p>
+<table class="docs-table">
+<thead><tr><th>Movimiento</th><th>Importe</th><th>Base de la comisión</th><th>Comisión</th></tr></thead>
+<tbody>
+<tr><td>Alquiler agosto 2026 C-000001 (cobrado el 14-08-2026)</td><td>$ 180.000,00</td><td>$ 180.000,00 al 5,00 %</td><td>$ 9.000,00</td></tr>
+<tr><td>Concepto agosto 2026 C-000001 (cobrado el 14-08-2026)</td><td>$ 11.100,00</td><td>—</td><td>—</td></tr>
+<tr><td>Gasto: Cambio de la bomba de agua</td><td>-$ 51.000,00</td><td>—</td><td>—</td></tr>
+</tbody>
+</table>
+<p>Cobrado a su favor $ 191.100,00, gastos $ 51.000,00, comisión $ 9.000,00: el <strong>neto a pagar</strong> es $ 131.100,00.</p>
+<h2>Qué entra, y una sola vez</h2>
+<p>Entra todo lo que ese propietario tiene <strong>sin liquidar</strong>, hasta la fecha que elegiste: los cobros y los gastos. Si hay algo de una fecha posterior, espera a la próxima.</p>
+<div class="callout">
+<p><strong>Un movimiento se liquida una sola vez.</strong> Cada cobro y cada gasto, una vez incluido en una liquidación, deja de aparecer como pendiente: no hay forma de que el mismo alquiler se le rinda dos veces al mismo propietario. Y «Liquidar hasta» no puede ser posterior a la fecha de la liquidación, porque no se liquida lo que todavía no pasó.</p>
+</div>
+<h2>La comisión</h2>
+<ul>
+<li>Se define <strong>por contrato</strong> (el campo <em>Comisión (%)</em>), así que una liquidación con propiedades de distintos contratos puede tener comisiones distintas.</li>
+<li>Se calcula <strong>sólo sobre el alquiler cobrado</strong>. No se cobra comisión sobre las expensas y demás conceptos —que son plata de paso—, ni sobre el punitorio, ni sobre los gastos.</li>
+<li>Se redondea por renglón, al centavo.</li>
+<li>Al emitir la liquidación, la comisión queda anotada como un cargo en la cuenta del propietario.</li>
+</ul>
+<div class="callout warn">
+<p><strong>El sistema toma la comisión tal cual: no le suma IVA aparte.</strong> El porcentaje que cargaste es el importe que se descuenta. La factura de la comisión no se emite desde LibraInmo; si tu inmobiliaria la factura con IVA discriminado, definí con tu contador cómo cargar el porcentaje antes de empezar a liquidar.</p>
+</div>
+<h2>Cuando los gastos pesan más que lo cobrado</h2>
+<p><strong>No se emite una liquidación con neto negativo.</strong> Si los gastos y la comisión superan lo cobrado, la pantalla lo avisa y no ofrece emitir: el propietario le debe plata a la inmobiliaria, y todavía no hay una regla para arrastrar esa deuda a la liquidación siguiente. Mientras tanto, esperá a que haya más cobros, o corregí el gasto si estaba mal. Tampoco se emite sin movimientos.</p>
+<h2>Pagar la liquidación</h2>
+<ol class="step-list">
+<li>Abrí la liquidación (<kbd>Emitida</kbd>) y tocá <strong>Registrar el pago</strong>.</li>
+<li>Elegí la <strong>fecha del pago</strong> —no puede ser anterior a la de la liquidación—, el medio (<em>Transferencia</em>, <em>Efectivo</em> o <em>Cheque</em>) y, si querés, una referencia: número de transferencia o de cheque.</li>
+<li>Confirmá. La liquidación pasa a <kbd>Pagada</kbd> y el pago queda anotado en la cuenta del propietario: <strong>la cuenta queda en cero por lo liquidado</strong>.</li>
+</ol>
+<p><strong>Abrir el PDF</strong> abre la liquidación en otra pestaña, lista para entregársela al propietario.</p>
+<h2>Anular una liquidación</h2>
+<p>Una liquidación <kbd>Emitida</kbd> y sin pagar se puede anular con un motivo: el sistema revierte la comisión con un asiento inverso y los cobros y gastos que contenía <strong>quedan libres para otra liquidación</strong>. Una liquidación <kbd>Pagada</kbd> ya no se anula.</p>
+<h2>El listado</h2>
+<p>La pantalla <strong>Liquidaciones</strong> muestra el número (<kbd>L-000001</kbd>…), el propietario, las fechas, lo cobrado, la comisión, el neto y el estado. Se filtra por propietario y por estado.</p>
+<div class="docs-nav-footer">
+<a href="/docs/gastos.html">← Gastos</a>
+<a href="/docs/fondos-de-terceros.html">Fondos de terceros →</a>
+</div>
