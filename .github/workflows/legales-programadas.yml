@@ -68,7 +68,7 @@ jobs:
           app-id: ${{ secrets.LIBRA_BUMP_APP_ID }}
           private-key: ${{ secrets.LIBRA_BUMP_APP_KEY }}
           owner: marianocappucci
-          repositories: contalibra_web,restolibra_web,gestiolibra_web,medlibra_web,ventalibra_web,libradesk_web,libracargo_web,libraclub_web
+          repositories: contalibra_web,restolibra_web,gestiolibra_web,medlibra_web,ventalibra_web,libradesk_web,libracargo_web,libraclub_web,librainmo_web
 
       - name: Regenerar y publicar
         env:
@@ -82,6 +82,7 @@ jobs:
             [gestiolibra_web]=gestiolibra_web [medlibra_web]=medlibra_web
             [ventalibra_web]=ventalibra_web [libradesk_web]=libradesk_web
             [libracargo_web]=libracargo_web [libraclub_web]=libraclub_web
+            [librainmo_web]=librainmo_web
           )
           for repo in "${!CARPETA[@]}"; do
             git clone -q --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/marianocappucci/$repo.git" "$DIR/${CARPETA[$repo]}"

@@ -1,0 +1,61 @@
+<h1>Ajuste del alquiler</h1>
+<p class="docs-lead">Cuánto sube el alquiler, cuándo le toca, y cómo se aplica con tu confirmación.</p>
+<h2>Las tres formas de pactarlo</h2>
+<p>Se elige en el contrato, en la sección <strong>Ajuste del alquiler</strong>.</p>
+<table class="docs-table">
+<thead><tr><th>Método</th><th>Qué pide</th><th>Cómo se calcula</th></tr></thead>
+<tbody>
+<tr><td><strong>Sin ajuste (importe fijo)</strong></td><td>Nada más</td><td>El alquiler no se ajusta. Para cambiarlo usás <strong>Actualizar precio</strong> en la ficha</td></tr>
+<tr><td><strong>Porcentaje pactado</strong></td><td>El porcentaje de cada ajuste y cada cuánto se aplica</td><td>Alquiler vigente × (1 + porcentaje)</td></tr>
+<tr><td><strong>Índice oficial</strong></td><td>Cuál índice y cada cuánto se aplica</td><td>Alquiler vigente × índice a la fecha del ajuste ÷ índice a la fecha del precio vigente</td></tr>
+</tbody>
+</table>
+<p>La periodicidad (<em>Se ajusta cada</em>) puede ser mensual, bimestral, trimestral, semestral o anual.</p>
+<h2>Cuándo le toca a un contrato</h2>
+<p>El período de ajuste se cuenta <strong>desde la fecha de inicio del contrato</strong>, no desde el calendario. Un contrato trimestral que arrancó el 15-02-2026 se ajusta el 15-05, el 15-08 y el 15-11; uno anual que arrancó el 15-02-2026, el 15-02-2027. Es lo que dice un contrato: «cada tres meses desde el inicio», no «cada marzo, junio, septiembre y diciembre».</p>
+<p>Durante el primer período no hay nada que aplicar: la ficha te dice que el contrato todavía no cumplió su primer período y cuál es el próximo ajuste.</p>
+<h2>Aplicar un ajuste</h2>
+<ol class="step-list">
+<li>Abrí la ficha de un contrato <kbd>Vigente</kbd> que se ajusta. Arriba de las demás tarjetas aparece <strong>Ajuste por porcentaje</strong> o <strong>Ajuste por índice</strong>, con la cuenta ya hecha.</li>
+<li>Revisá: el <strong>alquiler vigente</strong>, el <strong>alquiler ajustado</strong>, la <strong>variación</strong> y desde qué fecha <strong>rige</strong>. Por índice, ves además los valores que tomó, con su fecha y su fuente.</li>
+<li>Tocá <strong>Aplicar ajuste</strong> y confirmá.</li>
+</ol>
+<p>El precio nuevo entra en el historial del contrato, el vigente se cierra el día anterior y el motivo queda anotado (<em>Ajuste por índice (ICL)</em>, por ejemplo).</p>
+<div class="callout">
+<p><strong>Lo que ves es una propuesta; al confirmar, el sistema vuelve a calcular.</strong> Entre que mirás la pantalla y confirmás pudo cambiar el precio vigente o el valor de un índice, y aplicar un importe viejo sería cobrar de menos o de más. Por eso lo único que viaja al confirmar es la fecha del ajuste: el importe lo rehace el servidor.</p>
+</div>
+<h2>Por porcentaje</h2>
+<p>El porcentaje se <strong>compone</strong> una vez por cada período que pasó desde que rige el precio vigente. Con un 10 % semestral y un alquiler de $ 300.000,00, el primer ajuste da $ 330.000,00.</p>
+<p>Si se salteó un ajuste, el siguiente no se queda corto: en vez de aplicar el 10 % una vez, lo aplica dos veces seguidas ($ 300.000,00 → $ 363.000,00), que es lo que hubiera pasado de haberse aplicado a tiempo. La tarjeta lo dice: «10 % compuesto 2 veces».</p>
+<h2>Por índice</h2>
+<p>El catálogo de índices es cerrado y viene del sistema; no se escribe un nombre libre.</p>
+<table class="docs-table">
+<thead><tr><th>Índice</th><th>Valores</th></tr></thead>
+<tbody>
+<tr><td>ICL — Índice para Contratos de Locación</td><td>Se descargan solos de la fuente oficial</td></tr>
+<tr><td>IPC nivel general (INDEC)</td><td>Se descargan solos. Es mensual</td></tr>
+<tr><td>Inflación mensual (variación % del IPC)</td><td>Se descargan solos. Es mensual: se componen los meses</td></tr>
+<tr><td>CER — Coeficiente de Estabilización de Referencia</td><td>Se descargan solos</td></tr>
+<tr><td>UVA — Unidad de Valor Adquisitivo</td><td>Se descargan solos</td></tr>
+<tr><td>Dólar mayorista de referencia (Comunicación A 3500)</td><td>Se descargan solos. En un fin de semana o feriado toma el del último día hábil</td></tr>
+<tr><td>Coeficiente Casa Propia</td><td>No se descarga solo: se carga a mano</td></tr>
+</tbody>
+</table>
+<p>Cuál índice usa un contrato es una cláusula del contrato: elegí el que dice el tuyo.</p>
+<h3>Si falta un valor del índice</h3>
+<p>Antes de dar por perdido un valor, el sistema intenta bajarlo de la fuente oficial en el momento. Si igual no está —la fuente no contestó o el índice todavía no se publicó—, <strong>no calcula nada</strong>: la tarjeta te dice de qué fechas faltan los valores, y el botón <strong>Volver a consultar</strong> lo intenta de nuevo.</p>
+<div class="callout warn">
+<p><strong>No se usa el valor anterior ni se interpola.</strong> Un aumento calculado con el índice equivocado es una diferencia que se le cobra al inquilino, o se le deja de cobrar al propietario. Es preferible esperar a que el dato exista. Los índices mensuales como el IPC se publican con demora: si el del mes del ajuste todavía no salió, el ajuste espera.</p>
+</div>
+<h2>Un ajuste pendiente bloquea la cuota</h2>
+<p>Mientras a un contrato le toca un ajuste que todavía no aplicaste, <strong>el sistema no genera su cuota</strong>. En la pantalla de generar cuotas aparece en la lista <strong>Bloqueadas</strong>, con el motivo («Tiene el ajuste del 15-05-2026 pendiente: aplicalo primero») y un link al contrato.</p>
+<p>Es a propósito. Cobrar con el precio viejo y corregir después es justo lo que una inmobiliaria no puede hacer con un inquilino: una cuota emitida y notificada por un importe que después cambia.</p>
+<div class="callout warn">
+<p><strong>El bloqueo mira el primer día del mes de la cuota.</strong> Si el ajuste de un contrato cae a mitad de mes (el 15, por ejemplo), la cuota de ese mes todavía no se bloquea y sale entera con el precio anterior —no se parte en dos precios—, aunque apliques el ajuste antes de generarla. El precio nuevo se refleja desde la cuota del mes siguiente, que es la que queda bloqueada hasta que lo aplicás.</p>
+</div>
+<h2>Aplicarlo tarde</h2>
+<p>El precio nuevo rige desde la <strong>fecha del ajuste</strong>, aunque lo apliques días después. Como la cuota de un contrato con ajuste pendiente no se genera, no quedan cuotas emitidas con el precio viejo para corregir; las que ya estaban generadas no se tocan (ver <a href="/docs/cuotas.html">Cuotas</a>).</p>
+<div class="docs-nav-footer">
+<a href="/docs/contratos.html">← Contratos</a>
+<a href="/docs/cuotas.html">Cuotas →</a>
+</div>

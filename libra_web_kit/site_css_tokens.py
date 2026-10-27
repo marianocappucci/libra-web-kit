@@ -440,6 +440,72 @@ SITES = {
         "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
         "trailing": "",
     },
+    # LibraInmo (2026-10-27): tercer sitio nacido del template. El `--brand` es
+    # el lima de la identidad (libra-ui ADR-096), elegido por el humano.
+    "librainmo": {
+        "tokens": (
+            "  --brand:       #65a30d;\n"
+            "  --brand-dark:  #4d7c0f;\n"
+            "  --brand-light: #f7fee7;\n"
+            # Como en LibraClub: con la marca verde, un accent #10b981 no
+            # acentua nada. Ambar, el color de la llave de la marca.
+            "  --accent:      #f59e0b;\n"
+            "  --dark:        #0f172a;\n"
+            "  --dark-2:      #1e293b;\n"
+            "  --muted:       #64748b;\n"
+            "  --border:      #e2e8f0;\n"
+            "  --bg:          #f8fafc;\n"
+        ),
+        "hero_bg": (
+            # El mismo velo que el fondo del login de la app (libra-ui,
+            # `fondo-de-login.ts`): oscuro y apenas teñido de lima.
+            "    linear-gradient(to bottom, rgba(16,26,4,.86) 0%, rgba(16,26,4,.70) 55%, rgba(16,26,4,.90) 100%),\n"
+            # Casa con pileta al atardecer (foto aportada por el humano, «libre
+            # o con licencia»; ver wiki/entities/librainmo.md).
+            "    url('/img/casa-hero.jpg') 60% center / cover no-repeat,\n"
+            "    #101a04;\n"
+        ),
+        "hero_before": (
+            ".hero::before {\n"
+            "  content: '';\n"
+            "  position: absolute; inset: 0;\n"
+            "  background: radial-gradient(ellipse at 60% 40%, rgba(101,163,13,.25) 0%, transparent 65%);\n"
+            "}\n"
+        ),
+        "hero_badge": (
+            "  display: inline-block; background: rgba(101,163,13,.28);\n"
+            "  border: 1px solid rgba(163,230,53,.45);\n"
+            "  color: #d9f99d; font-size: .82rem; font-weight: 600;\n"
+        ),
+        "hero_span_p": (
+            ".hero h1 span { color: #a3e635; }\n"
+            ".hero p { font-size: 1.15rem; color: #b5bfa6; margin: 0 auto 2.5rem;\n"
+        ),
+        "hero_extra": "",
+        "badge_estandar": ".badge-estandar { background: #ecfccb; color: #3f6212; }\n",
+        "badge_extra": ".badge-incluido { background: #ecfccb; color: #3f6212; }\n",
+        "plan_featured_shadow": "  box-shadow: 0 8px 32px rgba(101,163,13,.18);\n",
+        "plan_features_muted": ".plan-features li.muted { color: #94a3b8; }\n",
+        # Del tono oscuro al más oscuro: el lima con letra blanca no llega a 4.5:1.
+        "cta_bg": "  background: linear-gradient(135deg, var(--brand-dark) 0%, #365314 100%);\n",
+        "cta_p": ".cta-section p  { color: #d9f99d; margin: 0 auto 2rem; max-width: 500px; }\n",
+        "footer_bg": "  background: var(--dark); color: #94a3b8;\n",
+        "footer_tagline": ".footer-tagline { font-size: .85rem; color: #64748b; margin-top: .3rem; }\n",
+        "footer_copy_border": "               border-top: 1px solid #1e293b;\n",
+        "footer_copy_text": "               font-size: .82rem; color: #475569; text-align: center; }\n",
+        "docs_sidebar_padding": "  padding: 1.5rem 0;\n",
+        "trailing": (
+            "\n"
+            "/* El lima (#65a30d) con letra blanca, o como texto sobre blanco, queda en\n"
+            "   3:1. Los botones, los links y las etiquetas van en el tono oscuro, como\n"
+            "   el colorAccion de la app (libra-ui ADR-096). */\n"
+            "a { color: var(--brand-dark); }\n"
+            ".btn-primary, .navbar .btn-nav { background: var(--brand-dark); }\n"
+            ".btn-primary:hover, .navbar .btn-nav:hover { background: #365314 !important; }\n"
+            ".btn-white { color: var(--brand-dark); }\n"
+            ".section-label { color: var(--brand-dark); }\n"
+        ),
+    },
 }
 
 
@@ -581,5 +647,22 @@ PULIDO_VARS = {
         "on-dark-muted": "#93aaa1",
         "on-dark-faint": "#7a9088",
         "on-dark-accent-rgb": "52,211,153",
+    },
+    "librainmo": {
+        "hero-accent": "#d9f99d",
+        "on-dark-accent": "#a3e635",
+        "brand-rgb": "101,163,13",
+        "deep-rgb": "16,26,4",
+        "hover-rgb": "77,124,15",
+        "card-border": "#e2e8f0",
+        "step-end": "#d9f99d",
+        "dark-1": "#101a04",
+        "dark-2": "#1a2e05",
+        "footer-bg": "#0a1102",
+        "footer-line": "#24360d",
+        "on-dark-text": "#d3dbc6",
+        "on-dark-muted": "#a2ad93",
+        "on-dark-faint": "#86917a",
+        "on-dark-accent-rgb": "163,230,53",
     },
 }

@@ -112,4 +112,13 @@ IDENTIDAD: dict[str, Identidad] = {
         color_sobre_oscuro="#34d399",
         icono_bootstrap="bi-trophy",
     ),
+    "librainmo": Identidad(
+        nombre="LibraInmo",
+        rubro="Inmobiliarias que administran alquileres",
+        color="#65a30d",
+        color_oscuro="#4d7c0f",
+        color_claro="#f7fee7",
+        color_sobre_oscuro="#a3e635",
+        icono_bootstrap="bi-house-door",
+    ),
 }
