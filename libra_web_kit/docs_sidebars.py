@@ -280,6 +280,7 @@ SIDEBARS = {
             {"type": "link", "href": '/docs/primeros-pasos.html', "text": 'Primeros pasos'},
             {"type": "section", "text": 'Lo que administrás'},
             {"type": "link", "href": '/docs/inquilinos-y-propietarios.html', "text": 'Inquilinos y propietarios'},
+            {"type": "link", "href": '/docs/clientes.html', "text": 'Clientes'},
             {"type": "link", "href": '/docs/propiedades.html', "text": 'Propiedades y titulares'},
             {"type": "link", "href": '/docs/contratos.html', "text": 'Contratos'},
             {"type": "link", "href": '/docs/ajustes.html', "text": 'Ajuste del alquiler'},
@@ -293,6 +294,7 @@ SIDEBARS = {
             {"type": "section", "text": 'Cuenta'},
             {"type": "link", "href": '/docs/usuarios.html', "text": 'Usuarios y contraseñas'},
             {"type": "link", "href": '/docs/actividad.html', "text": 'Actividad'},
+            {"type": "link", "href": '/docs/configuracion.html', "text": 'Configuración'},
         ],
     },
 }

@@ -4,15 +4,15 @@
 <p>Lo que le debés a los propietarios <strong>es plata ajena</strong>: tiene que estar en la cuenta de la inmobiliaria. Esta pantalla es el número que mira el dueño para saber si puede pagar las liquidaciones sin tocar lo propio. Y lo que te deben los inquilinos es lo que todavía no cobraste.</p>
 <p>Los saldos salen de las cuentas de cada persona: no son un cálculo aparte, sino la suma de todos los movimientos de <a href="/docs/cuotas.html">cuotas</a>, <a href="/docs/cobros.html">cobros</a>, <a href="/docs/gastos.html">gastos</a> y <a href="/docs/liquidaciones.html">liquidaciones</a>.</p>
 <h2>Qué muestra</h2>
-<p>Arriba, dos totales: <strong>Se les debe a los propietarios</strong> y <strong>Deben los inquilinos</strong>. Debajo, el detalle:</p>
+<p>Arriba, dos totales: <strong>Se les debe a los propietarios</strong> y <strong>Deben los inquilinos</strong>. Si hay contratos en pesos y en dólares, cada total trae <strong>una línea por moneda</strong> (<kbd>$</kbd> y <kbd>US$</kbd>): el sistema no convierte ni suma una moneda con la otra. Debajo, el detalle:</p>
 <table class="docs-table">
 <thead><tr><th>Tabla</th><th>Qué lista</th></tr></thead>
 <tbody>
-<tr><td><strong>A pagar a propietarios</strong></td><td>Cada propietario con saldo y cuánto se le debe. El botón <strong>Liquidar</strong> abre una liquidación nueva con ese propietario ya elegido</td></tr>
-<tr><td><strong>Inquilinos deudores</strong></td><td>Cada inquilino con saldo y cuánto debe</td></tr>
+<tr><td><strong>A pagar a propietarios</strong></td><td>Cada propietario con saldo y cuánto se le debe. El botón <strong>Liquidar</strong> abre una liquidación nueva con ese propietario ya elegido y en la moneda de esa fila. Al final, un <strong>Total a pagar</strong> por moneda</td></tr>
+<tr><td><strong>Inquilinos deudores</strong></td><td>Cada inquilino con saldo y cuánto debe. Al final, un <strong>Total adeudado</strong> por moneda</td></tr>
 </tbody>
 </table>
-<p>Sólo aparecen las personas con saldo: quien está en cero no figura.</p>
+<p>Sólo aparecen las personas con saldo: quien está en cero no figura. Un propietario con saldo en las dos monedas sale <strong>en dos filas</strong>, una por moneda, cada una con su botón <strong>Liquidar</strong>.</p>
 <h2>Cómo leerlo</h2>
 <ul>
 <li><strong>Un propietario aparece con lo cobrado a su favor menos los gastos que le cargaste</strong>, todavía sin liquidar. Tu comisión se descuenta recién cuando emitís la liquidación; hasta entonces, ese saldo incluye la parte que va a ser tuya.</li>
@@ -20,7 +20,7 @@
 <li>Un propietario con un importe <strong>negativo</strong> es uno cuyos gastos superan lo cobrado: en vez de que le debas, te debe. Es el caso en el que no se puede emitir una liquidación (ver <a href="/docs/liquidaciones.html">Liquidaciones</a>).</li>
 </ul>
 <div class="callout">
-<p><strong>Por qué el control es del dueño.</strong> La plata de los propietarios pasa por tus manos y se mezcla con la propia, y es fácil gastarla sin darse cuenta. Si el total «se les debe» supera lo que tenés disponible, estás financiando a la inmobiliaria con plata de terceros.</p>
+<p><strong>Por qué el control es del dueño.</strong> La plata de los propietarios pasa por tus manos y se mezcla con la propia, y es fácil gastarla sin darse cuenta. Si el total «se les debe» supera lo que tenés disponible, estás financiando a la inmobiliaria con plata de terceros. Compará cada moneda con la suya: los dólares que se les deben, con los dólares que tenés.</p>
 </div>
 <div class="docs-nav-footer">
 <a href="/docs/liquidaciones.html">← Liquidaciones</a>

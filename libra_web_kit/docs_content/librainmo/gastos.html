@@ -8,7 +8,7 @@
 <li>Andá a <strong>Gastos → Nuevo gasto</strong>.</li>
 <li>Elegí la <strong>propiedad</strong> y la <strong>fecha</strong> (viene en hoy).</li>
 <li>Elegí la <strong>categoría</strong>: reparación, expensas extraordinarias, impuesto, servicio, honorarios u otro.</li>
-<li>Escribí una <strong>descripción</strong> clara —es la que lee el propietario en su liquidación—, el <strong>importe</strong> y, si lo tenés, el <strong>número de comprobante</strong>.</li>
+<li>Escribí una <strong>descripción</strong> clara —es la que lee el propietario en su liquidación—, elegí la <strong>moneda</strong> (<em>Pesos (ARS)</em> o <em>Dólares (USD)</em>; viene en pesos), escribí el <strong>importe</strong> y, si lo tenés, el <strong>número de comprobante</strong>.</li>
 <li>Tocá <strong>Registrar el gasto</strong>.</li>
 </ol>
 <h2>Cómo se reparte</h2>
@@ -21,16 +21,25 @@
 </tbody>
 </table>
 <p>En el listado, cada fila se puede desplegar para ver el <strong>reparto entre los titulares de la propiedad</strong>.</p>
+<div class="callout">
+<p><strong>El gasto se descuenta en la liquidación de su misma moneda.</strong> Un gasto en dólares no se resta de lo cobrado en pesos: va a la liquidación en dólares del propietario. Elegí la moneda en la que le vas a descontar. Si el propietario no tiene cobros en esa moneda, la liquidación da negativa y no se emite (ver <a href="/docs/liquidaciones.html">Liquidaciones</a>).</p>
+</div>
 <div class="callout warn">
 <p><strong>Hacen falta los titulares completos.</strong> Si la propiedad no tiene titulares que sumen 100 %, el sistema no registra el gasto: no hay a quién cargárselo. Primero completá los titulares en la <a href="/docs/propiedades.html">ficha de la propiedad</a>.</p>
 </div>
-<h2>Gasto no es concepto del contrato</h2>
-<p>Los <a href="/docs/contratos.html">conceptos trasladables</a> de un contrato —expensas, ABL— se cobran al inquilino dentro de la cuota. Un gasto es otra cosa: es plata que le descontás al <strong>propietario</strong>. Y si en el contrato marcaste un concepto como «lo paga el propietario», no se descuenta solo: cuando lo adelantes, cargalo acá.</p>
+<h2>Los gastos que se cargan solos</h2>
+<p>Los <a href="/docs/contratos.html">conceptos trasladables</a> de un contrato —expensas, ABL— que paga el inquilino se cobran dentro de la cuota. Un gasto es otra cosa: es plata que le descontás al <strong>propietario</strong>. Y si en el contrato marcaste un concepto como «lo paga el propietario»:</p>
+<ul>
+<li><strong>Con importe fijo</strong>: al <a href="/docs/cuotas.html">generar la cuota</a> del mes, el sistema lo carga solo como gasto, repartido entre los titulares, en la moneda del contrato. Ya no tenés que cargarlo vos. La categoría sale del tipo de concepto (el ABL es <em>Impuesto</em>; las expensas, <em>Expensas extraordinarias</em>) y la descripción lleva el mes y el número de contrato.</li>
+<li><strong>Sin importe</strong>: no se carga solo. La pantalla de generar cuotas lo lista para cargarlo como gasto cuando llegue el monto: cargalo acá, con <strong>Nuevo gasto</strong>.</li>
+</ul>
+<p>Si la propiedad no tiene sus titulares completos, la cuota de ese contrato no se genera (queda en <strong>Bloqueadas</strong>).</p>
 <h2>Anular un gasto</h2>
 <p>En el listado, el ícono de anular de la fila pide un <strong>motivo</strong>. El sistema revierte el cargo de cada titular con un asiento inverso, y el gasto queda marcado <kbd>Anulado</kbd>.</p>
 <p><strong>Un gasto que ya entró en una liquidación no se anula.</strong> Si la liquidación está emitida y sin pagar, anulala primero; con eso el gasto queda libre y recién ahí podés anularlo.</p>
+<p><strong>Un gasto que se cargó solo desde una cuota no se anula suelto.</strong> En el listado dice «De una cuota: ver la cuota. Se anula con ella.» y su fila no tiene el ícono de anular: se anula anulando la cuota (ver <a href="/docs/cuotas.html">Cuotas</a>).</p>
 <h2>El listado</h2>
-<p>La pantalla <strong>Gastos</strong> muestra fecha, propiedad, categoría, descripción (con el número de comprobante), importe y un botón para anular. Se filtra por propiedad y por fechas, y con <strong>Incluir los anulados</strong> aparecen también los anulados, atenuados.</p>
+<p>La pantalla <strong>Gastos</strong> muestra fecha, propiedad, categoría, descripción (con el número de comprobante), importe (con <kbd>$</kbd> o <kbd>US$</kbd> según su moneda) y un botón para anular. Se filtra por propiedad y por fechas, y con <strong>Incluir los anulados</strong> aparecen también los anulados, atenuados.</p>
 <div class="docs-nav-footer">
 <a href="/docs/cobros.html">← Cobros</a>
 <a href="/docs/liquidaciones.html">Liquidaciones →</a>

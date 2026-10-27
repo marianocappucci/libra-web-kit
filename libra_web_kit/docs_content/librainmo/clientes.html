@@ -1,0 +1,54 @@
+<h1>Clientes</h1>
+<p class="docs-lead">La lista de todas las personas del alquiler: dónde las ves, corregís un dato, las das de baja y las reactivás.</p>
+<h2>Qué es esta pantalla</h2>
+<p><strong>Clientes</strong> es el padrón de la inmobiliaria: los inquilinos, los propietarios y los garantes, juntos en una sola lista. Lo que hace a una persona inquilina, propietaria o garante no es un dato de su ficha sino el lugar donde la elegís (ver <a href="/docs/inquilinos-y-propietarios.html">Inquilinos y propietarios</a>), así que acá no vas a ver un rol: vas a ver a la persona.</p>
+<p>La entrada <strong>Clientes</strong> está en el menú lateral, debajo de Contratos, y la ven el administrador y el operador.</p>
+<h2>El listado</h2>
+<p>La tabla muestra el <strong>nombre o razón social</strong>, el <strong>CUIT / DNI</strong>, la <strong>condición de IVA</strong> y el <strong>teléfono</strong>. Arriba hay un buscador que encuentra por nombre, CUIT/DNI, email o teléfono: es lo más rápido para llegar a alguien entre muchos.</p>
+<p>Cada fila tiene tres botones con íconos:</p>
+<ul>
+<li><strong>Ver ficha</strong>: abre la ficha de la persona.</li>
+<li><strong>Editar cliente</strong>: también abre la ficha, donde está el botón <strong>Editar</strong> (ver más abajo).</li>
+<li><strong>Eliminar cliente</strong>: da de baja a la persona. Aunque se llame «Eliminar», <strong>no la borra</strong>: ver más abajo.</li>
+</ul>
+<p>Las personas dadas de baja siguen en la lista, atenuadas y con la etiqueta <kbd>Inactivo</kbd>. Su único botón de acción, además de ver la ficha, es <strong>Reactivar cliente</strong>.</p>
+<h2>Dar de alta a una persona</h2>
+<ol class="step-list">
+<li>Tocá <strong>Nuevo cliente</strong>, arriba a la derecha.</li>
+<li>Completá el <strong>nombre</strong>, que es lo único obligatorio. Si los tenés, cargá también el <strong>CUIT/DNI</strong>, el <strong>teléfono</strong>, el <strong>email</strong>, la <strong>dirección</strong> y la <strong>condición de IVA</strong>.</li>
+<li>Tocá <strong>Crear cliente</strong>.</li>
+</ol>
+<p>Es la misma ficha que se crea con el alta rápida desde un contrato o una propiedad, con la diferencia de que acá la cargás sin estar a medio hacer otra cosa. Y rige la misma regla: <strong>el CUIT/DNI no se repite</strong>. Si ya existe, el sistema no crea otra ficha y te dice de quién es y si está activa o de baja.</p>
+<h2>La ficha</h2>
+<p>Al tocar el nombre de una persona se abre su ficha: arriba el nombre (con la etiqueta <kbd>Inactivo</kbd> si está de baja) y la tarjeta <strong>Datos del cliente</strong>, con lo que tenga cargado: nombre o razón social, CUIT / DNI, condición de IVA, domicilio, teléfono y email.</p>
+<p>La ficha no muestra saldos ni movimientos. Lo que debe o se le debe a cada persona está en <a href="/docs/fondos-de-terceros.html">Fondos de terceros</a>.</p>
+<h2>Corregir un dato</h2>
+<ol class="step-list">
+<li>En la ficha, tocá <strong>Editar</strong>.</li>
+<li>Cambiá lo que haga falta —el nombre, el CUIT/DNI, el teléfono— y tocá <strong>Guardar cambios</strong>.</li>
+</ol>
+<p>Un cliente de baja no se edita: primero reactivalo.</p>
+<div class="callout">
+<p><strong>Los recibos que ya emitiste no cambian.</strong> El nombre corregido se ve en adelante en las pantallas y en las liquidaciones, pero un recibo guarda el nombre, el CUIT y el domicilio tal como estaban el día en que se emitió. Por eso conviene corregir un nombre mal escrito cuanto antes.</p>
+</div>
+<h2>Dar de baja a una persona</h2>
+<p>Tocá <strong>Eliminar cliente</strong> (en la fila o al pie de la ficha) y confirmá. La persona <strong>no se borra</strong>: queda <kbd>Inactivo</kbd>, deja de poder elegirse en los campos de contratos, propiedades y liquidaciones, y se puede reactivar cuando haga falta. Sus cuentas y todo lo que ya se hizo con ella quedan como estaban.</p>
+<p>El sistema <strong>rechaza la baja de quien todavía es parte de algo vivo</strong>, y dice por qué:</p>
+<table class="docs-table">
+<thead><tr><th>Si la persona es…</th><th>El sistema dice</th><th>Qué hacer</th></tr></thead>
+<tbody>
+<tr><td>El inquilino de un contrato <kbd>Borrador</kbd> o <kbd>Vigente</kbd></td><td>«No se puede desactivar Ana Ejemplo: es el inquilino del contrato C-000001, que sigue abierto.»</td><td>Finalizá o rescindí el <a href="/docs/contratos.html">contrato</a>, o borralo si está en borrador</td></tr>
+<tr><td>El garante de un contrato <kbd>Borrador</kbd> o <kbd>Vigente</kbd></td><td>«… es garante del contrato C-000002, que sigue abierto.»</td><td>Quitá la garantía del contrato, o cerralo</td></tr>
+<tr><td>Titular de una propiedad que no está <kbd>De baja</kbd></td><td>«… es titular de la propiedad P-000001.»</td><td>Cambiá los titulares de la <a href="/docs/propiedades.html">propiedad</a>, o dala de baja</td></tr>
+</tbody>
+</table>
+<p>Un contrato <kbd>Rescindido</kbd> o <kbd>Finalizado</kbd> ya no cuenta: su inquilino y su garante se pueden dar de baja. Si la persona está en más de uno de estos casos, el sistema avisa de uno por vez: resuelto ese, puede aparecer el siguiente.</p>
+<div class="callout warn">
+<p><strong>La baja no mira el saldo.</strong> El sistema no revisa si a la persona le debés plata o si te debe. Antes de dar de baja a un propietario, fijate en <a href="/docs/fondos-de-terceros.html">Fondos de terceros</a> que no le quede nada por liquidar.</p>
+</div>
+<h2>Reactivar</h2>
+<p>En el listado, el botón <strong>Reactivar cliente</strong> de la fila; en la ficha, el botón del mismo nombre. La persona vuelve a figurar como activa y a poder elegirse en los campos donde se busca. Es también lo que corresponde si al dar de alta a alguien el sistema te avisa que ese CUIT/DNI ya existe y está de baja.</p>
+<div class="docs-nav-footer">
+<a href="/docs/inquilinos-y-propietarios.html">← Inquilinos y propietarios</a>
+<a href="/docs/propiedades.html">Propiedades →</a>
+</div>

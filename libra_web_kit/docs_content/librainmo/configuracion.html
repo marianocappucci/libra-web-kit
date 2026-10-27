@@ -1,0 +1,34 @@
+<h1>Configuración</h1>
+<p class="docs-lead">Los datos y el logo de la inmobiliaria, y las copias de seguridad. Sólo para administradores.</p>
+<p>Andá a <strong>Administración → Configuración</strong>. La pantalla tiene dos pestañas, <strong>Empresa</strong> y <strong>Datos / Backup</strong>, y arriba a la derecha el botón <strong>Backup rápido</strong>, que baja una copia de tus datos sin tener que entrar a la pestaña. La entrada del menú es sólo del administrador: un operador no la ve (ver <a href="/docs/usuarios.html">Usuarios y contraseñas</a>).</p>
+<h2>Empresa</h2>
+<p>Los datos de tu inmobiliaria. Son el encabezado de los PDF que emite el sistema: la <a href="/docs/liquidaciones.html">liquidación al propietario</a>, por ejemplo, lleva el nombre, el CUIT, la dirección y la condición de IVA que cargues acá.</p>
+<ol class="step-list">
+<li>Completá, en la tarjeta <strong>Datos de la empresa</strong>: <strong>Nombre</strong>, <strong>CUIT</strong>, <strong>Dirección</strong>, <strong>Teléfono</strong>, <strong>Email</strong>, <strong>Ingresos Brutos</strong>, <strong>Condición de IVA</strong> e <strong>Inicio de actividades</strong>.</li>
+<li>Tocá <strong>Guardar datos de empresa</strong>. Al lado aparece «Datos guardados.».</li>
+</ol>
+<p>La <strong>condición de IVA</strong> se elige de una lista cerrada: <em>Monotributista</em>, <em>Responsable Inscripto</em> o <em>IVA Exento</em>. Cada opción dice qué factura emite esa condición, pero LibraInmo no emite facturas: la condición se usa para el encabezado.</p>
+<h3>El logo</h3>
+<p>En <strong>Logo (PNG o JPG)</strong> elegí el archivo. <strong>El logo se sube en el momento</strong>, sin tocar Guardar: aparece la miniatura y la etiqueta «Logo cargado». Para sacarlo, tocá <strong>Quitar</strong>. Si dejás el campo vacío, se mantiene el logo actual.</p>
+<h2>Datos / Backup</h2>
+<p>Acá están las copias de seguridad de <strong>todos</strong> los datos de la inmobiliaria: propiedades, contratos, cuotas, cobros, liquidaciones y usuarios. Tiene tres partes.</p>
+<h3>Copia de tus datos</h3>
+<p>Un archivo ZIP con la base de datos y los archivos del sistema, como el logo.</p>
+<ul>
+<li><strong>Descargar copia ahora</strong> arma la copia y la baja a tu computadora. Es lo mismo que hace el botón <strong>Backup rápido</strong> de arriba.</li>
+<li><strong>Guardar copia en el servidor</strong> deja una copia más en la lista de abajo («Copia guardada en el servidor.»).</li>
+</ul>
+<div class="callout warn">
+<p><strong>Guardá la copia fuera del servidor y como un dato sensible.</strong> El ZIP contiene todos tus datos: no lo mandes por mail ni lo compartas. Y una copia que sólo está en el servidor no te cubre si lo que se pierde es el servidor: descargala.</p>
+</div>
+<h3>Copias guardadas en el servidor</h3>
+<p>La lista muestra cada copia con su nombre, su fecha y su tamaño, y un botón <strong>Descargar</strong>. Se conservan las 10 más recientes. Se generan todas las noches, y también justo antes de cada restauración.</p>
+<h3>Restaurar base de datos</h3>
+<p>Sirve para volver a los datos de una copia. En <strong>Archivo de backup (.zip)</strong> elegí el archivo; el sistema pide confirmación («¿Estás seguro?») y recién al tocar <strong>Restaurar</strong> lo aplica.</p>
+<div class="callout warn">
+<p><strong>Restaurar reemplaza todos los datos actuales por los de la copia.</strong> Lo que se haya hecho después de esa copia —cobros, cuotas, liquidaciones— deja de estar. Por eso, antes de reemplazar, el sistema guarda solo una copia del estado de ese momento, y el aviso final te dice con qué nombre quedó: si te arrepentís, restaurás esa.</p>
+</div>
+<div class="docs-nav-footer">
+<a href="/docs/actividad.html">← Actividad</a>
+<span></span>
+</div>
