@@ -32,7 +32,7 @@
 <tr><td><strong>Depósito</strong></td><td>Opcional. Queda registrado en el contrato; el sistema no lo mueve en ninguna cuenta</td></tr>
 </tbody>
 </table>
-<p>Moneda: <em>Pesos (ARS)</em> o <em>Dólares (USD)</em>. El sistema no convierte entre monedas.</p>
+<p>Moneda: <em>Pesos (ARS)</em> o <em>Dólares (USD)</em>. <strong>Un contrato en dólares va en dólares de punta a punta</strong>: sus cuotas, sus cobros y el recibo (que dice <kbd>US$</kbd>), los gastos que se cargan solos por los conceptos que paga el propietario y la liquidación al propietario. El sistema no convierte entre monedas ni las suma: ver <a href="/docs/liquidaciones.html">Liquidaciones</a>.</p>
 <h2>Activar el contrato</h2>
 <p>En la ficha, <strong>Activar</strong> pide confirmación y exige tres cosas:</p>
 <ul>
@@ -50,7 +50,7 @@
 </ol>
 <p>La fecha tiene que ser posterior al comienzo del precio vigente y anterior al fin del contrato. Cada fila del historial dice su motivo: <em>Precio inicial</em>, <em>Actualización manual</em>, <em>Ajuste por porcentaje</em> o <em>Ajuste por índice</em> (con el nombre del índice).</p>
 <div class="callout">
-<p><strong>Por qué el historial no se pisa.</strong> Cada cuota guarda el precio con el que se generó. Si el alquiler se pisara, rehacer una cuota vieja daría el importe de hoy en vez del que regía entonces. Y como la cuota toma el precio vigente al primer día de su mes, un precio que arranca el día 15 se refleja desde la cuota del mes siguiente.</p>
+<p><strong>Por qué el historial no se pisa.</strong> Cada cuota guarda el precio con el que se generó. Si el alquiler se pisara, rehacer una cuota vieja daría el importe de hoy en vez del que regía entonces. Si un precio nuevo arranca a mitad de mes —un ajuste el día 15, por ejemplo—, la cuota de ese mes se parte en dos renglones de alquiler, uno por precio, cada uno por los días que rigió: ver <a href="/docs/ajustes.html">Ajuste del alquiler</a>.</p>
 </div>
 <p>En un borrador no hay historial todavía: el alquiler inicial se cambia editando el contrato, y el historial con vigencias empieza al activarlo.</p>
 <h2>Garantías</h2>
@@ -68,7 +68,8 @@
 <tbody>
 <tr><td>El inquilino</td><td>Con importe (fijo)</td><td>Entra solo en cada cuota, todos los meses</td></tr>
 <tr><td>El inquilino</td><td>Vacío (<em>Variable</em>)</td><td>Cambia cada mes, como las expensas. Escribís el importe del mes al <a href="/docs/cuotas.html">generar la cuota</a>, o después con <strong>Cargar un cargo</strong></td></tr>
-<tr><td>El propietario</td><td>—</td><td>Queda registrado en el contrato, pero no se suma a la cuota ni se descuenta solo en la liquidación. Si lo adelantaste vos, cargalo como <a href="/docs/gastos.html">gasto</a></td></tr>
+<tr><td>El propietario</td><td>Con importe (fijo)</td><td>No se suma a la cuota del inquilino. Al <a href="/docs/cuotas.html">generar la cuota</a>, el sistema lo carga solo como <a href="/docs/gastos.html">gasto por cuenta del propietario</a>, repartido entre los titulares, y se descuenta en su liquidación</td></tr>
+<tr><td>El propietario</td><td>Vacío (<em>Variable</em>)</td><td>Tampoco va en la cuota. La pantalla de generar cuotas lo lista como «Para cargar como gasto cuando llegue el importe»: cuando llega el monto, lo cargás vos en <strong>Gastos</strong></td></tr>
 </tbody>
 </table>
 <p>Los conceptos <strong>no se prorratean</strong>: en el primer o último mes de un contrato, el alquiler se cobra por los días que corren, pero un concepto fijo entra entero. El tipo de un concepto no se cambia después de cargarlo; sí su descripción, quién lo paga y su importe.</p>

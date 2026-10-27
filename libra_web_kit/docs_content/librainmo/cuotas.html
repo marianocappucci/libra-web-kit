@@ -14,22 +14,36 @@
 <ol class="step-list">
 <li>Andá a <strong>Cuotas → Generar las cuotas del mes</strong>.</li>
 <li>Elegí el <strong>mes</strong> y tocá <strong>Previsualizar</strong>. No se escribe nada todavía.</li>
-<li>En <strong>Para generar</strong> ves, por cada contrato: cuándo se emite y cuándo vence, el alquiler (con su prorrateo, si corresponde), los conceptos del mes y el total.</li>
+<li>En <strong>Para generar</strong> ves, por cada contrato: cuándo se emite y cuándo vence, el alquiler (con su prorrateo, o con un renglón por cada precio si el alquiler cambia a mitad de mes), los conceptos del mes y el total.</li>
 <li>Si un contrato tiene un concepto variable —las expensas—, escribí el importe de ese mes en su campo. Los que dejes vacíos no entran: los cargás después.</li>
-<li>Dejá tildados los contratos que querés y tocá <strong>Generar cuotas</strong>. El sistema muestra cuántas son y cuánto suman, y pide confirmación.</li>
+<li>Dejá tildados los contratos que querés y tocá <strong>Generar cuotas</strong>. El sistema muestra cuántas son y cuánto suman, y pide confirmación. Si hay contratos en pesos y en dólares, el total viene <strong>uno por moneda</strong>: nunca suma unos con otros.</li>
 </ol>
 <p>Generar es <strong>repetible sin riesgo</strong>: si el mes de un contrato ya tiene su cuota, el sistema no la duplica. Esos contratos aparecen en <strong>Ya generadas</strong>, con un link a la cuota. Y si dos personas generan el mismo mes a la vez, una gana y la otra recibe el aviso de que vuelva a previsualizar.</p>
 <h3>Qué contratos entran</h3>
-<p>Los contratos <kbd>Vigente</kbd>, y también los <kbd>Rescindido</kbd> y <kbd>Finalizado</kbd> en los meses en que corrieron. Un borrador no devenga. Si un contrato tiene un ajuste pendiente, o no tiene precio para ese mes, aparece en <strong>Bloqueadas</strong> con el motivo y un link a su ficha: ver <a href="/docs/ajustes.html">Ajuste del alquiler</a>.</p>
+<p>Los contratos <kbd>Vigente</kbd>, y también los <kbd>Rescindido</kbd> y <kbd>Finalizado</kbd> en los meses en que corrieron. Un borrador no devenga. Un contrato aparece en <strong>Bloqueadas</strong>, con el motivo y un link a su ficha, si:</p>
+<ul>
+<li>tiene un <strong>ajuste pendiente</strong> en cualquier día del mes, no sólo el 1 (ver <a href="/docs/ajustes.html">Ajuste del alquiler</a>);</li>
+<li>no tiene <strong>precio para todo el mes</strong>;</li>
+<li>tiene conceptos que paga el propietario con importe y la <strong>propiedad no tiene sus titulares completos</strong>: no hay a quién cargarle el gasto. Se arregla completando los titulares en la <a href="/docs/propiedades.html">ficha de la propiedad</a>.</li>
+</ul>
 <h2>Cómo se arma la cuota</h2>
 <h3>Se emite por adelantado</h3>
 <p>La cuota de agosto se emite el primer día que el contrato cubre de agosto —el 01-08 si es un mes entero— y no al terminar el mes. Es como se cobra un alquiler: por mes adelantado.</p>
 <h3>El primer y el último mes se prorratean</h3>
 <p>Si el contrato empieza o termina a mitad de mes, el alquiler se cobra por los días que corren, <strong>sobre los días reales del mes</strong>. Un contrato de $ 300.000,00 que arranca el 20-11-2026 cobra 11/30 de noviembre: $ 110.000,00. La cuota dice «prorrateo: 11 de 30 días». Los conceptos no se prorratean.</p>
+<h3>Si el alquiler cambia a mitad de mes, la cuota se parte</h3>
+<p>Cuando un precio nuevo arranca dentro del mes —un ajuste el día 15, por ejemplo—, el alquiler no sale entero con el precio viejo: se cobra <strong>por días, a cada precio</strong>. La cuota lleva <strong>una línea de alquiler por tramo</strong> (la del tramo ajustado dice «con el ajuste») y el alquiler es la suma. El ejemplo con números está en <a href="/docs/ajustes.html">Ajuste del alquiler</a>. Vale igual para un <strong>Actualizar precio</strong> con fecha a mitad de mes, si la cuota de ese mes todavía no se generó: una cuota ya generada no se toca.</p>
 <h3>Una cuota no vence antes de emitirse</h3>
 <p>El vencimiento es el <strong>día pactado en el contrato o el día de emisión, el que llegue último</strong>. En el ejemplo anterior el contrato vence el día 10, pero la cuota nace el 20: si se tomara el día 10, la primera cuota vencería diez días antes de existir y el inquilino nacería en mora. Por eso esa cuota emite y vence el 20-11-2026.</p>
 <h3>Qué conceptos entran</h3>
-<p>Entran los conceptos <strong>activos que paga el inquilino</strong>: los fijos con su importe, y los variables con el importe que cargues. Los que paga el propietario no van en la cuota. Ver <a href="/docs/contratos.html">Contratos</a>.</p>
+<p>Entran los conceptos <strong>activos que paga el inquilino</strong>: los fijos con su importe, y los variables con el importe que cargues. Los que paga el propietario no van en la cuota: ver más abajo. Ver <a href="/docs/contratos.html">Contratos</a>.</p>
+<h3>Lo que paga el propietario</h3>
+<p>Un concepto del contrato que paga el propietario no suma a la cuota del inquilino, pero tampoco se pierde. En la previsualización aparece la tarjeta <strong>Lo que paga el propietario</strong>, con dos listas:</p>
+<ul>
+<li><strong>Gastos del propietario que se cargan</strong>: los conceptos con importe fijo. Al generar la cuota se cargan solos como <a href="/docs/gastos.html">gasto por cuenta del propietario</a>, con la fecha de emisión de la cuota, repartidos entre los titulares según su porcentaje, y se descuentan en su <a href="/docs/liquidaciones.html">liquidación</a>.</li>
+<li><strong>Para cargar como gasto cuando llegue el importe</strong>: los conceptos sin importe (las expensas extraordinarias de un mes, por ejemplo). No se cargan solos: cuando llega el monto, lo cargás vos en <strong>Gastos</strong>. Después de generar, la pantalla te deja esa lista a mano, con un botón <strong>Ir a los gastos</strong>.</li>
+</ul>
+<p>Si la propiedad no tiene sus titulares completos, la cuota de ese contrato queda bloqueada (ver arriba): sin titulares no hay a quién cargarle el gasto.</p>
 <h2>La ficha de una cuota</h2>
 <p>Al abrir una cuota ves su período, el prorrateo, cuándo se emitió y cuándo vence, y <strong>Qué incluye</strong>: una línea por el alquiler y una por cada concepto, con el total.</p>
 <ul>
@@ -37,11 +51,12 @@
 <li><strong>Cargar un cargo</strong> suma una línea a una cuota pendiente: elegís un concepto del contrato (por ejemplo, las expensas que llegaron después) o <em>Cargo suelto</em>, que pide una descripción. Un concepto no se puede cargar dos veces en la misma cuota. El cargo se suma también a lo que debe el inquilino.</li>
 <li><strong>Anular</strong> pide un motivo. Se anula con un asiento inverso en la cuenta del inquilino —el cargo original queda— y el mes se puede volver a generar. Sólo se anula una cuota pendiente: una cobrada se corrige anulando primero el cobro.</li>
 </ul>
+<p>Si la cuota cargó gastos del propietario, la ficha tiene una tarjeta <strong>Gastos del propietario</strong> que los lista. Esos gastos <strong>no se anulan sueltos: se anulan junto con la cuota</strong>, y al anular la cuota se anulan con ella. Si alguno ya entró en una liquidación, el sistema no deja anular la cuota hasta que anules esa liquidación.</p>
 <div class="callout">
 <p><strong>El importe de una cuota queda congelado.</strong> Cada cuota conserva el precio con el que se generó. Si después actualizás el alquiler, las cuotas ya generadas no cambian: el nuevo precio rige para las que generes de ahí en adelante, según su fecha de vigencia.</p>
 </div>
 <h2>El listado</h2>
-<p>La pantalla <strong>Cuotas</strong> lista las cuotas con el mes, el contrato, el inquilino, el vencimiento, el total y el estado. Se filtra por estado, por contrato y por rango de meses (<strong>Desde el mes</strong> y <strong>Hasta el mes</strong>). Si hay más de 500, el sistema avisa y muestra las primeras 500.</p>
+<p>La pantalla <strong>Cuotas</strong> lista las cuotas con el mes, el contrato, el inquilino, el vencimiento, el total y el estado. Cada cuota va en la moneda de su contrato (<kbd>$</kbd> o <kbd>US$</kbd>). Se filtra por estado, por contrato y por rango de meses (<strong>Desde el mes</strong> y <strong>Hasta el mes</strong>). Si hay más de 500, el sistema avisa y muestra las primeras 500.</p>
 <div class="docs-nav-footer">
 <a href="/docs/ajustes.html">← Ajuste del alquiler</a>
 <a href="/docs/cobros.html">Cobros →</a>

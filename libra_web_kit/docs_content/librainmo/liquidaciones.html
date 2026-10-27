@@ -1,10 +1,10 @@
 <h1>Liquidaciones</h1>
 <p class="docs-lead">Rendirle al propietario lo que se cobró a su favor, menos los gastos que adelantaste y tu comisión.</p>
 <h2>Qué es una liquidación</h2>
-<p>Es la cuenta que cierra el círculo del alquiler. Para <strong>un propietario</strong> y hasta una fecha, junta:</p>
+<p>Es la cuenta que cierra el círculo del alquiler. Para <strong>un propietario</strong>, hasta una fecha y <strong>en una moneda</strong>, junta:</p>
 <ul>
 <li><strong>Cobrado a su favor</strong>: su parte de los alquileres y de los conceptos que cobraste, y del punitorio si el contrato le corresponde.</li>
-<li><strong>Gastos</strong>: lo que pagaste por su cuenta y le cargaste en <a href="/docs/gastos.html">Gastos</a>.</li>
+<li><strong>Gastos</strong>: lo que pagaste por su cuenta y le cargaste en <a href="/docs/gastos.html">Gastos</a>, y lo que se le cargó solo desde la cuota por un concepto del contrato que paga el propietario.</li>
 <li><strong>Comisión</strong>: tu comisión de administración.</li>
 <li><strong>Neto a pagar</strong>: cobrado − gastos − comisión. Es lo que le transferís.</li>
 </ul>
@@ -12,8 +12,8 @@
 <h2>Emitir una liquidación</h2>
 <ol class="step-list">
 <li>Andá a <strong>Liquidaciones → Nueva liquidación</strong>. Si venís de <a href="/docs/fondos-de-terceros.html">Fondos de terceros</a>, el botón <strong>Liquidar</strong> ya trae al propietario elegido.</li>
-<li>Elegí al <strong>propietario</strong>, la <strong>fecha de la liquidación</strong> y hasta qué fecha liquidás (<strong>Liquidar hasta</strong>). Ambas vienen en hoy.</li>
-<li>Tocá <strong>Previsualizar</strong>. No se escribe nada: ves los cuatro totales y cada movimiento, con su importe, la base sobre la que se calcula la comisión y la comisión.</li>
+<li>Elegí al <strong>propietario</strong>, la <strong>fecha de la liquidación</strong>, la <strong>moneda</strong> (<em>Pesos (ARS)</em> o <em>Dólares (USD)</em>; viene en pesos) y hasta qué fecha liquidás (<strong>Liquidar hasta</strong>). Las dos fechas vienen en hoy.</li>
+<li>Tocá <strong>Previsualizar</strong>. No se escribe nada: ves los cuatro totales y cada movimiento, con su importe, la base sobre la que se calcula la comisión y la comisión, todo en la moneda elegida.</li>
 <li>Si querés, escribí una observación. Tocá <strong>Emitir la liquidación</strong> y confirmá.</li>
 </ol>
 <p>Un ejemplo, con el reparto de las páginas anteriores (alquiler de $ 300.000,00, expensas de $ 18.500,00, un gasto de $ 85.000,00, 5 % de comisión). La liquidación de Ana Ejemplo, que tiene el 60 %:</p>
@@ -26,8 +26,11 @@
 </tbody>
 </table>
 <p>Cobrado a su favor $ 191.100,00, gastos $ 51.000,00, comisión $ 9.000,00: el <strong>neto a pagar</strong> es $ 131.100,00.</p>
+<h2>Una liquidación es de una moneda</h2>
+<p>Entran sólo los cobros y los gastos <strong>de la moneda que elegiste</strong>; la comisión, el neto y el pago quedan en esa misma moneda, y el PDF dice <kbd>US$</kbd> si es en dólares. <strong>No se convierte nada</strong> y nunca se suman pesos con dólares.</p>
+<p>Un propietario que tiene contratos en pesos y en dólares recibe <strong>dos liquidaciones</strong>, una por moneda. Si al previsualizar el propietario tiene movimientos sin liquidar en la otra moneda, la pantalla te lo avisa («Este propietario también tiene movimientos sin liquidar en dólares») y el botón <strong>Liquidar en dólares</strong> (o <strong>en pesos</strong>) pasa a esa moneda sin volver a empezar. En la ficha de la liquidación, <strong>Moneda</strong> dice en cuál es.</p>
 <h2>Qué entra, y una sola vez</h2>
-<p>Entra todo lo que ese propietario tiene <strong>sin liquidar</strong>, hasta la fecha que elegiste: los cobros y los gastos. Si hay algo de una fecha posterior, espera a la próxima.</p>
+<p>Entra todo lo que ese propietario tiene <strong>sin liquidar</strong> en esa moneda, hasta la fecha que elegiste: los cobros y los gastos. Si hay algo de una fecha posterior, espera a la próxima.</p>
 <div class="callout">
 <p><strong>Un movimiento se liquida una sola vez.</strong> Cada cobro y cada gasto, una vez incluido en una liquidación, deja de aparecer como pendiente: no hay forma de que el mismo alquiler se le rinda dos veces al mismo propietario. Y «Liquidar hasta» no puede ser posterior a la fecha de la liquidación, porque no se liquida lo que todavía no pasó.</p>
 </div>
@@ -42,7 +45,7 @@
 <p><strong>El sistema toma la comisión tal cual: no le suma IVA aparte.</strong> El porcentaje que cargaste es el importe que se descuenta. La factura de la comisión no se emite desde LibraInmo; si tu inmobiliaria la factura con IVA discriminado, definí con tu contador cómo cargar el porcentaje antes de empezar a liquidar.</p>
 </div>
 <h2>Cuando los gastos pesan más que lo cobrado</h2>
-<p><strong>No se emite una liquidación con neto negativo.</strong> Si los gastos y la comisión superan lo cobrado, la pantalla lo avisa y no ofrece emitir: el propietario le debe plata a la inmobiliaria, y todavía no hay una regla para arrastrar esa deuda a la liquidación siguiente. Mientras tanto, esperá a que haya más cobros, o corregí el gasto si estaba mal. Tampoco se emite sin movimientos.</p>
+<p><strong>No se emite una liquidación con neto negativo.</strong> Si los gastos y la comisión superan lo cobrado <strong>en esa moneda</strong> (un gasto en dólares de un propietario que sólo cobró en pesos, por ejemplo), la pantalla lo avisa y no ofrece emitir: el propietario le debe plata a la inmobiliaria, y todavía no hay una regla para arrastrar esa deuda a la liquidación siguiente. Mientras tanto, esperá a que haya más cobros, o corregí el gasto si estaba mal. Tampoco se emite sin movimientos.</p>
 <h2>Pagar la liquidación</h2>
 <ol class="step-list">
 <li>Abrí la liquidación (<kbd>Emitida</kbd>) y tocá <strong>Registrar el pago</strong>.</li>

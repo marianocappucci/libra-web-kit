@@ -46,12 +46,24 @@
 <p>Antes de dar por perdido un valor, el sistema intenta bajarlo de la fuente oficial en el momento. Si igual no está —la fuente no contestó o el índice todavía no se publicó—, <strong>no calcula nada</strong>: la tarjeta te dice de qué fechas faltan los valores, y el botón <strong>Volver a consultar</strong> lo intenta de nuevo.</p>
 <div class="callout warn">
 <p><strong>No se usa el valor anterior ni se interpola.</strong> Un aumento calculado con el índice equivocado es una diferencia que se le cobra al inquilino, o se le deja de cobrar al propietario. Es preferible esperar a que el dato exista. Los índices mensuales como el IPC se publican con demora: si el del mes del ajuste todavía no salió, el ajuste espera.</p>
+<p>Lo mismo pasa con un índice que se publica día a día, como el ICL: puede ocurrir que el día del ajuste el valor de esa fecha todavía no esté publicado. Mientras falte, el ajuste no se puede aplicar y, si cae dentro del mes, <strong>la cuota de ese mes sigue bloqueada</strong>: volvé a consultar más tarde.</p>
 </div>
 <h2>Un ajuste pendiente bloquea la cuota</h2>
 <p>Mientras a un contrato le toca un ajuste que todavía no aplicaste, <strong>el sistema no genera su cuota</strong>. En la pantalla de generar cuotas aparece en la lista <strong>Bloqueadas</strong>, con el motivo («Tiene el ajuste del 15-05-2026 pendiente: aplicalo primero») y un link al contrato.</p>
 <p>Es a propósito. Cobrar con el precio viejo y corregir después es justo lo que una inmobiliaria no puede hacer con un inquilino: una cuota emitida y notificada por un importe que después cambia.</p>
+<p><strong>El bloqueo mira todo el mes de la cuota</strong>, no sólo su primer día. Si el ajuste de un contrato cae a mitad de mes (el 15, por ejemplo), la cuota de ese mes también queda en <strong>Bloqueadas</strong> hasta que lo aplicás.</p>
+<h3>Si el ajuste cae a mitad de mes, la cuota se parte en dos precios</h3>
+<p>Una vez aplicado el ajuste, la cuota de ese mes sale <strong>prorrateada por días</strong> entre el precio anterior y el nuevo, con <strong>una línea de alquiler por tramo</strong>. Es la misma cuenta que el primer mes de un contrato: sobre los días reales del mes. Con un alquiler de $ 300.000,00 que sube un 10 % el 16-09-2026, la cuota de septiembre (30 días) lleva:</p>
+<table class="docs-table">
+<thead><tr><th>Línea de la cuota</th><th>Días</th><th>Alquiler</th></tr></thead>
+<tbody>
+<tr><td>Alquiler septiembre 2026, del 01-09 al 15-09</td><td>15 de 30</td><td>$ 150.000,00</td></tr>
+<tr><td>Alquiler septiembre 2026, del 16-09 al 30-09, con el ajuste</td><td>15 de 30</td><td>$ 165.000,00</td></tr>
+</tbody>
+</table>
+<p>El alquiler de la cuota es la suma de los dos tramos: $ 315.000,00. Los conceptos no se prorratean y entran enteros. Al generar las cuotas, la previsualización muestra los tramos debajo del alquiler de cada contrato.</p>
 <div class="callout warn">
-<p><strong>El bloqueo mira el primer día del mes de la cuota.</strong> Si el ajuste de un contrato cae a mitad de mes (el 15, por ejemplo), la cuota de ese mes todavía no se bloquea y sale entera con el precio anterior —no se parte en dos precios—, aunque apliques el ajuste antes de generarla. El precio nuevo se refleja desde la cuota del mes siguiente, que es la que queda bloqueada hasta que lo aplicás.</p>
+<p><strong>El ajuste del mes se puede aplicar desde el día 1.</strong> Si el ajuste de un contrato cae más adelante en el mes (el 15, por ejemplo), la tarjeta de la ficha ya lo ofrece desde el primer día de ese mes, con la fecha en que rige: así la cuota del mes no queda esperando. El precio nuevo rige igual desde el 15, y la cuota sale con los dos tramos. Por índice, si el valor de esa fecha todavía no está publicado, la tarjeta te lo dice y hay que esperar a que salga.</p>
 </div>
 <h2>Aplicarlo tarde</h2>
 <p>El precio nuevo rige desde la <strong>fecha del ajuste</strong>, aunque lo apliques días después. Como la cuota de un contrato con ajuste pendiente no se genera, no quedan cuotas emitidas con el precio viejo para corregir; las que ya estaban generadas no se tocan (ver <a href="/docs/cuotas.html">Cuotas</a>).</p>
